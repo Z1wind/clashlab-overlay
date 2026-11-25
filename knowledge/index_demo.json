@@ -1,0 +1,108 @@
+{
+  "demo": true,
+  "note": "演示卡库：算法侧 knowledge/index.json 未就绪时的回退数据，非真实收录，仅用于 UI 联调。",
+  "cards": [
+    {
+      "id": "k012",
+      "title": "穿云箭三防空",
+      "source": {
+        "name": "bilibili",
+        "url": "https://www.bilibili.com/video/BV1demoK012"
+      },
+      "date": "2024-06",
+      "confidence": 0.72,
+      "pattern": "空军龙流",
+      "equipment": ["giant-arrow", "invisibility-vial"],
+      "key_points": [
+        "女王沿盲区贴边放巨型箭，直线穿三座防空，箭线不经过鹰火炮射程",
+        "隐身药水留给箭后清边段，避免女王被鹰火炮点掉",
+        "雷龙主力晚 30 秒进场，等防空全灭再压核心"
+      ]
+    },
+    {
+      "id": "k031",
+      "title": "地震靴侧开高墙",
+      "source": {
+        "name": "bilibili",
+        "url": "https://www.bilibili.com/video/BV1demoK031"
+      },
+      "date": "2024-03",
+      "confidence": 0.81,
+      "pattern": "地面推进",
+      "equipment": ["earthquake-boots"],
+      "key_points": [
+        "守护者地震靴从侧墙开 3 格缺口，配合蛮王进中",
+        "缺口避开吹风机正面，减少推进掉血",
+        "与 [k012] 的空军线互斥，二选一"
+      ]
+    },
+    {
+      "id": "k044",
+      "title": "永恒之书收尾保三星",
+      "source": {
+        "name": "youtube",
+        "url": "https://www.youtube.com/watch?v=demoK044"
+      },
+      "date": "2023-11",
+      "confidence": 0.66,
+      "pattern": "地面推进",
+      "equipment": ["eternal-tome"],
+      "key_points": [
+        "永恒之书留到最后 25% 收尾，覆盖残血主力",
+        "不要开局开书，金身阶段更关键",
+        "适用我方守护者等级 ≥75 的局"
+      ]
+    },
+    {
+      "id": "k052",
+      "title": "尖刺球蛮王清边",
+      "source": {
+        "name": "bilibili",
+        "url": "https://www.bilibili.com/video/BV1demoK052"
+      },
+      "date": "2024-01",
+      "confidence": 0.78,
+      "pattern": "蛮王清边",
+      "equipment": ["spiky-ball", "seeking-shield"],
+      "key_points": [
+        "蛮王尖刺球先清外侧箭塔，追踪盾扛第一波十字弩",
+        "清边到位后再转中，防止蛮王绕圈",
+        "与 [k031] 地面推进线搭配使用"
+      ]
+    },
+    {
+      "id": "k061",
+      "title": "皇家斗篷冠军绕后牵制",
+      "source": {
+        "name": "bilibili",
+        "url": "https://www.bilibili.com/video/BV1demoK061"
+      },
+      "date": "2023-09",
+      "confidence": 0.58,
+      "pattern": "冠军牵制",
+      "equipment": ["royal-cloak"],
+      "key_points": [
+        "冠军斗篷隐身从另一侧绕后，牵制外露鹰火炮",
+        "该例置信偏低，仅作思路参考，落地前复核",
+        "不要求冠军等级，30 级可用"
+      ]
+    },
+    {
+      "id": "k073",
+      "title": "治疗之书保雷龙主力",
+      "source": {
+        "name": "youtube",
+        "url": "https://www.youtube.com/watch?v=demoK073"
+      },
+      "date": "2024-05",
+      "confidence": 0.74,
+      "pattern": "空军龙流",
+      "equipment": ["healing-tome"],
+      "key_points": [
+        "治疗之书罩住雷龙主线，硬吃单发地狱塔",
+        "与 [k012] 同属空军龙流，箭线穿完防空后接书",
+        "我方缺治疗之书时此卡仅参考，不硬配"
+      ]
+    }
+  ]
+}

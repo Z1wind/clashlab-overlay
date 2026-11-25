@@ -1,0 +1,27 @@
+{
+  "id": "k008",
+  "source": {
+    "title": "Best Hero Equipment: Giant Arrow + Action Figure (GG Chest)",
+    "url": "https://ggchest.com/blog/clash-of-clans/best-hero-equipment-in-clash-of-clans",
+    "site": "guide",
+    "date": "2026-06-01",
+    "lang": "en",
+    "note": "正文级（社区指南）"
+  },
+  "th": "",
+  "army": [],
+  "equipment": [
+    "giant-arrow",
+    "action-figure"
+  ],
+  "pattern": "queen_charge",
+  "key_points": [
+    "巨型箭穿透墙体簇并打穿后方建筑，动作人偶召唤大坦克吸收火力",
+    "组合面向隔层密堆、女王走不进去的紧凑核心",
+    "适合 Queen Charge 打进隔间密集的基地核心"
+  ],
+  "coords_hint": "",
+  "countered_layout": "",
+  "confidence": 0.62,
+  "fetched_at": "2026-11-23"
+}

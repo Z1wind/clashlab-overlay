@@ -1,0 +1,50 @@
+{
+  "id": "k041",
+  "source": {
+    "title": "TH16 Attack Strategies & Army Compositions — RC Charge Mass Dragons (Clashest, curated from Blueprint CoC 2026-07-13)",
+    "url": "https://clashest.com/coc/army/th16",
+    "site": "guide",
+    "date": "2026-07-13",
+    "lang": "en",
+    "note": "正文级（策展配方页；RC  charge 拔角 + 飞龙线 + 气球点吹风，含分步执行）"
+  },
+  "th": "16",
+  "army": [
+    "dragon",
+    "balloon",
+    "healer"
+  ],
+  "equipment": [
+    "rocket-spear"
+  ],
+  "pattern": "dragon_rush",
+  "pattern_note": "dragon_rush 为新造 pattern（非库内 queen_charge/edrag_rush/hybrid/blimp 四值）：飞盾 charge 拔角后飞龙成线平铺",
+  "key_points": [
+    "飞盾带火箭飞矛（rocket-spear）+急速药水 charge 直冲防空/monolith 孤悬角，治疗天使跟后排",
+    "狂暴/治疗盖 charge 段，毒药点杀 CC 援军；charge 目标就是该角最高价值点，别分散",
+    "charge 清掉角点后，飞龙 10–12 条带永王沿打开的口成线压上，石 slammer 朝散射炮车道插",
+    "气球 5–6 个专职点吹风机与残余防空，飞龙宝宝 1 条补角落",
+    "2–3 瓶冰冻分别盖地狱塔/散射炮锁定段，覆盖整条推进交叉点",
+    "龙公爵 solo 落对面侧翼 rampage 清边，别与主团挤一起",
+    "隐形药水留给 charge 残血段或主团被集火的一瞬"
+  ],
+  "coords_hint": "",
+  "countered_layout": "island",
+  "body": {
+    "rhythm": "飞盾 charge 拔角点 20–30s → 飞龙线+石车进 → 气球点吹风 → 冰冻盖锁定段 → 公爵侧翼收尾",
+    "counters": [
+      "高价值防空/monolith 孤悬一角（island 式）、可被 charge 单点的阵",
+      "主推进道防御数量少、charge 清得动的阵",
+      "防空分散、吹风机可被气球先拔的阵"
+    ],
+    "fails_when": [
+      "charge 角有多重防御夹打、飞盾没拔掉点就被融",
+      "主道防空/吹风未清、飞龙线被烧穿",
+      "公爵侧翼被单独防线吃掉、收尾缺伤害"
+    ]
+  },
+  "ratio_source": "配比来自 source 页面：飞龙 10–12 条、气球 5–6 个、龙宝 1–2、治疗天使 3–4；法术 狂暴1–2/冰冻2–3/隐形1/治疗1/毒药1；石 slammer；CC 飞龙+冰冻；飞盾火箭飞矛+急速药水，公爵 solo 侧翼",
+  "confidence": 0.5,
+  "confidence_basis": "策展页转 Blueprint CoC 社区配方，无官方数值，列社区共识档",
+  "fetched_at": "2026-11-24"
+}

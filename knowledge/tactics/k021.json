@@ -1,0 +1,29 @@
+{
+  "id": "k021",
+  "source": {
+    "title": "Blizzard Lalo Guide For Beginners (cocservice.top 社区PDF)",
+    "url": "https://cdn.cocservice.top/p/uploads/2021/01/Blizzard_Lalo_Guide_For_Beginners(english).pdf",
+    "site": "guide",
+    "date": "2021-01",
+    "lang": "en",
+    "note": "正文级（社区PDF教程，TH13年代）"
+  },
+  "th": "13",
+  "army": [
+    "lava-hound",
+    "balloon"
+  ],
+  "equipment": [],
+  "pattern": "blimp",
+  "key_points": [
+    "顺序：飞艇超法 → 英雄sui → 狗球；99%情况先放飞艇",
+    "飞艇四种护航：气球/猎犬/不护航/冰冻护飞艇（冻空气炮、单头、英雄）",
+    "主力狗球组推中心，侧边小组补位；气球数量按防御血量分配",
+    "气球拆掉防空加农后急速带进地狱塔；永王技能保气球",
+    "猎头人时机最难：别太早被防御打死，也别太晚让敌方英雄杀狗球"
+  ],
+  "coords_hint": "",
+  "countered_layout": "",
+  "confidence": 0.7,
+  "fetched_at": "2026-11-23"
+}

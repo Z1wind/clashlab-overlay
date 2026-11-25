@@ -1,0 +1,27 @@
+{
+  "id": "k016",
+  "source": {
+    "title": "Root Rider Guide 2026: How to Use (Base Drop)",
+    "url": "https://cocbasedrop.com/blog/root-rider-guide-coc-2026-how-to-use",
+    "site": "guide",
+    "date": "2026-07-23",
+    "lang": "en",
+    "note": "正文级（社区博客；原文称16本解锁，高本向）"
+  },
+  "th": "16",
+  "army": [
+    "root-rider"
+  ],
+  "equipment": [],
+  "pattern": "hybrid",
+  "key_points": [
+    "先断边（funnel）再投入：英雄+少量支援兵清两侧建筑，防根骑士外飘",
+    "断边完成后把根骑士排成一线铺开，均匀吃伤害，别一坨砸下",
+    "首圈防御落狂暴，进地狱塔范围落治疗；冰冻关掉最凶的单点",
+    "没把握时先派1根骑士探路看走向，再投其余"
+  ],
+  "coords_hint": "",
+  "countered_layout": "",
+  "confidence": 0.55,
+  "fetched_at": "2026-11-23"
+}

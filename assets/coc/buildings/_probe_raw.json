@@ -1,0 +1,7078 @@
+{
+ "summary": [
+  {
+   "type": "airdef",
+   "n": 16,
+   "home_best": 0.854,
+   "bb_best": 0.869,
+   "gap": -0.015,
+   "home_hits": 16,
+   "bb_fps": 16,
+   "verdict": "ambiguous"
+  },
+  {
+   "type": "archertower",
+   "n": 21,
+   "home_best": 0.89,
+   "bb_best": 0.902,
+   "gap": -0.012,
+   "home_hits": 21,
+   "bb_fps": 21,
+   "verdict": "ambiguous"
+  },
+  {
+   "type": "bombtower",
+   "n": 13,
+   "home_best": 0.891,
+   "bb_best": 0.9,
+   "gap": -0.009,
+   "home_hits": 13,
+   "bb_fps": 13,
+   "verdict": "ambiguous"
+  },
+  {
+   "type": "cannon",
+   "n": 21,
+   "home_best": 0.91,
+   "bb_best": 0.906,
+   "gap": 0.004,
+   "home_hits": 21,
+   "bb_fps": 21,
+   "verdict": "ambiguous"
+  },
+  {
+   "type": "eagle",
+   "n": 7,
+   "home_best": 0.881,
+   "bb_best": 0.885,
+   "gap": -0.004,
+   "home_hits": 7,
+   "bb_fps": 7,
+   "verdict": "ambiguous"
+  },
+  {
+   "type": "firespitter",
+   "n": 3,
+   "home_best": 0.841,
+   "bb_best": 0.853,
+   "gap": -0.011,
+   "home_hits": 3,
+   "bb_fps": 3,
+   "verdict": "ambiguous"
+  },
+  {
+   "type": "inferno",
+   "n": 12,
+   "home_best": 0.867,
+   "bb_best": 0.882,
+   "gap": -0.015,
+   "home_hits": 12,
+   "bb_fps": 12,
+   "verdict": "ambiguous"
+  },
+  {
+   "type": "monolith",
+   "n": 5,
+   "home_best": 0.903,
+   "bb_best": 0.899,
+   "gap": 0.004,
+   "home_hits": 5,
+   "bb_fps": 5,
+   "verdict": "ambiguous"
+  },
+  {
+   "type": "mortar",
+   "n": 18,
+   "home_best": 0.887,
+   "bb_best": 0.896,
+   "gap": -0.01,
+   "home_hits": 18,
+   "bb_fps": 18,
+   "verdict": "ambiguous"
+  },
+  {
+   "type": "multiarcher",
+   "n": 4,
+   "home_best": 0.867,
+   "bb_best": 0.864,
+   "gap": 0.003,
+   "home_hits": 4,
+   "bb_fps": 4,
+   "verdict": "ambiguous"
+  },
+  {
+   "type": "scatter",
+   "n": 7,
+   "home_best": 0.914,
+   "bb_best": 0.907,
+   "gap": 0.006,
+   "home_hits": 7,
+   "bb_fps": 7,
+   "verdict": "ambiguous"
+  },
+  {
+   "type": "spelltower",
+   "n": 4,
+   "home_best": 0.899,
+   "bb_best": 0.896,
+   "gap": 0.003,
+   "home_hits": 4,
+   "bb_fps": 4,
+   "verdict": "ambiguous"
+  },
+  {
+   "type": "sweeper",
+   "n": 7,
+   "home_best": 0.847,
+   "bb_best": 0.868,
+   "gap": -0.021,
+   "home_hits": 7,
+   "bb_fps": 7,
+   "verdict": "ambiguous"
+  },
+  {
+   "type": "tesla",
+   "n": 17,
+   "home_best": 0.873,
+   "bb_best": 0.874,
+   "gap": -0.0,
+   "home_hits": 17,
+   "bb_fps": 17,
+   "verdict": "ambiguous"
+  },
+  {
+   "type": "townhall",
+   "n": 18,
+   "home_best": 0.895,
+   "bb_best": 0.944,
+   "gap": -0.048,
+   "home_hits": 18,
+   "bb_fps": 18,
+   "verdict": "ambiguous"
+  },
+  {
+   "type": "wiztower",
+   "n": 17,
+   "home_best": 0.947,
+   "bb_best": 0.931,
+   "gap": 0.016,
+   "home_hits": 17,
+   "bb_fps": 17,
+   "verdict": "ambiguous"
+  },
+  {
+   "type": "xbow",
+   "n": 13,
+   "home_best": 0.881,
+   "bb_best": 0.882,
+   "gap": -0.001,
+   "home_hits": 13,
+   "bb_fps": 13,
+   "verdict": "ambiguous"
+  }
+ ],
+ "rows": [
+  {
+   "type": "airdef",
+   "level": 1,
+   "file": "assets/coc/buildings/air-defense/level-1.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.854,
+     "loc": [
+      194,
+      672
+     ],
+     "peaks": 169480,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.8661,
+     "loc": [
+      639,
+      202
+     ],
+     "peaks": 2323,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.8634,
+     "loc": [
+      646,
+      554
+     ],
+     "peaks": 119229,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "airdef",
+   "level": 2,
+   "file": "assets/coc/buildings/air-defense/level-2.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8386,
+     "loc": [
+      195,
+      673
+     ],
+     "peaks": 171368,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.8544,
+     "loc": [
+      432,
+      104
+     ],
+     "peaks": 2197,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.8586,
+     "loc": [
+      619,
+      533
+     ],
+     "peaks": 113797,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "airdef",
+   "level": 3,
+   "file": "assets/coc/buildings/air-defense/level-3.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8272,
+     "loc": [
+      194,
+      671
+     ],
+     "peaks": 169577,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.8336,
+     "loc": [
+      112,
+      537
+     ],
+     "peaks": 2293,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.8368,
+     "loc": [
+      460,
+      219
+     ],
+     "peaks": 110228,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "airdef",
+   "level": 4,
+   "file": "assets/coc/buildings/air-defense/level-4.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8372,
+     "loc": [
+      280,
+      667
+     ],
+     "peaks": 159600,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.8694,
+     "loc": [
+      501,
+      5
+     ],
+     "peaks": 1864,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.866,
+     "loc": [
+      487,
+      85
+     ],
+     "peaks": 88825,
+     "scale": 0.2
+    }
+   }
+  },
+  {
+   "type": "airdef",
+   "level": 5,
+   "file": "assets/coc/buildings/air-defense/level-5.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8218,
+     "loc": [
+      315,
+      470
+     ],
+     "peaks": 159632,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.8464,
+     "loc": [
+      132,
+      537
+     ],
+     "peaks": 1995,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.8448,
+     "loc": [
+      1182,
+      537
+     ],
+     "peaks": 105846,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "airdef",
+   "level": 6,
+   "file": "assets/coc/buildings/air-defense/level-6.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.7935,
+     "loc": [
+      542,
+      651
+     ],
+     "peaks": 152677,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.8402,
+     "loc": [
+      171,
+      318
+     ],
+     "peaks": 1515,
+     "scale": 0.2
+    },
+    "bb_panel": {
+     "score": 0.8404,
+     "loc": [
+      187,
+      319
+     ],
+     "peaks": 85133,
+     "scale": 0.2
+    }
+   }
+  },
+  {
+   "type": "airdef",
+   "level": 7,
+   "file": "assets/coc/buildings/air-defense/level-7.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.7512,
+     "loc": [
+      163,
+      611
+     ],
+     "peaks": 132940,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.7621,
+     "loc": [
+      218,
+      123
+     ],
+     "peaks": 1750,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.7612,
+     "loc": [
+      232,
+      131
+     ],
+     "peaks": 87298,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "airdef",
+   "level": 8,
+   "file": "assets/coc/buildings/air-defense/level-8.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.7497,
+     "loc": [
+      163,
+      608
+     ],
+     "peaks": 125530,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.7685,
+     "loc": [
+      412,
+      70
+     ],
+     "peaks": 1401,
+     "scale": 0.25
+    },
+    "bb_panel": {
+     "score": 0.7669,
+     "loc": [
+      420,
+      79
+     ],
+     "peaks": 60059,
+     "scale": 0.25
+    }
+   }
+  },
+  {
+   "type": "airdef",
+   "level": 9,
+   "file": "assets/coc/buildings/air-defense/level-9.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8107,
+     "loc": [
+      152,
+      592
+     ],
+     "peaks": 88985,
+     "scale": 0.25
+    },
+    "bb_clean": {
+     "score": 0.8436,
+     "loc": [
+      395,
+      118
+     ],
+     "peaks": 1285,
+     "scale": 0.25
+    },
+    "bb_panel": {
+     "score": 0.8454,
+     "loc": [
+      403,
+      126
+     ],
+     "peaks": 60986,
+     "scale": 0.25
+    }
+   }
+  },
+  {
+   "type": "airdef",
+   "level": 10,
+   "file": "assets/coc/buildings/air-defense/level-10.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8303,
+     "loc": [
+      254,
+      637
+     ],
+     "peaks": 124951,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.8371,
+     "loc": [
+      884,
+      307
+     ],
+     "peaks": 1327,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.835,
+     "loc": [
+      490,
+      633
+     ],
+     "peaks": 80680,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "airdef",
+   "level": 11,
+   "file": "assets/coc/buildings/air-defense/level-11.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.7813,
+     "loc": [
+      253,
+      637
+     ],
+     "peaks": 121814,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.7903,
+     "loc": [
+      563,
+      320
+     ],
+     "peaks": 1520,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.7935,
+     "loc": [
+      565,
+      320
+     ],
+     "peaks": 79699,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "airdef",
+   "level": 12,
+   "file": "assets/coc/buildings/air-defense/level-12.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.7811,
+     "loc": [
+      252,
+      636
+     ],
+     "peaks": 125212,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.7872,
+     "loc": [
+      100,
+      145
+     ],
+     "peaks": 1231,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.7812,
+     "loc": [
+      197,
+      487
+     ],
+     "peaks": 82233,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "airdef",
+   "level": 13,
+   "file": "assets/coc/buildings/air-defense/level-13.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.7818,
+     "loc": [
+      252,
+      636
+     ],
+     "peaks": 125474,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.7929,
+     "loc": [
+      681,
+      182
+     ],
+     "peaks": 1273,
+     "scale": 0.2
+    },
+    "bb_panel": {
+     "score": 0.7933,
+     "loc": [
+      676,
+      185
+     ],
+     "peaks": 66544,
+     "scale": 0.2
+    }
+   }
+  },
+  {
+   "type": "airdef",
+   "level": 14,
+   "file": "assets/coc/buildings/air-defense/level-14.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8148,
+     "loc": [
+      180,
+      556
+     ],
+     "peaks": 52702,
+     "scale": 0.35
+    },
+    "bb_clean": {
+     "score": 0.8625,
+     "loc": [
+      197,
+      283
+     ],
+     "peaks": 878,
+     "scale": 0.35
+    },
+    "bb_panel": {
+     "score": 0.8627,
+     "loc": [
+      212,
+      284
+     ],
+     "peaks": 45964,
+     "scale": 0.35
+    }
+   }
+  },
+  {
+   "type": "airdef",
+   "level": 15,
+   "file": "assets/coc/buildings/air-defense/level-15.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8129,
+     "loc": [
+      273,
+      571
+     ],
+     "peaks": 97015,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.8174,
+     "loc": [
+      883,
+      298
+     ],
+     "peaks": 1211,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.818,
+     "loc": [
+      102,
+      136
+     ],
+     "peaks": 64857,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "airdef",
+   "level": 16,
+   "file": "assets/coc/buildings/air-defense/level-16.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8296,
+     "loc": [
+      286,
+      579
+     ],
+     "peaks": 104680,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.8294,
+     "loc": [
+      685,
+      142
+     ],
+     "peaks": 1200,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.8296,
+     "loc": [
+      679,
+      482
+     ],
+     "peaks": 58200,
+     "scale": 0.2
+    }
+   }
+  },
+  {
+   "type": "archertower",
+   "level": 1,
+   "file": "assets/coc/buildings/archer-tower/level-1.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8692,
+     "loc": [
+      276,
+      612
+     ],
+     "peaks": 101810,
+     "scale": 0.25
+    },
+    "bb_clean": {
+     "score": 0.9021,
+     "loc": [
+      1261,
+      285
+     ],
+     "peaks": 1373,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.8963,
+     "loc": [
+      413,
+      448
+     ],
+     "peaks": 14383,
+     "scale": 1.0
+    }
+   }
+  },
+  {
+   "type": "archertower",
+   "level": 2,
+   "file": "assets/coc/buildings/archer-tower/level-2.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.853,
+     "loc": [
+      277,
+      610
+     ],
+     "peaks": 98149,
+     "scale": 0.25
+    },
+    "bb_clean": {
+     "score": 0.8835,
+     "loc": [
+      398,
+      442
+     ],
+     "peaks": 267,
+     "scale": 1.0
+    },
+    "bb_panel": {
+     "score": 0.8837,
+     "loc": [
+      400,
+      433
+     ],
+     "peaks": 12621,
+     "scale": 1.0
+    }
+   }
+  },
+  {
+   "type": "archertower",
+   "level": 3,
+   "file": "assets/coc/buildings/archer-tower/level-3.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8483,
+     "loc": [
+      264,
+      606
+     ],
+     "peaks": 141317,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.8586,
+     "loc": [
+      403,
+      114
+     ],
+     "peaks": 1499,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.8571,
+     "loc": [
+      319,
+      184
+     ],
+     "peaks": 93947,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "archertower",
+   "level": 4,
+   "file": "assets/coc/buildings/archer-tower/level-4.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8453,
+     "loc": [
+      263,
+      600
+     ],
+     "peaks": 113865,
+     "scale": 0.2
+    },
+    "bb_clean": {
+     "score": 0.8603,
+     "loc": [
+      404,
+      115
+     ],
+     "peaks": 1457,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.8608,
+     "loc": [
+      413,
+      124
+     ],
+     "peaks": 93343,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "archertower",
+   "level": 5,
+   "file": "assets/coc/buildings/archer-tower/level-5.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8729,
+     "loc": [
+      262,
+      602
+     ],
+     "peaks": 114236,
+     "scale": 0.2
+    },
+    "bb_clean": {
+     "score": 0.8748,
+     "loc": [
+      896,
+      312
+     ],
+     "peaks": 1664,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.8744,
+     "loc": [
+      435,
+      129
+     ],
+     "peaks": 93477,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "archertower",
+   "level": 6,
+   "file": "assets/coc/buildings/archer-tower/level-6.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8904,
+     "loc": [
+      357,
+      642
+     ],
+     "peaks": 128521,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.8999,
+     "loc": [
+      998,
+      26
+     ],
+     "peaks": 1269,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.8997,
+     "loc": [
+      951,
+      165
+     ],
+     "peaks": 85328,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "archertower",
+   "level": 7,
+   "file": "assets/coc/buildings/archer-tower/level-7.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8846,
+     "loc": [
+      379,
+      666
+     ],
+     "peaks": 103266,
+     "scale": 0.2
+    },
+    "bb_clean": {
+     "score": 0.8923,
+     "loc": [
+      529,
+      220
+     ],
+     "peaks": 1026,
+     "scale": 0.2
+    },
+    "bb_panel": {
+     "score": 0.8901,
+     "loc": [
+      533,
+      412
+     ],
+     "peaks": 68405,
+     "scale": 0.2
+    }
+   }
+  },
+  {
+   "type": "archertower",
+   "level": 8,
+   "file": "assets/coc/buildings/archer-tower/level-8.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8875,
+     "loc": [
+      370,
+      660
+     ],
+     "peaks": 86009,
+     "scale": 0.25
+    },
+    "bb_clean": {
+     "score": 0.8946,
+     "loc": [
+      997,
+      26
+     ],
+     "peaks": 1256,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.8908,
+     "loc": [
+      1233,
+      166
+     ],
+     "peaks": 85357,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "archertower",
+   "level": 9,
+   "file": "assets/coc/buildings/archer-tower/level-9.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8827,
+     "loc": [
+      297,
+      671
+     ],
+     "peaks": 123303,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.8907,
+     "loc": [
+      995,
+      26
+     ],
+     "peaks": 1165,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.8848,
+     "loc": [
+      949,
+      166
+     ],
+     "peaks": 80695,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "archertower",
+   "level": 10,
+   "file": "assets/coc/buildings/archer-tower/level-10.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8682,
+     "loc": [
+      379,
+      668
+     ],
+     "peaks": 98349,
+     "scale": 0.2
+    },
+    "bb_clean": {
+     "score": 0.8835,
+     "loc": [
+      995,
+      27
+     ],
+     "peaks": 1180,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.872,
+     "loc": [
+      949,
+      166
+     ],
+     "peaks": 80406,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "archertower",
+   "level": 11,
+   "file": "assets/coc/buildings/archer-tower/level-11.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8755,
+     "loc": [
+      378,
+      664
+     ],
+     "peaks": 95145,
+     "scale": 0.2
+    },
+    "bb_clean": {
+     "score": 0.8652,
+     "loc": [
+      998,
+      25
+     ],
+     "peaks": 1136,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.8616,
+     "loc": [
+      531,
+      222
+     ],
+     "peaks": 63892,
+     "scale": 0.2
+    }
+   }
+  },
+  {
+   "type": "archertower",
+   "level": 12,
+   "file": "assets/coc/buildings/archer-tower/level-12.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8623,
+     "loc": [
+      377,
+      665
+     ],
+     "peaks": 94621,
+     "scale": 0.2
+    },
+    "bb_clean": {
+     "score": 0.8614,
+     "loc": [
+      998,
+      25
+     ],
+     "peaks": 1158,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.8553,
+     "loc": [
+      530,
+      222
+     ],
+     "peaks": 64356,
+     "scale": 0.2
+    }
+   }
+  },
+  {
+   "type": "archertower",
+   "level": 13,
+   "file": "assets/coc/buildings/archer-tower/level-13.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8287,
+     "loc": [
+      445,
+      507
+     ],
+     "peaks": 119189,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.818,
+     "loc": [
+      532,
+      225
+     ],
+     "peaks": 1208,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.8162,
+     "loc": [
+      535,
+      229
+     ],
+     "peaks": 77145,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "archertower",
+   "level": 14,
+   "file": "assets/coc/buildings/archer-tower/level-14.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8336,
+     "loc": [
+      436,
+      494
+     ],
+     "peaks": 74429,
+     "scale": 0.25
+    },
+    "bb_clean": {
+     "score": 0.8421,
+     "loc": [
+      530,
+      417
+     ],
+     "peaks": 1145,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.8417,
+     "loc": [
+      533,
+      227
+     ],
+     "peaks": 73402,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "archertower",
+   "level": 15,
+   "file": "assets/coc/buildings/archer-tower/level-15.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.851,
+     "loc": [
+      445,
+      506
+     ],
+     "peaks": 115276,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.8441,
+     "loc": [
+      532,
+      417
+     ],
+     "peaks": 1151,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.8462,
+     "loc": [
+      534,
+      227
+     ],
+     "peaks": 73770,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "archertower",
+   "level": 16,
+   "file": "assets/coc/buildings/archer-tower/level-16.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8764,
+     "loc": [
+      437,
+      496
+     ],
+     "peaks": 77322,
+     "scale": 0.25
+    },
+    "bb_clean": {
+     "score": 0.8785,
+     "loc": [
+      527,
+      219
+     ],
+     "peaks": 964,
+     "scale": 0.2
+    },
+    "bb_panel": {
+     "score": 0.8764,
+     "loc": [
+      531,
+      224
+     ],
+     "peaks": 64463,
+     "scale": 0.2
+    }
+   }
+  },
+  {
+   "type": "archertower",
+   "level": 17,
+   "file": "assets/coc/buildings/archer-tower/level-17.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8568,
+     "loc": [
+      437,
+      495
+     ],
+     "peaks": 78287,
+     "scale": 0.25
+    },
+    "bb_clean": {
+     "score": 0.8725,
+     "loc": [
+      527,
+      219
+     ],
+     "peaks": 989,
+     "scale": 0.2
+    },
+    "bb_panel": {
+     "score": 0.8695,
+     "loc": [
+      535,
+      228
+     ],
+     "peaks": 77947,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "archertower",
+   "level": 18,
+   "file": "assets/coc/buildings/archer-tower/level-18.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8734,
+     "loc": [
+      377,
+      665
+     ],
+     "peaks": 94262,
+     "scale": 0.2
+    },
+    "bb_clean": {
+     "score": 0.8738,
+     "loc": [
+      18,
+      101
+     ],
+     "peaks": 717,
+     "scale": 0.25
+    },
+    "bb_panel": {
+     "score": 0.8706,
+     "loc": [
+      18,
+      101
+     ],
+     "peaks": 56155,
+     "scale": 0.25
+    }
+   }
+  },
+  {
+   "type": "archertower",
+   "level": 19,
+   "file": "assets/coc/buildings/archer-tower/level-19.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8796,
+     "loc": [
+      441,
+      500
+     ],
+     "peaks": 92642,
+     "scale": 0.2
+    },
+    "bb_clean": {
+     "score": 0.877,
+     "loc": [
+      947,
+      674
+     ],
+     "peaks": 835,
+     "scale": 0.2
+    },
+    "bb_panel": {
+     "score": 0.8695,
+     "loc": [
+      19,
+      106
+     ],
+     "peaks": 63361,
+     "scale": 0.2
+    }
+   }
+  },
+  {
+   "type": "archertower",
+   "level": 20,
+   "file": "assets/coc/buildings/archer-tower/level-20.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8617,
+     "loc": [
+      381,
+      670
+     ],
+     "peaks": 116667,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.8625,
+     "loc": [
+      531,
+      419
+     ],
+     "peaks": 1040,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.8622,
+     "loc": [
+      534,
+      416
+     ],
+     "peaks": 76236,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "archertower",
+   "level": 21,
+   "file": "assets/coc/buildings/archer-tower/level-21.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.872,
+     "loc": [
+      298,
+      594
+     ],
+     "peaks": 127955,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.8676,
+     "loc": [
+      953,
+      649
+     ],
+     "peaks": 1306,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.8676,
+     "loc": [
+      953,
+      649
+     ],
+     "peaks": 82255,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "bombtower",
+   "level": 1,
+   "file": "assets/coc/buildings/bomb-tower/level-1.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8304,
+     "loc": [
+      220,
+      608
+     ],
+     "peaks": 141018,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.8492,
+     "loc": [
+      995,
+      30
+     ],
+     "peaks": 1552,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.8454,
+     "loc": [
+      94,
+      156
+     ],
+     "peaks": 95488,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "bombtower",
+   "level": 2,
+   "file": "assets/coc/buildings/bomb-tower/level-2.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8272,
+     "loc": [
+      357,
+      464
+     ],
+     "peaks": 140781,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.8477,
+     "loc": [
+      995,
+      30
+     ],
+     "peaks": 1536,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.839,
+     "loc": [
+      948,
+      169
+     ],
+     "peaks": 93271,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "bombtower",
+   "level": 3,
+   "file": "assets/coc/buildings/bomb-tower/level-3.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8111,
+     "loc": [
+      566,
+      336
+     ],
+     "peaks": 136233,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.8256,
+     "loc": [
+      1038,
+      81
+     ],
+     "peaks": 1487,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.8244,
+     "loc": [
+      947,
+      171
+     ],
+     "peaks": 92194,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "bombtower",
+   "level": 4,
+   "file": "assets/coc/buildings/bomb-tower/level-4.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8108,
+     "loc": [
+      220,
+      607
+     ],
+     "peaks": 137468,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.828,
+     "loc": [
+      1018,
+      81
+     ],
+     "peaks": 1440,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.8148,
+     "loc": [
+      1030,
+      607
+     ],
+     "peaks": 92622,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "bombtower",
+   "level": 5,
+   "file": "assets/coc/buildings/bomb-tower/level-5.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8183,
+     "loc": [
+      718,
+      334
+     ],
+     "peaks": 136916,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.8392,
+     "loc": [
+      1095,
+      131
+     ],
+     "peaks": 1378,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.8202,
+     "loc": [
+      947,
+      170
+     ],
+     "peaks": 91905,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "bombtower",
+   "level": 6,
+   "file": "assets/coc/buildings/bomb-tower/level-6.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.7987,
+     "loc": [
+      307,
+      607
+     ],
+     "peaks": 136587,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.8365,
+     "loc": [
+      1095,
+      131
+     ],
+     "peaks": 1340,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.8193,
+     "loc": [
+      493,
+      633
+     ],
+     "peaks": 91227,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "bombtower",
+   "level": 7,
+   "file": "assets/coc/buildings/bomb-tower/level-7.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8437,
+     "loc": [
+      297,
+      674
+     ],
+     "peaks": 109960,
+     "scale": 0.2
+    },
+    "bb_clean": {
+     "score": 0.8416,
+     "loc": [
+      297,
+      672
+     ],
+     "peaks": 1278,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.8419,
+     "loc": [
+      297,
+      672
+     ],
+     "peaks": 91259,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "bombtower",
+   "level": 8,
+   "file": "assets/coc/buildings/bomb-tower/level-8.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.825,
+     "loc": [
+      302,
+      677
+     ],
+     "peaks": 133076,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.8265,
+     "loc": [
+      21,
+      115
+     ],
+     "peaks": 1115,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.8267,
+     "loc": [
+      35,
+      115
+     ],
+     "peaks": 88495,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "bombtower",
+   "level": 9,
+   "file": "assets/coc/buildings/bomb-tower/level-9.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8805,
+     "loc": [
+      280,
+      619
+     ],
+     "peaks": 138057,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.8907,
+     "loc": [
+      1018,
+      78
+     ],
+     "peaks": 1326,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.9002,
+     "loc": [
+      99,
+      155
+     ],
+     "peaks": 92979,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "bombtower",
+   "level": 10,
+   "file": "assets/coc/buildings/bomb-tower/level-10.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.891,
+     "loc": [
+      225,
+      692
+     ],
+     "peaks": 143309,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.8859,
+     "loc": [
+      78,
+      375
+     ],
+     "peaks": 1382,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.8883,
+     "loc": [
+      1238,
+      168
+     ],
+     "peaks": 93892,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "bombtower",
+   "level": 11,
+   "file": "assets/coc/buildings/bomb-tower/level-11.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8337,
+     "loc": [
+      377,
+      462
+     ],
+     "peaks": 131310,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.8534,
+     "loc": [
+      186,
+      150
+     ],
+     "peaks": 1493,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.8575,
+     "loc": [
+      103,
+      153
+     ],
+     "peaks": 89072,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "bombtower",
+   "level": 12,
+   "file": "assets/coc/buildings/bomb-tower/level-12.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8543,
+     "loc": [
+      383,
+      669
+     ],
+     "peaks": 106025,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.8557,
+     "loc": [
+      92,
+      108
+     ],
+     "peaks": 977,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.8552,
+     "loc": [
+      92,
+      108
+     ],
+     "peaks": 70898,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "bombtower",
+   "level": 13,
+   "file": "assets/coc/buildings/bomb-tower/level-13.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8783,
+     "loc": [
+      151,
+      582
+     ],
+     "peaks": 55174,
+     "scale": 0.25
+    },
+    "bb_clean": {
+     "score": 0.8838,
+     "loc": [
+      880,
+      297
+     ],
+     "peaks": 1000,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.8844,
+     "loc": [
+      95,
+      141
+     ],
+     "peaks": 68511,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "cannon",
+   "level": 1,
+   "file": "assets/coc/buildings/cannon/level-1.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8787,
+     "loc": [
+      378,
+      324
+     ],
+     "peaks": 184379,
+     "scale": 0.2
+    },
+    "bb_clean": {
+     "score": 0.8658,
+     "loc": [
+      28,
+      546
+     ],
+     "peaks": 1561,
+     "scale": 0.35
+    },
+    "bb_panel": {
+     "score": 0.8658,
+     "loc": [
+      28,
+      546
+     ],
+     "peaks": 97731,
+     "scale": 0.35
+    }
+   }
+  },
+  {
+   "type": "cannon",
+   "level": 2,
+   "file": "assets/coc/buildings/cannon/level-2.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8672,
+     "loc": [
+      63,
+      378
+     ],
+     "peaks": 183160,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.8698,
+     "loc": [
+      194,
+      151
+     ],
+     "peaks": 1976,
+     "scale": 0.2
+    },
+    "bb_panel": {
+     "score": 0.868,
+     "loc": [
+      206,
+      155
+     ],
+     "peaks": 101629,
+     "scale": 0.25
+    }
+   }
+  },
+  {
+   "type": "cannon",
+   "level": 3,
+   "file": "assets/coc/buildings/cannon/level-3.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8917,
+     "loc": [
+      1243,
+      127
+     ],
+     "peaks": 175129,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.8867,
+     "loc": [
+      488,
+      289
+     ],
+     "peaks": 2227,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.8861,
+     "loc": [
+      668,
+      251
+     ],
+     "peaks": 121907,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "cannon",
+   "level": 4,
+   "file": "assets/coc/buildings/cannon/level-4.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.9105,
+     "loc": [
+      445,
+      505
+     ],
+     "peaks": 158716,
+     "scale": 0.2
+    },
+    "bb_clean": {
+     "score": 0.9061,
+     "loc": [
+      1164,
+      630
+     ],
+     "peaks": 1506,
+     "scale": 0.2
+    },
+    "bb_panel": {
+     "score": 0.9061,
+     "loc": [
+      1164,
+      630
+     ],
+     "peaks": 104011,
+     "scale": 0.2
+    }
+   }
+  },
+  {
+   "type": "cannon",
+   "level": 5,
+   "file": "assets/coc/buildings/cannon/level-5.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8761,
+     "loc": [
+      299,
+      679
+     ],
+     "peaks": 173445,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.8761,
+     "loc": [
+      299,
+      679
+     ],
+     "peaks": 2055,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.8761,
+     "loc": [
+      299,
+      679
+     ],
+     "peaks": 118405,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "cannon",
+   "level": 6,
+   "file": "assets/coc/buildings/cannon/level-6.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8592,
+     "loc": [
+      442,
+      501
+     ],
+     "peaks": 128172,
+     "scale": 0.25
+    },
+    "bb_clean": {
+     "score": 0.8668,
+     "loc": [
+      528,
+      219
+     ],
+     "peaks": 1441,
+     "scale": 0.25
+    },
+    "bb_panel": {
+     "score": 0.8634,
+     "loc": [
+      531,
+      223
+     ],
+     "peaks": 84743,
+     "scale": 0.25
+    }
+   }
+  },
+  {
+   "type": "cannon",
+   "level": 7,
+   "file": "assets/coc/buildings/cannon/level-7.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8482,
+     "loc": [
+      444,
+      505
+     ],
+     "peaks": 148870,
+     "scale": 0.2
+    },
+    "bb_clean": {
+     "score": 0.8514,
+     "loc": [
+      528,
+      413
+     ],
+     "peaks": 1404,
+     "scale": 0.25
+    },
+    "bb_panel": {
+     "score": 0.8536,
+     "loc": [
+      534,
+      227
+     ],
+     "peaks": 98460,
+     "scale": 0.2
+    }
+   }
+  },
+  {
+   "type": "cannon",
+   "level": 8,
+   "file": "assets/coc/buildings/cannon/level-8.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8506,
+     "loc": [
+      444,
+      505
+     ],
+     "peaks": 149074,
+     "scale": 0.2
+    },
+    "bb_clean": {
+     "score": 0.8562,
+     "loc": [
+      530,
+      417
+     ],
+     "peaks": 1540,
+     "scale": 0.2
+    },
+    "bb_panel": {
+     "score": 0.8596,
+     "loc": [
+      534,
+      227
+     ],
+     "peaks": 95790,
+     "scale": 0.2
+    }
+   }
+  },
+  {
+   "type": "cannon",
+   "level": 9,
+   "file": "assets/coc/buildings/cannon/level-9.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.844,
+     "loc": [
+      438,
+      500
+     ],
+     "peaks": 122194,
+     "scale": 0.25
+    },
+    "bb_clean": {
+     "score": 0.8441,
+     "loc": [
+      192,
+      152
+     ],
+     "peaks": 1740,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.852,
+     "loc": [
+      532,
+      227
+     ],
+     "peaks": 91684,
+     "scale": 0.2
+    }
+   }
+  },
+  {
+   "type": "cannon",
+   "level": 10,
+   "file": "assets/coc/buildings/cannon/level-10.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8568,
+     "loc": [
+      438,
+      498
+     ],
+     "peaks": 113302,
+     "scale": 0.25
+    },
+    "bb_clean": {
+     "score": 0.8758,
+     "loc": [
+      191,
+      151
+     ],
+     "peaks": 1578,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.876,
+     "loc": [
+      207,
+      158
+     ],
+     "peaks": 103384,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "cannon",
+   "level": 11,
+   "file": "assets/coc/buildings/cannon/level-11.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8486,
+     "loc": [
+      444,
+      508
+     ],
+     "peaks": 153651,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.8479,
+     "loc": [
+      190,
+      150
+     ],
+     "peaks": 1640,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.8485,
+     "loc": [
+      206,
+      157
+     ],
+     "peaks": 103287,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "cannon",
+   "level": 12,
+   "file": "assets/coc/buildings/cannon/level-12.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8285,
+     "loc": [
+      441,
+      502
+     ],
+     "peaks": 131852,
+     "scale": 0.2
+    },
+    "bb_clean": {
+     "score": 0.8436,
+     "loc": [
+      191,
+      150
+     ],
+     "peaks": 1562,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.8424,
+     "loc": [
+      1162,
+      626
+     ],
+     "peaks": 85725,
+     "scale": 0.2
+    }
+   }
+  },
+  {
+   "type": "cannon",
+   "level": 13,
+   "file": "assets/coc/buildings/cannon/level-13.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8313,
+     "loc": [
+      202,
+      661
+     ],
+     "peaks": 154686,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.833,
+     "loc": [
+      1161,
+      624
+     ],
+     "peaks": 1485,
+     "scale": 0.2
+    },
+    "bb_panel": {
+     "score": 0.833,
+     "loc": [
+      1161,
+      624
+     ],
+     "peaks": 83794,
+     "scale": 0.2
+    }
+   }
+  },
+  {
+   "type": "cannon",
+   "level": 14,
+   "file": "assets/coc/buildings/cannon/level-14.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8825,
+     "loc": [
+      235,
+      560
+     ],
+     "peaks": 122185,
+     "scale": 0.2
+    },
+    "bb_clean": {
+     "score": 0.8824,
+     "loc": [
+      686,
+      162
+     ],
+     "peaks": 1503,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.8831,
+     "loc": [
+      681,
+      160
+     ],
+     "peaks": 77504,
+     "scale": 0.2
+    }
+   }
+  },
+  {
+   "type": "cannon",
+   "level": 15,
+   "file": "assets/coc/buildings/cannon/level-15.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8632,
+     "loc": [
+      444,
+      502
+     ],
+     "peaks": 150055,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.8655,
+     "loc": [
+      524,
+      469
+     ],
+     "peaks": 1494,
+     "scale": 0.25
+    },
+    "bb_panel": {
+     "score": 0.8664,
+     "loc": [
+      618,
+      533
+     ],
+     "peaks": 97268,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "cannon",
+   "level": 16,
+   "file": "assets/coc/buildings/cannon/level-16.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8787,
+     "loc": [
+      374,
+      656
+     ],
+     "peaks": 124544,
+     "scale": 0.2
+    },
+    "bb_clean": {
+     "score": 0.8787,
+     "loc": [
+      374,
+      656
+     ],
+     "peaks": 1419,
+     "scale": 0.2
+    },
+    "bb_panel": {
+     "score": 0.8787,
+     "loc": [
+      374,
+      656
+     ],
+     "peaks": 77959,
+     "scale": 0.2
+    }
+   }
+  },
+  {
+   "type": "cannon",
+   "level": 17,
+   "file": "assets/coc/buildings/cannon/level-17.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8613,
+     "loc": [
+      198,
+      668
+     ],
+     "peaks": 148584,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.8626,
+     "loc": [
+      107,
+      121
+     ],
+     "peaks": 1000,
+     "scale": 0.35
+    },
+    "bb_panel": {
+     "score": 0.8613,
+     "loc": [
+      198,
+      668
+     ],
+     "peaks": 95348,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "cannon",
+   "level": 18,
+   "file": "assets/coc/buildings/cannon/level-18.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8387,
+     "loc": [
+      350,
+      632
+     ],
+     "peaks": 144299,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.8415,
+     "loc": [
+      658,
+      174
+     ],
+     "peaks": 1261,
+     "scale": 0.25
+    },
+    "bb_panel": {
+     "score": 0.8408,
+     "loc": [
+      571,
+      213
+     ],
+     "peaks": 75260,
+     "scale": 0.2
+    }
+   }
+  },
+  {
+   "type": "cannon",
+   "level": 19,
+   "file": "assets/coc/buildings/cannon/level-19.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8498,
+     "loc": [
+      307,
+      598
+     ],
+     "peaks": 142184,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.8466,
+     "loc": [
+      675,
+      189
+     ],
+     "peaks": 1407,
+     "scale": 0.2
+    },
+    "bb_panel": {
+     "score": 0.8462,
+     "loc": [
+      673,
+      194
+     ],
+     "peaks": 74224,
+     "scale": 0.2
+    }
+   }
+  },
+  {
+   "type": "cannon",
+   "level": 20,
+   "file": "assets/coc/buildings/cannon/level-20.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.848,
+     "loc": [
+      1230,
+      135
+     ],
+     "peaks": 138262,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.8504,
+     "loc": [
+      529,
+      219
+     ],
+     "peaks": 1416,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.8497,
+     "loc": [
+      533,
+      223
+     ],
+     "peaks": 91130,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "cannon",
+   "level": 21,
+   "file": "assets/coc/buildings/cannon/level-21.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.857,
+     "loc": [
+      1231,
+      136
+     ],
+     "peaks": 134227,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.8434,
+     "loc": [
+      530,
+      219
+     ],
+     "peaks": 1399,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.8438,
+     "loc": [
+      533,
+      224
+     ],
+     "peaks": 88357,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "eagle",
+   "level": 1,
+   "file": "assets/coc/buildings/eagle-artillery/level-1.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8654,
+     "loc": [
+      712,
+      487
+     ],
+     "peaks": 94191,
+     "scale": 0.2
+    },
+    "bb_clean": {
+     "score": 0.8613,
+     "loc": [
+      377,
+      653
+     ],
+     "peaks": 938,
+     "scale": 0.2
+    },
+    "bb_panel": {
+     "score": 0.8618,
+     "loc": [
+      377,
+      653
+     ],
+     "peaks": 64594,
+     "scale": 0.2
+    }
+   }
+  },
+  {
+   "type": "eagle",
+   "level": 2,
+   "file": "assets/coc/buildings/eagle-artillery/level-2.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8806,
+     "loc": [
+      436,
+      488
+     ],
+     "peaks": 94332,
+     "scale": 0.2
+    },
+    "bb_clean": {
+     "score": 0.8787,
+     "loc": [
+      1164,
+      622
+     ],
+     "peaks": 1135,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.8787,
+     "loc": [
+      1164,
+      622
+     ],
+     "peaks": 78267,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "eagle",
+   "level": 3,
+   "file": "assets/coc/buildings/eagle-artillery/level-3.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.858,
+     "loc": [
+      445,
+      498
+     ],
+     "peaks": 122659,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.8559,
+     "loc": [
+      1166,
+      623
+     ],
+     "peaks": 1178,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.8559,
+     "loc": [
+      1166,
+      623
+     ],
+     "peaks": 82519,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "eagle",
+   "level": 4,
+   "file": "assets/coc/buildings/eagle-artillery/level-4.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.864,
+     "loc": [
+      444,
+      500
+     ],
+     "peaks": 117382,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.8503,
+     "loc": [
+      377,
+      653
+     ],
+     "peaks": 929,
+     "scale": 0.2
+    },
+    "bb_panel": {
+     "score": 0.8505,
+     "loc": [
+      377,
+      653
+     ],
+     "peaks": 64524,
+     "scale": 0.2
+    }
+   }
+  },
+  {
+   "type": "eagle",
+   "level": 5,
+   "file": "assets/coc/buildings/eagle-artillery/level-5.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8626,
+     "loc": [
+      442,
+      498
+     ],
+     "peaks": 118035,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.8698,
+     "loc": [
+      1164,
+      621
+     ],
+     "peaks": 1125,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.8698,
+     "loc": [
+      1164,
+      621
+     ],
+     "peaks": 80346,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "eagle",
+   "level": 6,
+   "file": "assets/coc/buildings/eagle-artillery/level-6.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8638,
+     "loc": [
+      442,
+      497
+     ],
+     "peaks": 114919,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.8751,
+     "loc": [
+      1163,
+      620
+     ],
+     "peaks": 1104,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.8751,
+     "loc": [
+      1163,
+      620
+     ],
+     "peaks": 78744,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "eagle",
+   "level": 7,
+   "file": "assets/coc/buildings/eagle-artillery/level-7.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8705,
+     "loc": [
+      1158,
+      615
+     ],
+     "peaks": 123968,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.8846,
+     "loc": [
+      602,
+      548
+     ],
+     "peaks": 1212,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.8834,
+     "loc": [
+      389,
+      376
+     ],
+     "peaks": 80509,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "firespitter",
+   "level": 1,
+   "file": "assets/coc/buildings/firespitter/level-1.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8412,
+     "loc": [
+      230,
+      545
+     ],
+     "peaks": 105745,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.8403,
+     "loc": [
+      645,
+      179
+     ],
+     "peaks": 1055,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.8344,
+     "loc": [
+      596,
+      466
+     ],
+     "peaks": 66924,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "firespitter",
+   "level": 2,
+   "file": "assets/coc/buildings/firespitter/level-2.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8409,
+     "loc": [
+      247,
+      558
+     ],
+     "peaks": 105843,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.852,
+     "loc": [
+      286,
+      171
+     ],
+     "peaks": 1030,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.8526,
+     "loc": [
+      302,
+      181
+     ],
+     "peaks": 66871,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "firespitter",
+   "level": 3,
+   "file": "assets/coc/buildings/firespitter/level-3.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.783,
+     "loc": [
+      290,
+      591
+     ],
+     "peaks": 68801,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.7921,
+     "loc": [
+      82,
+      242
+     ],
+     "peaks": 814,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.796,
+     "loc": [
+      256,
+      110
+     ],
+     "peaks": 51566,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "inferno",
+   "level": 1,
+   "file": "assets/coc/buildings/inferno-tower/level-1.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8465,
+     "loc": [
+      205,
+      668
+     ],
+     "peaks": 150476,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.8528,
+     "loc": [
+      700,
+      162
+     ],
+     "peaks": 1786,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.8502,
+     "loc": [
+      695,
+      166
+     ],
+     "peaks": 99485,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "inferno",
+   "level": 2,
+   "file": "assets/coc/buildings/inferno-tower/level-2.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.867,
+     "loc": [
+      176,
+      544
+     ],
+     "peaks": 42518,
+     "scale": 0.45
+    },
+    "bb_clean": {
+     "score": 0.8817,
+     "loc": [
+      791,
+      396
+     ],
+     "peaks": 1180,
+     "scale": 0.25
+    },
+    "bb_panel": {
+     "score": 0.8801,
+     "loc": [
+      786,
+      395
+     ],
+     "peaks": 64509,
+     "scale": 0.25
+    }
+   }
+  },
+  {
+   "type": "inferno",
+   "level": 3,
+   "file": "assets/coc/buildings/inferno-tower/level-3.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8315,
+     "loc": [
+      277,
+      670
+     ],
+     "peaks": 110552,
+     "scale": 0.2
+    },
+    "bb_clean": {
+     "score": 0.8437,
+     "loc": [
+      796,
+      398
+     ],
+     "peaks": 1664,
+     "scale": 0.2
+    },
+    "bb_panel": {
+     "score": 0.8442,
+     "loc": [
+      783,
+      394
+     ],
+     "peaks": 65647,
+     "scale": 0.25
+    }
+   }
+  },
+  {
+   "type": "inferno",
+   "level": 4,
+   "file": "assets/coc/buildings/inferno-tower/level-4.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.812,
+     "loc": [
+      150,
+      586
+     ],
+     "peaks": 89390,
+     "scale": 0.25
+    },
+    "bb_clean": {
+     "score": 0.8229,
+     "loc": [
+      371,
+      34
+     ],
+     "peaks": 1031,
+     "scale": 0.35
+    },
+    "bb_panel": {
+     "score": 0.8219,
+     "loc": [
+      380,
+      44
+     ],
+     "peaks": 50596,
+     "scale": 0.35
+    }
+   }
+  },
+  {
+   "type": "inferno",
+   "level": 5,
+   "file": "assets/coc/buildings/inferno-tower/level-5.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8349,
+     "loc": [
+      277,
+      618
+     ],
+     "peaks": 131101,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.8401,
+     "loc": [
+      516,
+      222
+     ],
+     "peaks": 1558,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.8439,
+     "loc": [
+      948,
+      168
+     ],
+     "peaks": 88646,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "inferno",
+   "level": 6,
+   "file": "assets/coc/buildings/inferno-tower/level-6.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8086,
+     "loc": [
+      149,
+      567
+     ],
+     "peaks": 63425,
+     "scale": 0.35
+    },
+    "bb_clean": {
+     "score": 0.8186,
+     "loc": [
+      1116,
+      496
+     ],
+     "peaks": 1612,
+     "scale": 0.2
+    },
+    "bb_panel": {
+     "score": 0.8184,
+     "loc": [
+      150,
+      584
+     ],
+     "peaks": 72079,
+     "scale": 0.2
+    }
+   }
+  },
+  {
+   "type": "inferno",
+   "level": 7,
+   "file": "assets/coc/buildings/inferno-tower/level-7.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8135,
+     "loc": [
+      150,
+      644
+     ],
+     "peaks": 106085,
+     "scale": 0.2
+    },
+    "bb_clean": {
+     "score": 0.8182,
+     "loc": [
+      687,
+      177
+     ],
+     "peaks": 1462,
+     "scale": 0.2
+    },
+    "bb_panel": {
+     "score": 0.8207,
+     "loc": [
+      698,
+      292
+     ],
+     "peaks": 89455,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "inferno",
+   "level": 8,
+   "file": "assets/coc/buildings/inferno-tower/level-8.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.7775,
+     "loc": [
+      149,
+      587
+     ],
+     "peaks": 88794,
+     "scale": 0.25
+    },
+    "bb_clean": {
+     "score": 0.7891,
+     "loc": [
+      1115,
+      495
+     ],
+     "peaks": 1484,
+     "scale": 0.2
+    },
+    "bb_panel": {
+     "score": 0.7883,
+     "loc": [
+      389,
+      128
+     ],
+     "peaks": 70417,
+     "scale": 0.2
+    }
+   }
+  },
+  {
+   "type": "inferno",
+   "level": 9,
+   "file": "assets/coc/buildings/inferno-tower/level-9.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8024,
+     "loc": [
+      277,
+      679
+     ],
+     "peaks": 132060,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.8003,
+     "loc": [
+      210,
+      96
+     ],
+     "peaks": 1220,
+     "scale": 0.25
+    },
+    "bb_panel": {
+     "score": 0.8002,
+     "loc": [
+      224,
+      104
+     ],
+     "peaks": 62603,
+     "scale": 0.25
+    }
+   }
+  },
+  {
+   "type": "inferno",
+   "level": 10,
+   "file": "assets/coc/buildings/inferno-tower/level-10.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.7778,
+     "loc": [
+      873,
+      185
+     ],
+     "peaks": 310,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.8424,
+     "loc": [
+      181,
+      174
+     ],
+     "peaks": 280,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.8424,
+     "loc": [
+      193,
+      174
+     ],
+     "peaks": 4053,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "inferno",
+   "level": 11,
+   "file": "assets/coc/buildings/inferno-tower/level-11.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.7367,
+     "loc": [
+      888,
+      300
+     ],
+     "peaks": 504,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.7538,
+     "loc": [
+      866,
+      215
+     ],
+     "peaks": 258,
+     "scale": 0.2
+    },
+    "bb_panel": {
+     "score": 0.7528,
+     "loc": [
+      753,
+      471
+     ],
+     "peaks": 3660,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "inferno",
+   "level": 12,
+   "file": "assets/coc/buildings/inferno-tower/level-12.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8405,
+     "loc": [
+      172,
+      548
+     ],
+     "peaks": 41901,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.844,
+     "loc": [
+      657,
+      511
+     ],
+     "peaks": 785,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.8399,
+     "loc": [
+      653,
+      509
+     ],
+     "peaks": 42535,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "monolith",
+   "level": 1,
+   "file": "assets/coc/buildings/monolith/level-1.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8745,
+     "loc": [
+      442,
+      484
+     ],
+     "peaks": 100936,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.8735,
+     "loc": [
+      19,
+      366
+     ],
+     "peaks": 1160,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.8735,
+     "loc": [
+      19,
+      366
+     ],
+     "peaks": 68193,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "monolith",
+   "level": 2,
+   "file": "assets/coc/buildings/monolith/level-2.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8495,
+     "loc": [
+      442,
+      484
+     ],
+     "peaks": 102904,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.8512,
+     "loc": [
+      637,
+      149
+     ],
+     "peaks": 1191,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.8513,
+     "loc": [
+      636,
+      155
+     ],
+     "peaks": 66781,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "monolith",
+   "level": 3,
+   "file": "assets/coc/buildings/monolith/level-3.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8138,
+     "loc": [
+      544,
+      316
+     ],
+     "peaks": 865,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.8377,
+     "loc": [
+      783,
+      375
+     ],
+     "peaks": 313,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.836,
+     "loc": [
+      773,
+      349
+     ],
+     "peaks": 3422,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "monolith",
+   "level": 4,
+   "file": "assets/coc/buildings/monolith/level-4.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8142,
+     "loc": [
+      840,
+      254
+     ],
+     "peaks": 682,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.8139,
+     "loc": [
+      720,
+      431
+     ],
+     "peaks": 374,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.8113,
+     "loc": [
+      778,
+      353
+     ],
+     "peaks": 3268,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "monolith",
+   "level": 5,
+   "file": "assets/coc/buildings/monolith/level-5.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.9026,
+     "loc": [
+      540,
+      385
+     ],
+     "peaks": 9107,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.899,
+     "loc": [
+      696,
+      513
+     ],
+     "peaks": 431,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.8989,
+     "loc": [
+      937,
+      281
+     ],
+     "peaks": 21566,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "mortar",
+   "level": 1,
+   "file": "assets/coc/buildings/mortar/level-1.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8866,
+     "loc": [
+      72,
+      519
+     ],
+     "peaks": 174198,
+     "scale": 0.2
+    },
+    "bb_clean": {
+     "score": 0.8965,
+     "loc": [
+      675,
+      319
+     ],
+     "peaks": 2467,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.891,
+     "loc": [
+      439,
+      66
+     ],
+     "peaks": 116949,
+     "scale": 0.2
+    }
+   }
+  },
+  {
+   "type": "mortar",
+   "level": 2,
+   "file": "assets/coc/buildings/mortar/level-2.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8767,
+     "loc": [
+      385,
+      462
+     ],
+     "peaks": 189896,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.8799,
+     "loc": [
+      700,
+      329
+     ],
+     "peaks": 2391,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.878,
+     "loc": [
+      623,
+      454
+     ],
+     "peaks": 127901,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "mortar",
+   "level": 3,
+   "file": "assets/coc/buildings/mortar/level-3.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8679,
+     "loc": [
+      201,
+      656
+     ],
+     "peaks": 181401,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.8825,
+     "loc": [
+      527,
+      216
+     ],
+     "peaks": 2131,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.8867,
+     "loc": [
+      532,
+      220
+     ],
+     "peaks": 121012,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "mortar",
+   "level": 4,
+   "file": "assets/coc/buildings/mortar/level-4.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8698,
+     "loc": [
+      189,
+      655
+     ],
+     "peaks": 181304,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.884,
+     "loc": [
+      416,
+      143
+     ],
+     "peaks": 2214,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.8826,
+     "loc": [
+      132,
+      115
+     ],
+     "peaks": 91386,
+     "scale": 0.25
+    }
+   }
+  },
+  {
+   "type": "mortar",
+   "level": 5,
+   "file": "assets/coc/buildings/mortar/level-5.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8589,
+     "loc": [
+      543,
+      647
+     ],
+     "peaks": 164488,
+     "scale": 0.2
+    },
+    "bb_clean": {
+     "score": 0.8794,
+     "loc": [
+      431,
+      146
+     ],
+     "peaks": 2290,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.8816,
+     "loc": [
+      139,
+      116
+     ],
+     "peaks": 106243,
+     "scale": 0.2
+    }
+   }
+  },
+  {
+   "type": "mortar",
+   "level": 6,
+   "file": "assets/coc/buildings/mortar/level-6.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8729,
+     "loc": [
+      543,
+      647
+     ],
+     "peaks": 163587,
+     "scale": 0.2
+    },
+    "bb_clean": {
+     "score": 0.8923,
+     "loc": [
+      291,
+      58
+     ],
+     "peaks": 1348,
+     "scale": 0.25
+    },
+    "bb_panel": {
+     "score": 0.8929,
+     "loc": [
+      303,
+      69
+     ],
+     "peaks": 91555,
+     "scale": 0.25
+    }
+   }
+  },
+  {
+   "type": "mortar",
+   "level": 7,
+   "file": "assets/coc/buildings/mortar/level-7.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.853,
+     "loc": [
+      356,
+      656
+     ],
+     "peaks": 160319,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.8546,
+     "loc": [
+      144,
+      38
+     ],
+     "peaks": 2190,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.8613,
+     "loc": [
+      878,
+      321
+     ],
+     "peaks": 110338,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "mortar",
+   "level": 8,
+   "file": "assets/coc/buildings/mortar/level-8.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8593,
+     "loc": [
+      238,
+      595
+     ],
+     "peaks": 153866,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.8596,
+     "loc": [
+      126,
+      159
+     ],
+     "peaks": 1575,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.8593,
+     "loc": [
+      100,
+      606
+     ],
+     "peaks": 108782,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "mortar",
+   "level": 9,
+   "file": "assets/coc/buildings/mortar/level-9.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8826,
+     "loc": [
+      237,
+      594
+     ],
+     "peaks": 160709,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.8845,
+     "loc": [
+      105,
+      617
+     ],
+     "peaks": 1589,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.8845,
+     "loc": [
+      105,
+      617
+     ],
+     "peaks": 106240,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "mortar",
+   "level": 10,
+   "file": "assets/coc/buildings/mortar/level-10.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8385,
+     "loc": [
+      277,
+      686
+     ],
+     "peaks": 151224,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.8408,
+     "loc": [
+      926,
+      686
+     ],
+     "peaks": 1389,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.8324,
+     "loc": [
+      981,
+      683
+     ],
+     "peaks": 98629,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "mortar",
+   "level": 11,
+   "file": "assets/coc/buildings/mortar/level-11.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8405,
+     "loc": [
+      277,
+      686
+     ],
+     "peaks": 150983,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.8444,
+     "loc": [
+      125,
+      156
+     ],
+     "peaks": 1481,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.8396,
+     "loc": [
+      980,
+      685
+     ],
+     "peaks": 98930,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "mortar",
+   "level": 12,
+   "file": "assets/coc/buildings/mortar/level-12.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8102,
+     "loc": [
+      276,
+      686
+     ],
+     "peaks": 147162,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.8189,
+     "loc": [
+      926,
+      687
+     ],
+     "peaks": 1480,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.8225,
+     "loc": [
+      422,
+      116
+     ],
+     "peaks": 97762,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "mortar",
+   "level": 13,
+   "file": "assets/coc/buildings/mortar/level-13.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.7774,
+     "loc": [
+      343,
+      509
+     ],
+     "peaks": 145896,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.7785,
+     "loc": [
+      650,
+      183
+     ],
+     "peaks": 1492,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.7794,
+     "loc": [
+      614,
+      478
+     ],
+     "peaks": 77301,
+     "scale": 0.2
+    }
+   }
+  },
+  {
+   "type": "mortar",
+   "level": 14,
+   "file": "assets/coc/buildings/mortar/level-14.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8178,
+     "loc": [
+      291,
+      592
+     ],
+     "peaks": 116040,
+     "scale": 0.2
+    },
+    "bb_clean": {
+     "score": 0.8471,
+     "loc": [
+      335,
+      190
+     ],
+     "peaks": 1020,
+     "scale": 0.25
+    },
+    "bb_panel": {
+     "score": 0.8484,
+     "loc": [
+      349,
+      198
+     ],
+     "peaks": 74701,
+     "scale": 0.2
+    }
+   }
+  },
+  {
+   "type": "mortar",
+   "level": 15,
+   "file": "assets/coc/buildings/mortar/level-15.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8533,
+     "loc": [
+      277,
+      335
+     ],
+     "peaks": 101788,
+     "scale": 0.25
+    },
+    "bb_clean": {
+     "score": 0.8473,
+     "loc": [
+      610,
+      475
+     ],
+     "peaks": 1134,
+     "scale": 0.25
+    },
+    "bb_panel": {
+     "score": 0.8494,
+     "loc": [
+      611,
+      470
+     ],
+     "peaks": 66939,
+     "scale": 0.25
+    }
+   }
+  },
+  {
+   "type": "mortar",
+   "level": 16,
+   "file": "assets/coc/buildings/mortar/level-16.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8488,
+     "loc": [
+      149,
+      547
+     ],
+     "peaks": 102959,
+     "scale": 0.25
+    },
+    "bb_clean": {
+     "score": 0.8825,
+     "loc": [
+      543,
+      15
+     ],
+     "peaks": 1166,
+     "scale": 0.2
+    },
+    "bb_panel": {
+     "score": 0.8787,
+     "loc": [
+      77,
+      433
+     ],
+     "peaks": 78251,
+     "scale": 0.2
+    }
+   }
+  },
+  {
+   "type": "mortar",
+   "level": 17,
+   "file": "assets/coc/buildings/mortar/level-17.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.7638,
+     "loc": [
+      559,
+      176
+     ],
+     "peaks": 102,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.7753,
+     "loc": [
+      705,
+      118
+     ],
+     "peaks": 84,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.7688,
+     "loc": [
+      469,
+      55
+     ],
+     "peaks": 61,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "mortar",
+   "level": 18,
+   "file": "assets/coc/buildings/mortar/level-18.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8283,
+     "loc": [
+      18,
+      372
+     ],
+     "peaks": 99462,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.83,
+     "loc": [
+      18,
+      375
+     ],
+     "peaks": 1073,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.83,
+     "loc": [
+      18,
+      375
+     ],
+     "peaks": 65668,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "multiarcher",
+   "level": 1,
+   "file": "assets/coc/buildings/multi-archer-tower/level-1.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8178,
+     "loc": [
+      297,
+      596
+     ],
+     "peaks": 110892,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.842,
+     "loc": [
+      1087,
+      539
+     ],
+     "peaks": 1266,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.8416,
+     "loc": [
+      1071,
+      533
+     ],
+     "peaks": 72807,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "multiarcher",
+   "level": 2,
+   "file": "assets/coc/buildings/multi-archer-tower/level-2.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8378,
+     "loc": [
+      273,
+      578
+     ],
+     "peaks": 113208,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.8578,
+     "loc": [
+      320,
+      40
+     ],
+     "peaks": 1235,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.8574,
+     "loc": [
+      334,
+      52
+     ],
+     "peaks": 72701,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "multiarcher",
+   "level": 3,
+   "file": "assets/coc/buildings/multi-archer-tower/level-3.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8449,
+     "loc": [
+      370,
+      658
+     ],
+     "peaks": 86932,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.8336,
+     "loc": [
+      1161,
+      380
+     ],
+     "peaks": 790,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.8298,
+     "loc": [
+      72,
+      98
+     ],
+     "peaks": 58983,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "multiarcher",
+   "level": 4,
+   "file": "assets/coc/buildings/multi-archer-tower/level-4.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8673,
+     "loc": [
+      438,
+      477
+     ],
+     "peaks": 85406,
+     "scale": 0.2
+    },
+    "bb_clean": {
+     "score": 0.864,
+     "loc": [
+      1163,
+      613
+     ],
+     "peaks": 1341,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.864,
+     "loc": [
+      1163,
+      613
+     ],
+     "peaks": 69248,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "scatter",
+   "level": 1,
+   "file": "assets/coc/buildings/scattershot/level-1.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8315,
+     "loc": [
+      948,
+      676
+     ],
+     "peaks": 136169,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.8308,
+     "loc": [
+      949,
+      676
+     ],
+     "peaks": 1383,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.8308,
+     "loc": [
+      949,
+      676
+     ],
+     "peaks": 88775,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "scatter",
+   "level": 2,
+   "file": "assets/coc/buildings/scattershot/level-2.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8341,
+     "loc": [
+      884,
+      499
+     ],
+     "peaks": 134004,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.8301,
+     "loc": [
+      947,
+      675
+     ],
+     "peaks": 1456,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.8269,
+     "loc": [
+      948,
+      675
+     ],
+     "peaks": 88306,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "scatter",
+   "level": 3,
+   "file": "assets/coc/buildings/scattershot/level-3.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8468,
+     "loc": [
+      443,
+      503
+     ],
+     "peaks": 130813,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.8534,
+     "loc": [
+      927,
+      688
+     ],
+     "peaks": 1202,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.8493,
+     "loc": [
+      1163,
+      627
+     ],
+     "peaks": 85599,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "scatter",
+   "level": 4,
+   "file": "assets/coc/buildings/scattershot/level-4.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8579,
+     "loc": [
+      438,
+      493
+     ],
+     "peaks": 106255,
+     "scale": 0.2
+    },
+    "bb_clean": {
+     "score": 0.858,
+     "loc": [
+      1163,
+      626
+     ],
+     "peaks": 1400,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.858,
+     "loc": [
+      1163,
+      626
+     ],
+     "peaks": 86103,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "scatter",
+   "level": 5,
+   "file": "assets/coc/buildings/scattershot/level-5.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8239,
+     "loc": [
+      275,
+      618
+     ],
+     "peaks": 136120,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.8588,
+     "loc": [
+      153,
+      149
+     ],
+     "peaks": 1242,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.8563,
+     "loc": [
+      355,
+      216
+     ],
+     "peaks": 86099,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "scatter",
+   "level": 6,
+   "file": "assets/coc/buildings/scattershot/level-6.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8532,
+     "loc": [
+      637,
+      474
+     ],
+     "peaks": 57006,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.8407,
+     "loc": [
+      627,
+      497
+     ],
+     "peaks": 486,
+     "scale": 0.25
+    },
+    "bb_panel": {
+     "score": 0.849,
+     "loc": [
+      1192,
+      167
+     ],
+     "peaks": 44837,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "scatter",
+   "level": 7,
+   "file": "assets/coc/buildings/scattershot/level-7.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.9136,
+     "loc": [
+      240,
+      558
+     ],
+     "peaks": 181490,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.9058,
+     "loc": [
+      683,
+      497
+     ],
+     "peaks": 1681,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.9075,
+     "loc": [
+      683,
+      493
+     ],
+     "peaks": 114980,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "spelltower",
+   "level": 1,
+   "file": "assets/coc/buildings/spell-tower/level-1.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8993,
+     "loc": [
+      1227,
+      127
+     ],
+     "peaks": 143931,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.8947,
+     "loc": [
+      264,
+      145
+     ],
+     "peaks": 1429,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.896,
+     "loc": [
+      663,
+      247
+     ],
+     "peaks": 96580,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "spelltower",
+   "level": 2,
+   "file": "assets/coc/buildings/spell-tower/level-2.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.889,
+     "loc": [
+      1226,
+      127
+     ],
+     "peaks": 144815,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.8903,
+     "loc": [
+      265,
+      146
+     ],
+     "peaks": 1454,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.8907,
+     "loc": [
+      278,
+      153
+     ],
+     "peaks": 94554,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "spelltower",
+   "level": 3,
+   "file": "assets/coc/buildings/spell-tower/level-3.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8856,
+     "loc": [
+      301,
+      599
+     ],
+     "peaks": 144723,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.8865,
+     "loc": [
+      265,
+      144
+     ],
+     "peaks": 1394,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.8857,
+     "loc": [
+      278,
+      152
+     ],
+     "peaks": 95755,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "spelltower",
+   "level": 4,
+   "file": "assets/coc/buildings/spell-tower/level-4.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8421,
+     "loc": [
+      445,
+      451
+     ],
+     "peaks": 26313,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.8403,
+     "loc": [
+      647,
+      532
+     ],
+     "peaks": 470,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.8376,
+     "loc": [
+      1173,
+      143
+     ],
+     "peaks": 33153,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "sweeper",
+   "level": 1,
+   "file": "assets/coc/buildings/air-sweeper/level-1.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8326,
+     "loc": [
+      822,
+      106
+     ],
+     "peaks": 152351,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.8431,
+     "loc": [
+      568,
+      512
+     ],
+     "peaks": 1705,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.8441,
+     "loc": [
+      570,
+      189
+     ],
+     "peaks": 100066,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "sweeper",
+   "level": 2,
+   "file": "assets/coc/buildings/air-sweeper/level-2.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8229,
+     "loc": [
+      823,
+      548
+     ],
+     "peaks": 152172,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.8368,
+     "loc": [
+      659,
+      522
+     ],
+     "peaks": 1731,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.8338,
+     "loc": [
+      658,
+      516
+     ],
+     "peaks": 100169,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "sweeper",
+   "level": 3,
+   "file": "assets/coc/buildings/air-sweeper/level-3.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.822,
+     "loc": [
+      1243,
+      132
+     ],
+     "peaks": 152281,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.8332,
+     "loc": [
+      659,
+      522
+     ],
+     "peaks": 1749,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.8329,
+     "loc": [
+      494,
+      476
+     ],
+     "peaks": 18828,
+     "scale": 1.0
+    }
+   }
+  },
+  {
+   "type": "sweeper",
+   "level": 4,
+   "file": "assets/coc/buildings/air-sweeper/level-4.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8165,
+     "loc": [
+      844,
+      335
+     ],
+     "peaks": 148380,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.8276,
+     "loc": [
+      157,
+      143
+     ],
+     "peaks": 1188,
+     "scale": 0.25
+    },
+    "bb_panel": {
+     "score": 0.8257,
+     "loc": [
+      178,
+      151
+     ],
+     "peaks": 69896,
+     "scale": 0.25
+    }
+   }
+  },
+  {
+   "type": "sweeper",
+   "level": 5,
+   "file": "assets/coc/buildings/air-sweeper/level-5.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8421,
+     "loc": [
+      189,
+      646
+     ],
+     "peaks": 148547,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.8525,
+     "loc": [
+      562,
+      421
+     ],
+     "peaks": 1710,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.852,
+     "loc": [
+      512,
+      418
+     ],
+     "peaks": 98091,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "sweeper",
+   "level": 6,
+   "file": "assets/coc/buildings/air-sweeper/level-6.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8468,
+     "loc": [
+      151,
+      614
+     ],
+     "peaks": 125074,
+     "scale": 0.2
+    },
+    "bb_clean": {
+     "score": 0.8669,
+     "loc": [
+      601,
+      553
+     ],
+     "peaks": 1340,
+     "scale": 0.2
+    },
+    "bb_panel": {
+     "score": 0.8683,
+     "loc": [
+      657,
+      584
+     ],
+     "peaks": 81894,
+     "scale": 0.2
+    }
+   }
+  },
+  {
+   "type": "sweeper",
+   "level": 7,
+   "file": "assets/coc/buildings/air-sweeper/level-7.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8417,
+     "loc": [
+      1163,
+      620
+     ],
+     "peaks": 122316,
+     "scale": 0.2
+    },
+    "bb_clean": {
+     "score": 0.8459,
+     "loc": [
+      656,
+      499
+     ],
+     "peaks": 506,
+     "scale": 1.0
+    },
+    "bb_panel": {
+     "score": 0.8455,
+     "loc": [
+      678,
+      197
+     ],
+     "peaks": 81364,
+     "scale": 0.2
+    }
+   }
+  },
+  {
+   "type": "tesla",
+   "level": 1,
+   "file": "assets/coc/buildings/hidden-tesla/level-1.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8336,
+     "loc": [
+      201,
+      666
+     ],
+     "peaks": 124864,
+     "scale": 0.2
+    },
+    "bb_clean": {
+     "score": 0.8371,
+     "loc": [
+      672,
+      591
+     ],
+     "peaks": 1875,
+     "scale": 0.2
+    },
+    "bb_panel": {
+     "score": 0.8382,
+     "loc": [
+      670,
+      581
+     ],
+     "peaks": 82291,
+     "scale": 0.2
+    }
+   }
+  },
+  {
+   "type": "tesla",
+   "level": 2,
+   "file": "assets/coc/buildings/hidden-tesla/level-2.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8346,
+     "loc": [
+      1179,
+      631
+     ],
+     "peaks": 149654,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.8388,
+     "loc": [
+      45,
+      615
+     ],
+     "peaks": 1924,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.8408,
+     "loc": [
+      665,
+      582
+     ],
+     "peaks": 100362,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "tesla",
+   "level": 3,
+   "file": "assets/coc/buildings/hidden-tesla/level-3.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8457,
+     "loc": [
+      442,
+      486
+     ],
+     "peaks": 108888,
+     "scale": 0.25
+    },
+    "bb_clean": {
+     "score": 0.8513,
+     "loc": [
+      45,
+      615
+     ],
+     "peaks": 1919,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.8513,
+     "loc": [
+      45,
+      615
+     ],
+     "peaks": 100401,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "tesla",
+   "level": 4,
+   "file": "assets/coc/buildings/hidden-tesla/level-4.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8477,
+     "loc": [
+      278,
+      685
+     ],
+     "peaks": 149748,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.8554,
+     "loc": [
+      45,
+      615
+     ],
+     "peaks": 1989,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.8554,
+     "loc": [
+      45,
+      615
+     ],
+     "peaks": 100466,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "tesla",
+   "level": 5,
+   "file": "assets/coc/buildings/hidden-tesla/level-5.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8387,
+     "loc": [
+      278,
+      685
+     ],
+     "peaks": 149294,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.8443,
+     "loc": [
+      45,
+      615
+     ],
+     "peaks": 1968,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.8443,
+     "loc": [
+      45,
+      615
+     ],
+     "peaks": 99492,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "tesla",
+   "level": 6,
+   "file": "assets/coc/buildings/hidden-tesla/level-6.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.831,
+     "loc": [
+      240,
+      591
+     ],
+     "peaks": 149345,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.8439,
+     "loc": [
+      87,
+      137
+     ],
+     "peaks": 1936,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.8434,
+     "loc": [
+      129,
+      536
+     ],
+     "peaks": 99387,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "tesla",
+   "level": 7,
+   "file": "assets/coc/buildings/hidden-tesla/level-7.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8453,
+     "loc": [
+      309,
+      605
+     ],
+     "peaks": 139173,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.8496,
+     "loc": [
+      929,
+      682
+     ],
+     "peaks": 1663,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.8514,
+     "loc": [
+      116,
+      155
+     ],
+     "peaks": 92260,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "tesla",
+   "level": 8,
+   "file": "assets/coc/buildings/hidden-tesla/level-8.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8575,
+     "loc": [
+      278,
+      681
+     ],
+     "peaks": 146326,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.8577,
+     "loc": [
+      409,
+      76
+     ],
+     "peaks": 1770,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.8609,
+     "loc": [
+      553,
+      168
+     ],
+     "peaks": 94705,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "tesla",
+   "level": 9,
+   "file": "assets/coc/buildings/hidden-tesla/level-9.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8527,
+     "loc": [
+      1163,
+      617
+     ],
+     "peaks": 140925,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.8711,
+     "loc": [
+      520,
+      204
+     ],
+     "peaks": 1635,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.8711,
+     "loc": [
+      798,
+      245
+     ],
+     "peaks": 92544,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "tesla",
+   "level": 10,
+   "file": "assets/coc/buildings/hidden-tesla/level-10.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8732,
+     "loc": [
+      1241,
+      128
+     ],
+     "peaks": 129431,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.8566,
+     "loc": [
+      81,
+      112
+     ],
+     "peaks": 1072,
+     "scale": 0.25
+    },
+    "bb_panel": {
+     "score": 0.8566,
+     "loc": [
+      81,
+      112
+     ],
+     "peaks": 60854,
+     "scale": 0.25
+    }
+   }
+  },
+  {
+   "type": "tesla",
+   "level": 11,
+   "file": "assets/coc/buildings/hidden-tesla/level-11.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8681,
+     "loc": [
+      318,
+      667
+     ],
+     "peaks": 98962,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.8736,
+     "loc": [
+      26,
+      212
+     ],
+     "peaks": 1070,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.8733,
+     "loc": [
+      14,
+      109
+     ],
+     "peaks": 64567,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "tesla",
+   "level": 12,
+   "file": "assets/coc/buildings/hidden-tesla/level-12.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8359,
+     "loc": [
+      378,
+      669
+     ],
+     "peaks": 102247,
+     "scale": 0.2
+    },
+    "bb_clean": {
+     "score": 0.8305,
+     "loc": [
+      994,
+      26
+     ],
+     "peaks": 1426,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.8303,
+     "loc": [
+      533,
+      227
+     ],
+     "peaks": 68077,
+     "scale": 0.2
+    }
+   }
+  },
+  {
+   "type": "tesla",
+   "level": 13,
+   "file": "assets/coc/buildings/hidden-tesla/level-13.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8442,
+     "loc": [
+      295,
+      665
+     ],
+     "peaks": 125409,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.854,
+     "loc": [
+      926,
+      678
+     ],
+     "peaks": 1391,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.847,
+     "loc": [
+      533,
+      227
+     ],
+     "peaks": 66988,
+     "scale": 0.2
+    }
+   }
+  },
+  {
+   "type": "tesla",
+   "level": 14,
+   "file": "assets/coc/buildings/hidden-tesla/level-14.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8395,
+     "loc": [
+      1162,
+      609
+     ],
+     "peaks": 99855,
+     "scale": 0.2
+    },
+    "bb_clean": {
+     "score": 0.8553,
+     "loc": [
+      926,
+      678
+     ],
+     "peaks": 1380,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.8503,
+     "loc": [
+      1161,
+      611
+     ],
+     "peaks": 66762,
+     "scale": 0.2
+    }
+   }
+  },
+  {
+   "type": "tesla",
+   "level": 15,
+   "file": "assets/coc/buildings/hidden-tesla/level-15.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8136,
+     "loc": [
+      819,
+      97
+     ],
+     "peaks": 112765,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.8348,
+     "loc": [
+      1156,
+      388
+     ],
+     "peaks": 690,
+     "scale": 0.35
+    },
+    "bb_panel": {
+     "score": 0.826,
+     "loc": [
+      505,
+      465
+     ],
+     "peaks": 11309,
+     "scale": 0.8
+    }
+   }
+  },
+  {
+   "type": "tesla",
+   "level": 16,
+   "file": "assets/coc/buildings/hidden-tesla/level-16.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.7573,
+     "loc": [
+      659,
+      372
+     ],
+     "peaks": 6729,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.7608,
+     "loc": [
+      660,
+      488
+     ],
+     "peaks": 682,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.76,
+     "loc": [
+      659,
+      482
+     ],
+     "peaks": 18958,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "tesla",
+   "level": 17,
+   "file": "assets/coc/buildings/hidden-tesla/level-17.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.7995,
+     "loc": [
+      238,
+      403
+     ],
+     "peaks": 10747,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.8305,
+     "loc": [
+      631,
+      488
+     ],
+     "peaks": 370,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.8253,
+     "loc": [
+      626,
+      480
+     ],
+     "peaks": 24735,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "townhall",
+   "level": 1,
+   "file": "assets/coc/buildings/town-hall/level-1.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.868,
+     "loc": [
+      154,
+      553
+     ],
+     "peaks": 22211,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.9366,
+     "loc": [
+      503,
+      533
+     ],
+     "peaks": 229,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.9371,
+     "loc": [
+      509,
+      526
+     ],
+     "peaks": 28843,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "townhall",
+   "level": 2,
+   "file": "assets/coc/buildings/town-hall/level-2.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8746,
+     "loc": [
+      154,
+      552
+     ],
+     "peaks": 19348,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.9423,
+     "loc": [
+      500,
+      531
+     ],
+     "peaks": 220,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.9436,
+     "loc": [
+      507,
+      525
+     ],
+     "peaks": 27768,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "townhall",
+   "level": 3,
+   "file": "assets/coc/buildings/town-hall/level-3.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8692,
+     "loc": [
+      142,
+      545
+     ],
+     "peaks": 8299,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.9321,
+     "loc": [
+      499,
+      516
+     ],
+     "peaks": 316,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.9335,
+     "loc": [
+      508,
+      515
+     ],
+     "peaks": 25906,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "townhall",
+   "level": 4,
+   "file": "assets/coc/buildings/town-hall/level-4.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8615,
+     "loc": [
+      142,
+      535
+     ],
+     "peaks": 10811,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.9214,
+     "loc": [
+      492,
+      509
+     ],
+     "peaks": 316,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.9219,
+     "loc": [
+      496,
+      501
+     ],
+     "peaks": 23777,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "townhall",
+   "level": 5,
+   "file": "assets/coc/buildings/town-hall/level-5.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8676,
+     "loc": [
+      141,
+      539
+     ],
+     "peaks": 10914,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.9187,
+     "loc": [
+      384,
+      430
+     ],
+     "peaks": 326,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.9187,
+     "loc": [
+      496,
+      501
+     ],
+     "peaks": 23823,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "townhall",
+   "level": 6,
+   "file": "assets/coc/buildings/town-hall/level-6.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8723,
+     "loc": [
+      144,
+      536
+     ],
+     "peaks": 10279,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.9214,
+     "loc": [
+      382,
+      429
+     ],
+     "peaks": 312,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.9215,
+     "loc": [
+      496,
+      501
+     ],
+     "peaks": 23414,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "townhall",
+   "level": 7,
+   "file": "assets/coc/buildings/town-hall/level-7.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8775,
+     "loc": [
+      146,
+      524
+     ],
+     "peaks": 8307,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.9088,
+     "loc": [
+      386,
+      427
+     ],
+     "peaks": 356,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.9084,
+     "loc": [
+      392,
+      423
+     ],
+     "peaks": 22800,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "townhall",
+   "level": 8,
+   "file": "assets/coc/buildings/town-hall/level-8.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8955,
+     "loc": [
+      153,
+      522
+     ],
+     "peaks": 8788,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.9141,
+     "loc": [
+      703,
+      526
+     ],
+     "peaks": 382,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.9127,
+     "loc": [
+      700,
+      520
+     ],
+     "peaks": 21523,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "townhall",
+   "level": 9,
+   "file": "assets/coc/buildings/town-hall/level-9.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8601,
+     "loc": [
+      644,
+      386
+     ],
+     "peaks": 7372,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.8526,
+     "loc": [
+      784,
+      400
+     ],
+     "peaks": 490,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.8513,
+     "loc": [
+      937,
+      281
+     ],
+     "peaks": 9523,
+     "scale": 0.2
+    }
+   }
+  },
+  {
+   "type": "townhall",
+   "level": 10,
+   "file": "assets/coc/buildings/town-hall/level-10.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8191,
+     "loc": [
+      437,
+      345
+     ],
+     "peaks": 6366,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.8564,
+     "loc": [
+      854,
+      156
+     ],
+     "peaks": 437,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.8521,
+     "loc": [
+      657,
+      553
+     ],
+     "peaks": 17841,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "townhall",
+   "level": 11,
+   "file": "assets/coc/buildings/town-hall/level-11.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8309,
+     "loc": [
+      600,
+      380
+     ],
+     "peaks": 1550,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.8584,
+     "loc": [
+      616,
+      515
+     ],
+     "peaks": 337,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.8547,
+     "loc": [
+      605,
+      466
+     ],
+     "peaks": 4846,
+     "scale": 0.2
+    }
+   }
+  },
+  {
+   "type": "townhall",
+   "level": 12,
+   "file": "assets/coc/buildings/town-hall/level-12.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8099,
+     "loc": [
+      1006,
+      572
+     ],
+     "peaks": 89922,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.8183,
+     "loc": [
+      60,
+      573
+     ],
+     "peaks": 596,
+     "scale": 0.2
+    },
+    "bb_panel": {
+     "score": 0.8182,
+     "loc": [
+      60,
+      573
+     ],
+     "peaks": 51269,
+     "scale": 0.2
+    }
+   }
+  },
+  {
+   "type": "townhall",
+   "level": 13,
+   "file": "assets/coc/buildings/town-hall/level-13.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8151,
+     "loc": [
+      14,
+      373
+     ],
+     "peaks": 72996,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.8077,
+     "loc": [
+      69,
+      95
+     ],
+     "peaks": 981,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.8084,
+     "loc": [
+      69,
+      95
+     ],
+     "peaks": 52526,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "townhall",
+   "level": 14,
+   "file": "assets/coc/buildings/town-hall/level-14.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8461,
+     "loc": [
+      464,
+      484
+     ],
+     "peaks": 69558,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.8482,
+     "loc": [
+      653,
+      530
+     ],
+     "peaks": 512,
+     "scale": 0.25
+    },
+    "bb_panel": {
+     "score": 0.848,
+     "loc": [
+      102,
+      122
+     ],
+     "peaks": 51263,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "townhall",
+   "level": 15,
+   "file": "assets/coc/buildings/town-hall/level-15.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8531,
+     "loc": [
+      474,
+      339
+     ],
+     "peaks": 62288,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.837,
+     "loc": [
+      872,
+      292
+     ],
+     "peaks": 1012,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.8435,
+     "loc": [
+      1159,
+      171
+     ],
+     "peaks": 49650,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "townhall",
+   "level": 16,
+   "file": "assets/coc/buildings/town-hall/level-16.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8652,
+     "loc": [
+      158,
+      570
+     ],
+     "peaks": 69013,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.9097,
+     "loc": [
+      294,
+      104
+     ],
+     "peaks": 631,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.9097,
+     "loc": [
+      305,
+      112
+     ],
+     "peaks": 51461,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "townhall",
+   "level": 17,
+   "file": "assets/coc/buildings/town-hall/level-17.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.7981,
+     "loc": [
+      151,
+      544
+     ],
+     "peaks": 23825,
+     "scale": 0.2
+    },
+    "bb_clean": {
+     "score": 0.8044,
+     "loc": [
+      797,
+      354
+     ],
+     "peaks": 363,
+     "scale": 0.45
+    },
+    "bb_panel": {
+     "score": 0.8075,
+     "loc": [
+      1192,
+      155
+     ],
+     "peaks": 43966,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "townhall",
+   "level": 18,
+   "file": "assets/coc/buildings/town-hall/level-18.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8579,
+     "loc": [
+      490,
+      444
+     ],
+     "peaks": 42194,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.8459,
+     "loc": [
+      682,
+      474
+     ],
+     "peaks": 718,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.846,
+     "loc": [
+      937,
+      281
+     ],
+     "peaks": 30220,
+     "scale": 0.2
+    }
+   }
+  },
+  {
+   "type": "wiztower",
+   "level": 1,
+   "file": "assets/coc/buildings/wizard-tower/level-1.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.9211,
+     "loc": [
+      1229,
+      130
+     ],
+     "peaks": 140029,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.9165,
+     "loc": [
+      90,
+      598
+     ],
+     "peaks": 1468,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.9165,
+     "loc": [
+      90,
+      598
+     ],
+     "peaks": 93380,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "wiztower",
+   "level": 2,
+   "file": "assets/coc/buildings/wizard-tower/level-2.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.918,
+     "loc": [
+      357,
+      638
+     ],
+     "peaks": 138208,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.9163,
+     "loc": [
+      925,
+      681
+     ],
+     "peaks": 1415,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.9149,
+     "loc": [
+      1165,
+      625
+     ],
+     "peaks": 92846,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "wiztower",
+   "level": 3,
+   "file": "assets/coc/buildings/wizard-tower/level-3.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.9214,
+     "loc": [
+      1229,
+      131
+     ],
+     "peaks": 139507,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.9155,
+     "loc": [
+      925,
+      680
+     ],
+     "peaks": 1387,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.9137,
+     "loc": [
+      102,
+      613
+     ],
+     "peaks": 93102,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "wiztower",
+   "level": 4,
+   "file": "assets/coc/buildings/wizard-tower/level-4.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8997,
+     "loc": [
+      1230,
+      130
+     ],
+     "peaks": 138641,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.8895,
+     "loc": [
+      317,
+      660
+     ],
+     "peaks": 1583,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.8952,
+     "loc": [
+      972,
+      172
+     ],
+     "peaks": 73148,
+     "scale": 0.2
+    }
+   }
+  },
+  {
+   "type": "wiztower",
+   "level": 5,
+   "file": "assets/coc/buildings/wizard-tower/level-5.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.9194,
+     "loc": [
+      1076,
+      75
+     ],
+     "peaks": 140001,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.9053,
+     "loc": [
+      1239,
+      78
+     ],
+     "peaks": 1287,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.9045,
+     "loc": [
+      1009,
+      693
+     ],
+     "peaks": 94295,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "wiztower",
+   "level": 6,
+   "file": "assets/coc/buildings/wizard-tower/level-6.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.9469,
+     "loc": [
+      1240,
+      69
+     ],
+     "peaks": 144837,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.9309,
+     "loc": [
+      1240,
+      71
+     ],
+     "peaks": 1330,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.9185,
+     "loc": [
+      808,
+      288
+     ],
+     "peaks": 96286,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "wiztower",
+   "level": 7,
+   "file": "assets/coc/buildings/wizard-tower/level-7.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8577,
+     "loc": [
+      1015,
+      78
+     ],
+     "peaks": 135690,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.8457,
+     "loc": [
+      324,
+      2
+     ],
+     "peaks": 1480,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.842,
+     "loc": [
+      949,
+      242
+     ],
+     "peaks": 90858,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "wiztower",
+   "level": 8,
+   "file": "assets/coc/buildings/wizard-tower/level-8.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8822,
+     "loc": [
+      1228,
+      126
+     ],
+     "peaks": 124496,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.8778,
+     "loc": [
+      974,
+      693
+     ],
+     "peaks": 1381,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.8812,
+     "loc": [
+      938,
+      692
+     ],
+     "peaks": 87742,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "wiztower",
+   "level": 9,
+   "file": "assets/coc/buildings/wizard-tower/level-9.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8855,
+     "loc": [
+      380,
+      669
+     ],
+     "peaks": 102712,
+     "scale": 0.2
+    },
+    "bb_clean": {
+     "score": 0.8796,
+     "loc": [
+      88,
+      108
+     ],
+     "peaks": 821,
+     "scale": 0.2
+    },
+    "bb_panel": {
+     "score": 0.8801,
+     "loc": [
+      88,
+      108
+     ],
+     "peaks": 67855,
+     "scale": 0.2
+    }
+   }
+  },
+  {
+   "type": "wiztower",
+   "level": 10,
+   "file": "assets/coc/buildings/wizard-tower/level-10.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.9254,
+     "loc": [
+      1109,
+      127
+     ],
+     "peaks": 127481,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.9241,
+     "loc": [
+      1027,
+      691
+     ],
+     "peaks": 1027,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.9198,
+     "loc": [
+      19,
+      113
+     ],
+     "peaks": 84626,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "wiztower",
+   "level": 11,
+   "file": "assets/coc/buildings/wizard-tower/level-11.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8973,
+     "loc": [
+      1110,
+      127
+     ],
+     "peaks": 125191,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.8898,
+     "loc": [
+      1045,
+      29
+     ],
+     "peaks": 1079,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.8858,
+     "loc": [
+      947,
+      168
+     ],
+     "peaks": 84644,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "wiztower",
+   "level": 12,
+   "file": "assets/coc/buildings/wizard-tower/level-12.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.9051,
+     "loc": [
+      1239,
+      125
+     ],
+     "peaks": 126722,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.8921,
+     "loc": [
+      42,
+      113
+     ],
+     "peaks": 907,
+     "scale": 0.2
+    },
+    "bb_panel": {
+     "score": 0.8907,
+     "loc": [
+      75,
+      218
+     ],
+     "peaks": 82835,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "wiztower",
+   "level": 13,
+   "file": "assets/coc/buildings/wizard-tower/level-13.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.9017,
+     "loc": [
+      1239,
+      125
+     ],
+     "peaks": 126428,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.8886,
+     "loc": [
+      42,
+      113
+     ],
+     "peaks": 931,
+     "scale": 0.2
+    },
+    "bb_panel": {
+     "score": 0.8892,
+     "loc": [
+      75,
+      218
+     ],
+     "peaks": 83396,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "wiztower",
+   "level": 14,
+   "file": "assets/coc/buildings/wizard-tower/level-14.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8819,
+     "loc": [
+      380,
+      669
+     ],
+     "peaks": 98410,
+     "scale": 0.2
+    },
+    "bb_clean": {
+     "score": 0.8835,
+     "loc": [
+      38,
+      111
+     ],
+     "peaks": 836,
+     "scale": 0.2
+    },
+    "bb_panel": {
+     "score": 0.8836,
+     "loc": [
+      27,
+      111
+     ],
+     "peaks": 65802,
+     "scale": 0.2
+    }
+   }
+  },
+  {
+   "type": "wiztower",
+   "level": 15,
+   "file": "assets/coc/buildings/wizard-tower/level-15.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8694,
+     "loc": [
+      1238,
+      125
+     ],
+     "peaks": 128385,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.8636,
+     "loc": [
+      263,
+      147
+     ],
+     "peaks": 1225,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.8639,
+     "loc": [
+      276,
+      155
+     ],
+     "peaks": 86091,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "wiztower",
+   "level": 16,
+   "file": "assets/coc/buildings/wizard-tower/level-16.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8654,
+     "loc": [
+      1240,
+      124
+     ],
+     "peaks": 125508,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.8776,
+     "loc": [
+      194,
+      154
+     ],
+     "peaks": 1269,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.8784,
+     "loc": [
+      209,
+      161
+     ],
+     "peaks": 83922,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "wiztower",
+   "level": 17,
+   "file": "assets/coc/buildings/wizard-tower/level-17.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8763,
+     "loc": [
+      239,
+      547
+     ],
+     "peaks": 104809,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.8687,
+     "loc": [
+      649,
+      495
+     ],
+     "peaks": 835,
+     "scale": 0.25
+    },
+    "bb_panel": {
+     "score": 0.8691,
+     "loc": [
+      647,
+      489
+     ],
+     "peaks": 49167,
+     "scale": 0.25
+    }
+   }
+  },
+  {
+   "type": "xbow",
+   "level": 1,
+   "file": "assets/coc/buildings/x-bow/level-1.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8454,
+     "loc": [
+      445,
+      499
+     ],
+     "peaks": 134713,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.8382,
+     "loc": [
+      1164,
+      625
+     ],
+     "peaks": 1524,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.8382,
+     "loc": [
+      1164,
+      625
+     ],
+     "peaks": 91625,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "xbow",
+   "level": 2,
+   "file": "assets/coc/buildings/x-bow/level-2.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8306,
+     "loc": [
+      439,
+      493
+     ],
+     "peaks": 107792,
+     "scale": 0.2
+    },
+    "bb_clean": {
+     "score": 0.8325,
+     "loc": [
+      120,
+      142
+     ],
+     "peaks": 1337,
+     "scale": 0.2
+    },
+    "bb_panel": {
+     "score": 0.8305,
+     "loc": [
+      200,
+      142
+     ],
+     "peaks": 68743,
+     "scale": 0.2
+    }
+   }
+  },
+  {
+   "type": "xbow",
+   "level": 3,
+   "file": "assets/coc/buildings/x-bow/level-3.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8383,
+     "loc": [
+      380,
+      660
+     ],
+     "peaks": 102294,
+     "scale": 0.2
+    },
+    "bb_clean": {
+     "score": 0.8395,
+     "loc": [
+      380,
+      660
+     ],
+     "peaks": 1076,
+     "scale": 0.2
+    },
+    "bb_panel": {
+     "score": 0.8399,
+     "loc": [
+      380,
+      660
+     ],
+     "peaks": 65254,
+     "scale": 0.2
+    }
+   }
+  },
+  {
+   "type": "xbow",
+   "level": 4,
+   "file": "assets/coc/buildings/x-bow/level-4.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8344,
+     "loc": [
+      442,
+      501
+     ],
+     "peaks": 130265,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.8502,
+     "loc": [
+      1163,
+      626
+     ],
+     "peaks": 1424,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.8502,
+     "loc": [
+      1163,
+      626
+     ],
+     "peaks": 84014,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "xbow",
+   "level": 5,
+   "file": "assets/coc/buildings/x-bow/level-5.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8326,
+     "loc": [
+      1164,
+      624
+     ],
+     "peaks": 130405,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.8453,
+     "loc": [
+      477,
+      581
+     ],
+     "peaks": 1211,
+     "scale": 0.2
+    },
+    "bb_panel": {
+     "score": 0.8438,
+     "loc": [
+      383,
+      44
+     ],
+     "peaks": 68314,
+     "scale": 0.2
+    }
+   }
+  },
+  {
+   "type": "xbow",
+   "level": 6,
+   "file": "assets/coc/buildings/x-bow/level-6.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8413,
+     "loc": [
+      1159,
+      615
+     ],
+     "peaks": 110179,
+     "scale": 0.2
+    },
+    "bb_clean": {
+     "score": 0.848,
+     "loc": [
+      1159,
+      616
+     ],
+     "peaks": 1286,
+     "scale": 0.2
+    },
+    "bb_panel": {
+     "score": 0.848,
+     "loc": [
+      1159,
+      616
+     ],
+     "peaks": 72896,
+     "scale": 0.2
+    }
+   }
+  },
+  {
+   "type": "xbow",
+   "level": 7,
+   "file": "assets/coc/buildings/x-bow/level-7.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8391,
+     "loc": [
+      444,
+      500
+     ],
+     "peaks": 139875,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.8416,
+     "loc": [
+      525,
+      212
+     ],
+     "peaks": 1403,
+     "scale": 0.2
+    },
+    "bb_panel": {
+     "score": 0.8392,
+     "loc": [
+      528,
+      216
+     ],
+     "peaks": 72652,
+     "scale": 0.2
+    }
+   }
+  },
+  {
+   "type": "xbow",
+   "level": 8,
+   "file": "assets/coc/buildings/x-bow/level-8.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8349,
+     "loc": [
+      1158,
+      614
+     ],
+     "peaks": 107748,
+     "scale": 0.2
+    },
+    "bb_clean": {
+     "score": 0.8428,
+     "loc": [
+      524,
+      211
+     ],
+     "peaks": 1348,
+     "scale": 0.2
+    },
+    "bb_panel": {
+     "score": 0.839,
+     "loc": [
+      528,
+      215
+     ],
+     "peaks": 70802,
+     "scale": 0.2
+    }
+   }
+  },
+  {
+   "type": "xbow",
+   "level": 9,
+   "file": "assets/coc/buildings/x-bow/level-9.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8588,
+     "loc": [
+      1164,
+      623
+     ],
+     "peaks": 138660,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.8673,
+     "loc": [
+      1163,
+      625
+     ],
+     "peaks": 1464,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.8673,
+     "loc": [
+      1163,
+      625
+     ],
+     "peaks": 90862,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "xbow",
+   "level": 10,
+   "file": "assets/coc/buildings/x-bow/level-10.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8808,
+     "loc": [
+      1162,
+      623
+     ],
+     "peaks": 136142,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.8819,
+     "loc": [
+      1162,
+      624
+     ],
+     "peaks": 1461,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.8819,
+     "loc": [
+      1162,
+      624
+     ],
+     "peaks": 87213,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "xbow",
+   "level": 11,
+   "file": "assets/coc/buildings/x-bow/level-11.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8331,
+     "loc": [
+      197,
+      606
+     ],
+     "peaks": 137597,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.8619,
+     "loc": [
+      335,
+      205
+     ],
+     "peaks": 1529,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.8626,
+     "loc": [
+      346,
+      210
+     ],
+     "peaks": 93036,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "xbow",
+   "level": 12,
+   "file": "assets/coc/buildings/x-bow/level-12.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8313,
+     "loc": [
+      643,
+      479
+     ],
+     "peaks": 53894,
+     "scale": 0.15
+    },
+    "bb_clean": {
+     "score": 0.821,
+     "loc": [
+      650,
+      546
+     ],
+     "peaks": 800,
+     "scale": 0.15
+    },
+    "bb_panel": {
+     "score": 0.8184,
+     "loc": [
+      647,
+      539
+     ],
+     "peaks": 45478,
+     "scale": 0.15
+    }
+   }
+  },
+  {
+   "type": "xbow",
+   "level": 13,
+   "file": "assets/coc/buildings/x-bow/level-13.png",
+   "per_shot": {
+    "home_dialog": {
+     "score": 0.8721,
+     "loc": [
+      204,
+      530
+     ],
+     "peaks": 89685,
+     "scale": 0.2
+    },
+    "bb_clean": {
+     "score": 0.8662,
+     "loc": [
+      108,
+      122
+     ],
+     "peaks": 1144,
+     "scale": 0.2
+    },
+    "bb_panel": {
+     "score": 0.8649,
+     "loc": [
+      642,
+      181
+     ],
+     "peaks": 60407,
+     "scale": 0.2
+    }
+   }
+  }
+ ]
+}

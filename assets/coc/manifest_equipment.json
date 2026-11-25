@@ -1,0 +1,555 @@
+{
+  "package": {
+    "name": "clash-of-clans-data",
+    "version": "0.19.1",
+    "license": "MIT",
+    "tarball": "https://registry.npmjs.org/clash-of-clans-data/-/clash-of-clans-data-0.19.1.tgz",
+    "repo": "https://github.com/chiefpansancolt/clash-of-clans-data"
+  },
+  "fetched": "2026-11-23",
+  "note": "heroes/spells 目录为 clashlab 自有镜像；icons/heroes、icons/spells 为同名副本，兼容两种读取路径。",
+  "equipment": [
+    {
+      "id": "earthquake-boots",
+      "cn": "地震靴",
+      "en": "Earthquake Boots",
+      "hero": "barbarian-king",
+      "rarity": "Common",
+      "alias": "",
+      "source_path": "images/home/hero-equipment/earthquake-boots/icon.png",
+      "source_url": "https://registry.npmjs.org/clash-of-clans-data/-/clash-of-clans-data-0.19.1.tgz",
+      "processed": "alpha 通道外框裁剪 → 正方形补边 → 居中 → 128x128 LANCZOS 缩放，透明底 PNG",
+      "license_note": "素材版权归 Supercell；本仓库仅按 Supercell Fan Content Policy 做本地非商业研究，不随包分发、不用于任何商业用途。",
+      "status": "ok",
+      "size": [
+        128,
+        128
+      ]
+    },
+    {
+      "id": "rage-vial",
+      "cn": "狂暴药水",
+      "en": "Rage Vial",
+      "hero": "barbarian-king",
+      "rarity": "Common",
+      "alias": "",
+      "source_path": "images/home/hero-equipment/rage-vial/icon.png",
+      "source_url": "https://registry.npmjs.org/clash-of-clans-data/-/clash-of-clans-data-0.19.1.tgz",
+      "processed": "alpha 通道外框裁剪 → 正方形补边 → 居中 → 128x128 LANCZOS 缩放，透明底 PNG",
+      "license_note": "素材版权归 Supercell；本仓库仅按 Supercell Fan Content Policy 做本地非商业研究，不随包分发、不用于任何商业用途。",
+      "status": "ok",
+      "size": [
+        128,
+        128
+      ]
+    },
+    {
+      "id": "vampstache",
+      "cn": "吸血胡须",
+      "en": "Vampstache",
+      "hero": "barbarian-king",
+      "rarity": "Common",
+      "alias": "别名 vampire-stache",
+      "source_path": "images/home/hero-equipment/vampstache/icon.png",
+      "source_url": "https://registry.npmjs.org/clash-of-clans-data/-/clash-of-clans-data-0.19.1.tgz",
+      "processed": "alpha 通道外框裁剪 → 正方形补边 → 居中 → 128x128 LANCZOS 缩放，透明底 PNG",
+      "license_note": "素材版权归 Supercell；本仓库仅按 Supercell Fan Content Policy 做本地非商业研究，不随包分发、不用于任何商业用途。",
+      "status": "ok",
+      "size": [
+        128,
+        128
+      ]
+    },
+    {
+      "id": "barbarian-puppet",
+      "cn": "野蛮人木偶",
+      "en": "Barbarian Puppet",
+      "hero": "barbarian-king",
+      "rarity": "Common",
+      "alias": "",
+      "source_path": "images/home/hero-equipment/barbarian-puppet/icon.png",
+      "source_url": "https://registry.npmjs.org/clash-of-clans-data/-/clash-of-clans-data-0.19.1.tgz",
+      "processed": "alpha 通道外框裁剪 → 正方形补边 → 居中 → 128x128 LANCZOS 缩放，透明底 PNG",
+      "license_note": "素材版权归 Supercell；本仓库仅按 Supercell Fan Content Policy 做本地非商业研究，不随包分发、不用于任何商业用途。",
+      "status": "ok",
+      "size": [
+        128,
+        128
+      ]
+    },
+    {
+      "id": "spiky-ball",
+      "cn": "尖刺球",
+      "en": "Spiky Ball",
+      "hero": "barbarian-king",
+      "rarity": "Epic",
+      "alias": "",
+      "source_path": "images/home/hero-equipment/spiky-ball/icon.png",
+      "source_url": "https://registry.npmjs.org/clash-of-clans-data/-/clash-of-clans-data-0.19.1.tgz",
+      "processed": "alpha 通道外框裁剪 → 正方形补边 → 居中 → 128x128 LANCZOS 缩放，透明底 PNG",
+      "license_note": "素材版权归 Supercell；本仓库仅按 Supercell Fan Content Policy 做本地非商业研究，不随包分发、不用于任何商业用途。",
+      "status": "ok",
+      "size": [
+        128,
+        128
+      ]
+    },
+    {
+      "id": "giant-gauntlet",
+      "cn": "巨拳",
+      "en": "Giant Gauntlet",
+      "hero": "barbarian-king",
+      "rarity": "Epic",
+      "alias": "",
+      "source_path": "images/home/hero-equipment/giant-gauntlet/icon.png",
+      "source_url": "https://registry.npmjs.org/clash-of-clans-data/-/clash-of-clans-data-0.19.1.tgz",
+      "processed": "alpha 通道外框裁剪 → 正方形补边 → 居中 → 128x128 LANCZOS 缩放，透明底 PNG",
+      "license_note": "素材版权归 Supercell；本仓库仅按 Supercell Fan Content Policy 做本地非商业研究，不随包分发、不用于任何商业用途。",
+      "status": "ok",
+      "size": [
+        128,
+        128
+      ]
+    },
+    {
+      "id": "snake-bracelet",
+      "cn": "蛇形护腕",
+      "en": "Snake Bracelet",
+      "hero": "barbarian-king",
+      "rarity": "Epic",
+      "alias": "",
+      "source_path": "images/home/hero-equipment/snake-bracelet/icon.png",
+      "source_url": "https://registry.npmjs.org/clash-of-clans-data/-/clash-of-clans-data-0.19.1.tgz",
+      "processed": "alpha 通道外框裁剪 → 正方形补边 → 居中 → 128x128 LANCZOS 缩放，透明底 PNG",
+      "license_note": "素材版权归 Supercell；本仓库仅按 Supercell Fan Content Policy 做本地非商业研究，不随包分发、不用于任何商业用途。",
+      "status": "ok",
+      "size": [
+        128,
+        128
+      ]
+    },
+    {
+      "id": "stick-horse",
+      "cn": "木马",
+      "en": "Stick Horse",
+      "hero": "barbarian-king",
+      "rarity": "Epic",
+      "alias": "",
+      "source_path": "images/home/hero-equipment/stick-horse/icon.png",
+      "source_url": "https://registry.npmjs.org/clash-of-clans-data/-/clash-of-clans-data-0.19.1.tgz",
+      "processed": "alpha 通道外框裁剪 → 正方形补边 → 居中 → 128x128 LANCZOS 缩放，透明底 PNG",
+      "license_note": "素材版权归 Supercell；本仓库仅按 Supercell Fan Content Policy 做本地非商业研究，不随包分发、不用于任何商业用途。",
+      "status": "ok",
+      "size": [
+        128,
+        128
+      ]
+    },
+    {
+      "id": "giant-arrow",
+      "cn": "巨型箭",
+      "en": "Giant Arrow",
+      "hero": "archer-queen",
+      "rarity": "Common",
+      "alias": "",
+      "source_path": "images/home/hero-equipment/giant-arrow/icon.png",
+      "source_url": "https://registry.npmjs.org/clash-of-clans-data/-/clash-of-clans-data-0.19.1.tgz",
+      "processed": "alpha 通道外框裁剪 → 正方形补边 → 居中 → 128x128 LANCZOS 缩放，透明底 PNG",
+      "license_note": "素材版权归 Supercell；本仓库仅按 Supercell Fan Content Policy 做本地非商业研究，不随包分发、不用于任何商业用途。",
+      "status": "ok",
+      "size": [
+        128,
+        128
+      ]
+    },
+    {
+      "id": "invisibility-vial",
+      "cn": "隐身药水",
+      "en": "Invisibility Vial",
+      "hero": "archer-queen",
+      "rarity": "Common",
+      "alias": "",
+      "source_path": "images/home/hero-equipment/invisibility-vial/icon.png",
+      "source_url": "https://registry.npmjs.org/clash-of-clans-data/-/clash-of-clans-data-0.19.1.tgz",
+      "processed": "alpha 通道外框裁剪 → 正方形补边 → 居中 → 128x128 LANCZOS 缩放，透明底 PNG",
+      "license_note": "素材版权归 Supercell；本仓库仅按 Supercell Fan Content Policy 做本地非商业研究，不随包分发、不用于任何商业用途。",
+      "status": "ok",
+      "size": [
+        128,
+        128
+      ]
+    },
+    {
+      "id": "archer-puppet",
+      "cn": "弓箭手木偶",
+      "en": "Archer Puppet",
+      "hero": "archer-queen",
+      "rarity": "Common",
+      "alias": "",
+      "source_path": "images/home/hero-equipment/archer-puppet/icon.png",
+      "source_url": "https://registry.npmjs.org/clash-of-clans-data/-/clash-of-clans-data-0.19.1.tgz",
+      "processed": "alpha 通道外框裁剪 → 正方形补边 → 居中 → 128x128 LANCZOS 缩放，透明底 PNG",
+      "license_note": "素材版权归 Supercell；本仓库仅按 Supercell Fan Content Policy 做本地非商业研究，不随包分发、不用于任何商业用途。",
+      "status": "ok",
+      "size": [
+        128,
+        128
+      ]
+    },
+    {
+      "id": "healer-puppet",
+      "cn": "治疗师木偶",
+      "en": "Healer Puppet",
+      "hero": "archer-queen",
+      "rarity": "Common",
+      "alias": "",
+      "source_path": "images/home/hero-equipment/healer-puppet/icon.png",
+      "source_url": "https://registry.npmjs.org/clash-of-clans-data/-/clash-of-clans-data-0.19.1.tgz",
+      "processed": "alpha 通道外框裁剪 → 正方形补边 → 居中 → 128x128 LANCZOS 缩放，透明底 PNG",
+      "license_note": "素材版权归 Supercell；本仓库仅按 Supercell Fan Content Policy 做本地非商业研究，不随包分发、不用于任何商业用途。",
+      "status": "ok",
+      "size": [
+        128,
+        128
+      ]
+    },
+    {
+      "id": "frozen-arrow",
+      "cn": "寒冰箭",
+      "en": "Frozen Arrow",
+      "hero": "archer-queen",
+      "rarity": "Epic",
+      "alias": "",
+      "source_path": "images/home/hero-equipment/frozen-arrow/icon.png",
+      "source_url": "https://registry.npmjs.org/clash-of-clans-data/-/clash-of-clans-data-0.19.1.tgz",
+      "processed": "alpha 通道外框裁剪 → 正方形补边 → 居中 → 128x128 LANCZOS 缩放，透明底 PNG",
+      "license_note": "素材版权归 Supercell；本仓库仅按 Supercell Fan Content Policy 做本地非商业研究，不随包分发、不用于任何商业用途。",
+      "status": "ok",
+      "size": [
+        128,
+        128
+      ]
+    },
+    {
+      "id": "magic-mirror",
+      "cn": "魔镜",
+      "en": "Magic Mirror",
+      "hero": "archer-queen",
+      "rarity": "Epic",
+      "alias": "",
+      "source_path": "images/home/hero-equipment/magic-mirror/icon.png",
+      "source_url": "https://registry.npmjs.org/clash-of-clans-data/-/clash-of-clans-data-0.19.1.tgz",
+      "processed": "alpha 通道外框裁剪 → 正方形补边 → 居中 → 128x128 LANCZOS 缩放，透明底 PNG",
+      "license_note": "素材版权归 Supercell；本仓库仅按 Supercell Fan Content Policy 做本地非商业研究，不随包分发、不用于任何商业用途。",
+      "status": "ok",
+      "size": [
+        128,
+        128
+      ]
+    },
+    {
+      "id": "eternal-tome",
+      "cn": "永恒之书",
+      "en": "Eternal Tome",
+      "hero": "grand-warden",
+      "rarity": "Common",
+      "alias": "",
+      "source_path": "images/home/hero-equipment/eternal-tome/icon.png",
+      "source_url": "https://registry.npmjs.org/clash-of-clans-data/-/clash-of-clans-data-0.19.1.tgz",
+      "processed": "alpha 通道外框裁剪 → 正方形补边 → 居中 → 128x128 LANCZOS 缩放，透明底 PNG",
+      "license_note": "素材版权归 Supercell；本仓库仅按 Supercell Fan Content Policy 做本地非商业研究，不随包分发、不用于任何商业用途。",
+      "status": "ok",
+      "size": [
+        128,
+        128
+      ]
+    },
+    {
+      "id": "healing-tome",
+      "cn": "治疗之书",
+      "en": "Healing Tome",
+      "hero": "grand-warden",
+      "rarity": "Common",
+      "alias": "",
+      "source_path": "images/home/hero-equipment/healing-tome/icon.png",
+      "source_url": "https://registry.npmjs.org/clash-of-clans-data/-/clash-of-clans-data-0.19.1.tgz",
+      "processed": "alpha 通道外框裁剪 → 正方形补边 → 居中 → 128x128 LANCZOS 缩放，透明底 PNG",
+      "license_note": "素材版权归 Supercell；本仓库仅按 Supercell Fan Content Policy 做本地非商业研究，不随包分发、不用于任何商业用途。",
+      "status": "ok",
+      "size": [
+        128,
+        128
+      ]
+    },
+    {
+      "id": "life-gem",
+      "cn": "生命宝石",
+      "en": "Life Gem",
+      "hero": "grand-warden",
+      "rarity": "Common",
+      "alias": "",
+      "source_path": "images/home/hero-equipment/life-gem/icon.png",
+      "source_url": "https://registry.npmjs.org/clash-of-clans-data/-/clash-of-clans-data-0.19.1.tgz",
+      "processed": "alpha 通道外框裁剪 → 正方形补边 → 居中 → 128x128 LANCZOS 缩放，透明底 PNG",
+      "license_note": "素材版权归 Supercell；本仓库仅按 Supercell Fan Content Policy 做本地非商业研究，不随包分发、不用于任何商业用途。",
+      "status": "ok",
+      "size": [
+        128,
+        128
+      ]
+    },
+    {
+      "id": "rage-gem",
+      "cn": "狂暴宝石",
+      "en": "Rage Gem",
+      "hero": "grand-warden",
+      "rarity": "Common",
+      "alias": "",
+      "source_path": "images/home/hero-equipment/rage-gem/icon.png",
+      "source_url": "https://registry.npmjs.org/clash-of-clans-data/-/clash-of-clans-data-0.19.1.tgz",
+      "processed": "alpha 通道外框裁剪 → 正方形补边 → 居中 → 128x128 LANCZOS 缩放，透明底 PNG",
+      "license_note": "素材版权归 Supercell；本仓库仅按 Supercell Fan Content Policy 做本地非商业研究，不随包分发、不用于任何商业用途。",
+      "status": "ok",
+      "size": [
+        128,
+        128
+      ]
+    },
+    {
+      "id": "fireball",
+      "cn": "火球",
+      "en": "Fireball",
+      "hero": "grand-warden",
+      "rarity": "Epic",
+      "alias": "",
+      "source_path": "images/home/hero-equipment/fireball/icon.png",
+      "source_url": "https://registry.npmjs.org/clash-of-clans-data/-/clash-of-clans-data-0.19.1.tgz",
+      "processed": "alpha 通道外框裁剪 → 正方形补边 → 居中 → 128x128 LANCZOS 缩放，透明底 PNG",
+      "license_note": "素材版权归 Supercell；本仓库仅按 Supercell Fan Content Policy 做本地非商业研究，不随包分发、不用于任何商业用途。",
+      "status": "ok",
+      "size": [
+        128,
+        128
+      ]
+    },
+    {
+      "id": "seeking-shield",
+      "cn": "寻敌盾",
+      "en": "Seeking Shield",
+      "hero": "royal-champion",
+      "rarity": "Common",
+      "alias": "",
+      "source_path": "images/home/hero-equipment/seeking-shield/icon.png",
+      "source_url": "https://registry.npmjs.org/clash-of-clans-data/-/clash-of-clans-data-0.19.1.tgz",
+      "processed": "alpha 通道外框裁剪 → 正方形补边 → 居中 → 128x128 LANCZOS 缩放，透明底 PNG",
+      "license_note": "素材版权归 Supercell；本仓库仅按 Supercell Fan Content Policy 做本地非商业研究，不随包分发、不用于任何商业用途。",
+      "status": "ok",
+      "size": [
+        128,
+        128
+      ]
+    },
+    {
+      "id": "hog-rider-puppet",
+      "cn": "野猪骑士木偶",
+      "en": "Hog Rider Puppet",
+      "hero": "royal-champion",
+      "rarity": "Common",
+      "alias": "别名 hog-rider",
+      "source_path": "images/home/hero-equipment/hog-rider-puppet/icon.png",
+      "source_url": "https://registry.npmjs.org/clash-of-clans-data/-/clash-of-clans-data-0.19.1.tgz",
+      "processed": "alpha 通道外框裁剪 → 正方形补边 → 居中 → 128x128 LANCZOS 缩放，透明底 PNG",
+      "license_note": "素材版权归 Supercell；本仓库仅按 Supercell Fan Content Policy 做本地非商业研究，不随包分发、不用于任何商业用途。",
+      "status": "ok",
+      "size": [
+        128,
+        128
+      ]
+    },
+    {
+      "id": "haste-vial",
+      "cn": "急速药水",
+      "en": "Haste Vial",
+      "hero": "royal-champion",
+      "rarity": "Common",
+      "alias": "",
+      "source_path": "images/home/hero-equipment/haste-vial/icon.png",
+      "source_url": "https://registry.npmjs.org/clash-of-clans-data/-/clash-of-clans-data-0.19.1.tgz",
+      "processed": "alpha 通道外框裁剪 → 正方形补边 → 居中 → 128x128 LANCZOS 缩放，透明底 PNG",
+      "license_note": "素材版权归 Supercell；本仓库仅按 Supercell Fan Content Policy 做本地非商业研究，不随包分发、不用于任何商业用途。",
+      "status": "ok",
+      "size": [
+        128,
+        128
+      ]
+    },
+    {
+      "id": "royal-gem",
+      "cn": "皇家宝石",
+      "en": "Royal Gem",
+      "hero": "royal-champion",
+      "rarity": "Common",
+      "alias": "",
+      "source_path": "images/home/hero-equipment/royal-gem/icon.png",
+      "source_url": "https://registry.npmjs.org/clash-of-clans-data/-/clash-of-clans-data-0.19.1.tgz",
+      "processed": "alpha 通道外框裁剪 → 正方形补边 → 居中 → 128x128 LANCZOS 缩放，透明底 PNG",
+      "license_note": "素材版权归 Supercell；本仓库仅按 Supercell Fan Content Policy 做本地非商业研究，不随包分发、不用于任何商业用途。",
+      "status": "ok",
+      "size": [
+        128,
+        128
+      ]
+    },
+    {
+      "id": "rocket-spear",
+      "cn": "火箭矛",
+      "en": "Rocket Spear",
+      "hero": "royal-champion",
+      "rarity": "Epic",
+      "alias": "",
+      "source_path": "images/home/hero-equipment/rocket-spear/icon.png",
+      "source_url": "https://registry.npmjs.org/clash-of-clans-data/-/clash-of-clans-data-0.19.1.tgz",
+      "processed": "alpha 通道外框裁剪 → 正方形补边 → 居中 → 128x128 LANCZOS 缩放，透明底 PNG",
+      "license_note": "素材版权归 Supercell；本仓库仅按 Supercell Fan Content Policy 做本地非商业研究，不随包分发、不用于任何商业用途。",
+      "status": "ok",
+      "size": [
+        128,
+        128
+      ]
+    }
+  ],
+  "heroes": [
+    {
+      "id": "queen",
+      "cn": "弓箭女王",
+      "en": "Archer Queen",
+      "source_path": "images/home/heroes/archer-queen/icon.png",
+      "source_url": "https://registry.npmjs.org/clash-of-clans-data/-/clash-of-clans-data-0.19.1.tgz",
+      "processed": "alpha 通道外框裁剪 → 正方形补边 → 居中 → 128x128 LANCZOS 缩放，透明底 PNG",
+      "license_note": "素材版权归 Supercell；本仓库仅按 Supercell Fan Content Policy 做本地非商业研究，不随包分发、不用于任何商业用途。",
+      "status": "ok"
+    },
+    {
+      "id": "king",
+      "cn": "野蛮人王",
+      "en": "Barbarian King",
+      "source_path": "images/home/heroes/barbarian-king/icon.png",
+      "source_url": "https://registry.npmjs.org/clash-of-clans-data/-/clash-of-clans-data-0.19.1.tgz",
+      "processed": "alpha 通道外框裁剪 → 正方形补边 → 居中 → 128x128 LANCZOS 缩放，透明底 PNG",
+      "license_note": "素材版权归 Supercell；本仓库仅按 Supercell Fan Content Policy 做本地非商业研究，不随包分发、不用于任何商业用途。",
+      "status": "ok"
+    },
+    {
+      "id": "warden",
+      "cn": "大守护者",
+      "en": "Grand Warden",
+      "source_path": "images/home/heroes/grand-warden/icon.png",
+      "source_url": "https://registry.npmjs.org/clash-of-clans-data/-/clash-of-clans-data-0.19.1.tgz",
+      "processed": "alpha 通道外框裁剪 → 正方形补边 → 居中 → 128x128 LANCZOS 缩放，透明底 PNG",
+      "license_note": "素材版权归 Supercell；本仓库仅按 Supercell Fan Content Policy 做本地非商业研究，不随包分发、不用于任何商业用途。",
+      "status": "ok"
+    },
+    {
+      "id": "rc",
+      "cn": "皇家冠军",
+      "en": "Royal Champion",
+      "source_path": "images/home/heroes/royal-champion/icon.png",
+      "source_url": "https://registry.npmjs.org/clash-of-clans-data/-/clash-of-clans-data-0.19.1.tgz",
+      "processed": "alpha 通道外框裁剪 → 正方形补边 → 居中 → 128x128 LANCZOS 缩放，透明底 PNG",
+      "license_note": "素材版权归 Supercell；本仓库仅按 Supercell Fan Content Policy 做本地非商业研究，不随包分发、不用于任何商业用途。",
+      "status": "ok"
+    }
+  ],
+  "spells": [
+    {
+      "id": "lightning-spell",
+      "cn": "闪电法术",
+      "en": "Lightning Spell",
+      "source_path": "images/home/spells/lightning-spell/icon.png",
+      "source_url": "https://registry.npmjs.org/clash-of-clans-data/-/clash-of-clans-data-0.19.1.tgz",
+      "processed": "alpha 通道外框裁剪 → 正方形补边 → 居中 → 128x128 LANCZOS 缩放，透明底 PNG",
+      "license_note": "素材版权归 Supercell；本仓库仅按 Supercell Fan Content Policy 做本地非商业研究，不随包分发、不用于任何商业用途。",
+      "status": "ok"
+    },
+    {
+      "id": "healing-spell",
+      "cn": "治疗法术",
+      "en": "Healing Spell",
+      "source_path": "images/home/spells/healing-spell/icon.png",
+      "source_url": "https://registry.npmjs.org/clash-of-clans-data/-/clash-of-clans-data-0.19.1.tgz",
+      "processed": "alpha 通道外框裁剪 → 正方形补边 → 居中 → 128x128 LANCZOS 缩放，透明底 PNG",
+      "license_note": "素材版权归 Supercell；本仓库仅按 Supercell Fan Content Policy 做本地非商业研究，不随包分发、不用于任何商业用途。",
+      "status": "ok"
+    },
+    {
+      "id": "rage-spell",
+      "cn": "狂暴法术",
+      "en": "Rage Spell",
+      "source_path": "images/home/spells/rage-spell/icon.png",
+      "source_url": "https://registry.npmjs.org/clash-of-clans-data/-/clash-of-clans-data-0.19.1.tgz",
+      "processed": "alpha 通道外框裁剪 → 正方形补边 → 居中 → 128x128 LANCZOS 缩放，透明底 PNG",
+      "license_note": "素材版权归 Supercell；本仓库仅按 Supercell Fan Content Policy 做本地非商业研究，不随包分发、不用于任何商业用途。",
+      "status": "ok"
+    },
+    {
+      "id": "freeze-spell",
+      "cn": "冰冻法术",
+      "en": "Freeze Spell",
+      "source_path": "images/home/spells/freeze-spell/icon.png",
+      "source_url": "https://registry.npmjs.org/clash-of-clans-data/-/clash-of-clans-data-0.19.1.tgz",
+      "processed": "alpha 通道外框裁剪 → 正方形补边 → 居中 → 128x128 LANCZOS 缩放，透明底 PNG",
+      "license_note": "素材版权归 Supercell；本仓库仅按 Supercell Fan Content Policy 做本地非商业研究，不随包分发、不用于任何商业用途。",
+      "status": "ok"
+    },
+    {
+      "id": "invisibility-spell",
+      "cn": "隐身法术",
+      "en": "Invisibility Spell",
+      "source_path": "images/home/spells/invisibility-spell/icon.png",
+      "source_url": "https://registry.npmjs.org/clash-of-clans-data/-/clash-of-clans-data-0.19.1.tgz",
+      "processed": "alpha 通道外框裁剪 → 正方形补边 → 居中 → 128x128 LANCZOS 缩放，透明底 PNG",
+      "license_note": "素材版权归 Supercell；本仓库仅按 Supercell Fan Content Policy 做本地非商业研究，不随包分发、不用于任何商业用途。",
+      "status": "ok"
+    },
+    {
+      "id": "earthquake-spell",
+      "cn": "地震法术",
+      "en": "Earthquake Spell",
+      "source_path": "images/home/spells/earthquake-spell/icon.png",
+      "source_url": "https://registry.npmjs.org/clash-of-clans-data/-/clash-of-clans-data-0.19.1.tgz",
+      "processed": "alpha 通道外框裁剪 → 正方形补边 → 居中 → 128x128 LANCZOS 缩放，透明底 PNG",
+      "license_note": "素材版权归 Supercell；本仓库仅按 Supercell Fan Content Policy 做本地非商业研究，不随包分发、不用于任何商业用途。",
+      "status": "ok"
+    },
+    {
+      "id": "jump-spell",
+      "cn": "弹跳法术",
+      "en": "Jump Spell",
+      "source_path": "images/home/spells/jump-spell/icon.png",
+      "source_url": "https://registry.npmjs.org/clash-of-clans-data/-/clash-of-clans-data-0.19.1.tgz",
+      "processed": "alpha 通道外框裁剪 → 正方形补边 → 居中 → 128x128 LANCZOS 缩放，透明底 PNG",
+      "license_note": "素材版权归 Supercell；本仓库仅按 Supercell Fan Content Policy 做本地非商业研究，不随包分发、不用于任何商业用途。",
+      "status": "ok"
+    },
+    {
+      "id": "poison-spell",
+      "cn": "毒法术",
+      "en": "Poison Spell",
+      "source_path": "images/home/spells/poison-spell/icon.png",
+      "source_url": "https://registry.npmjs.org/clash-of-clans-data/-/clash-of-clans-data-0.19.1.tgz",
+      "processed": "alpha 通道外框裁剪 → 正方形补边 → 居中 → 128x128 LANCZOS 缩放，透明底 PNG",
+      "license_note": "素材版权归 Supercell；本仓库仅按 Supercell Fan Content Policy 做本地非商业研究，不随包分发、不用于任何商业用途。",
+      "status": "ok"
+    }
+  ],
+  "missing": [
+    {
+      "id": "royal-cloak",
+      "reason": "非英雄装备：皇家斗篷是弓箭女王的默认自带技能，装备系统内无此项，包内无素材"
+    },
+    {
+      "id": "vampire-stache",
+      "reason": "包内规范 id 为 vampstache（已收录），vampire-stache 仅作别名"
+    }
+  ]
+}

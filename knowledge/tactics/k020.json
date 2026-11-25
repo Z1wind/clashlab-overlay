@@ -1,0 +1,32 @@
+{
+  "id": "k020",
+  "source": {
+    "title": "Best Balloon Attack Strategies TH13: Blizzard LavaLoon (Toxigon)",
+    "url": "https://toxigon.com/best-attack-strategies-with-balloon-for-th-13-in-clash-of-clans",
+    "site": "guide",
+    "date": "2025-05-19",
+    "lang": "en",
+    "note": "正文级（社区博客，配兵数为作者建议）"
+  },
+  "th": "13",
+  "army": [
+    "lava-hound",
+    "balloon",
+    "super-wizard"
+  ],
+  "equipment": [
+    "invisibility-vial",
+    "eternal-tome",
+    "healing-tome"
+  ],
+  "pattern": "blimp",
+  "key_points": [
+    "飞艇载超法深入，飞艇到目标后用狂暴+隐形保超法拆防御",
+    "熔岩猎犬扛伤害，气球收尾；急速提速空军，冰冻护单点防御",
+    "收尾用超蛮/亡灵清剩余仓库"
+  ],
+  "coords_hint": "",
+  "countered_layout": "",
+  "confidence": 0.58,
+  "fetched_at": "2026-11-23"
+}

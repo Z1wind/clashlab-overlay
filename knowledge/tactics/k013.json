@@ -1,0 +1,27 @@
+{
+  "id": "k013",
+  "source": {
+    "title": "Invisibility Vial | Clash of Clans Wiki (Fandom EN)",
+    "url": "https://clashofclans.fandom.com/wiki/Invisibility_Vial",
+    "site": "wiki",
+    "date": "2026-11-23",
+    "lang": "en",
+    "note": "正文级（游戏Wiki，机制事实）"
+  },
+  "th": "",
+  "army": [],
+  "equipment": [
+    "invisibility-vial"
+  ],
+  "pattern": "",
+  "key_points": [
+    "装备后女王短暂隐身，期间单发伤害大幅提高，并额外加生命值",
+    "隐身不能挡溅射：迫击炮/投石炮溅射仍可打到隐身女王",
+    "隐身不触发炸弹/巨型炸弹保护，仍会被炸；已锁定的鹰炮炮弹照常命中",
+    "2024-02-27 起增伤改为buff叠加，不再与狂暴法术全额叠加"
+  ],
+  "coords_hint": "",
+  "countered_layout": "",
+  "confidence": 0.85,
+  "fetched_at": "2026-11-23"
+}

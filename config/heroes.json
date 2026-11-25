@@ -1,0 +1,33 @@
+{
+  "th": 13,
+  "heroes": {
+    "queen": {
+      "level": 75,
+      "equipment": [
+        "giant-arrow",
+        "invisibility-vial"
+      ]
+    },
+    "king": {
+      "level": 75,
+      "equipment": [
+        "spiky-ball",
+        "earthquake-boots"
+      ]
+    },
+    "warden": {
+      "level": 50,
+      "equipment": [
+        "eternal-tome",
+        "healing-tome"
+      ]
+    },
+    "rc": {
+      "level": 30,
+      "equipment": [
+        "seeking-shield",
+        "hog-rider"
+      ]
+    }
+  }
+}

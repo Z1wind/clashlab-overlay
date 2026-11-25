@@ -1,0 +1,49 @@
+{
+  "id": "k042",
+  "source": {
+    "title": "Best TH16 CoC Base Layouts 2026 — Root Rider + Rocket Loon (BaseCOC)",
+    "url": "https://basecoc.com/th-16?type=cwl",
+    "site": "guide",
+    "date": "2026",
+    "lang": "en",
+    "note": "正文级（社区攻略；地面根骑士吸伤害+火箭气球空中收尾的双层 hybrid，含分步执行）"
+  },
+  "th": "16",
+  "army": [
+    "root-rider",
+    "balloon",
+    "healer"
+  ],
+  "equipment": [],
+  "pattern": "hybrid",
+  "new_ids": [
+    "rocket-balloon"
+  ],
+  "key_points": [
+    "先侦察：标出防空群与地面防御群，主军打同一侧，地空两层同时压",
+    "气球引 CC 援军、毒药点杀；治疗天使 3–4 个先沿入兵边吊住根骑士",
+    "根骑士 7–8 条沿入兵边横向一线铺开，自动破墙压地狱塔/弹跳炮/合并散射炮",
+    "火箭气球 10–14 个（rocket-balloon，新 id，balloon 变体；库内未单列，army 用 balloon 命中）同时落在根骑士线间隙上方，直取防空与对空 X 弩",
+    "两层接战即落第 1 狂暴，地空同时吃加速；根骑士遇弹跳炮/散射炮落治疗",
+    "火箭气球接近防空群落急速缩短暴露时间；两层会师大本区落第 2 狂暴，收尾气球清边"
+  ],
+  "coords_hint": "",
+  "countered_layout": "ring",
+  "body": {
+    "rhythm": "侦察引援 → 天使吊线 → 根骑士一线+火箭气球同层压 → 狂暴两层齐吃 → 治疗保前排/急速催气球 → 会师大本收尾",
+    "counters": [
+      "地面群与防空群同侧、可同时压的 ring 阵",
+      "反地面重、对空只靠防空单点的阵",
+      "单层防御、无地空夹道的阵"
+    ],
+    "fails_when": [
+      "防空与地面防御分居两侧、兵力被拉散",
+      "防空旁设防空气雷、火箭气球群被一波爆掉",
+      "弹跳炮居中同时弹地空两层（页面自述反制）"
+    ]
+  },
+  "ratio_source": "配比来自 source 页面：根骑士 7–8 条、火箭气球 10–14 个、治疗天使 3–4 个；法术 狂暴1–2/治疗1–2/急速1–2/毒药1",
+  "confidence": 0.5,
+  "confidence_basis": "社区攻略配方，无官方数值，列社区共识档",
+  "fetched_at": "2026-11-24"
+}

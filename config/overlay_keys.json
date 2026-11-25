@@ -1,0 +1,11 @@
+{
+  "keys": {
+    "back_hud": "esc",
+    "capture": "delete",
+    "live": "f7",
+    "reload": "f12",
+    "toggle_mode": "insert"
+  },
+  "version": 1,
+  "warnings": {}
+}

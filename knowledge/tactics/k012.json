@@ -1,0 +1,28 @@
+{
+  "id": "k012",
+  "source": {
+    "title": "巨型箭矢 | 部落冲突 Wiki (Fandom 中文)",
+    "url": "https://coc.fandom.com/zh/wiki/%E5%B7%A8%E5%9E%8B%E7%AE%AD%E7%9F%A2",
+    "site": "wiki",
+    "date": "2026-11-23",
+    "lang": "zh",
+    "note": "正文级（游戏Wiki，机制事实）"
+  },
+  "th": "9",
+  "army": [],
+  "equipment": [
+    "giant-arrow"
+  ],
+  "pattern": "",
+  "key_points": [
+    "女王开技能发射一支巨箭，可穿透整个阵型，类似夜世界巨型加农炮",
+    "巨箭方向=女王与目标中心点连线的射线；目标全被隐形时朝女王正对方向",
+    "路径上地面/空中部队都会被击中",
+    "狂暴法术不能提升巨箭伤害",
+    "普通品质主动技能，铁匠铺2级、大本营9本解锁"
+  ],
+  "coords_hint": "",
+  "countered_layout": "",
+  "confidence": 0.85,
+  "fetched_at": "2026-11-23"
+}

@@ -1,0 +1,113 @@
+{
+  "version": 1,
+  "mapping_ref": "_verify/coord_mapping.md",
+  "note": "整窗抓屏含 chrome；表面边界见 frame_bounds.json；图片坐标不可直接装覆盖层。",
+  "images": [
+    {
+      "file": "01_village_a.png",
+      "size": [
+        1051,
+        628
+      ],
+      "role": "村庄视图/复制阵型参考（非敌阵）",
+      "enemy": null,
+      "surface_bounds": {
+        "L": 15,
+        "T": 48,
+        "R": 1027,
+        "B": 610
+      }
+    },
+    {
+      "file": "02_village_b.png",
+      "size": [
+        1046,
+        628
+      ],
+      "role": "村庄视图参考（非敌阵）",
+      "enemy": null,
+      "surface_bounds": {
+        "L": 15,
+        "T": 47,
+        "R": 1025,
+        "B": 609
+      }
+    },
+    {
+      "file": "14_kekejdj.png",
+      "size": [
+        1042,
+        603
+      ],
+      "role": "部落战 14 号敌阵",
+      "enemy": {
+        "slot": 14,
+        "name": "kekejdj",
+        "clan": "WARRIORS"
+      },
+      "surface_bounds": {
+        "L": 15,
+        "T": 35,
+        "R": 1024,
+        "B": 585
+      }
+    },
+    {
+      "file": "15_qembzi.png",
+      "size": [
+        1043,
+        628
+      ],
+      "role": "部落战 15 号敌阵",
+      "enemy": {
+        "slot": 15,
+        "name": "Qembzi",
+        "clan": "WARRIORS"
+      },
+      "surface_bounds": {
+        "L": 15,
+        "T": 48,
+        "R": 1028,
+        "B": 602
+      }
+    },
+    {
+      "file": "16_diddieyang.png",
+      "size": [
+        1040,
+        623
+      ],
+      "role": "部落战 16 号敌阵",
+      "enemy": {
+        "slot": 16,
+        "name": "Diddieyang",
+        "clan": "WARRIORS"
+      },
+      "surface_bounds": {
+        "L": 15,
+        "T": 48,
+        "R": 1027,
+        "B": 599
+      }
+    },
+    {
+      "file": "17_akib.png",
+      "size": [
+        1041,
+        624
+      ],
+      "role": "部落战 17 号敌阵",
+      "enemy": {
+        "slot": 17,
+        "name": "AKIB",
+        "clan": "WARRIORS"
+      },
+      "surface_bounds": {
+        "L": 15,
+        "T": 46,
+        "R": 1021,
+        "B": 596
+      }
+    }
+  ]
+}

@@ -1,0 +1,103 @@
+{
+ "purpose": "用引擎自带 clashlab/template_match.py 实现（只读调用）对 5 类在 home_village.png 重跑，核查上一轮探针黑名单结论是否为我方方法缺陷",
+ "frame": "out/snap/_source/home_village.png",
+ "tile_px": 16.36,
+ "roi_engine_default": [179, 100, 1126, 619],
+ "method": "直接 import TemplateBank；先复现其内部循环（中位级代表档、k={0.85,1.0,1.18}、alpha>40 掩膜 CCOEFF_NORMED、aspect/color 各 +0.03）取原始 top5；再直接调用 scan() 全量结果",
+ "engine_scan_direct": {
+   "hit_count": 13,
+   "max_score": 0.762,
+   "by_type": {"storage": 6, "wizard-tower": 4, "archer-tower": 3},
+   "note": "复现最大值 0.762 落在 storage 家族，与引擎自测记录的 0.767 同量级；5 个被核查类型中仅 archer-tower 出框，airdef/inferno/xbow/cannon 全部未达 0.60 阈值"
+ },
+ "types": {
+   "airdef": {
+     "level_used": 9,
+     "rep_file": "air-defense/level-9.png",
+     "expected_px": [49.1, 49.1],
+     "raw_top5": [
+       {"score": 0.531, "raw_ccoeff": 0.471, "box": [455, 182, 57, 57], "scale": 1.18, "aspect_ok": true, "color_ok": true, "on_real_building": false, "eye": "金色储金堆/城墙角，非防空塔"},
+       {"score": 0.520, "raw_ccoeff": 0.461, "box": [763, 430, 57, 57], "scale": 1.18, "aspect_ok": true, "color_ok": true, "on_real_building": false, "eye": "骷髅气球串+周边建筑，非防空塔"},
+       {"score": 0.503, "raw_ccoeff": 0.443, "box": [455, 421, 57, 57], "scale": 1.18, "aspect_ok": true, "color_ok": true, "on_real_building": false, "eye": "金堆/草地，非防空塔"},
+       {"score": 0.502, "raw_ccoeff": 0.442, "box": [766, 432, 49, 49], "scale": 1.0, "aspect_ok": true, "color_ok": true, "on_real_building": false, "eye": "气球串，非防空塔"},
+       {"score": 0.498, "raw_ccoeff": 0.438, "box": [766, 175, 49, 49], "scale": 1.0, "aspect_ok": true, "color_ok": true, "on_real_building": false, "eye": "气球串+建筑，非防空塔"}
+     ],
+     "scan_hits": [],
+     "engine_recognized": 0,
+     "verdict": "blacklist"
+   },
+   "archertower": {
+     "level_used": 11,
+     "rep_file": "archer-tower/level-11.png",
+     "expected_px": [49.1, 49.1],
+     "raw_top5": [
+       {"score": 0.701, "raw_ccoeff": 0.641, "box": [710, 408, 41, 41], "scale": 0.85, "aspect_ok": true, "color_ok": true, "on_real_building": false, "eye": "黄黑炮身炮台（加农炮类），非箭塔"},
+       {"score": 0.691, "raw_ccoeff": 0.631, "box": [1054, 118, 41, 41], "scale": 0.85, "aspect_ok": true, "color_ok": true, "on_real_building": false, "eye": "右上角资源条 UI 面板（+按钮），非建筑"},
+       {"score": 0.678, "raw_ccoeff": 0.618, "box": [203, 391, 41, 41], "scale": 0.85, "aspect_ok": true, "color_ok": true, "on_real_building": false, "eye": "黄黑粉核防空塔（被误判），非箭塔"},
+       {"score": 0.676, "raw_ccoeff": 0.616, "box": [1085, 119, 41, 41], "scale": 0.85, "aspect_ok": true, "color_ok": true, "on_real_building": false, "eye": "右上角资源条 UI 面板，非建筑"},
+       {"score": 0.669, "raw_ccoeff": 0.609, "box": [707, 205, 41, 41], "scale": 0.85, "aspect_ok": true, "color_ok": true, "on_real_building": false, "eye": "深色堆叠塔（巨石碑类），非箭塔"}
+     ],
+     "scan_hits": [
+       {"score": 0.701, "box": [710, 408, 41, 41], "on_real_building": false},
+       {"score": 0.691, "box": [1054, 118, 41, 41], "on_real_building": false},
+       {"score": 0.666, "box": [497, 556, 41, 41], "on_real_building": false, "eye": "火龙/草地空位"}
+     ],
+     "verdict": "blacklist"
+   },
+   "cannon": {
+     "level_used": 11,
+     "rep_file": "cannon/level-11.png",
+     "expected_px": [49.1, 49.1],
+     "raw_top5": [
+       {"score": 0.599, "raw_ccoeff": 0.539, "box": [228, 281, 41, 41], "scale": 0.85, "aspect_ok": true, "color_ok": true, "on_real_building": false, "eye": "金色收集器/金碗，非加农炮"},
+       {"score": 0.590, "raw_ccoeff": 0.530, "box": [942, 392, 41, 41], "scale": 0.85, "aspect_ok": true, "color_ok": true, "on_real_building": false, "eye": "部落城堡/旗帜区，非加农炮"},
+       {"score": 0.575, "raw_ccoeff": 0.515, "box": [977, 418, 41, 41], "scale": 0.85, "aspect_ok": true, "color_ok": true, "on_real_building": false, "eye": "火龙火焰/空位，非加农炮"},
+       {"score": 0.572, "raw_ccoeff": 0.512, "box": [937, 386, 49, 49], "scale": 1.0, "aspect_ok": true, "color_ok": true, "on_real_building": false, "eye": "部落城堡旗帜，非加农炮"},
+       {"score": 0.565, "raw_ccoeff": 0.505, "box": [712, 404, 41, 41], "scale": 0.85, "aspect_ok": true, "color_ok": true, "on_real_building": false, "eye": "金堆+白筒形建筑，非加农炮"}
+     ],
+     "scan_hits": [],
+     "verdict": "blacklist"
+   },
+   "inferno": {
+     "level_used": 7,
+     "rep_file": "inferno-tower/level-7.png",
+     "expected_px": [49.1, 49.1],
+     "raw_top5": [],
+     "note": "三种尺度在 ROI 内无任何 ≥0.40 局部峰值，引擎方法同样零响应",
+     "scan_hits": [],
+     "verdict": "blacklist"
+   },
+   "xbow": {
+     "level_used": 7,
+     "rep_file": "x-bow/level-7.png",
+     "expected_px": [49.1, 49.1],
+     "raw_top5": [
+       {"score": 0.477, "raw_ccoeff": 0.417, "box": [743, 267, 49, 49], "scale": 1.0, "aspect_ok": true, "color_ok": true, "on_real_building": false, "eye": "深色巨碑+小屋，非连弩"},
+       {"score": 0.467, "raw_ccoeff": 0.406, "box": [488, 385, 57, 57], "scale": 1.18, "aspect_ok": true, "color_ok": true, "on_real_building": false, "eye": "城墙角空位，非连弩"},
+       {"score": 0.465, "raw_ccoeff": 0.405, "box": [937, 385, 41, 41], "scale": 0.85, "aspect_ok": true, "color_ok": true, "on_real_building": false, "eye": "部落城堡旗帜，非连弩"}
+     ],
+     "scan_hits": [],
+     "verdict": "blacklist"
+   }
+ },
+ "airdef_count_manual": {
+   "actual_in_frame": 4,
+   "locations_verified_eye": [[330, 215], [1050, 385], [360, 490], [692, 650]],
+   "engine_scan_recognized": 0,
+   "our_prior_method_recognized": 0,
+   "note": "4 座均为黄黑条纹塔身+粉紫发光芯防空塔，逐座 6 倍放大核对一致；引擎 scan() 对 airdef 零出框"
+ },
+ "method_differences": [
+   "掩膜：引擎用 alpha>40 掩膜做 CCOEFF_NORMED（matchTemplate 传 mask），我方上一轮为灰度裸 CCOEFF 无掩膜；但引擎带掩膜结果同样偏离真建筑，掩膜不是失败原因",
+   "二次校验：引擎对每峰值加 aspect 宽高比(±0.38)与 BGR 均值余弦颜色(tol 0.45)各 +0.03 并做门控；我方上一轮无几何/颜色校验",
+   "代表档：引擎取每类型中位 level 单档代表；我方上一轮按等级档逐档扫；尺度集引擎 k={0.85,1.0,1.18}，我方为 0.8~1.2 连续",
+   "ROI：引擎默认 (0.14W,0.14H,0.88W,0.86H)=(179,100,1126,619)，我方上一轮 (150,55,1150,615)；两者都未排除干净，引擎峰值仍落到右上角资源条 UI",
+   "阈值/打分：引擎 min_score=0.60 + 全局 NMS；我方上一轮用 home vs 阴性帧 margin 排序，二者口径不同但结论方向一致"
+ ],
+ "conclusion": {
+   "option": "(a)",
+   "label": "素材本身不适配实机渲染",
+   "reason": "引擎自带管线（alpha 掩膜 CCOEFF + 几何/颜色双校验 + NMS）在同一帧上对 5 类的 top 峰值同样全部落在非同类建筑/UI/空地，scan() 13 框中仅约 1 框可能压在同类建筑上；airdef 4 座引擎识别 0 座。方法差异（无掩膜、无颜色校验）不构成失败主因，故不是 (b) 我方上一轮方法缺陷，黑名单维持不变",
+   "prior_record_note": "引擎自测记录的 0.767/55 框在本帧用其现行代码复现为 max 0.762（storage 家族）、13 框且多数离类；'命中落在真建筑'未能复现，疑为旧配置/旧代表档或 template_prior blob 打分口径，源码中无对应分支可核实"
+ }
+}

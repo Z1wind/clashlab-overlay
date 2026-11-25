@@ -1,0 +1,27 @@
+{
+  "id": "k007",
+  "source": {
+    "title": "Best Hero Equipment in CoC (2026): Air/hybrid loadout (TrophyCoach)",
+    "url": "https://trophycoach.com/clash-of-clans/guides/hero-equipment-guide",
+    "site": "guide",
+    "date": "2026-11-18",
+    "lang": "en",
+    "note": "正文级（社区指南）"
+  },
+  "th": "",
+  "army": [],
+  "equipment": [
+    "electro-boots",
+    "rage-gem"
+  ],
+  "pattern": "hybrid",
+  "key_points": [
+    "空军/混合流权重飞盾电靴+永王狂暴宝石",
+    "电靴 aura 持续伤害附近单位并自带回血，是当前版本强势件",
+    "狂暴宝石给部队伤害与速度加成，配合无敌窗口打爆发"
+  ],
+  "coords_hint": "",
+  "countered_layout": "",
+  "confidence": 0.65,
+  "fetched_at": "2026-11-23"
+}

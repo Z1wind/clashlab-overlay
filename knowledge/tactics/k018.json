@@ -1,0 +1,29 @@
+{
+  "id": "k018",
+  "source": {
+    "title": "Icey Witch Batz attack — TH13 Ground CWL/War Spam (ClashArmies @Warrior-2522)",
+    "url": "https://clasharmies.com/armies/1316",
+    "site": "guide",
+    "date": "2026",
+    "lang": "en",
+    "note": "正文级（社区配兵指南）"
+  },
+  "th": "13",
+  "army": [
+    "witch",
+    "ice-golem",
+    "bat"
+  ],
+  "equipment": [],
+  "pattern": "hybrid",
+  "key_points": [
+    "从群伤防御更多的一侧开局；两端各放3冰戈仑断边，后面跟女巫",
+    "中间补1冰戈仑+滚木车，再铺王、女王、咏王与剩余戈仑",
+    "进中部开蛮王技能破墙，永王技能防大本伤害；飞盾落地清两侧",
+    "最后放蝙蝠并配冰冻冻法师塔/投石炮，蝙蝠清剩余"
+  ],
+  "coords_hint": "",
+  "countered_layout": "",
+  "confidence": 0.6,
+  "fetched_at": "2026-11-23"
+}

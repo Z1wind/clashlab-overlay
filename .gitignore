@@ -1,0 +1,57 @@
+# 运行时产物（体积大、含本机路径/日志，不入库）
+out/
+dist/
+build/
+build_v*/
+
+# 历史导出目录与实验脚本产物（体积大）
+scripts/
+_archive/
+dataset/
+
+# 备份与临时文件
+*.bak
+*.bak_*
+*.tmp
+*~
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+.mypy_cache/
+
+# 本机私有配置（含路径/密钥，绝不入库）
+.dsh/
+config/local*.json
+
+# 导出的临时整合包与内部报告
+项目导出_*.zip
+项目明细_导出.md
+P1_opt_diff_report.md
+v5_plan_marks_report.md
+v6_report.md
+overlay_exe_main.py.bak_*
+
+# 历史版本 spec
+ClashOverlay_v*.spec
+
+# tools/ 里的实验产物（体积大，不入库；脚本本身保留）
+tools/**/*.png
+tools/**/*.jpg
+tools/**/*.jpeg
+tools/**/*.webp
+tools/**/*.npz
+tools/**/*.npy
+tools/**/*.pt
+tools/**/*.onnx
+tools/**/*.json
+tools/**/*.csv
+tools/**/*.log
+tools/**/*.bin
+tools/**/*.zip
+
+# 编辑器
+.vscode/
+.idea/

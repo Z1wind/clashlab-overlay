@@ -1,0 +1,26 @@
+{
+  "id": "k025",
+  "source": {
+    "title": "13本雷龙蝙蝠流三星教学 (BV1e24y1c7wG, UP:coc林聪)",
+    "url": "https://www.bilibili.com/video/BV1e24y1c7wG/",
+    "site": "bilibili",
+    "date": "2023-04-20",
+    "lang": "zh",
+    "note": "标题+简介级（无字幕，简介可见）"
+  },
+  "th": "13",
+  "army": [
+    "edrag",
+    "bat"
+  ],
+  "equipment": [],
+  "pattern": "edrag_rush",
+  "key_points": [
+    "简介：蝙蝠流最后收割，要先收掉群伤建筑：天鹰、大本、多头地狱、法师塔、投石炮",
+    "双王打前戏，雷龙一字划收割建筑，最后蝙蝠收割（仅简介，未看正片）"
+  ],
+  "coords_hint": "",
+  "countered_layout": "",
+  "confidence": 0.5,
+  "fetched_at": "2026-11-23"
+}

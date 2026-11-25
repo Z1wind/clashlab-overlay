@@ -1,0 +1,25 @@
+{
+  "id": "k027",
+  "source": {
+    "title": "13本部落战天女狗球三星教学③ (BV1AR4y1q7PR, UP:coc林聪)",
+    "url": "https://www.bilibili.com/video/BV1AR4y1q7PR/",
+    "site": "bilibili",
+    "date": "2023-02-17",
+    "lang": "zh",
+    "note": "标题+简介级（无字幕，简介可见）"
+  },
+  "th": "13",
+  "army": [
+    "lava-hound",
+    "balloon"
+  ],
+  "equipment": [],
+  "pattern": "queen_charge",
+  "key_points": [
+    "简介：规划好天女路线、清边要清好；狗球闰土、永王、猎手可抓里面的王（仅简介）"
+  ],
+  "coords_hint": "",
+  "countered_layout": "",
+  "confidence": 0.5,
+  "fetched_at": "2026-11-23"
+}

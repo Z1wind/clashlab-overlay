@@ -1,0 +1,26 @@
+{
+  "id": "k024",
+  "source": {
+    "title": "Best Attack Strategies Every TH: TH11 Zap Witches (OmniGame)",
+    "url": "https://omnigame.fun/guides/clash-of-clans/clash-of-clans-attack-strategies-every-town-hall/",
+    "site": "guide",
+    "date": "2026",
+    "lang": "en",
+    "note": "正文级（二手综述）"
+  },
+  "th": "11",
+  "army": [
+    "witch",
+    "giant"
+  ],
+  "equipment": [],
+  "pattern": "hybrid",
+  "key_points": [
+    "闪电劈两个防空、地震软化第三个，再放巨人-女巫-法师进阵",
+    "对低等级英雄也宽容，是TH11最稳地面策略之一"
+  ],
+  "coords_hint": "",
+  "countered_layout": "",
+  "confidence": 0.55,
+  "fetched_at": "2026-11-23"
+}

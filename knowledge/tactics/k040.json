@@ -1,0 +1,52 @@
+{
+  "id": "k040",
+  "source": {
+    "title": "Best TH16 Attack Strategies 2026 — GoBoWitch (Golem + Bowler + Witch, Game365Hub)",
+    "url": "https://game365hub.com/clash-of-clans/guides/best-th16-attack-strategies-2026",
+    "site": "guide",
+    "date": "2026-03-16",
+    "lang": "en",
+    "note": "正文级（社区攻略；经典 GoBoWitch 地面配置，含分步执行与适用阵型）"
+  },
+  "th": "16",
+  "army": [
+    "witch",
+    "golem",
+    "ice-golem",
+    "bowler"
+  ],
+  "equipment": [],
+  "pattern": "hybrid",
+  "new_ids": [
+    "golem",
+    "bowler"
+  ],
+  "key_points": [
+    "英雄断边：蛮王一侧、飞盾另一侧各清 2–3 栋，给地面主力收入口",
+    "2–3 石人（golem，新 id）spread 入边、冰戈仑居中吃首轮；投球手（bowler，新 id）7–9 个一线跟在石人后，弹跳巨石越过前排打后排",
+    "女巫 5–6 个分挂主推进两侧，骷髅潮水淹没点防、分摊单头地狱塔",
+    "到核心外墙落 1 跳跃法术直接进核心，别让部队绕墙",
+    "永王地面模式随队，永恒书卷留鹰炮+地狱塔+monolith 齐射段；石人最肉扛 monolith 百分比伤害，顶前面",
+    "狂暴落在投球手/女巫进高价值区；多头地狱塔、monolith 露头即冰冻",
+    "毒药点杀 CC 援军（超法/雷龙援军可清掉女巫潮）"
+  ],
+  "coords_hint": "",
+  "countered_layout": "ring",
+  "body": {
+    "rhythm": "英雄双侧断边 → 石人/冰戈仑入边 → 投球手+女巫一线压上 → 跳跃进核心 → 书卷/狂暴/冰冻保团 → 收尾",
+    "counters": [
+      "对称、核心清晰的 ring 阵",
+      "单头地狱塔为主（骷髅可分摊）",
+      "墙内溅射伤害可被巨石弹跳覆盖的阵"
+    ],
+    "fails_when": [
+      "多头地狱塔覆盖整个核心",
+      "monolith 百分比伤害快速融掉石人前排",
+      "CC 援军超法/雷龙清女巫潮"
+    ]
+  },
+  "ratio_source": "配比来自 source 页面：石人 2–3 个、投球手 7–9 个、女巫 5–6 个、冰戈仑 1–2 个、弓手 4–6 断边；法术 狂暴1–2/治疗1–2/跳跃1/冰冻1–2/毒药1",
+  "confidence": 0.5,
+  "confidence_basis": "社区攻略配方，无官方数值，列社区共识档",
+  "fetched_at": "2026-11-24"
+}

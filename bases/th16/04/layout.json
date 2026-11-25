@@ -1,0 +1,657 @@
+{
+  "name": "th16_04_anti3star_war141_ringdonut",
+  "grid": 44,
+  "note": "TH16 anti-3star 部落战/CWL 同心菱形环带核心阵（clashofclans-layouts.com #141）人工标注 v1：44×44，全部建筑 source=manual；纯规则生成、无模型补丁。quad=[[1295,10],[2205,617],[1295,1196],[386,604]]，Calib.from_quad，reproj_error=0.0；顶/底墙尖被图边裁切，包络标定（四角取可见外墙外侧留空，整村包进0..43）。墙体仅录最外圈外墙包络（四边步长2连续采样），内部环形隔断未录（口径约定）。",
+  "buildings": [
+    {
+      "type": "monolith",
+      "tile": [
+        19,
+        19
+      ],
+      "source": "manual",
+      "conf": 0.85,
+      "note": "中央黑金X形圣碑；STATS 未建模，按默认 hp1400/dps120/range9 兜底，仅作几何与相对排序参考"
+    },
+    {
+      "type": "town-hall",
+      "tile": [
+        22,
+        28
+      ],
+      "source": "manual",
+      "conf": 0.85,
+      "note": "中央红金圆顶大本营（TH16），按可见底座中心取点"
+    },
+    {
+      "type": "spell-tower",
+      "tile": [
+        26,
+        26
+      ],
+      "source": "manual",
+      "conf": 0.75,
+      "note": "粉色蛋糕蜡烛法术塔（核心南侧）"
+    },
+    {
+      "type": "inferno-tower",
+      "tile": [
+        16,
+        22
+      ],
+      "source": "manual",
+      "conf": 0.65,
+      "note": "核心左红塔黄色火焰柱，火焰柱外观判型，估计"
+    },
+    {
+      "type": "inferno-tower",
+      "tile": [
+        22,
+        17
+      ],
+      "source": "manual",
+      "conf": 0.65,
+      "note": "核心右上红塔火焰柱，估计"
+    },
+    {
+      "type": "inferno-tower",
+      "tile": [
+        26,
+        22
+      ],
+      "source": "manual",
+      "conf": 0.6,
+      "note": "核心右红塔火焰柱，估计"
+    },
+    {
+      "type": "spell-tower",
+      "tile": [
+        1,
+        7
+      ],
+      "source": "manual",
+      "conf": 0.55,
+      "note": "北侧粉色玻璃罩紫池；近似映射：玻璃罩紫池 -> spell-tower，低conf估计"
+    },
+    {
+      "type": "archer-tower",
+      "tile": [
+        7,
+        1
+      ],
+      "source": "manual",
+      "conf": 0.55,
+      "note": "北侧紫色甲板箭塔，低conf估计"
+    },
+    {
+      "type": "spell-tower",
+      "tile": [
+        4,
+        34
+      ],
+      "source": "manual",
+      "conf": 0.55,
+      "note": "西侧粉色玻璃罩紫池；近似映射 -> spell-tower，低conf估计"
+    },
+    {
+      "type": "firespitter",
+      "tile": [
+        5,
+        30
+      ],
+      "source": "manual",
+      "conf": 0.5,
+      "note": "西侧红扭树紫座（火喷外观）；STATS 未建模，默认兜底，估计"
+    },
+    {
+      "type": "cannon",
+      "tile": [
+        8,
+        29
+      ],
+      "source": "manual",
+      "conf": 0.5,
+      "note": "西中金齿轮紫心机器；近似映射：-> cannon，低conf估计"
+    },
+    {
+      "type": "air-defense",
+      "tile": [
+        8,
+        26
+      ],
+      "source": "manual",
+      "conf": 0.55,
+      "note": "西侧三联红炮管防空，估计"
+    },
+    {
+      "type": "mortar",
+      "tile": [
+        8,
+        34
+      ],
+      "source": "manual",
+      "conf": 0.5,
+      "note": "西中橙色圆碗迫击炮；近似映射 -> mortar，低conf估计"
+    },
+    {
+      "type": "firespitter",
+      "tile": [
+        9,
+        40
+      ],
+      "source": "manual",
+      "conf": 0.45,
+      "note": "西南红扭树紫座（疑似第2座火喷）；STATS 未建模，默认兜底，低conf估计"
+    },
+    {
+      "type": "cannon",
+      "tile": [
+        15,
+        37
+      ],
+      "source": "manual",
+      "conf": 0.5,
+      "note": "西南骷髅标记灰黄机器；近似映射 -> cannon，低conf估计"
+    },
+    {
+      "type": "air-defense",
+      "tile": [
+        18,
+        38
+      ],
+      "source": "manual",
+      "conf": 0.55,
+      "note": "西南三联红黑条纹火箭防空，估计"
+    },
+    {
+      "type": "clan-castle",
+      "tile": [
+        32,
+        5
+      ],
+      "source": "manual",
+      "conf": 0.7,
+      "note": "东侧紫金王冠大厅（部落城堡外观）；STATS 未建模，默认兜底，仅作几何参考"
+    },
+    {
+      "type": "cannon",
+      "tile": [
+        27,
+        9
+      ],
+      "source": "manual",
+      "conf": 0.55,
+      "note": "东中灰红大管炮；近似映射 -> cannon（原物或为 Ricochet Cannon），低conf估计"
+    },
+    {
+      "type": "archer-tower",
+      "tile": [
+        32,
+        13
+      ],
+      "source": "manual",
+      "conf": 0.55,
+      "note": "东侧紫色甲板箭塔，估计"
+    },
+    {
+      "type": "cannon",
+      "tile": [
+        34,
+        10
+      ],
+      "source": "manual",
+      "conf": 0.5,
+      "note": "东中紫穹顶炮；近似映射 -> cannon，低conf估计"
+    },
+    {
+      "type": "air-defense",
+      "tile": [
+        34,
+        16
+      ],
+      "source": "manual",
+      "conf": 0.6,
+      "note": "东侧三联红黑条纹火箭防空，估计"
+    },
+    {
+      "type": "cannon",
+      "tile": [
+        38,
+        16
+      ],
+      "source": "manual",
+      "conf": 0.5,
+      "note": "东金齿轮紫心机器；近似映射 -> cannon，低conf估计"
+    },
+    {
+      "type": "spell-tower",
+      "tile": [
+        39,
+        11
+      ],
+      "source": "manual",
+      "conf": 0.5,
+      "note": "东侧粉色玻璃罩紫池；近似映射 -> spell-tower，低conf估计"
+    },
+    {
+      "type": "inferno-tower",
+      "tile": [
+        29,
+        39
+      ],
+      "source": "manual",
+      "conf": 0.55,
+      "note": "南西红扭柱紫底座地狱塔，估计"
+    },
+    {
+      "type": "inferno-tower",
+      "tile": [
+        31,
+        36
+      ],
+      "source": "manual",
+      "conf": 0.55,
+      "note": "南中双红黑条纹锥地狱塔，估计"
+    },
+    {
+      "type": "mortar",
+      "tile": [
+        35,
+        36
+      ],
+      "source": "manual",
+      "conf": 0.5,
+      "note": "南中橙色圆碗迫击炮；近似映射 -> mortar，低conf估计"
+    },
+    {
+      "type": "spell-tower",
+      "tile": [
+        36,
+        42
+      ],
+      "source": "manual",
+      "conf": 0.55,
+      "note": "南侧粉色玻璃罩紫池；近似映射 -> spell-tower，低conf估计"
+    },
+    {
+      "type": "cannon",
+      "tile": [
+        42,
+        36
+      ],
+      "source": "manual",
+      "conf": 0.5,
+      "note": "南东金红机器炮；近似映射 -> cannon，低conf估计"
+    },
+    {
+      "type": "inferno-tower",
+      "tile": [
+        41,
+        30
+      ],
+      "source": "manual",
+      "conf": 0.55,
+      "note": "南东红扭柱地狱塔，估计"
+    },
+    {
+      "type": "cannon",
+      "tile": [
+        43,
+        27
+      ],
+      "source": "manual",
+      "conf": 0.55,
+      "note": "东南红金重炮，贴右边界；近似映射 -> cannon，低conf估计"
+    }
+  ],
+  "walls": [
+    [
+      0,
+      0
+    ],
+    [
+      0,
+      43
+    ],
+    [
+      2,
+      0
+    ],
+    [
+      2,
+      43
+    ],
+    [
+      4,
+      0
+    ],
+    [
+      4,
+      43
+    ],
+    [
+      6,
+      0
+    ],
+    [
+      6,
+      43
+    ],
+    [
+      8,
+      0
+    ],
+    [
+      8,
+      43
+    ],
+    [
+      10,
+      0
+    ],
+    [
+      10,
+      43
+    ],
+    [
+      12,
+      0
+    ],
+    [
+      12,
+      43
+    ],
+    [
+      14,
+      0
+    ],
+    [
+      14,
+      43
+    ],
+    [
+      16,
+      0
+    ],
+    [
+      16,
+      43
+    ],
+    [
+      18,
+      0
+    ],
+    [
+      18,
+      43
+    ],
+    [
+      20,
+      0
+    ],
+    [
+      20,
+      43
+    ],
+    [
+      22,
+      0
+    ],
+    [
+      22,
+      43
+    ],
+    [
+      24,
+      0
+    ],
+    [
+      24,
+      43
+    ],
+    [
+      26,
+      0
+    ],
+    [
+      26,
+      43
+    ],
+    [
+      28,
+      0
+    ],
+    [
+      28,
+      43
+    ],
+    [
+      30,
+      0
+    ],
+    [
+      30,
+      43
+    ],
+    [
+      32,
+      0
+    ],
+    [
+      32,
+      43
+    ],
+    [
+      34,
+      0
+    ],
+    [
+      34,
+      43
+    ],
+    [
+      36,
+      0
+    ],
+    [
+      36,
+      43
+    ],
+    [
+      38,
+      0
+    ],
+    [
+      38,
+      43
+    ],
+    [
+      40,
+      0
+    ],
+    [
+      40,
+      43
+    ],
+    [
+      42,
+      0
+    ],
+    [
+      42,
+      43
+    ],
+    [
+      43,
+      0
+    ],
+    [
+      0,
+      2
+    ],
+    [
+      43,
+      2
+    ],
+    [
+      0,
+      4
+    ],
+    [
+      43,
+      4
+    ],
+    [
+      0,
+      6
+    ],
+    [
+      43,
+      6
+    ],
+    [
+      0,
+      8
+    ],
+    [
+      43,
+      8
+    ],
+    [
+      0,
+      10
+    ],
+    [
+      43,
+      10
+    ],
+    [
+      0,
+      12
+    ],
+    [
+      43,
+      12
+    ],
+    [
+      0,
+      14
+    ],
+    [
+      43,
+      14
+    ],
+    [
+      0,
+      16
+    ],
+    [
+      43,
+      16
+    ],
+    [
+      0,
+      18
+    ],
+    [
+      43,
+      18
+    ],
+    [
+      0,
+      20
+    ],
+    [
+      43,
+      20
+    ],
+    [
+      0,
+      22
+    ],
+    [
+      43,
+      22
+    ],
+    [
+      0,
+      24
+    ],
+    [
+      43,
+      24
+    ],
+    [
+      0,
+      26
+    ],
+    [
+      43,
+      26
+    ],
+    [
+      0,
+      28
+    ],
+    [
+      43,
+      28
+    ],
+    [
+      0,
+      30
+    ],
+    [
+      43,
+      30
+    ],
+    [
+      0,
+      32
+    ],
+    [
+      43,
+      32
+    ],
+    [
+      0,
+      34
+    ],
+    [
+      43,
+      34
+    ],
+    [
+      0,
+      36
+    ],
+    [
+      43,
+      36
+    ],
+    [
+      0,
+      38
+    ],
+    [
+      43,
+      38
+    ],
+    [
+      0,
+      40
+    ],
+    [
+      43,
+      40
+    ],
+    [
+      0,
+      42
+    ],
+    [
+      43,
+      42
+    ]
+  ]
+}

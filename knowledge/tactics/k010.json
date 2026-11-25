@@ -1,0 +1,26 @@
+{
+  "id": "k010",
+  "source": {
+    "title": "Best Hero Equipment: Hog Puppet + Haste Vial (GG Chest)",
+    "url": "https://ggchest.com/blog/clash-of-clans/best-hero-equipment-in-clash-of-clans",
+    "site": "guide",
+    "date": "2026-06-01",
+    "lang": "en",
+    "note": "正文级（社区指南）"
+  },
+  "th": "",
+  "army": [],
+  "equipment": [
+    "hog-puppet",
+    "haste-vial"
+  ],
+  "pattern": "hybrid",
+  "key_points": [
+    "野猪木偶开技能放野猪分散单体防御火力，急速药水加快飞盾位移",
+    "面向防空与鹰炮紧凑扎堆的防三星基地"
+  ],
+  "coords_hint": "",
+  "countered_layout": "",
+  "confidence": 0.6,
+  "fetched_at": "2026-11-23"
+}

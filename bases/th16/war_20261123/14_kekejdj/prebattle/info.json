@@ -1,0 +1,118 @@
+{
+  "th": 16,
+  "layout_id": "war_20261123_14_kekejdj",
+  "source_image": "14_kekejdj.png",
+  "defense_counts": {
+    "town-hall": 1,
+    "scattershot": 1,
+    "air-defense": 2,
+    "inferno-tower": 1
+  },
+  "wall_level": "",
+  "core_cover_dps": null,
+  "centroid": [
+    13.4,
+    19.6
+  ],
+  "exposed": [
+    {
+      "type": "town-hall",
+      "tile": [
+        17,
+        23
+      ],
+      "dps": null,
+      "edge_dist": null,
+      "image_px": [
+        468,
+        327
+      ],
+      "confidence": 0.85,
+      "note": "中心红金大本营",
+      "source": "manual-read"
+    },
+    {
+      "type": "scattershot",
+      "tile": [
+        0,
+        5
+      ],
+      "dps": null,
+      "edge_dist": null,
+      "image_px": [
+        457,
+        130
+      ],
+      "confidence": 0.45,
+      "note": "顶部旋转炮（类型待复核）",
+      "source": "manual-read"
+    },
+    {
+      "type": "air-defense",
+      "tile": [
+        0,
+        24
+      ],
+      "dps": null,
+      "edge_dist": null,
+      "image_px": [
+        309,
+        249
+      ],
+      "confidence": 0.4,
+      "note": "左侧外圈橙炮（类型待复核）",
+      "source": "manual-read"
+    },
+    {
+      "type": "air-defense",
+      "tile": [
+        18,
+        8
+      ],
+      "dps": null,
+      "edge_dist": null,
+      "image_px": [
+        605,
+        249
+      ],
+      "confidence": 0.4,
+      "note": "右侧外圈橙炮（类型待复核）",
+      "source": "manual-read"
+    },
+    {
+      "type": "inferno-tower",
+      "tile": [
+        32,
+        38
+      ],
+      "dps": null,
+      "edge_dist": null,
+      "image_px": [
+        468,
+        474
+      ],
+      "confidence": 0.35,
+      "note": "底部中部建筑（类型待复核）",
+      "source": "manual-read"
+    }
+  ],
+  "blind": [],
+  "enemy_hero_levels": {
+    "queen": null,
+    "king": null,
+    "warden": null,
+    "rc": null
+  },
+  "enemy_cc": null,
+  "our_profile": {},
+  "our_army": {},
+  "unknown": [
+    "building_types_manual_read_low_confidence_pending_live_recheck",
+    "dps_pending_assets.stats(th=16)_runtime_fill",
+    "enemy_hero_levels_unknown",
+    "enemy_cc_troops_unknown",
+    "trap_positions_unknown",
+    "wall_level_unknown",
+    "quad_manual_approx_pending_P2_live_calibration"
+  ]
+}

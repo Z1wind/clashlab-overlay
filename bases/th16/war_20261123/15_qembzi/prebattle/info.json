@@ -1,0 +1,136 @@
+{
+  "th": 16,
+  "layout_id": "war_20261123_15_qembzi",
+  "source_image": "15_qembzi.png",
+  "defense_counts": {
+    "eagle-artillery": 1,
+    "town-hall": 1,
+    "air-defense": 1,
+    "scattershot": 1,
+    "inferno-tower": 1,
+    "x-bow": 1
+  },
+  "wall_level": "",
+  "core_cover_dps": null,
+  "centroid": [
+    18.5,
+    16.3
+  ],
+  "exposed": [
+    {
+      "type": "eagle-artillery",
+      "tile": [
+        0,
+        9
+      ],
+      "dps": null,
+      "edge_dist": null,
+      "image_px": [
+        406,
+        160
+      ],
+      "confidence": 0.55,
+      "note": "左上金红鹰炮（人工读点）",
+      "source": "manual-read"
+    },
+    {
+      "type": "town-hall",
+      "tile": [
+        17,
+        16
+      ],
+      "dps": null,
+      "edge_dist": null,
+      "image_px": [
+        521,
+        296
+      ],
+      "confidence": 0.8,
+      "note": "中心大本营",
+      "source": "manual-read"
+    },
+    {
+      "type": "air-defense",
+      "tile": [
+        26,
+        3
+      ],
+      "dps": null,
+      "edge_dist": null,
+      "image_px": [
+        727,
+        274
+      ],
+      "confidence": 0.45,
+      "note": "右侧中部三联防空（人工读点）",
+      "source": "manual-read"
+    },
+    {
+      "type": "scattershot",
+      "tile": [
+        36,
+        9
+      ],
+      "dps": null,
+      "edge_dist": null,
+      "image_px": [
+        763,
+        360
+      ],
+      "confidence": 0.45,
+      "note": "右侧散射炮（人工读点）",
+      "source": "manual-read"
+    },
+    {
+      "type": "inferno-tower",
+      "tile": [
+        0,
+        30
+      ],
+      "dps": null,
+      "edge_dist": null,
+      "image_px": [
+        227,
+        289
+      ],
+      "confidence": 0.35,
+      "note": "左侧地狱塔（类型待复核）",
+      "source": "manual-read"
+    },
+    {
+      "type": "x-bow",
+      "tile": [
+        32,
+        31
+      ],
+      "dps": null,
+      "edge_dist": null,
+      "image_px": [
+        521,
+        460
+      ],
+      "confidence": 0.35,
+      "note": "底部中部 X 连弩（类型待复核）",
+      "source": "manual-read"
+    }
+  ],
+  "blind": [],
+  "enemy_hero_levels": {
+    "queen": null,
+    "king": null,
+    "warden": null,
+    "rc": null
+  },
+  "enemy_cc": null,
+  "our_profile": {},
+  "our_army": {},
+  "unknown": [
+    "building_types_manual_read_low_confidence_pending_live_recheck",
+    "dps_pending_assets.stats(th=16)_runtime_fill",
+    "enemy_hero_levels_unknown",
+    "enemy_cc_troops_unknown",
+    "trap_positions_unknown",
+    "wall_level_unknown",
+    "quad_manual_approx_pending_P2_live_calibration"
+  ]
+}

@@ -1,0 +1,543 @@
+[
+  {
+    "id": "k001",
+    "title": "部落冲突雷龙流怎么玩_九游",
+    "site": "guide",
+    "pattern": "edrag_rush",
+    "th": "13",
+    "equipment": [],
+    "confidence": 0.72,
+    "url": "https://a.9game.cn/buluochongtu/11723869.html",
+    "summary": "7-8条雷龙+12-14气球+1-2龙宝，法术4狂暴4冰冻1毒药"
+  },
+  {
+    "id": "k002",
+    "title": "Best TH13 Attack Strategy 2026: RC charge into mass Dragons (Base Drop)",
+    "site": "guide",
+    "pattern": "hybrid",
+    "th": "13",
+    "equipment": [
+      "electro-boots",
+      "rocket-spear",
+      "giant-arrow"
+    ],
+    "confidence": 0.6,
+    "url": "https://cocbasedrop.com/blog/best-th13-attack-strategy-2026-war-cwl",
+    "summary": "电靴飞盾先跳一侧清防御，再大龙+气球平推她打开的空间"
+  },
+  {
+    "id": "k003",
+    "title": "Best TH13 Attack Strategy 2026: Hydra with Dragon Riders + Yeti Blimp (Base Drop)",
+    "site": "guide",
+    "pattern": "blimp",
+    "th": "13",
+    "equipment": [
+      "giant-arrow"
+    ],
+    "confidence": 0.6,
+    "url": "https://cocbasedrop.com/blog/best-th13-attack-strategy-2026-war-cwl",
+    "summary": "飞盾带5-6瓶隐形前戏，主力波次为龙+龙骑"
+  },
+  {
+    "id": "k004",
+    "title": "Best TH13 Attack Strategy 2026: Queen Charge with Hogs (Base Drop)",
+    "site": "guide",
+    "pattern": "queen_charge",
+    "th": "13",
+    "equipment": [],
+    "confidence": 0.6,
+    "url": "https://cocbasedrop.com/blog/best-th13-attack-strategy-2026-war-cwl",
+    "summary": "防空与空气炮扎堆的基地不适合空军，改用地面野猪"
+  },
+  {
+    "id": "k005",
+    "title": "Best Hero Equipment in CoC (2026): Queen Charge loadout (TrophyCoach)",
+    "site": "guide",
+    "pattern": "queen_charge",
+    "th": "",
+    "equipment": [
+      "action-figure",
+      "invisibility-vial"
+    ],
+    "confidence": 0.65,
+    "url": "https://trophycoach.com/clash-of-clans/guides/hero-equipment-guide",
+    "summary": "女王Charge推荐动作人偶+魔镜或隐形药水：人偶给克隆+短暂隐身的第二条命"
+  },
+  {
+    "id": "k006",
+    "title": "Best Hero Equipment in CoC (2026): Ground smash loadout (TrophyCoach)",
+    "site": "guide",
+    "pattern": "hybrid",
+    "th": "",
+    "equipment": [
+      "giant-gauntlet",
+      "spiky-ball",
+      "fireball"
+    ],
+    "confidence": 0.65,
+    "url": "https://trophycoach.com/clash-of-clans/guides/hero-equipment-guide",
+    "summary": "地面平推：蛮王巨化手套/尖刺足球当前排，永王火球砸开核心防御群"
+  },
+  {
+    "id": "k007",
+    "title": "Best Hero Equipment in CoC (2026): Air/hybrid loadout (TrophyCoach)",
+    "site": "guide",
+    "pattern": "hybrid",
+    "th": "",
+    "equipment": [
+      "electro-boots",
+      "rage-gem"
+    ],
+    "confidence": 0.65,
+    "url": "https://trophycoach.com/clash-of-clans/guides/hero-equipment-guide",
+    "summary": "空军/混合流权重飞盾电靴+永王狂暴宝石"
+  },
+  {
+    "id": "k008",
+    "title": "Best Hero Equipment: Giant Arrow + Action Figure (GG Chest)",
+    "site": "guide",
+    "pattern": "queen_charge",
+    "th": "",
+    "equipment": [
+      "giant-arrow",
+      "action-figure"
+    ],
+    "confidence": 0.62,
+    "url": "https://ggchest.com/blog/clash-of-clans/best-hero-equipment-in-clash-of-clans",
+    "summary": "巨型箭穿透墙体簇并打穿后方建筑，动作人偶召唤大坦克吸收火力"
+  },
+  {
+    "id": "k009",
+    "title": "Best Hero Equipment: Eternal Tome + Rage Gem (GG Chest)",
+    "site": "guide",
+    "pattern": "hybrid",
+    "th": "",
+    "equipment": [
+      "eternal-tome",
+      "rage-gem"
+    ],
+    "confidence": 0.62,
+    "url": "https://ggchest.com/blog/clash-of-clans/best-hero-equipment-in-clash-of-clans",
+    "summary": "永恒书卷无敌窗口叠加狂暴宝石伤害/速度增益，同一窗口不死且增伤"
+  },
+  {
+    "id": "k010",
+    "title": "Best Hero Equipment: Hog Puppet + Haste Vial (GG Chest)",
+    "site": "guide",
+    "pattern": "hybrid",
+    "th": "",
+    "equipment": [
+      "hog-puppet",
+      "haste-vial"
+    ],
+    "confidence": 0.6,
+    "url": "https://ggchest.com/blog/clash-of-clans/best-hero-equipment-in-clash-of-clans",
+    "summary": "野猪木偶开技能放野猪分散单体防御火力，急速药水加快飞盾位移"
+  },
+  {
+    "id": "k011",
+    "title": "Best Hero Equipment: Rocket Spear + Haste Vial (GG Chest)",
+    "site": "guide",
+    "pattern": "hybrid",
+    "th": "",
+    "equipment": [
+      "rocket-spear",
+      "haste-vial"
+    ],
+    "confidence": 0.6,
+    "url": "https://ggchest.com/blog/clash-of-clans/best-hero-equipment-in-clash-of-clans",
+    "summary": "火箭飞矛直接点掉一个高价值目标，急速药水把飞盾送到下一个目标"
+  },
+  {
+    "id": "k012",
+    "title": "巨型箭矢 | 部落冲突 Wiki (Fandom 中文)",
+    "site": "wiki",
+    "pattern": "",
+    "th": "9",
+    "equipment": [
+      "giant-arrow"
+    ],
+    "confidence": 0.85,
+    "url": "https://coc.fandom.com/zh/wiki/%E5%B7%A8%E5%9E%8B%E7%AE%AD%E7%9F%A2",
+    "summary": "女王开技能发射一支巨箭，可穿透整个阵型，类似夜世界巨型加农炮"
+  },
+  {
+    "id": "k013",
+    "title": "Invisibility Vial | Clash of Clans Wiki (Fandom EN)",
+    "site": "wiki",
+    "pattern": "",
+    "th": "",
+    "equipment": [
+      "invisibility-vial"
+    ],
+    "confidence": 0.85,
+    "url": "https://clashofclans.fandom.com/wiki/Invisibility_Vial",
+    "summary": "装备后女王短暂隐身，期间单发伤害大幅提高，并额外加生命值"
+  },
+  {
+    "id": "k014",
+    "title": "Hero Equipment × Clash of Clans (Supercell 官方博客)",
+    "site": "wiki",
+    "pattern": "",
+    "th": "8",
+    "equipment": [],
+    "confidence": 0.9,
+    "url": "https://supercell.com/en/games/clashofclans/blog/news/introducing-hero-equipment/",
+    "summary": "每个英雄同时只能装备两件装备，分主动（手动触发）与被动（常驻）"
+  },
+  {
+    "id": "k015",
+    "title": "Best Attack Strategies Every TH: Root Rider + Super Witch (OmniGame)",
+    "site": "guide",
+    "pattern": "hybrid",
+    "th": "15",
+    "equipment": [
+      "action-figure",
+      "eternal-tome"
+    ],
+    "confidence": 0.5,
+    "url": "https://omnigame.fun/guides/clash-of-clans/clash-of-clans-attack-strategies-every-town-hall/",
+    "summary": "10-14根骑士+6-8超巫，攻城用石slammer或滚木车"
+  },
+  {
+    "id": "k016",
+    "title": "Root Rider Guide 2026: How to Use (Base Drop)",
+    "site": "guide",
+    "pattern": "hybrid",
+    "th": "16",
+    "equipment": [],
+    "confidence": 0.55,
+    "url": "https://cocbasedrop.com/blog/root-rider-guide-coc-2026-how-to-use",
+    "summary": "先断边（funnel）再投入：英雄+少量支援兵清两侧建筑，防根骑士外飘"
+  },
+  {
+    "id": "k017",
+    "title": "部落冲突野猪飞骑打法（矿猪流实战）- OurPlay",
+    "site": "guide",
+    "pattern": "queen_charge",
+    "th": "13",
+    "equipment": [],
+    "confidence": 0.68,
+    "url": "https://m.ourplay.net/glci/38609",
+    "summary": "配兵：矿工15、野猪15，天使4-5，男王女王咏王飞盾，攻城训练营"
+  },
+  {
+    "id": "k018",
+    "title": "Icey Witch Batz attack — TH13 Ground CWL/War Spam (ClashArmies @Warrior-2522)",
+    "site": "guide",
+    "pattern": "hybrid",
+    "th": "13",
+    "equipment": [],
+    "confidence": 0.6,
+    "url": "https://clasharmies.com/armies/1316",
+    "summary": "从群伤防御更多的一侧开局；两端各放3冰戈仑断边，后面跟女巫"
+  },
+  {
+    "id": "k019",
+    "title": "Best Balloon Attack Strategies TH13: Queen Charge LavaLoon (Toxigon)",
+    "site": "guide",
+    "pattern": "queen_charge",
+    "th": "13",
+    "equipment": [
+      "invisibility-vial",
+      "frozen-arrow",
+      "eternal-tome",
+      "healing-tome"
+    ],
+    "confidence": 0.58,
+    "url": "https://toxigon.com/best-attack-strategies-with-balloon-for-th-13-in-clash-of-clans",
+    "summary": "开局先侦察城堡、鹰炮、大本、防空位置"
+  },
+  {
+    "id": "k020",
+    "title": "Best Balloon Attack Strategies TH13: Blizzard LavaLoon (Toxigon)",
+    "site": "guide",
+    "pattern": "blimp",
+    "th": "13",
+    "equipment": [
+      "invisibility-vial",
+      "eternal-tome",
+      "healing-tome"
+    ],
+    "confidence": 0.58,
+    "url": "https://toxigon.com/best-attack-strategies-with-balloon-for-th-13-in-clash-of-clans",
+    "summary": "飞艇载超法深入，飞艇到目标后用狂暴+隐形保超法拆防御"
+  },
+  {
+    "id": "k021",
+    "title": "Blizzard Lalo Guide For Beginners (cocservice.top 社区PDF)",
+    "site": "guide",
+    "pattern": "blimp",
+    "th": "13",
+    "equipment": [],
+    "confidence": 0.7,
+    "url": "https://cdn.cocservice.top/p/uploads/2021/01/Blizzard_Lalo_Guide_For_Beginners(english).pdf",
+    "summary": "顺序：飞艇超法 → 英雄sui → 狗球；99%情况先放飞艇"
+  },
+  {
+    "id": "k022",
+    "title": "Best Attack Strategies Every TH: TH12 E-Dragon Spam (OmniGame)",
+    "site": "guide",
+    "pattern": "edrag_rush",
+    "th": "12",
+    "equipment": [],
+    "confidence": 0.55,
+    "url": "https://omnigame.fun/guides/clash-of-clans/clash-of-clans-attack-strategies-every-town-hall/",
+    "summary": "3闪电+1地震先点掉最危险防空，再把雷龙铺成散线让连锁重叠"
+  },
+  {
+    "id": "k023",
+    "title": "Best Attack Strategies Every TH: TH10 Queen Charge LavaLoon (OmniGame)",
+    "site": "guide",
+    "pattern": "queen_charge",
+    "th": "10",
+    "equipment": [],
+    "confidence": 0.55,
+    "url": "https://omnigame.fun/guides/clash-of-clans/clash-of-clans-attack-strategies-every-town-hall/",
+    "summary": "女王清一个角开路径，熔岩猎犬吸收防空，气球打伤害"
+  },
+  {
+    "id": "k024",
+    "title": "Best Attack Strategies Every TH: TH11 Zap Witches (OmniGame)",
+    "site": "guide",
+    "pattern": "hybrid",
+    "th": "11",
+    "equipment": [],
+    "confidence": 0.55,
+    "url": "https://omnigame.fun/guides/clash-of-clans/clash-of-clans-attack-strategies-every-town-hall/",
+    "summary": "闪电劈两个防空、地震软化第三个，再放巨人-女巫-法师进阵"
+  },
+  {
+    "id": "k025",
+    "title": "13本雷龙蝙蝠流三星教学 (BV1e24y1c7wG, UP:coc林聪)",
+    "site": "bilibili",
+    "pattern": "edrag_rush",
+    "th": "13",
+    "equipment": [],
+    "confidence": 0.5,
+    "url": "https://www.bilibili.com/video/BV1e24y1c7wG/",
+    "summary": "简介：蝙蝠流最后收割，要先收掉群伤建筑：天鹰、大本、多头地狱、法师塔、投石炮"
+  },
+  {
+    "id": "k026",
+    "title": "13本雷龙奥迪流三星教学 (BV1wv4y1r7Uc, UP:coc林聪)",
+    "site": "bilibili",
+    "pattern": "edrag_rush",
+    "th": "13",
+    "equipment": [],
+    "confidence": 0.5,
+    "url": "https://www.bilibili.com/video/BV1wv4y1r7Uc/",
+    "summary": "简介：少闰土也能轻松三星，把握好镜像连接，核心部位即炸裂（仅简介）"
+  },
+  {
+    "id": "k027",
+    "title": "13本部落战天女狗球三星教学③ (BV1AR4y1q7PR, UP:coc林聪)",
+    "site": "bilibili",
+    "pattern": "queen_charge",
+    "th": "13",
+    "equipment": [],
+    "confidence": 0.5,
+    "url": "https://www.bilibili.com/video/BV1AR4y1q7PR/",
+    "summary": "简介：规划好天女路线、清边要清好；狗球闰土、永王、猎手可抓里面的王（仅简介）"
+  },
+  {
+    "id": "k028",
+    "title": "13本天女超蓝三星教学 (BV1qN411A751, UP:coc林聪)",
+    "site": "bilibili",
+    "pattern": "queen_charge",
+    "th": "13",
+    "equipment": [],
+    "confidence": 0.5,
+    "url": "https://www.bilibili.com/video/BV1qN411A751/",
+    "summary": "简介：开局天永打前线（建议王40级以上），投石机断另一边、留中间，大部队走中间再拉回永王（仅简介）"
+  },
+  {
+    "id": "k029",
+    "title": "十三本雷龙流三星教学!雷龙流派三星率极低! (BV1TV4y1q79i, UP:部落冲突温酒)",
+    "site": "bilibili",
+    "pattern": "edrag_rush",
+    "th": "13",
+    "equipment": [],
+    "confidence": 0.4,
+    "url": "https://www.bilibili.com/video/BV1TV4y1q79i/",
+    "summary": "仅标题：十三本雷龙流三星教学；标题自述该流派三星率极低，需人工复核"
+  },
+  {
+    "id": "k030",
+    "title": "你们要的13本雷龙流母胎级教学它来了！ (BV17N411D7mj, UP:部落冲突灵冰)",
+    "site": "bilibili",
+    "pattern": "edrag_rush",
+    "th": "13",
+    "equipment": [],
+    "confidence": 0.4,
+    "url": "https://www.bilibili.com/video/BV17N411D7mj/",
+    "summary": "仅标题：13本雷龙流母胎级教学；无正文，需人工复核"
+  },
+  {
+    "id": "k031",
+    "title": "天女雷龙流到底行不行？？ (BV1NV411A7Ck, UP:部落冲突温酒)",
+    "site": "bilibili",
+    "pattern": "hybrid",
+    "th": "13",
+    "equipment": [],
+    "confidence": 0.4,
+    "url": "https://www.bilibili.com/video/BV1NV411A7Ck/",
+    "summary": "仅标题：天女雷龙流可行性探讨；无正文，需人工复核"
+  },
+  {
+    "id": "k032",
+    "title": "【雷龙教学06】英雄装备篇 (BV1fy411i7P9, UP:离骚COC)",
+    "site": "bilibili",
+    "pattern": "edrag_rush",
+    "th": "",
+    "equipment": [],
+    "confidence": 0.4,
+    "url": "https://www.bilibili.com/video/BV1fy411i7P9/",
+    "summary": "仅标题：雷龙教学系列第06讲·英雄装备篇；无正文，需人工复核装备推荐"
+  },
+  {
+    "id": "k033",
+    "title": "【复活雷龙】无永王的最强越本流派 (BV1x7HY6xEM4, UP:COC凌念)",
+    "site": "bilibili",
+    "pattern": "edrag_rush",
+    "th": "",
+    "equipment": [],
+    "confidence": 0.4,
+    "url": "https://www.bilibili.com/video/BV1x7HY6xEM4/",
+    "summary": "仅标题：无永王的复活雷龙越本流派；无正文，需人工复核"
+  },
+  {
+    "id": "k034",
+    "title": "不会吧?还有人雷龙一字划打不了三星?手把手教学 (BV1L44y1z7ky, UP:史密斯抠门)",
+    "site": "bilibili",
+    "pattern": "edrag_rush",
+    "th": "",
+    "equipment": [],
+    "confidence": 0.4,
+    "url": "https://www.bilibili.com/video/BV1L44y1z7ky/",
+    "summary": "仅标题：雷龙一字划手把手教学（标14本/13本标签）；无正文，需人工复核"
+  },
+  {
+    "id": "k035",
+    "title": "Electro Dragon Attack Strategy Guide — COC 2026 (Base Drop)",
+    "site": "guide",
+    "pattern": "edrag_rush",
+    "th": "16",
+    "equipment": [
+      "eternal-tome"
+    ],
+    "confidence": 0.5,
+    "url": "https://cocbasedrop.com/blog/electro-dragon-attack-strategy-coc-2026",
+    "summary": "开局先 zap-quake：闪电+地震在进兵前点掉入兵侧最靠前的 2–3 座防空；TH16 防空更肉，约需闪电 6–8 瓶配地震 2–3 瓶，不裸冲进防空火网"
+  },
+  {
+    "id": "k036",
+    "title": "Best TH16 Attack Strategies 2026: How to 3 Star Any Town Hall 16 Base (cocbasemaster)",
+    "site": "guide",
+    "pattern": "edrag_rush",
+    "th": "16",
+    "equipment": [
+      "giant-arrow",
+      "eternal-tome"
+    ],
+    "confidence": 0.5,
+    "url": "https://cocbasemaster.com/guide/th16-attack-strategy",
+    "summary": "女王带治疗傀儡先下，用穿云箭（giant-arrow）在主力进场前点掉入兵侧防空/吹风机，并提前触发隐形法术塔，别让它在雷龙群经过时才开"
+  },
+  {
+    "id": "k037",
+    "title": "Best TH16 Attack Strategies 2026 — Top War & CWL Armies (Game365Hub, Strategy 1: Root Rider + Witch)",
+    "site": "guide",
+    "pattern": "hybrid",
+    "th": "16",
+    "equipment": [
+      "giant-arrow"
+    ],
+    "confidence": 0.5,
+    "url": "https://game365hub.com/clash-of-clans/guides/best-th16-attack-strategies-2026",
+    "summary": "先把 3–4 瓶地震堆叠砸核心隔间（大本/鹰炮/monolith 一带），免去根骑士破墙路径问题"
+  },
+  {
+    "id": "k038",
+    "title": "Super Archer | Clash of Clans Wiki (Fandom)",
+    "site": "wiki",
+    "pattern": "queen_charge",
+    "th": "16",
+    "equipment": [],
+    "confidence": 0.6,
+    "url": "https://clashofclans.fandom.com/wiki/Super_Archer",
+    "summary": "超级弓箭手（super-archer，新 id，库内词表未收录）目标射程 6 格、穿透箭 12 格，专打排成一条线的密集防御，能隔墙体穿透、不必跳墙/地震"
+  },
+  {
+    "id": "k039",
+    "title": "Best TH16 CoC Base Layouts 2026 — Blizzard + Super Witch (BaseCOC)",
+    "site": "guide",
+    "pattern": "hybrid",
+    "th": "16",
+    "equipment": [],
+    "confidence": 0.5,
+    "url": "https://basecoc.com/th-16?type=cwl",
+    "summary": "先侦察法术塔与龙卷风陷阱位置，暴雪圈要避开龙卷风覆盖区（龙卷风把隐形部队拽进火力）"
+  },
+  {
+    "id": "k040",
+    "title": "Best TH16 Attack Strategies 2026 — GoBoWitch (Golem + Bowler + Witch, Game365Hub)",
+    "site": "guide",
+    "pattern": "hybrid",
+    "th": "16",
+    "equipment": [],
+    "confidence": 0.5,
+    "url": "https://game365hub.com/clash-of-clans/guides/best-th16-attack-strategies-2026",
+    "summary": "英雄断边：蛮王一侧、飞盾另一侧各清 2–3 栋，给地面主力收入口"
+  },
+  {
+    "id": "k041",
+    "title": "TH16 Attack Strategies & Army Compositions — RC Charge Mass Dragons (Clashest, curated from Blueprint CoC 2026-07-13)",
+    "site": "guide",
+    "pattern": "dragon_rush",
+    "th": "16",
+    "equipment": [
+      "rocket-spear"
+    ],
+    "confidence": 0.5,
+    "url": "https://clashest.com/coc/army/th16",
+    "summary": "飞盾带火箭飞矛（rocket-spear）+急速药水 charge 直冲防空/monolith 孤悬角，治疗天使跟后排"
+  },
+  {
+    "id": "k042",
+    "title": "Best TH16 CoC Base Layouts 2026 — Root Rider + Rocket Loon (BaseCOC)",
+    "site": "guide",
+    "pattern": "hybrid",
+    "th": "16",
+    "equipment": [],
+    "confidence": 0.5,
+    "url": "https://basecoc.com/th-16?type=cwl",
+    "summary": "先侦察：标出防空群与地面防御群，主军打同一侧，地空两层同时压"
+  },
+  {
+    "id": "k043",
+    "title": "Giant Arrow | Clash of Clans Wiki (Fandom)；串线实例见本项目 out/th16/compare.md §3",
+    "site": "wiki",
+    "pattern": "queen_charge",
+    "th": "16",
+    "equipment": [
+      "giant-arrow"
+    ],
+    "confidence": 0.6,
+    "url": "https://clashofclans.fandom.com/wiki/Giant_Arrow",
+    "summary": "开局先找同一条射线上的防空：女王站位点→目标点连线，线上能串 2–3 座防空时开技能一箭全收（巨箭对防空双倍伤害，wiki 机制）"
+  },
+  {
+    "id": "k044",
+    "title": "Giant Arrow | Clash of Clans Wiki (Fandom)；跟主力时机为自行推演",
+    "site": "guide",
+    "pattern": "hybrid",
+    "th": "16",
+    "equipment": [
+      "giant-arrow"
+    ],
+    "confidence": 0.45,
+    "url": "https://clashofclans.fandom.com/wiki/Giant_Arrow",
+    "summary": "不开局放箭，让女王随主力推进到核心外缘再开技能，箭线指向鹰炮/monolith/大本一带高价值点"
+  }
+]

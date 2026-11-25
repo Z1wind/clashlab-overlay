@@ -1,0 +1,25 @@
+{
+  "id": "k022",
+  "source": {
+    "title": "Best Attack Strategies Every TH: TH12 E-Dragon Spam (OmniGame)",
+    "url": "https://omnigame.fun/guides/clash-of-clans/clash-of-clans-attack-strategies-every-town-hall/",
+    "site": "guide",
+    "date": "2026",
+    "lang": "en",
+    "note": "正文级（二手综述）"
+  },
+  "th": "12",
+  "army": [
+    "edrag"
+  ],
+  "equipment": [],
+  "pattern": "edrag_rush",
+  "key_points": [
+    "3闪电+1地震先点掉最危险防空，再把雷龙铺成散线让连锁重叠",
+    "雷龙在防空不扎堆的TH12-14仍强；15本+多头地狱/投石炮会切碎它"
+  ],
+  "coords_hint": "",
+  "countered_layout": "",
+  "confidence": 0.55,
+  "fetched_at": "2026-11-23"
+}

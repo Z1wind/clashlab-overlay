@@ -1,0 +1,26 @@
+{
+  "id": "k009",
+  "source": {
+    "title": "Best Hero Equipment: Eternal Tome + Rage Gem (GG Chest)",
+    "url": "https://ggchest.com/blog/clash-of-clans/best-hero-equipment-in-clash-of-clans",
+    "site": "guide",
+    "date": "2026-06-01",
+    "lang": "en",
+    "note": "正文级（社区指南）"
+  },
+  "th": "",
+  "army": [],
+  "equipment": [
+    "eternal-tome",
+    "rage-gem"
+  ],
+  "pattern": "hybrid",
+  "key_points": [
+    "永恒书卷无敌窗口叠加狂暴宝石伤害/速度增益，同一窗口不死且增伤",
+    "用于混合流、超巫、狗球等围绕大本的高DPS窗口决胜局"
+  ],
+  "coords_hint": "",
+  "countered_layout": "",
+  "confidence": 0.62,
+  "fetched_at": "2026-11-23"
+}

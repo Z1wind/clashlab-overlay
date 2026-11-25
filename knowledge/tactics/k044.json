@@ -1,0 +1,45 @@
+{
+  "id": "k044",
+  "source": {
+    "title": "Giant Arrow | Clash of Clans Wiki (Fandom)；跟主力时机为自行推演",
+    "url": "https://clashofclans.fandom.com/wiki/Giant_Arrow",
+    "site": "guide",
+    "date": "2026-11-24",
+    "lang": "en",
+    "note": "机制引自 wiki；'跟主力拆核心'的释放时机与目标取舍无外部来源，纯推演"
+  },
+  "th": "16",
+  "army": [
+    "edrag"
+  ],
+  "equipment": [
+    "giant-arrow"
+  ],
+  "pattern": "hybrid",
+  "key_points": [
+    "不开局放箭，让女王随主力推进到核心外缘再开技能，箭线指向鹰炮/monolith/大本一带高价值点",
+    "跟主力时女王已被部队掩护，箭用来补主力打不动的高血核心点，而不是开局探路",
+    "开技能前确认箭线沿途没有要留到收尾触发的 Giga/隐形塔，避免提前引爆",
+    "巨箭对防空双倍伤害的机制同样适用，若推进路上剩 1–2 座断后防空，可临时改线先收",
+    "女王站位随主力走，目标中心点决定箭线；想打核心深处就把目标选在最里层那栋",
+    "箭是一次性的，别在无关紧要的外围建筑上交掉"
+  ],
+  "coords_hint": "",
+  "countered_layout": "anti-3star",
+  "body": {
+    "rhythm": "主力推进 → 女王随队到核心外缘 → 选核心高价值目标开箭 → 补掉主力难啃点 → 主力继续收尾",
+    "counters": [
+      "核心高价值（鹰炮/monolith）与外围点防同线的 anti-3star 阵",
+      "主力能推到核心外缘、女王存活到此时的任何阵"
+    ],
+    "fails_when": [
+      "女王中途阵亡、箭没机会跟主力放",
+      "核心高价值分散不成线、一箭只能收 1 座",
+      "箭穿大本提前触发 Giga 反打主军"
+    ]
+  },
+  "ratio_source": "机制引自 wiki；跟主力时机为自己推演，不绑固定配兵",
+  "confidence": 0.45,
+  "confidence_basis": "机制有 wiki 依据，但'跟主力拆核心'的释放时机与目标取舍无外部来源，纯推演，压到最低档",
+  "fetched_at": "2026-11-24"
+}

@@ -1,0 +1,119 @@
+{
+  "th": 16,
+  "layout_id": "war_20261123_16_diddieyang",
+  "source_image": "16_diddieyang.png",
+  "defense_counts": {
+    "town-hall": 1,
+    "clan-castle": 1,
+    "air-defense": 1,
+    "scattershot": 1,
+    "x-bow": 1
+  },
+  "wall_level": "",
+  "core_cover_dps": null,
+  "centroid": [
+    13.8,
+    19.2
+  ],
+  "exposed": [
+    {
+      "type": "town-hall",
+      "tile": [
+        16,
+        24
+      ],
+      "dps": null,
+      "edge_dist": null,
+      "image_px": [
+        439,
+        341
+      ],
+      "confidence": 0.8,
+      "note": "中心大本营",
+      "source": "manual-read"
+    },
+    {
+      "type": "clan-castle",
+      "tile": [
+        2,
+        0
+      ],
+      "dps": null,
+      "edge_dist": null,
+      "image_px": [
+        534,
+        119
+      ],
+      "confidence": 0.4,
+      "note": "顶部偏右紫色城堡（类型待复核）",
+      "source": "manual-read"
+    },
+    {
+      "type": "air-defense",
+      "tile": [
+        0,
+        27
+      ],
+      "dps": null,
+      "edge_dist": null,
+      "image_px": [
+        231,
+        268
+      ],
+      "confidence": 0.4,
+      "note": "左侧外圈防空（类型待复核）",
+      "source": "manual-read"
+    },
+    {
+      "type": "scattershot",
+      "tile": [
+        18,
+        4
+      ],
+      "dps": null,
+      "edge_dist": null,
+      "image_px": [
+        653,
+        246
+      ],
+      "confidence": 0.4,
+      "note": "右侧外圈散射炮（类型待复核）",
+      "source": "manual-read"
+    },
+    {
+      "type": "x-bow",
+      "tile": [
+        33,
+        41
+      ],
+      "dps": null,
+      "edge_dist": null,
+      "image_px": [
+        439,
+        504
+      ],
+      "confidence": 0.35,
+      "note": "底部中部建筑（类型待复核）",
+      "source": "manual-read"
+    }
+  ],
+  "blind": [],
+  "enemy_hero_levels": {
+    "queen": null,
+    "king": null,
+    "warden": null,
+    "rc": null
+  },
+  "enemy_cc": null,
+  "our_profile": {},
+  "our_army": {},
+  "unknown": [
+    "building_types_manual_read_low_confidence_pending_live_recheck",
+    "dps_pending_assets.stats(th=16)_runtime_fill",
+    "enemy_hero_levels_unknown",
+    "enemy_cc_troops_unknown",
+    "trap_positions_unknown",
+    "wall_level_unknown",
+    "quad_manual_approx_pending_P2_live_calibration"
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "id": "k023",
+  "source": {
+    "title": "Best Attack Strategies Every TH: TH10 Queen Charge LavaLoon (OmniGame)",
+    "url": "https://omnigame.fun/guides/clash-of-clans/clash-of-clans-attack-strategies-every-town-hall/",
+    "site": "guide",
+    "date": "2026",
+    "lang": "en",
+    "note": "正文级（二手综述）"
+  },
+  "th": "10",
+  "army": [
+    "lava-hound",
+    "balloon"
+  ],
+  "equipment": [],
+  "pattern": "queen_charge",
+  "key_points": [
+    "女王清一个角开路径，熔岩猎犬吸收防空，气球打伤害",
+    "最后三分之一段给气球上急速法术"
+  ],
+  "coords_hint": "",
+  "countered_layout": "",
+  "confidence": 0.55,
+  "fetched_at": "2026-11-23"
+}

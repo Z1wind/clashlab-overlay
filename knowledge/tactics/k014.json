@@ -1,0 +1,25 @@
+{
+  "id": "k014",
+  "source": {
+    "title": "Hero Equipment × Clash of Clans (Supercell 官方博客)",
+    "url": "https://supercell.com/en/games/clashofclans/blog/news/introducing-hero-equipment/",
+    "site": "wiki",
+    "date": "2023-12-12",
+    "lang": "en",
+    "note": "正文级（官方一手）"
+  },
+  "th": "8",
+  "army": [],
+  "equipment": [],
+  "pattern": "",
+  "key_points": [
+    "每个英雄同时只能装备两件装备，分主动（手动触发）与被动（常驻）",
+    "普通装备可升18级，史诗可升27级，史诗靠活动解锁",
+    "铁匠铺8本解锁；巨箭需铁匠铺2级(9本)，永恒书卷为永王普通主动件",
+    "装备用闪亮/璀璨/星星矿石升级，来源星Bonus、部落战、商人、商店"
+  ],
+  "coords_hint": "",
+  "countered_layout": "",
+  "confidence": 0.9,
+  "fetched_at": "2026-11-23"
+}

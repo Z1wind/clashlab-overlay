@@ -1,0 +1,27 @@
+{
+  "id": "k005",
+  "source": {
+    "title": "Best Hero Equipment in CoC (2026): Queen Charge loadout (TrophyCoach)",
+    "url": "https://trophycoach.com/clash-of-clans/guides/hero-equipment-guide",
+    "site": "guide",
+    "date": "2026-11-18",
+    "lang": "en",
+    "note": "正文级（社区指南）"
+  },
+  "th": "",
+  "army": [],
+  "equipment": [
+    "action-figure",
+    "invisibility-vial"
+  ],
+  "pattern": "queen_charge",
+  "key_points": [
+    "女王Charge推荐动作人偶+魔镜或隐形药水：人偶给克隆+短暂隐身的第二条命",
+    "隐形药水让女王隐身并提升单发伤害，能横穿一整侧基地",
+    "永王永恒书卷保护后续部队，是Queen Charge的配套支撑"
+  ],
+  "coords_hint": "",
+  "countered_layout": "",
+  "confidence": 0.65,
+  "fetched_at": "2026-11-23"
+}

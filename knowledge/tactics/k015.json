@@ -1,0 +1,31 @@
+{
+  "id": "k015",
+  "source": {
+    "title": "Best Attack Strategies Every TH: Root Rider + Super Witch (OmniGame)",
+    "url": "https://omnigame.fun/guides/clash-of-clans/clash-of-clans-attack-strategies-every-town-hall/",
+    "site": "guide",
+    "date": "2026",
+    "lang": "en",
+    "note": "正文级（二手综述；原文称TH13+，但根骑士官方15本解锁，存疑降权）"
+  },
+  "th": "15",
+  "army": [
+    "root-rider",
+    "super-witch"
+  ],
+  "equipment": [
+    "action-figure",
+    "eternal-tome"
+  ],
+  "pattern": "hybrid",
+  "key_points": [
+    "10-14根骑士+6-8超巫，攻城用石slammer或滚木车",
+    "角落小天女开边，找到核心隔间后把根骑士指向该隔间",
+    "根骑士自动破墙，永王 aura 贴身抱团；超巫持续召唤骷髅补伤害",
+    "核心处放狂暴+冰冻；注意根骑士解锁本与原文说法有出入"
+  ],
+  "coords_hint": "",
+  "countered_layout": "",
+  "confidence": 0.5,
+  "fetched_at": "2026-11-23"
+}

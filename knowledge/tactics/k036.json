@@ -1,0 +1,48 @@
+{
+  "id": "k036",
+  "source": {
+    "title": "Best TH16 Attack Strategies 2026: How to 3 Star Any Town Hall 16 Base (cocbasemaster)",
+    "url": "https://cocbasemaster.com/guide/th16-attack-strategy",
+    "site": "guide",
+    "date": "2026",
+    "lang": "en",
+    "note": "正文级（社区攻略；Mass Electro Dragons 一节含配兵截图，女王穿云箭开道）"
+  },
+  "th": "16",
+  "army": [
+    "edrag",
+    "balloon"
+  ],
+  "equipment": [
+    "giant-arrow",
+    "eternal-tome"
+  ],
+  "pattern": "edrag_rush",
+  "key_points": [
+    "女王带治疗傀儡先下，用穿云箭（giant-arrow）在主力进场前点掉入兵侧防空/吹风机，并提前触发隐形法术塔，别让它在雷龙群经过时才开",
+    "女王清掉 1–2 座防空后，2 个一组气球先入边探陷阱、点残余防空，给雷龙开路",
+    "雷龙 7–9 条沿入兵边一字铺开，链电靠建筑密集不靠部队扎堆；石 slammer 载 CC 雷龙+气球直插核心",
+    "雷龙进入建筑密集段即落狂暴 3–4 瓶，打在正在链击的簇上",
+    "永王空中模式殿后，永恒书卷留给鹰炮齐射段；冰冻冻防空/多头地狱塔/monolith",
+    "剩余气球补清两翼漏网防御；龙公爵后端晕塔收尾"
+  ],
+  "coords_hint": "",
+  "countered_layout": "ring",
+  "body": {
+    "rhythm": "女王+穿云箭先手 20–30s 拆防空 → 气球探边 → 雷龙一字线+石车插核心 → 狂暴进段落 → 永王书卷/冰冻保簇 → 公爵收尾",
+    "counters": [
+      "防空贴外、可被女王箭单点的阵",
+      "建筑紧凑、雷龙链电能连片的阵",
+      "核心单层、无双层防空夹道的阵"
+    ],
+    "fails_when": [
+      "防空内收核心、女王箭线够不到",
+      "女王被巨型炸弹/援军秒杀、箭没放出来",
+      "吹风把雷龙簇吹偏、链电中断"
+    ]
+  },
+  "ratio_source": "配比区间来自 source 页面与截图：雷龙 7–9 条、气球 5–10 个、冰戈仑 1–2 断边；法术 狂暴3–4/冰冻2–3；女王穿云箭+治疗傀儡，永王空中永恒书卷；CC 石 slammer 载雷龙+气球。页面未逐项给点值，取区间",
+  "confidence": 0.5,
+  "confidence_basis": "社区二手综述攻略，配兵截图可对照但无官方出处，列社区共识档",
+  "fetched_at": "2026-11-24"
+}

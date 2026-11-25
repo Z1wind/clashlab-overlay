@@ -1,0 +1,26 @@
+{
+  "id": "k011",
+  "source": {
+    "title": "Best Hero Equipment: Rocket Spear + Haste Vial (GG Chest)",
+    "url": "https://ggchest.com/blog/clash-of-clans/best-hero-equipment-in-clash-of-clans",
+    "site": "guide",
+    "date": "2026-06-01",
+    "lang": "en",
+    "note": "正文级（社区指南）"
+  },
+  "th": "",
+  "army": [],
+  "equipment": [
+    "rocket-spear",
+    "haste-vial"
+  ],
+  "pattern": "hybrid",
+  "key_points": [
+    "火箭飞矛直接点掉一个高价值目标，急速药水把飞盾送到下一个目标",
+    "用于飞盾需独立清掉2-3个特定防空、无部队支援的混合流"
+  ],
+  "coords_hint": "",
+  "countered_layout": "",
+  "confidence": 0.6,
+  "fetched_at": "2026-11-23"
+}

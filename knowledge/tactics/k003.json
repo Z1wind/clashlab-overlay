@@ -1,0 +1,31 @@
+{
+  "id": "k003",
+  "source": {
+    "title": "Best TH13 Attack Strategy 2026: Hydra with Dragon Riders + Yeti Blimp (Base Drop)",
+    "url": "https://cocbasedrop.com/blog/best-th13-attack-strategy-2026-war-cwl",
+    "site": "guide",
+    "date": "2026-10-27",
+    "lang": "en",
+    "note": "正文级（社区博客，二手转述）"
+  },
+  "th": "13",
+  "army": [
+    "dragon",
+    "dragon-rider",
+    "yeti"
+  ],
+  "equipment": [
+    "giant-arrow"
+  ],
+  "pattern": "blimp",
+  "key_points": [
+    "飞盾带5-6瓶隐形前戏，主力波次为龙+龙骑",
+    "飞艇载超级雪怪深入核心，分散核心防御注意力",
+    "女王在另一侧用巨型箭处理高价值目标",
+    "半龙半龙骑的配比可在友谊战里两种都试"
+  ],
+  "coords_hint": "",
+  "countered_layout": "",
+  "confidence": 0.6,
+  "fetched_at": "2026-11-23"
+}

@@ -1,0 +1,16 @@
+{
+  "show": false,
+  "hotkeys": {
+    "mode_toggle": "F8",
+    "farm_toggle": "F9",
+    "reload": "F12",
+    "live_toggle": "F7",
+    "escape_hud": "ESC"
+  },
+  "offset": {
+    "dx": 0,
+    "dy": 0
+  },
+  "self_check_seconds": 30,
+  "fps_window": 180
+}

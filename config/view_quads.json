@@ -1,0 +1,696 @@
+{
+  "quad": {
+    "T": [
+      821.2215576171875,
+      451.32781982421875
+    ],
+    "R": [
+      361.4610290527344,
+      132.49539184570312
+    ],
+    "B": [
+      36.85188293457031,
+      395.1724853515625
+    ],
+    "L": [
+      469.75457763671875,
+      716.5460815429688
+    ],
+    "H": 786.3772583007812,
+    "W": 594.005615234375,
+    "HW": 1.323854923248291,
+    "inside": true,
+    "resid": {
+      "TR": 5.232719779014587,
+      "BL": 12.394362795352937,
+      "RB": 5.066394805908203e-07,
+      "LT": 4.513944789767265
+    }
+  },
+  "canvas": [
+    950,
+    1068
+  ],
+  "canvas_tiles": [
+    39.6,
+    44.5
+  ],
+  "tile_px": 24.0,
+  "tile_px_range": [
+    23.8,
+    24.4
+  ],
+  "source": "L0_three_shot+wall_ring_fit",
+  "shots": 3,
+  "overlap_tiles": [
+    12.1,
+    12.1
+  ],
+  "seam_resid": [
+    0.04,
+    0.036
+  ],
+  "fit_resid": {
+    "TR": 5.232719779014587,
+    "BL": 12.394362795352937,
+    "RB": 5.066394805908203e-07,
+    "LT": 4.513944789767265
+  },
+  "HW_check": {
+    "value": 1.323854923248291,
+    "target": "0.5±0.10",
+    "PASS": false,
+    "note": "围墙环H/W=1.324不达标,边族聚类混入内圈墙,quad不验收"
+  },
+  "vertices_inside": true,
+  "recognition": {
+    "大本营": {
+      "expect": 1,
+      "peaks": [
+        [
+          0.895348310470581,
+          692,
+          426.75
+        ]
+      ]
+    },
+    "鹰炮": {
+      "expect": 4,
+      "peaks": [
+        [
+          0.8109251856803894,
+          506,
+          484.75
+        ]
+      ]
+    },
+    "防空塔": {
+      "expect": 4,
+      "peaks": [
+        [
+          0.7613618969917297,
+          638,
+          566.92
+        ]
+      ]
+    },
+    "金仓": {
+      "expect": 4,
+      "peaks": [
+        [
+          0.8105672001838684,
+          530,
+          547.75
+        ],
+        [
+          0.7990497350692749,
+          530,
+          545.92
+        ]
+      ]
+    },
+    "法师塔": {
+      "expect": 3,
+      "peaks": [
+        [
+          0.7746663689613342,
+          638,
+          547.75
+        ],
+        [
+          0.7884683012962341,
+          638,
+          545.92
+        ]
+      ]
+    }
+  },
+  "ts": "2026-11-24T14:59:06",
+  "status": "FAIL",
+  "L0_snapped": {
+    "quad": {
+      "T": [
+        472,
+        118
+      ],
+      "R": [
+        878,
+        430
+      ],
+      "B": [
+        472,
+        758
+      ],
+      "L": [
+        68,
+        430
+      ]
+    },
+    "H_W": 0.7901,
+    "lattice": {
+      "O": [
+        473.2,
+        796.6
+      ],
+      "a": [
+        13.17,
+        23.36
+      ],
+      "b": [
+        -20.06,
+        12.57
+      ],
+      "|a|": 26.817,
+      "|b|": 23.673
+    },
+    "fit_resid": 3.4901,
+    "anchors_n": 38,
+    "anchors_pass": 38,
+    "worst_dev": 0.4804,
+    "tile_px": 24.0,
+    "canvas": [
+      905,
+      1068
+    ],
+    "method": "affine lattice snap (hand hill-climb); homography-4corner H/W=0.4-0.6 hard constraint degenerated, see l0_snap_calib.py",
+    "acceptance": "38/38 <=0.5, worst 0.480",
+    "ts": "2026-11-24T15:12:35",
+    "status": "scale_unverified"
+  },
+  "L0_snapped_v2": {
+    "lattice": {
+      "O": [
+        473.2,
+        796.6
+      ],
+      "a": [
+        11.787,
+        20.906
+      ],
+      "b": [
+        -20.337,
+        12.744
+      ]
+    },
+    "norm_a": 24.0,
+    "norm_b": 24.0,
+    "ratio": 1.0,
+    "quad_44": {
+      "T": [
+        473.2,
+        796.6
+      ],
+      "R": [
+        991.813,
+        1716.479
+      ],
+      "B": [
+        96.979,
+        2277.2
+      ],
+      "L": [
+        -421.634,
+        1357.321
+      ]
+    },
+    "verts_in_canvas": false,
+    "tile_px": 24.0,
+    "canvas": [
+      905,
+      1068
+    ],
+    "holdout": "16/19 & 18/19",
+    "status": "near",
+    "scale_note": "本帧1x1直测不可得(金顶检测混墙饰/墙自相关平坦)；尺度继承tile_px链23.8-24.4中点24.0，方向用吸附拟合，两轴等长",
+    "ts": "2026-11-24T15:59:23"
+  },
+  "L0_snapped_v3": {
+    "based_on": "L0_snapped_v2",
+    "mode": "offline independent error quantification (no adb/no screen)",
+    "footprint_visual_span": {
+      "reads": [
+        {
+          "name": "金仓NE",
+          "span_px": 70,
+          "tiles": 3,
+          "ppt": 23.33
+        },
+        {
+          "name": "金仓SW",
+          "span_px": 70,
+          "tiles": 3,
+          "ppt": 23.33
+        },
+        {
+          "name": "金仓SE",
+          "span_px": 72,
+          "tiles": 3,
+          "ppt": 24.0
+        },
+        {
+          "name": "金仓S",
+          "span_px": 70,
+          "tiles": 3,
+          "ppt": 23.33
+        },
+        {
+          "name": "法师塔SE",
+          "span_px": 66,
+          "tiles": 3,
+          "ppt": 22.0
+        }
+      ],
+      "mean_ppt": 23.2,
+      "vs24_dev_pct": -3.33,
+      "caveat": "L0(≈24px/格)底面轮廓不可辨,读数为机身视觉跨度(容差±8px),非严格底面边,不作常量表依据"
+    },
+    "v2_self_residual": {
+      "handread_mean_g": 0.451,
+      "handread_mean_px": 10.8,
+      "handread_max_g": 0.593,
+      "handread_max_px": 14.2,
+      "anchor_diag_mean_g": 0.342,
+      "anchor_diag_max_g": 0.594,
+      "note": "手读点余量=手读中心到v2最近格点距离,含手读噪声(±10px),非独立真值误差;锚点诊断非真值"
+    },
+    "independent_truth": "unavailable: canvas横向39.6格<44,平台左右缘裁切,外围草地/围墙未入镜,墙行不可计数,底面不可辨",
+    "verdict": "usable_v1",
+    "status": "usable_v1",
+    "correction_path": "横向补采(左右各外扩约4-8格)使四边入镜后直测;或换更近档(更大tile_px)单帧直测底面",
+    "ts": "2026-11-24T16:23:08",
+    "error": {
+      "avg_tile": 0.45,
+      "max_tile": 0.59,
+      "avg_px": 10.8,
+      "max_px": 14.2
+    },
+    "accept_rule": "用户口径：<1格(24px)即可作 v1 常量表",
+    "caveat": "①px/格 23.20 为机身视觉跨度估读（容差±8px），非严格底面直测；②格位偏差含±10px 手读噪声，且整数格位基准受横向裁切(39.6格<44)限制，非独立真值；③本表待全阵采集(L0 6张拼接)出图后由直读 quad 取代",
+    "superseded_by": "L0_full（全阵采集线产出，届时若 verified 则本项降为 reference）"
+  },
+  "L0_full": {
+    "quad": {
+      "T": null,
+      "R": null,
+      "B": null,
+      "L": null
+    },
+    "quad_note": "顶边出画、左右仅下段可见；四顶点无法由可见直边相交直读，不做外推。",
+    "px_per_tile": 24.0,
+    "px_per_tile_evidence": "v6_tile_px: edge_step=31.17 / fft_texture=24.0 / blob_spacing=14.02, est=24.0, consensus=False(edge-fft rel>15%); 模板链 s=1.00(corr0.677) 相对 zoom_L0 同尺度, tile_px=24.0",
+    "H_W": null,
+    "canvas": [
+      865,
+      537
+    ],
+    "canvas_tiles_at24": [
+      36.0,
+      22.4
+    ],
+    "verts_in_canvas": false,
+    "seams": [],
+    "blocks_captured": 1,
+    "blocks_planned": 6,
+    "status": "near",
+    "gap": "环境阻塞：家景相机平移窗口仅约40-150px/向，已穷尽手势法——sendevent drag、input swipe 300ms 无位移，input swipe 900/1500ms(N/S/E/W)仅微移即到边界；pinch-in(小/大展开)与鼠标滚轮均无缩远，pinch-out有效；2列x3行六块网格与≥3格草地余量不可达；单帧36.0x22.4格<44x44，平台顶边出画，四顶点不全在画布。",
+    "attack_button_tapped": false,
+    "ts": "2026-11-24T17:10:06"
+  },
+  "L0_editor": {
+    "quad": {
+      "T": null,
+      "R": null,
+      "B": null,
+      "L": null
+    },
+    "quad_note": "阵型编辑/复制阵型界面在本客户端未找到、未进入；fallback 主页 L0 最远帧四顶点出画，不做外推。",
+    "px_per_tile": 24.0,
+    "px_per_tile_by": "tool3",
+    "px_per_tile_evidence": "无地面格线可量（编辑界面未进入）；v6_tile_px 全帧: edge_step=24.48 / fft_texture=24.0 / blob_spacing=14.59, edge-fft rel=1.97%<15%, consensus=True, est=24.0；裁口帧 consensus=False(rel18.6%)。",
+    "H_W": null,
+    "canvas": [
+      865,
+      537
+    ],
+    "canvas_tiles_at24": [
+      36.0,
+      22.4
+    ],
+    "verts_in_canvas": false,
+    "seams": [],
+    "source": "阵型编辑/复制阵型界面（未进入）；fallback=主页 L0 最远 pinch-in 帧 raw/pinchin_far.png → v11_editor_full.png",
+    "entries_tried": "头像/资料(我的简介/我的部落/部落/社交/收件箱/设置 全标签, 家乡/建筑大师基地/部落都城 子标签); 建造商店(仅魔法物品/表情两标签, 标签行横滑无隐藏); 战斗菜单(联机/单人/练习, 常规战/排位战图标, 编辑军队=军队编成); 底部栏(日历=部落竞赛, 书页, 箱子=促销条, 包=商店, 翻页箭头); 左侧(雕像=联赛概况, 盾牌=部落聊天, 强化=纯标签); 部落战地图(我军/回营/对战详细信息); 均无基地编辑/复制阵型入口。",
+    "editor_gridline_visible": false,
+    "status": "near",
+    "gap": "本客户端未暴露基地编辑器/复制阵型入口，无带格线的村庄视图；pinch_in_big.sh 可缩到 L0 最远(全帧 consensus=True, tile_px=24.0)，但主页平移窗仍仅40-150px/向，单帧36.0x22.4格<44x44，底边/顶角出画，四顶点不全在画布，无法直读 quad。v11_editor_grid.png 因无 quad 不叠格（避免假对齐）。",
+    "attack_button_tapped": false,
+    "layout_modified": false,
+    "ts": "2026-11-24T17:34:07"
+  },
+  "L0_army_preview": {
+    "quad": {
+      "T": null,
+      "R": null,
+      "B": null,
+      "L": null
+    },
+    "quad_note": "进入我军侦察预览，但 z1wind 不在本次20人战阵容(1-20全部翻遍)，无自家战阵预览可直读；所看均为盟友基地，不据其外推自家 quad。",
+    "px_per_tile": null,
+    "px_per_tile_by": "tool3",
+    "px_per_tile_evidence": "侦察预览无地面格线；tool3 盟友帧 edge_step=29.38/fft=24.0/blob=14.49, rel18.3%>15%, consensus=False 不可信；预览固定缩放，pinch-in 无反应。",
+    "H_W": null,
+    "canvas": [
+      1280,
+      720
+    ],
+    "verts_in_canvas": false,
+    "seams": [],
+    "camera": "free(pan 自由, 长swipe可达地图全域; zoom 固定, pinch 无效)",
+    "source": "部落战地图→我军→成员卡→侦察(盟友4.YasinnoF亚 等)",
+    "roster_scanned": "1.BLACK TIGER / 2.WRdWX / 3.恐慌 / 4.YasinnoF亚 / 5.不死的驴 / 6.Dr.lin / 7.忍者 / 8.看看 / 13.庄园酒店 / 18.小乐 / 20.Hakka，全20人无 z1wind",
+    "preview_fit_one_frame": true,
+    "gridline_visible": false,
+    "status": "near",
+    "gap": "侦察预览确证：整张基地一屏装下、平移自由、但缩放固定、无格线；卡点=z1wind 未入选本次20人战阵容，预览轮播只含20个盟友基地，自家战阵不可见，故自家 quad 无法直读。未点任何进攻/侦察我方之外的危险按钮，未改阵，已回营回主页。",
+    "attack_button_tapped": false,
+    "layout_modified": false,
+    "ts": "2026-11-24T17:45:01"
+  },
+  "enemy_preview_14": {
+    "quad": {
+      "T": [
+        640,
+        58
+      ],
+      "R": [
+        1105,
+        325
+      ],
+      "B": [
+        640,
+        600
+      ],
+      "L": [
+        167,
+        308
+      ]
+    },
+    "px_per_tile": null,
+    "px_per_tile_by": "quad44_projection",
+    "px_per_tile_evidence": "侦察预览无地面格线；全景分辨率下建筑底面被围墙/邻舍遮挡不可辨，未做4栋标尺读数；tool3(盟友帧consensus=False)不采信。尺度由44x44已知平台投影反推，44x44格以双线性quad映射叠放，不报单一标量px/格。",
+    "H_W": 0.578,
+    "W_H": 1.731,
+    "canvas": [
+      1280,
+      720
+    ],
+    "verts_in_canvas": {
+      "T": true,
+      "R": true,
+      "B": false,
+      "L": true,
+      "note": "B(640,600)被底部进攻按钮UI覆盖，由两侧直边外推交点，未目视直读"
+    },
+    "occluded": [
+      {
+        "region": "底部中央 y600-700 x480-800",
+        "cause": "进攻!按钮UI",
+        "buildings": "底部中央条带1-2栋不可见，无法逐栋点名"
+      },
+      {
+        "region": "左上 x0-240 y0-260",
+        "cause": "奖励面板UI"
+      },
+      {
+        "region": "右下 x1050-1280 y560-720",
+        "cause": "部落最佳进攻面板UI"
+      }
+    ],
+    "camera": "free(pan自由;pinch_zoom外扩/pinch_in_big缩回有效;无格线)",
+    "source": "部落战地图→敌军#14 kekejdj→成员卡→绿色侦察(未碰灰色进攻!)",
+    "status": "near",
+    "gap": "B角被进攻按钮遮挡未直读；建筑底面标尺在全景不可辨，尺度未独立直测；quad为人工+草地轮廓辅助读，W/H=1.731落在历史敌方1.697-1.826区间。",
+    "attack_button_tapped": false,
+    "layout_modified": false,
+    "ts": "2026-11-24T18:10:00"
+  },
+  "enemy_preview_14_hi": {
+    "quad": null,
+    "quad_note": "未产出hi拼接全阵，无新quad；沿用 enemy_preview_14 的全景quad。",
+    "px_per_tile": null,
+    "px_per_tile_by": "footprint(尝试失败)",
+    "px_per_tile_evidence": "预览缩放封顶：pinch_zoom 30步×14px后再放大无变化；max档2x2大炮反推|east|≈30px/格，达不到40-45；无格线，3x3紫瓶/4x4大本营底面被art与邻舍遮挡不可辨，独立直测不足3栋且极差无法≤15%。",
+    "H_W": null,
+    "canvas": [
+      1280,
+      720
+    ],
+    "verts_in_canvas": false,
+    "seams": [],
+    "occluded": [
+      "底部中央(进攻!按钮)",
+      "左上(奖励面板)",
+      "右下(最佳进攻面板)"
+    ],
+    "blocks_captured": 0,
+    "status": "near",
+    "gap": "①预览缩放封顶~30px/格，不达40-45目标档；②无格线+art溢出底面，建筑标尺独立直测不可得；③几何上overview帧横向约60格，任何放大档单帧<44格，2x2(重叠35%)盖不住44x44；④pan方向手感相反且有惯性，未做模板配准分块。未产 b14_hi_full/b14_hi_grid，未叠假格。证据帧:zoommax.png/mid2.png/mid1.png/b14_hi_reset.png，记录见 b14_hi_scale.json。",
+    "attack_button_tapped": false,
+    "layout_modified": false,
+    "ts": "2026-11-24T19:05:00"
+  },
+  "bases": {
+    "th16_02": {
+      "quad": {
+        "T": [
+          501.07,
+          16.72
+        ],
+        "R": [
+          859.5,
+          214.03
+        ],
+        "B": [
+          499.66,
+          463.06
+        ],
+        "L": [
+          138.09,
+          215.66
+        ]
+      },
+      "H": [
+        [
+          6.254929558719722,
+          -8.578957654388793,
+          501.06716048753407
+        ],
+        [
+          4.013253448673055,
+          4.0065114803222714,
+          16.72479134491853
+        ],
+        [
+          -0.0022004963728550174,
+          -0.002386692167376314,
+          1.0
+        ]
+      ],
+      "method": "numpy DLT least-squares, tile(center)->px, no image fit",
+      "n_train": 22,
+      "n_blind": 2,
+      "train_p50_px": 3.311,
+      "train_max_px": 8.193,
+      "blind_p50_px": 5.146,
+      "blind_max_px": 8.44,
+      "tile_px_median": 9.6,
+      "rot_deg": -12.315,
+      "shear_dot": -0.5341,
+      "gx_ang": 32.68,
+      "gy_ang": 154.97,
+      "axis_len_ratio": 0.7849,
+      "vs_notes_quad_corner_px": [
+        4.84,
+        1.09,
+        7.07,
+        2.02
+      ],
+      "written_by": "_quad_calib/solve.py DLT",
+      "ts": "2026-11-24T20:17:21"
+    },
+    "th16_03": {
+      "quad": {
+        "T": [
+          1281.11,
+          12.35
+        ],
+        "R": [
+          2317.85,
+          572.64
+        ],
+        "B": [
+          1277.23,
+          1180.81
+        ],
+        "L": [
+          302.33,
+          561.1
+        ]
+      },
+      "H": [
+        [
+          19.465738356023294,
+          -22.379470561305283,
+          1281.1126829252041
+        ],
+        [
+          11.721769223093188,
+          12.221880306320822,
+          12.352903892442386
+        ],
+        [
+          -0.001767332943690056,
+          -0.00044490004232161103,
+          1.0
+        ]
+      ],
+      "method": "numpy DLT least-squares, tile(center)->px, no image fit",
+      "n_train": 17,
+      "n_blind": 1,
+      "train_p50_px": 7.434,
+      "train_max_px": 13.528,
+      "blind_p50_px": 14.416,
+      "blind_max_px": 14.416,
+      "tile_px_median": 27.146,
+      "rot_deg": -13.945,
+      "shear_dot": -0.5046,
+      "gx_ang": 31.06,
+      "gy_ang": 151.36,
+      "axis_len_ratio": 0.8911,
+      "vs_notes_quad_corner_px": [
+        6.9,
+        5.3,
+        12.76,
+        20.35
+      ],
+      "written_by": "_quad_calib/solve.py DLT",
+      "ts": "2026-11-24T20:17:21"
+    },
+    "th16_06": {
+      "quad": {
+        "T": [
+          1276.04,
+          28.69
+        ],
+        "R": [
+          2079.08,
+          664.08
+        ],
+        "B": [
+          1301.92,
+          1212.49
+        ],
+        "L": [
+          460.23,
+          618.96
+        ]
+      },
+      "H": [
+        [
+          21.22944822736068,
+          -18.412464176200665,
+          1276.0368359005042
+        ],
+        [
+          15.392108488427489,
+          13.588069316773208,
+          28.68897346993821
+        ],
+        [
+          0.0014325665916860607,
+          0.00027938230879974473,
+          1.0
+        ]
+      ],
+      "method": "numpy DLT least-squares, tile(center)->px, no image fit",
+      "n_train": 30,
+      "n_blind": 2,
+      "train_p50_px": 8.87,
+      "train_max_px": 15.583,
+      "blind_p50_px": 11.097,
+      "blind_max_px": 12.646,
+      "tile_px_median": 22.911,
+      "rot_deg": -9.057,
+      "shear_dot": -0.3029,
+      "gx_ang": 35.94,
+      "gy_ang": 143.57,
+      "axis_len_ratio": 1.1459,
+      "vs_notes_quad_corner_px": [
+        2.59,
+        8.84,
+        4.79,
+        6.3
+      ],
+      "written_by": "_quad_calib/solve.py DLT",
+      "ts": "2026-11-24T20:17:21"
+    },
+    "th16_05": {
+      "quad": {
+        "T": [
+          1322.18,
+          29.18
+        ],
+        "R": [
+          2319.69,
+          489.63
+        ],
+        "B": [
+          1399.18,
+          1171.65
+        ],
+        "L": [
+          312.83,
+          610.0
+        ]
+      },
+      "H": [
+        [
+          20.15468780384337,
+          -23.80884689307368,
+          1322.1824216712398
+        ],
+        [
+          9.93368103246288,
+          11.506203192187428,
+          29.17654406984383
+        ],
+        [
+          -0.001084640019604119,
+          -0.0027777344484773837,
+          1.0
+        ]
+      ],
+      "method": "numpy DLT least-squares, tile(center)->px, no image fit",
+      "n_train": 15,
+      "n_blind": 0,
+      "train_p50_px": 6.595,
+      "train_max_px": 16.758,
+      "blind_p50_px": null,
+      "blind_max_px": null,
+      "tile_px_median": 26.605,
+      "rot_deg": -18.763,
+      "shear_dot": -0.6152,
+      "gx_ang": 26.24,
+      "gy_ang": 154.21,
+      "axis_len_ratio": 0.8497,
+      "vs_notes_quad_corner_px": [
+        4.23,
+        16.39,
+        11.2,
+        22.83
+      ],
+      "written_by": "_quad_calib/solve.py DLT",
+      "ts": "2026-11-24T20:17:21"
+    }
+  }
+}

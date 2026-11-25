@@ -1,0 +1,50 @@
+{
+  "id": "k037",
+  "source": {
+    "title": "Best TH16 Attack Strategies 2026 — Top War & CWL Armies (Game365Hub, Strategy 1: Root Rider + Witch)",
+    "url": "https://game365hub.com/clash-of-clans/guides/best-th16-attack-strategies-2026",
+    "site": "guide",
+    "date": "2026-03-16",
+    "lang": "en",
+    "note": "正文级（社区攻略；根骑士+女巫+冰戈仑地面推，女王配 Giant Arrow）"
+  },
+  "th": "16",
+  "army": [
+    "root-rider",
+    "witch",
+    "ice-golem",
+    "healer"
+  ],
+  "equipment": [
+    "giant-arrow"
+  ],
+  "pattern": "hybrid",
+  "key_points": [
+    "先把 3–4 瓶地震堆叠砸核心隔间（大本/鹰炮/monolith 一带），免去根骑士破墙路径问题",
+    "两侧断边：弓手清角、蛮王一侧、飞盾另一侧，每侧至少清 2–3 栋，逼根骑士向里走、不追外飘",
+    "入兵点中央先放 1–2 个冰戈仑吃首轮火力，尸体冰冻迟滞防御",
+    "根骑士 6–8 条在冰戈仑身后 spread 一线铺开覆盖最大横向面，别一坨砸下",
+    "女巫 5–6 个跟在根骑士后，骷髅分摊单头地狱塔光束、点防被骷髅缠住",
+    "治疗天使 2–3 个吊住根骑士前排；女王穿云箭点优先目标（鹰炮/monolith）；永王地面模式贴身 aura，永恒书卷留核心",
+    "进核心落狂暴；多头地狱塔露头即冰冻，单头交给女巫骷髅扛"
+  ],
+  "coords_hint": "",
+  "countered_layout": "box",
+  "body": {
+    "rhythm": "地震开核心墙 → 两侧英雄断边 15–20s → 冰戈仑+根骑士一线压上 → 女巫/天使跟进 → 核心狂暴+冰冻多头 → 永王书卷收尾",
+    "counters": [
+      "多层隔间、墙厚的 box 方阵（根骑士自动破墙不吃墙）",
+      "单头地狱塔为主、骷髅可分摊的阵",
+      "核心可被地震打开的阵"
+    ],
+    "fails_when": [
+      "断边不完整、根骑士追外围建筑外飘",
+      "多头地狱塔全覆盖核心、冰冻不够",
+      "治疗天使被防空/红雷点杀、前排断奶"
+    ]
+  },
+  "ratio_source": "配比来自 source 页面：根骑士 6–8 条、女巫 5–6 个、冰戈仑 1–2 个、治疗天使 2–3 个、弓手 4–5 断边；法术 狂暴2–3/治疗1/冰冻1–2/地震3–4；女王 Giant Arrow，永王地面 Eternal Tome",
+  "confidence": 0.5,
+  "confidence_basis": "社区攻略配方，无官方数值，列社区共识档",
+  "fetched_at": "2026-11-24"
+}

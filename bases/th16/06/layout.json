@@ -1,0 +1,953 @@
+{
+  "name": "th16_06_anti2star_defence17",
+  "grid": 44,
+  "note": "TH16 Anti-2star / Anti Everything 防守阵（clashofclans-layouts.com #17）人工标注 v1：44×44，全部建筑 source=manual；纯规则生成、无模型补丁。quad=[[1278,27],[2087,668],[1306,1215],[454,618]]（RANSAC 拟合四条外墙外线交点），Calib.from_quad，reproj_error=0.0。墙体仅录外墙包络四边（沿外线≤2格连续采样，116点），内部隔断隔墙未录（团队口径）。48 栋建筑；逐类核对见 notes.md。",
+  "buildings": [
+    {
+      "type": "archer-tower",
+      "tile": [
+        0,
+        17
+      ],
+      "source": "manual",
+      "conf": 0.55,
+      "note": "蓝晶紫亭（紫身+蓝晶球顶+金檐），外观近似 archer-tower L21（紫立方），未确证；也可能 spell-tower 外观，但数量远超 spell 基线，故归 archer-tower；conf 0.55"
+    },
+    {
+      "type": "archer-tower",
+      "tile": [
+        0,
+        20
+      ],
+      "source": "manual",
+      "conf": 0.55,
+      "note": "蓝晶紫亭（紫身+蓝晶球顶+金檐），外观近似 archer-tower L21（紫立方），未确证；也可能 spell-tower 外观，但数量远超 spell 基线，故归 archer-tower；conf 0.55"
+    },
+    {
+      "type": "wizard-tower",
+      "tile": [
+        2,
+        24
+      ],
+      "source": "manual",
+      "conf": 0.6,
+      "note": "绿顶园塔，近似映射 wizard-tower（L14 绿穹外观）"
+    },
+    {
+      "type": "cannon",
+      "tile": [
+        7,
+        17
+      ],
+      "source": "manual",
+      "conf": 0.55,
+      "note": "红橙炮，近似映射 cannon，conf 低"
+    },
+    {
+      "type": "ricochet-cannon",
+      "tile": [
+        0,
+        2
+      ],
+      "source": "manual",
+      "conf": 0.5,
+      "note": "黑金履带机；STATS 未建模，按默认 hp1400/dps120/range9 兜底；也可能是 x-bow/eagle 深色皮肤，未确证"
+    },
+    {
+      "type": "ricochet-cannon",
+      "tile": [
+        4,
+        0
+      ],
+      "source": "manual",
+      "conf": 0.5,
+      "note": "黑金履带机；STATS 未建模，按默认兜底；也可能是 x-bow/eagle 深色皮肤，未确证"
+    },
+    {
+      "type": "cannon",
+      "tile": [
+        4,
+        2
+      ],
+      "source": "manual",
+      "conf": 0.55,
+      "note": "红单管塔，近似映射 cannon，conf 低"
+    },
+    {
+      "type": "inferno-tower",
+      "tile": [
+        7,
+        5
+      ],
+      "source": "manual",
+      "conf": 0.8,
+      "note": "红塔多刺火焰柱，地狱塔"
+    },
+    {
+      "type": "scattershot",
+      "tile": [
+        7,
+        3
+      ],
+      "source": "manual",
+      "conf": 0.5,
+      "note": "棕金机器人外观，近似映射 scattershot，conf 低，未确证"
+    },
+    {
+      "type": "hidden-tesla",
+      "tile": [
+        17,
+        0
+      ],
+      "source": "manual",
+      "conf": 0.5,
+      "note": "棕金蓝头小塔，近似映射 hidden-tesla，conf 低"
+    },
+    {
+      "type": "wizard-tower",
+      "tile": [
+        20,
+        0
+      ],
+      "source": "manual",
+      "conf": 0.55,
+      "note": "红橙塔，近似映射 wizard-tower，conf 低"
+    },
+    {
+      "type": "air-defense",
+      "tile": [
+        22,
+        0
+      ],
+      "source": "manual",
+      "conf": 0.55,
+      "note": "紫立方防空，外观接近 air-defense L16，conf 低"
+    },
+    {
+      "type": "cannon",
+      "tile": [
+        3,
+        40
+      ],
+      "source": "manual",
+      "conf": 0.55,
+      "note": "红橙炮，近似映射 cannon，conf 低"
+    },
+    {
+      "type": "inferno-tower",
+      "tile": [
+        7,
+        37
+      ],
+      "source": "manual",
+      "conf": 0.8,
+      "note": "红塔多刺火焰柱，地狱塔"
+    },
+    {
+      "type": "wizard-tower",
+      "tile": [
+        5,
+        26
+      ],
+      "source": "manual",
+      "conf": 0.55,
+      "note": "红橙塔，近似映射 wizard-tower，conf 低"
+    },
+    {
+      "type": "cannon",
+      "tile": [
+        13,
+        36
+      ],
+      "source": "manual",
+      "conf": 0.6,
+      "note": "红银单管炮，近似映射 cannon"
+    },
+    {
+      "type": "bomb-tower",
+      "tile": [
+        8,
+        29
+      ],
+      "source": "manual",
+      "conf": 0.75,
+      "note": "黑黄方形炸弹塔"
+    },
+    {
+      "type": "wizard-tower",
+      "tile": [
+        16,
+        29
+      ],
+      "source": "manual",
+      "conf": 0.55,
+      "note": "红橙塔，近似映射 wizard-tower，conf 低"
+    },
+    {
+      "type": "archer-tower",
+      "tile": [
+        17,
+        39
+      ],
+      "source": "manual",
+      "conf": 0.55,
+      "note": "蓝晶紫亭（紫身+蓝晶球顶+金檐），外观近似 archer-tower L21（紫立方），未确证；也可能 spell-tower 外观，但数量远超 spell 基线，故归 archer-tower；conf 0.55"
+    },
+    {
+      "type": "spell-tower",
+      "tile": [
+        15,
+        14
+      ],
+      "source": "manual",
+      "conf": 0.5,
+      "note": "粉穹顶蛋糕状，近似映射 spell-tower，conf 低"
+    },
+    {
+      "type": "town-hall",
+      "tile": [
+        19,
+        18
+      ],
+      "source": "manual",
+      "conf": 0.9,
+      "note": "中央红金大本营"
+    },
+    {
+      "type": "archer-tower",
+      "tile": [
+        15,
+        23
+      ],
+      "source": "manual",
+      "conf": 0.55,
+      "note": "蓝晶紫亭（紫身+蓝晶球顶+金檐），外观近似 archer-tower L21（紫立方），未确证；也可能 spell-tower 外观，但数量远超 spell 基线，故归 archer-tower；conf 0.55"
+    },
+    {
+      "type": "wizard-tower",
+      "tile": [
+        24,
+        14
+      ],
+      "source": "manual",
+      "conf": 0.55,
+      "note": "紫金塔，近似映射 wizard-tower，conf 低"
+    },
+    {
+      "type": "wizard-tower",
+      "tile": [
+        10,
+        17
+      ],
+      "source": "manual",
+      "conf": 0.55,
+      "note": "红橙塔，近似映射 wizard-tower，conf 低"
+    },
+    {
+      "type": "wizard-tower",
+      "tile": [
+        18,
+        8
+      ],
+      "source": "manual",
+      "conf": 0.55,
+      "note": "红橙塔，近似映射 wizard-tower，conf 低"
+    },
+    {
+      "type": "hidden-tesla",
+      "tile": [
+        24,
+        19
+      ],
+      "source": "manual",
+      "conf": 0.5,
+      "note": "小黑炮，近似映射 hidden-tesla，conf 低"
+    },
+    {
+      "type": "wizard-tower",
+      "tile": [
+        20,
+        28
+      ],
+      "source": "manual",
+      "conf": 0.55,
+      "note": "红橙塔，近似映射 wizard-tower，conf 低"
+    },
+    {
+      "type": "wizard-tower",
+      "tile": [
+        29,
+        19
+      ],
+      "source": "manual",
+      "conf": 0.55,
+      "note": "红橙塔，近似映射 wizard-tower，conf 低"
+    },
+    {
+      "type": "hidden-tesla",
+      "tile": [
+        16,
+        19
+      ],
+      "source": "manual",
+      "conf": 0.5,
+      "note": "金小炮，近似映射 hidden-tesla，conf 低"
+    },
+    {
+      "type": "inferno-tower",
+      "tile": [
+        35,
+        4
+      ],
+      "source": "manual",
+      "conf": 0.8,
+      "note": "红塔多刺火焰柱，地狱塔"
+    },
+    {
+      "type": "mortar",
+      "tile": [
+        38,
+        1
+      ],
+      "source": "manual",
+      "conf": 0.55,
+      "note": "红橙迫击炮，近似映射 mortar，conf 低"
+    },
+    {
+      "type": "cannon",
+      "tile": [
+        41,
+        0
+      ],
+      "source": "manual",
+      "conf": 0.55,
+      "note": "红管金座加农炮，近似映射 cannon；也可能是黑甲机械（ricochet-cannon 未确证），conf 0.55"
+    },
+    {
+      "type": "cannon",
+      "tile": [
+        26,
+        0
+      ],
+      "source": "manual",
+      "conf": 0.55,
+      "note": "红橙炮，近似映射 cannon，conf 低"
+    },
+    {
+      "type": "wizard-tower",
+      "tile": [
+        40,
+        12
+      ],
+      "source": "manual",
+      "conf": 0.6,
+      "note": "绿顶园塔，近似映射 wizard-tower（L14 绿穹外观）"
+    },
+    {
+      "type": "archer-tower",
+      "tile": [
+        43,
+        12
+      ],
+      "source": "manual",
+      "conf": 0.55,
+      "note": "蓝晶紫亭（紫身+蓝晶球顶+金檐），外观近似 archer-tower L21（紫立方），未确证；也可能 spell-tower 外观，但数量远超 spell 基线，故归 archer-tower；conf 0.55"
+    },
+    {
+      "type": "archer-tower",
+      "tile": [
+        21,
+        40
+      ],
+      "source": "manual",
+      "conf": 0.55,
+      "note": "蓝晶紫亭（紫身+蓝晶球顶+金檐），外观近似 archer-tower L21（紫立方），未确证；也可能 spell-tower 外观，但数量远超 spell 基线，故归 archer-tower；conf 0.55"
+    },
+    {
+      "type": "ricochet-cannon",
+      "tile": [
+        24,
+        39
+      ],
+      "source": "manual",
+      "conf": 0.5,
+      "note": "黑金履带机；STATS 未建模，默认兜底；也可能是 x-bow/eagle 深色皮肤，未确证"
+    },
+    {
+      "type": "wizard-tower",
+      "tile": [
+        22,
+        34
+      ],
+      "source": "manual",
+      "conf": 0.55,
+      "note": "红橙塔，近似映射 wizard-tower，conf 低"
+    },
+    {
+      "type": "monolith",
+      "tile": [
+        30,
+        29
+      ],
+      "source": "manual",
+      "conf": 0.7,
+      "note": "黑金方尖碑；STATS 未建模，默认兜底，仅作几何与相对排序参考"
+    },
+    {
+      "type": "wizard-tower",
+      "tile": [
+        32,
+        32
+      ],
+      "source": "manual",
+      "conf": 0.55,
+      "note": "红橙塔，近似映射 wizard-tower，conf 低"
+    },
+    {
+      "type": "wizard-tower",
+      "tile": [
+        36,
+        36
+      ],
+      "source": "manual",
+      "conf": 0.55,
+      "note": "红橙塔，近似映射 wizard-tower，conf 低"
+    },
+    {
+      "type": "inferno-tower",
+      "tile": [
+        39,
+        39
+      ],
+      "source": "manual",
+      "conf": 0.8,
+      "note": "红塔多刺火焰柱，地狱塔"
+    },
+    {
+      "type": "ricochet-cannon",
+      "tile": [
+        37,
+        42
+      ],
+      "source": "manual",
+      "conf": 0.5,
+      "note": "黑金履带机；STATS 未建模，默认兜底；也可能是 x-bow/eagle 深色皮肤，未确证"
+    },
+    {
+      "type": "ricochet-cannon",
+      "tile": [
+        42,
+        36
+      ],
+      "source": "manual",
+      "conf": 0.5,
+      "note": "黑金履带机；STATS 未建模，默认兜底；也可能是 x-bow/eagle 深色皮肤，未确证"
+    },
+    {
+      "type": "scattershot",
+      "tile": [
+        43,
+        42
+      ],
+      "source": "manual",
+      "conf": 0.7,
+      "note": "三管金色簇，近似映射 scattershot"
+    },
+    {
+      "type": "wizard-tower",
+      "tile": [
+        35,
+        43
+      ],
+      "source": "manual",
+      "conf": 0.55,
+      "note": "红橙塔，近似映射 wizard-tower，conf 低"
+    },
+    {
+      "type": "archer-tower",
+      "tile": [
+        36,
+        19
+      ],
+      "source": "manual",
+      "conf": 0.55,
+      "note": "蓝晶紫亭（紫身+蓝晶球顶+金檐），外观近似 archer-tower L21（紫立方），未确证；也可能 spell-tower 外观，但数量远超 spell 基线，故归 archer-tower；conf 0.55"
+    },
+    {
+      "type": "ricochet-cannon",
+      "tile": [
+        38,
+        24
+      ],
+      "source": "manual",
+      "conf": 0.5,
+      "note": "黑金履带机；STATS 未建模，默认兜底；也可能是 x-bow/eagle 深色皮肤，未确证"
+    }
+  ],
+  "walls": [
+    [
+      0,
+      0
+    ],
+    [
+      2,
+      0
+    ],
+    [
+      3,
+      0
+    ],
+    [
+      5,
+      0
+    ],
+    [
+      6,
+      0
+    ],
+    [
+      8,
+      0
+    ],
+    [
+      9,
+      0
+    ],
+    [
+      11,
+      0
+    ],
+    [
+      12,
+      0
+    ],
+    [
+      14,
+      0
+    ],
+    [
+      15,
+      0
+    ],
+    [
+      17,
+      0
+    ],
+    [
+      18,
+      0
+    ],
+    [
+      20,
+      0
+    ],
+    [
+      21,
+      0
+    ],
+    [
+      23,
+      0
+    ],
+    [
+      24,
+      0
+    ],
+    [
+      26,
+      0
+    ],
+    [
+      27,
+      0
+    ],
+    [
+      29,
+      0
+    ],
+    [
+      30,
+      0
+    ],
+    [
+      32,
+      0
+    ],
+    [
+      33,
+      0
+    ],
+    [
+      35,
+      0
+    ],
+    [
+      36,
+      0
+    ],
+    [
+      38,
+      0
+    ],
+    [
+      39,
+      0
+    ],
+    [
+      41,
+      0
+    ],
+    [
+      42,
+      0
+    ],
+    [
+      43,
+      0
+    ],
+    [
+      43,
+      2
+    ],
+    [
+      43,
+      3
+    ],
+    [
+      43,
+      5
+    ],
+    [
+      43,
+      6
+    ],
+    [
+      43,
+      8
+    ],
+    [
+      43,
+      9
+    ],
+    [
+      43,
+      11
+    ],
+    [
+      43,
+      12
+    ],
+    [
+      43,
+      14
+    ],
+    [
+      43,
+      15
+    ],
+    [
+      43,
+      17
+    ],
+    [
+      43,
+      18
+    ],
+    [
+      43,
+      20
+    ],
+    [
+      43,
+      21
+    ],
+    [
+      43,
+      23
+    ],
+    [
+      43,
+      24
+    ],
+    [
+      43,
+      26
+    ],
+    [
+      43,
+      27
+    ],
+    [
+      43,
+      29
+    ],
+    [
+      43,
+      30
+    ],
+    [
+      43,
+      32
+    ],
+    [
+      43,
+      33
+    ],
+    [
+      43,
+      35
+    ],
+    [
+      43,
+      36
+    ],
+    [
+      43,
+      38
+    ],
+    [
+      43,
+      39
+    ],
+    [
+      43,
+      41
+    ],
+    [
+      43,
+      42
+    ],
+    [
+      43,
+      43
+    ],
+    [
+      42,
+      43
+    ],
+    [
+      41,
+      43
+    ],
+    [
+      39,
+      43
+    ],
+    [
+      38,
+      43
+    ],
+    [
+      36,
+      43
+    ],
+    [
+      35,
+      43
+    ],
+    [
+      33,
+      43
+    ],
+    [
+      32,
+      43
+    ],
+    [
+      30,
+      43
+    ],
+    [
+      29,
+      43
+    ],
+    [
+      27,
+      43
+    ],
+    [
+      26,
+      43
+    ],
+    [
+      24,
+      43
+    ],
+    [
+      23,
+      43
+    ],
+    [
+      21,
+      43
+    ],
+    [
+      20,
+      43
+    ],
+    [
+      18,
+      43
+    ],
+    [
+      17,
+      43
+    ],
+    [
+      15,
+      43
+    ],
+    [
+      14,
+      43
+    ],
+    [
+      12,
+      43
+    ],
+    [
+      11,
+      43
+    ],
+    [
+      9,
+      43
+    ],
+    [
+      8,
+      43
+    ],
+    [
+      6,
+      43
+    ],
+    [
+      5,
+      43
+    ],
+    [
+      3,
+      43
+    ],
+    [
+      2,
+      43
+    ],
+    [
+      0,
+      43
+    ],
+    [
+      0,
+      42
+    ],
+    [
+      0,
+      41
+    ],
+    [
+      0,
+      39
+    ],
+    [
+      0,
+      38
+    ],
+    [
+      0,
+      36
+    ],
+    [
+      0,
+      35
+    ],
+    [
+      0,
+      33
+    ],
+    [
+      0,
+      32
+    ],
+    [
+      0,
+      30
+    ],
+    [
+      0,
+      29
+    ],
+    [
+      0,
+      27
+    ],
+    [
+      0,
+      26
+    ],
+    [
+      0,
+      24
+    ],
+    [
+      0,
+      23
+    ],
+    [
+      0,
+      21
+    ],
+    [
+      0,
+      20
+    ],
+    [
+      0,
+      18
+    ],
+    [
+      0,
+      17
+    ],
+    [
+      0,
+      15
+    ],
+    [
+      0,
+      14
+    ],
+    [
+      0,
+      12
+    ],
+    [
+      0,
+      11
+    ],
+    [
+      0,
+      9
+    ],
+    [
+      0,
+      8
+    ],
+    [
+      0,
+      6
+    ],
+    [
+      0,
+      5
+    ],
+    [
+      0,
+      3
+    ],
+    [
+      0,
+      2
+    ]
+  ]
+}

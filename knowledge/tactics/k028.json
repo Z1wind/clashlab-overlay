@@ -1,0 +1,24 @@
+{
+  "id": "k028",
+  "source": {
+    "title": "13本天女超蓝三星教学 (BV1qN411A751, UP:coc林聪)",
+    "url": "https://www.bilibili.com/video/BV1qN411A751/",
+    "site": "bilibili",
+    "date": "2023-04-05",
+    "lang": "zh",
+    "note": "标题+简介级（无字幕，简介可见）"
+  },
+  "th": "13",
+  "army": [
+    "super-wizard"
+  ],
+  "equipment": [],
+  "pattern": "queen_charge",
+  "key_points": [
+    "简介：开局天永打前线（建议王40级以上），投石机断另一边、留中间，大部队走中间再拉回永王（仅简介）"
+  ],
+  "coords_hint": "",
+  "countered_layout": "",
+  "confidence": 0.5,
+  "fetched_at": "2026-11-23"
+}

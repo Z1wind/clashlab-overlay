@@ -1,0 +1,7 @@
+{
+ "serial": "127.0.0.1:5555",
+ "adb": "E:\\leidian\\LDPlayer9\\adb.exe",
+ "model": "deepseek-v4.1-flash",
+ "out": "out",
+ "layout": "layouts\\th13_sample.json"
+}

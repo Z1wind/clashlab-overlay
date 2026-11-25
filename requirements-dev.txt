@@ -1,0 +1,5 @@
+-r requirements.txt
+# 识别/实验用（可选；体积大，不建议普通用户装）
+scipy>=1.11
+torch>=2.2
+easyocr>=1.7

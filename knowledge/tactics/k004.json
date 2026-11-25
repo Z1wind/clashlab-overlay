@@ -1,0 +1,28 @@
+{
+  "id": "k004",
+  "source": {
+    "title": "Best TH13 Attack Strategy 2026: Queen Charge with Hogs (Base Drop)",
+    "url": "https://cocbasedrop.com/blog/best-th13-attack-strategy-2026-war-cwl",
+    "site": "guide",
+    "date": "2026-10-27",
+    "lang": "en",
+    "note": "正文级（社区博客，二手转述）"
+  },
+  "th": "13",
+  "army": [
+    "hog-rider",
+    "healer"
+  ],
+  "equipment": [],
+  "pattern": "queen_charge",
+  "key_points": [
+    "防空与空气炮扎堆的基地不适合空军，改用地面野猪",
+    "女王带治疗沿一侧清外围、开出通道，野猪骑士跟进配治疗法术",
+    "野猪怕巨型炸弹，侦察防御之间常成对藏炸弹的空隙，治疗提前落",
+    "女王等级离满防太远时，通常空军更稳"
+  ],
+  "coords_hint": "",
+  "countered_layout": "",
+  "confidence": 0.6,
+  "fetched_at": "2026-11-23"
+}

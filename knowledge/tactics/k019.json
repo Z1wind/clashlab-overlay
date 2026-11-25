@@ -1,0 +1,35 @@
+{
+  "id": "k019",
+  "source": {
+    "title": "Best Balloon Attack Strategies TH13: Queen Charge LavaLoon (Toxigon)",
+    "url": "https://toxigon.com/best-attack-strategies-with-balloon-for-th-13-in-clash-of-clans",
+    "site": "guide",
+    "date": "2025-05-19",
+    "lang": "en",
+    "note": "正文级（社区博客，配兵数为作者建议）"
+  },
+  "th": "13",
+  "army": [
+    "lava-hound",
+    "balloon",
+    "healer"
+  ],
+  "equipment": [
+    "invisibility-vial",
+    "frozen-arrow",
+    "eternal-tome",
+    "healing-tome"
+  ],
+  "pattern": "queen_charge",
+  "key_points": [
+    "开局先侦察城堡、鹰炮、大本、防空位置",
+    "女王+龙宝贴城堡/防空下，女王点掉防空，狂暴+治疗保女王",
+    "另一侧蛮王配超级炸弹人破另一防空",
+    "随后放熔岩猎犬扛防空，气球跟后；多目标/群伤处用急速/狂暴/冰冻",
+    "收尾放亡灵清理剩余建筑"
+  ],
+  "coords_hint": "",
+  "countered_layout": "",
+  "confidence": 0.58,
+  "fetched_at": "2026-11-23"
+}

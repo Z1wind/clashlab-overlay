@@ -1,0 +1,56 @@
+{
+  "battle": {
+    "point": [88, 645],
+    "confirmed": true,
+    "note": "夜世界主页左下“战斗”按钮，home->开始进攻面板（实测前后截图 02/03）",
+    "evidence": ["out/farm/probe/02_battle_open_before.png", "out/farm/probe/03_battle_open_after.png"]
+  },
+  "attack_close": {
+    "point": [1088, 133],
+    "confirmed": true,
+    "note": "开始进攻面板右上红色关闭X（颜色检测 x1063 y110 50x47 中心1088,133）；attack_menu->home 实测通过",
+    "evidence": ["out/farm/probe/73_attack_close_before.png", "out/farm/probe/74_attack_close_after.png"]
+  },
+  "find": {
+    "point": [951, 474],
+    "confirmed": true,
+    "note": "开始进攻面板右下绿色“立即寻找！”按钮（颜色检测矩形 x826 y432 w250 h85 中心951,474）；0 兵状态点击被拦截不进搜索，按钮位置本身已确认",
+    "evidence": ["out/farm/probe/05_find_crop.png"]
+  },
+  "edit_army": {
+    "point": [421, 570],
+    "confirmed": true,
+    "note": "开始进攻面板左下绿色“编辑军队”按钮（颜色检测矩形 x346 y542 w151 h56 中心421,570）；点击打开“选择军队”编成编辑器，该面板不训练部队",
+    "evidence": ["out/farm/probe/07_edit_army_before.png", "out/farm/probe/08_edit_army_after.png"]
+  },
+  "m_battle": {
+    "point": [75, 635],
+    "confirmed": true,
+    "note": "主村主页左下“战斗”按钮，主页->主村战斗菜单（联机/单人/练习）",
+    "evidence": ["out/farm/probe/45_mhome_battle2_before.png", "out/farm/probe/46_mhome_battle2_after.png"]
+  },
+  "m_search": {
+    "point": [197, 535],
+    "confirmed": true,
+    "note": "主村常规战卡片“搜索对手 1500”按钮（颜色检测矩形 x52 y491 w290 h89 中心197,535）；点击->我的军队开战确认面板",
+    "evidence": ["out/farm/probe/55_search3_before.png", "out/farm/probe/56_search3_after.png"]
+  },
+  "confirm_close": {
+    "point": [1237, 90],
+    "confirmed": true,
+    "note": "我的军队开战确认面板右上关闭X，实测关闭回主页（绝不点绿色“进攻！”）",
+    "evidence": ["out/farm/probe/56_search3_after.png", "out/farm/probe/77_state.png"]
+  },
+  "scout_back": {
+    "point": [64, 44],
+    "confirmed": false,
+    "note": "侦察界面左上返回，候选坐标未实测，标 false",
+    "evidence": []
+  },
+  "scout_attack": {
+    "point": [1150, 640],
+    "confirmed": false,
+    "note": "侦察界面右下红色进攻，候选坐标未实测；红线禁止点，标 false",
+    "evidence": []
+  }
+}
