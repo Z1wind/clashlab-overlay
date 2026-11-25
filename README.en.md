@@ -23,6 +23,14 @@ A note before you dig in: this version still has unfinished parts and bugs, and 
 
 ![PANEL](docs/screenshots/panel.png)
 
+## Recent updates (2026-11-25)
+
+- Semi-automatic annotation tool tools/annotate: layout.json prefill + click-to-fix + autosave; new **grid calibration (G)** — drag 4 corners to fit the whole map (44x44 counts from the outermost map tile, not the outermost building/wall).
+- tools/import_base.py: open a shared base link in-game -> screenshot -> auto 44x44 calibration -> base.png + layout_draft.json.
+- Annotation -> training loop: clashlab/recog_dataset.py + tools/train_from_annotations.py.
+- Wall symmetry inference (clashlab/wall_symmetry.py), 2D top-down renderer (clashlab/topdown.py), CI on Windows + Python 3.13.
+- Base-link decoding research (docs/BASELINK_RESEARCH.md), progress and next steps in docs/NEXT_STEPS.md.
+
 ## What it does
 
 - **Overlay**: a read-only, click-through HUD plus a four-page PANEL (research / layout / collect / settings), docked next to the emulator client area.
