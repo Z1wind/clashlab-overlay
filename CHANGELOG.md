@@ -2,6 +2,8 @@
 
 ## v0.1.1 (unreleased)
 
+- tools/import_base.py：游戏内点开阵型链接 → 截屏 → 自动 44x44 标定 → 生成 base.png + layout_draft.json（含标定合理性检查）。
+
 - 半自动标注工具 `tools/annotate/`：本地网页，layout.json 预填，点选修正，自动保存到 `out/annotate/`。
 - 城墙对称补全 `clashlab/wall_symmetry.py`：按建筑分布推断对称并镜像补墙，区分主城墙与独立墙段。
 - 识别数据流水线 `clashlab/recog_dataset.py` + `tools/train_from_annotations.py`：标注 → 27px 裁剪 → 训练评估。

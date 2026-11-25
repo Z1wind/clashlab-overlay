@@ -96,6 +96,19 @@ python -m clashlab.wall_symmetry_cli --layout bases\th16\03\layout.json --out ou
 
 Infers left-right / up-down / 180° symmetry from building positions, mirrors missing wall cells, and separates the main wall component from isolated wall segments.
 
+## 13. Import a new base from the game (open the link in-game)
+
+    python tools/import_base.py --th 16 --id 07
+
+Open the shared layout link in the emulator, get to the base preview, then run the command above (ADB screencap by default; --from-file shot.png also works):
+
+- Detects the grass boundary for a 44x44 calibration and writes bases/th16/07/base.png + layout_draft.json;
+- out/import/07_grid.png visualises the grid for a quick check;
+- A WARN is printed when the quad covers too little of the frame (the screenshot is not an in-game village);
+- Seed buildings from a similar layout with --copy-from bases/th16/03/layout.json;
+- Then refine the draft with python tools/annotate/start.py.
+
+
 ## 13. Troubleshooting
 
 | Symptom | Fix |

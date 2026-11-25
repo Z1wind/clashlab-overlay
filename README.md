@@ -30,6 +30,7 @@ ClashLab 是一个以 LLM 为辅的部落冲突（Clash of Clans）布阵研究�
 - **评分**：7 个指标加权成 0–100 分，给出 S–F 等级和带方位的弱点。
 - **战术**：弱点会进简报、LLM 提示和面板；可以出女王穿云箭战术图；支持 2D 推演候选落点。
 - **2D 化**：`layout.json` 转成俯视阵型 PNG 和 2D 交换 JSON，方便导进别的 2D 引擎做推演（`python -m clashlab.topdown_cli`）。
+- **游戏内导入**：在模拟器里点开阵型链接，运行 python tools/import_base.py --th 16 --id 07 → 自动截屏、44×44 标定，生成 base.png + layout_draft.json，再交给标注工具微调。
 - **base link 调研**：分享链接里的 payload 是不可恢复的 24 字节 token，社区没有解码器（详见 [docs/BASELINK_RESEARCH.md](docs/BASELINK_RESEARCH.md)）；在游戏里点开链接再截图是可行替代。
 
 ## 安装和运行
