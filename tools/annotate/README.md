@@ -69,3 +69,17 @@ round-trip、summary 聚合、bases 发现与候选方案、生产数据只读�
   `GET /api/base?th&id&candidate`、`GET /img?th&id`（带 ETag/304）、`POST /api/save`（schema 校验后落盘）。
 - `index.html`：单文件前端（canvas 绘制底图/网格/quad/预填框，拖拽/调色板/撤销/自动保存/快捷键）。
 - 不修改 `clashlab/**`、不碰 `out/overlay/**`、不依赖任何第三方包。
+## 已知限制 / 未做项
+
+- 现有数据里**没有**候选方案（`bases/th16/NN/layouts/*.json` 不存在）；候选切换已实现并用临时 root 验证
+  （下拉、Q/E、`candidate` 落盘、候选模式不继承默认方案的人工结果），但真实 6 阵当前只会显示「预填 layout.json」。
+- 预填坐标来自历史人工标注（notes 里自述 ±2~3 格误差、包络标定），**不是逐格真值**；工具只降低修正成本，不替代人工判断。
+- 网页侧没有自动化 E2E 测试：`tests/test_annotate.py` 只覆盖纯逻辑。页面已用 Edge headless 实测
+  （`--dump-dom` / `--screenshot`：标题、32 类调色板、6 阵下拉、41 栋预填、进度文本、无 JS 报错），未接入 CI。
+- 墙体 `walls` 只做只读显示（灰色小点），本工具不编辑墙点。
+- 一次只能选中一栋建筑（无框选/多选）；撤销是线性 200 步栈，没有分支历史。
+- 只绑本机 `127.0.0.1`；端口被占用自动 +1（`--strict-port` 可关）。改 Python 代码需重启进程，
+  改 `index.html` 刷新页面即可（`GET /` 是 `no-store` 且每次现读文件）。
+- `base.png` 实际是 JPEG 字节（扩展名写 .png），PNG/JPEG 都能读尺寸与显示。
+- `out/annotate/` 初始为空；第一次保存时自动创建，不预置任何示例标注。
+

@@ -77,7 +77,26 @@ It writes two files: `03_topdown.png` (44×44 top-down view with defences in ora
 
 ![Top-down view](screenshots/topdown.png)
 
-## 11. Troubleshooting
+## 11. Semi-automatic annotation (recommended first)
+
+```powershell
+python tools/annotate/start.py        # http://127.0.0.1:8765, opens the browser
+```
+
+- Bases are grouped by TH (TH16: 01–06); each base is **pre-filled** from layout.json, so you only drag wrong boxes to the right tile and fix wrong types.
+- Keys: `1`–`9` pick type, `Tab` next building, arrows nudge, `Delete` remove, `Backspace` undo, `Enter` save & next base, `Space` save & skip, `Q/E` switch candidate, `PageUp/PageDown` change base.
+- Auto-saves to `out/annotate/NN_annotated.json` (same schema as layout.json); summary in `out/annotate/summary.json`.
+- Annotations feed training directly: `python tools/train_from_annotations.py --layouts "bases/th16/*/layout.json" "out/annotate/*.json"`.
+
+## 12. Wall symmetry completion
+
+```powershell
+python -m clashlab.wall_symmetry_cli --layout bases\th16\03\layout.json --out out\walls
+```
+
+Infers left-right / up-down / 180° symmetry from building positions, mirrors missing wall cells, and separates the main wall component from isolated wall segments.
+
+## 13. Troubleshooting
 
 | Symptom | Fix |
 |---|---|
