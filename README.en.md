@@ -7,6 +7,7 @@
 [![License: MIT](https://img.shields.io/badge/license-MIT-3da639.svg)](LICENSE)
 [![Python](https://img.shields.io/badge/python-3.13-3776ab.svg)](requirements.txt)
 [![Tests](https://img.shields.io/badge/tests-86%20passing-brightgreen.svg)]()
+[![CI](https://github.com/Z1wind/clashlab-overlay/actions/workflows/ci.yml/badge.svg)](https://github.com/Z1wind/clashlab-overlay/actions/workflows/ci.yml)
 [![Release](https://img.shields.io/badge/release-v0.1.0-blue.svg)](https://github.com/Z1wind/clashlab-overlay/releases/tag/v0.1.0)
 
 [中文](README.md) · [English](README.en.md) · [教程](docs/教程.md) · [Tutorial](docs/TUTORIAL_en.md)

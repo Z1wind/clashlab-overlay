@@ -8,6 +8,7 @@
 [![Python](https://img.shields.io/badge/python-3.13-3776ab.svg)](requirements.txt)
 [![Platform](https://img.shields.io/badge/platform-Windows-0078d4.svg)]()
 [![Tests](https://img.shields.io/badge/tests-86%20passing-brightgreen.svg)]()
+[![CI](https://github.com/Z1wind/clashlab-overlay/actions/workflows/ci.yml/badge.svg)](https://github.com/Z1wind/clashlab-overlay/actions/workflows/ci.yml)
 [![Release](https://img.shields.io/badge/release-v0.1.0-blue.svg)](https://github.com/Z1wind/clashlab-overlay/releases/tag/v0.1.0)
 
 [中文](README.md) · [English](README.en.md) · [教程](docs/教程.md) · [Tutorial](docs/TUTORIAL_en.md)
@@ -19,7 +20,7 @@
 ![PANEL](docs/screenshots/panel.png)
 
 一些作者的话:
-   现阶段含有大量未完成内容和bug，等待修复，后续我也会接着上传。
+   现阶段含有大量未完成内容和 bug，等待修复，后续我也会接着上传。
    所以恳请各位大佬能够检查该项目或者以此灵感进行自己项目的编写，这样会让我知道我的努力没有白费。
 
 ## ✨ 能力

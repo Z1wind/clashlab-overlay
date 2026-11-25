@@ -14,7 +14,9 @@ from clashlab.overlay.runtime import run
 
 
 def main():
+    from clashlab import __version__
     ap = argparse.ArgumentParser()
+    ap.add_argument("--version", action="version", version="ClashLab " + __version__)
     ap.add_argument("--root", default=os.path.dirname(os.path.abspath(__file__)))
     ap.add_argument("--show", action="store_true", help="可见覆盖层（默认不可见自检）")
     ap.add_argument("--seconds", type=float, default=None, help="自检模式退出秒数")

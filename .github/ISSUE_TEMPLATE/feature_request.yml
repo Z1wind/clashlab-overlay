@@ -1,0 +1,25 @@
+name: Feature request
+description: 功能建议 / Suggest an idea
+title: "[feat] "
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: 想解决什么问题 / Problem
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: 建议方案 / Proposal
+  - type: dropdown
+    id: area
+    attributes:
+      label: 相关模块 / Area
+      options:
+        - overlay (HUD/PANEL)
+        - recognition
+        - layout score
+        - tactics / LLM
+        - docs / tooling

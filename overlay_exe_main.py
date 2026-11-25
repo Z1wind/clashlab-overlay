@@ -53,7 +53,9 @@ def _default_root() -> str:
 
 
 def main() -> None:
+    from clashlab import __version__
     ap = argparse.ArgumentParser()
+    ap.add_argument("--version", action="version", version="ClashLab " + __version__)
     ap.add_argument("--root", default=_default_root())
     ap.add_argument("--show", dest="show", action="store_true", default=None)
     ap.add_argument("--no-show", dest="show", action="store_false")

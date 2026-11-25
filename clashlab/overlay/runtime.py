@@ -872,7 +872,7 @@ def run(root: str, config: dict | None = None) -> None:
 
     main_h, child = find_render_target()
     tx, ty, tw, th = target_rect(child) if child else (0, 0, 997, 561)
-    window = glfw.create_window(max(tw, 100), max(th, 100), "clashlab-overlay", None, None)
+    window = glfw.create_window(max(tw, 100), max(th, 100), "ClashLab 覆盖层", None, None)
     glfw.make_context_current(window)
     # P0-2：WM_CLOSE（任务栏/任务管理器/外部关闭）-> glfw should_close，主循环随之退出
     glfw.set_window_close_callback(window, lambda w: glfw.set_window_should_close(w, True))
