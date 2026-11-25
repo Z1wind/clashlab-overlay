@@ -24,6 +24,7 @@
 - 🎯 Calibration: 44×44 DLT homography, auto recalibration on >10% resize
 - 📊 Score: 7 metrics → 0–100, S–F grade, located weak points
 - 🧠 Tactics: findings into brief / LLM prompt / panel; giant-arrow diagram; 2D simulation
+- 🗺 2D-ification: `layout.json` → top-down PNG + 2D interchange JSON (`python -m clashlab.topdown_cli`)
 
 ## 🚀 Quick start
 

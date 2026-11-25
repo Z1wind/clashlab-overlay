@@ -65,7 +65,15 @@ python -m clashlab.overlay.giant_arrow_diagram --layout bases\th16\03\layout.jso
 python -m unittest discover -s tests    # 86 tests
 ```
 
-## 10. Troubleshooting
+## 10. 2D-ification
+
+```powershell
+python -m clashlab.topdown_cli --layout bases\th16\03\layout.json --out out\overlay\_2d
+```
+
+Writes `03_topdown.png` (44×44 top-down; defenses orange, Town Hall cyan) and `03_2d.json` (tile coords + category + size for 2D engines).
+
+## 11. Troubleshooting
 
 | Symptom | Fix |
 |---|---|
