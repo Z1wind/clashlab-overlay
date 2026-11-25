@@ -38,7 +38,7 @@
 ## 🚀 Quick start
 
 ```powershell
-git clone https://github.com/<your-name>/clashlab-overlay.git
+git clone https://github.com/Z1wind/clashlab-overlay.git
 cd clashlab-overlay
 python -m pip install -r requirements.txt
 python run_overlay.py --show --mode HUD --always-on-top --run-seconds 8
