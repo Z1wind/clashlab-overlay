@@ -334,10 +334,12 @@ def validate_quad(quad, image_size=None):
         except (TypeError, ValueError):
             w = h = 0.0
         if w > 0 and h > 0:
-            pad_x, pad_y = 0.10 * w, 0.10 * h
+            # 允许角点落在截图之外：导入的截图常没截全整张地图，角点本来就可能出界。
+            # 只拦「明显误拖」（超出 1 张图尺寸）与退化情形。
+            pad_x, pad_y = w, h
             for i, (x, y) in enumerate(q):
                 if not (-pad_x <= x <= w + pad_x and -pad_y <= y <= h + pad_y):
-                    errors.append("quad[%d]=(%g,%g) 超出 base.png 范围（容差 10%%）"
+                    errors.append("quad[%d]=(%g,%g) 离 base.png 太远（超过 1 张图尺寸），疑似误拖"
                                   % (i, x, y))
     return errors
 
