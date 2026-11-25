@@ -117,10 +117,12 @@ class TestRealDatasets(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
+        plan_path = os.path.join(ROOT, "out", "overlay", "_plan_viz", "plan_03_llm.json")
+        if not os.path.exists(plan_path):
+            raise unittest.SkipTest("需要本地 out/overlay/_plan_viz/plan_03_llm.json（不入库）")
         cls.layout = json.load(open(os.path.join(ROOT, "bases", "th16", "03", "layout.json"),
                                     encoding="utf-8"))
-        cls.plan = json.load(open(os.path.join(ROOT, "out", "overlay", "_plan_viz",
-                                               "plan_03_llm.json"), encoding="utf-8"))
+        cls.plan = json.load(open(plan_path, encoding="utf-8"))
 
     def test_real_spec_and_three_air_defenses(self):
         from clashlab.overlay import giant_arrow_diagram as gad
