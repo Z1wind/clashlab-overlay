@@ -1,14 +1,6 @@
 # -*- coding: utf-8 -*-
-"""P3b-3：把数据干净的三项布局要点（大本营偏心 / 对空覆盖 / 对地覆盖）变成战术输出。
-
-只用 layout_score 的计算结果，不依赖墙数据（墙不可靠，隔间/墙体两项不在此列）。
-输出既可给 prebattle（风险条目），也可给 prompts（LLM 战术复核的输入块）。
-
-契约：
-  findings(layout) -> [{"key","severity","text","detail"}...]  # 按严重度 critical->weak
-  summary_line(findings) -> 单行摘要（面板/日志用）
-  prompt_block(prebattle_or_findings) -> 给 LLM 的多行块（无数据返回 ""）
-"""
+"""把「大本营偏心 / 对空 / 对地」三项干净指标变成战术文案（简报 / LLM 提示 / 面板）。
+Turns three reliable findings (TH bias / air / ground coverage) into tactical text."""
 from __future__ import annotations
 
 from . import layout_score

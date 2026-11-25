@@ -1,10 +1,6 @@
 # -*- coding: utf-8 -*-
-"""P3b-1 防御评分 → PANEL 文案（纯函数，不依赖 imgui，便于单测）。
-
-状态栏右栏追加「· 评分 66.2 C」；阵型页底部状态栏显示「防御评分 + 首要弱点」。
-布局来自 OverlayState.layout（dict）；无布局时全部返回空串，面板不显示评分。
-带按（grid/建筑数/墙数/首元素）指纹的缓存，避免每帧重算 flood-fill。
-"""
+"""评分 → PANEL 文案（纯函数、可单测；带指纹缓存）。
+Defense score -> panel text (pure functions, fingerprint-cached)."""
 from __future__ import annotations
 
 from .. import layout_score

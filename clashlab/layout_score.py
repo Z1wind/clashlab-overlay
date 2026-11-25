@@ -1,18 +1,6 @@
 # -*- coding: utf-8 -*-
-"""P3b-1：基地布局防守评分（移植 clash-blueprint-engine @clash/analyzer，MIT）。
-
-7 个加权指标（权重和 13）→ 0–100 总分 + S/A/B/C/D/F 等级 + 可定位弱点。
-输入只用仓内 layout.json（name/grid/buildings[{type,tile}]/walls[[x,y]]），不依赖游戏。
-
-与原实现的对应关系（逐条移植，非逐行照抄）：
-  town-hall-protection  : 100*(0.6*centrality + 0.4*墙圈覆盖率)
-  storage-protection    : 100*mean(仓库 centrality)（无仓库给 100）
-  air-coverage          : 建筑中心被「可打空」防御射程覆盖比例；按方位弱覆盖点名
-  ground-coverage       : 同上，可打地
-  compartment-quality   : 100*clamp01((有建筑的隔间数/4)*(1-0.5*死区占比))
-  wall-efficiency       : 100*(0.5*墙连通度 + 0.5*隔间内防御占比)
-  entry-points          : 有人方位中「无任何伤害防御覆盖」的比例
-"""
+"""布局防守评分：7 指标 → 0–100 + S–F + 弱点（移植 clash-blueprint-engine analyzer，MIT）。
+Base-layout defense score: 7 metrics -> 0-100 + grade + located weak points."""
 from __future__ import annotations
 
 import json
@@ -111,7 +99,7 @@ def load_layout(path):
         return json.load(f)
 
 
-# ---------------- 几何 ----------------
+
 def centrality(point, grid=GRID_DEFAULT):
     """1 = 正中心，0 = 角落（欧氏距离归一）。"""
     cx = cy = grid / 2.0
@@ -203,7 +191,7 @@ def coverage_by_direction(layout, want_air=None, want_ground=None):
     return buckets
 
 
-# ---------------- 隔间 ----------------
+
 def analyze_compartments(grid, walls, buildings):
     """从地图四边对非墙格做 4 连通 flood fill；填不到的分量 = 封闭隔间。"""
     grid = int(grid)
@@ -283,7 +271,7 @@ def wall_efficiency(grid, walls, n_defenses=0, buildings=None):
     return 100.0 * (0.5 * contiguity + 0.5 * enclosed_ratio)
 
 
-# ---------------- 评分 ----------------
+
 def _metric(mid, label, score, details, weak):
     return {"id": mid, "label": label, "score": round(float(score), 1),
             "weight": WEIGHT[mid], "details": details, "weakPoints": weak}
