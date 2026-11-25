@@ -474,5 +474,131 @@ class RealDataTests(unittest.TestCase):
         self.assertGreaterEqual(core.PALETTE_HOTKEY_COUNT, 9)
 
 
+class QuadOverrideTests(unittest.TestCase):
+    """网格校准：quad override 优先于 layout.json（用户实机反馈的根因修复）。"""
+
+    def setUp(self):
+        import shutil
+        self.tmp = tempfile.mkdtemp(prefix="annot_quad_")
+        self.layout = core.normalize_layout(_minimal_layout())
+        # _minimal_layout 的 note quad = [[100,0],[500,200],[100,400],[-300,200]]
+        self.quad = [[100.0, 0.0], [500.0, 200.0], [100.0, 400.0], [-300.0, 200.0]]
+        # 「更贴合草地」的校准值（非平行四边形，验证单应仍正确）
+        self.better = [[80.0, 10.0], [520.0, 210.0], [120.0, 420.0], [-320.0, 205.0]]
+
+    def tearDown(self):
+        import shutil
+        shutil.rmtree(self.tmp, ignore_errors=True)
+
+    def test_validate_quad_accepts_valid(self):
+        self.assertEqual(core.validate_quad(self.quad), [])
+        self.assertEqual(core.validate_quad(core.order_diamond(self.quad)), [])
+
+    def test_validate_quad_rejects_invalid(self):
+        self.assertTrue(core.validate_quad([[0, 0], [10, 0], [10, 10]]))
+        self.assertTrue(core.validate_quad([[0, 0], [10, 0], [10, 10], [0, "x"]]))
+        self.assertTrue(core.validate_quad([[0, 0], [0, 0], [0, 0], [0, 0]]))
+        self.assertTrue(core.validate_quad([[0, 0], [10, 0], [20, 0], [30, 0]]))
+        self.assertTrue(core.validate_quad([[0, 0], [10, 0], [10, 10], [0, float("nan")]]))
+        self.assertTrue(core.validate_quad(None))
+        # 图像尺寸已知时，四角不能跑到图像外太远
+        self.assertTrue(core.validate_quad([[0, 0], [10000, 0], [10000, 10000], [0, 10000]],
+                                          image_size=(1000, 500)))
+
+    def test_normalize_quad_orders_up_right_down_left(self):
+        shuffled = [self.quad[1], self.quad[3], self.quad[0], self.quad[2]]
+        self.assertEqual(core.normalize_quad(shuffled), self.quad)
+
+    def test_override_paths(self):
+        self.assertEqual(core.override_quad_rel_path("03"),
+                         os.path.join("out", "annotate", "03_quad.json"))
+        self.assertTrue(core.override_quad_path(self.tmp, "03").endswith("03_quad.json"))
+
+    def test_save_load_roundtrip(self):
+        self.assertIsNone(core.load_override_quad(self.tmp, "01"))
+        core.save_override_quad(self.tmp, "01", self.better)
+        got = core.load_override_quad(self.tmp, "01")
+        self.assertEqual(got, core.normalize_quad(self.better))
+        raw = core.load_json(core.override_quad_path(self.tmp, "01"))
+        self.assertIn("quad", raw)
+        self.assertIn("saved_at", raw)
+        self.assertTrue(os.path.isfile(core.override_quad_path(self.tmp, "01")))
+
+    def test_save_override_rejects_invalid(self):
+        with self.assertRaises(ValueError):
+            core.save_override_quad(self.tmp, "01", [[0, 0], [1, 1], [2, 2], [3, 3]])
+        with self.assertRaises(ValueError):
+            core.save_override_quad(self.tmp, "01", [[0, 0], [1000, 0], [1000, 1000], [0, 1000]],
+                                    image_size=(100, 100))
+        self.assertIsNone(core.load_override_quad(self.tmp, "01"))
+
+    def test_invalid_saved_file_ignored(self):
+        path = core.override_quad_path(self.tmp, "01")
+        core.write_json_atomic(path, {"quad": [[0, 0], [1, 1], [2, 2], [3, 3]]})
+        self.assertIsNone(core.load_override_quad(self.tmp, "01"))
+        core.write_json_atomic(path, {"quad": "bad"})
+        self.assertIsNone(core.load_override_quad(self.tmp, "01"))
+        core.write_json_atomic(path, {"quad": [[0, 0], [500, 0], [500, 500], [0, "x"]]})
+        self.assertIsNone(core.load_override_quad(self.tmp, "01"))
+
+    def test_delete_override_and_reset_falls_back(self):
+        core.save_override_quad(self.tmp, "01", self.better)
+        self.assertEqual(core.effective_quad(self.layout, core.load_override_quad(self.tmp, "01"))[1], "override")
+        self.assertTrue(core.delete_override_quad(self.tmp, "01"))
+        self.assertFalse(core.delete_override_quad(self.tmp, "01"))
+        self.assertIsNone(core.load_override_quad(self.tmp, "01"))
+        quad, source = core.effective_quad(self.layout, None)
+        self.assertEqual(source, "layout")
+        self.assertEqual(quad, self.quad)
+
+    def test_effective_quad_priority(self):
+        quad, source = core.effective_quad(self.layout, self.better)
+        self.assertEqual(source, "override")
+        self.assertEqual(quad, core.normalize_quad(self.better))
+
+    def test_effective_quad_falls_back(self):
+        quad, source = core.effective_quad(self.layout, None)
+        self.assertEqual(source, "layout")
+        self.assertEqual(quad, self.quad)
+        # 非法 override 不生效，回落 layout
+        quad, source = core.effective_quad(self.layout, [[0, 0], [1, 1], [2, 2], [3, 3]])
+        self.assertEqual(source, "layout")
+        self.assertEqual(quad, self.quad)
+        # 两边都没有
+        quad, source = core.effective_quad({"note": "no quad"}, None)
+        self.assertIsNone(quad)
+        self.assertEqual(source, "none")
+
+    def test_geometry_uses_override(self):
+        geo = core.geometry_for_layout(self.layout, self.better)
+        self.assertEqual(geo["quad_source"], "override")
+        for (gx, gy), (px, py) in zip([(0, 0), (44, 0), (44, 44), (0, 44)],
+                                      core.normalize_quad(self.better)):
+            x, y = core.tile_to_px(geo["H"], gx, gy)
+            self.assertAlmostEqual(x, px, places=6)
+            self.assertAlmostEqual(y, py, places=6)
+        geo2 = core.geometry_for_layout(self.layout)
+        self.assertEqual(geo2["quad_source"], "layout")
+        self.assertEqual(geo2["quad"], self.quad)
+
+    def test_override_then_geometry_roundtrip(self):
+        core.save_override_quad(self.tmp, "01", self.better)
+        override = core.load_override_quad(self.tmp, "01")
+        geo = core.geometry_for_layout(self.layout, override)
+        self.assertEqual(geo["quad_source"], "override")
+        for tx, ty in ((0, 0), (8, 2), (22, 22), (43, 43)):
+            px, py = core.cell_to_px(geo["H"], tx, ty)
+            self.assertEqual(core.px_to_cell(geo["Hinv"], px, py, 44), (tx, ty))
+
+    def test_real_base_layout_has_quad(self):
+        if not os.path.isdir(os.path.join(PROJECT_ROOT, "bases", "th16")):
+            self.skipTest("bases/th16 不存在")
+        doc = core.load_json(os.path.join(PROJECT_ROOT, "bases", "th16", "01", "layout.json"))
+        quad, source = core.effective_quad(doc, None)
+        self.assertEqual(source, "layout")
+        self.assertIsNotNone(quad)
+        self.assertEqual(len(core.validate_quad(quad, image_size=(2622, 1206))), 0)
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)

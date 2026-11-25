@@ -274,18 +274,146 @@ def px_to_cell(hn, x, y, grid=GRID_DEFAULT, clamp=True):
     return (min(max(int(gx), 0), grid - 1), min(max(int(gy), 0), grid - 1))
 
 
-def geometry_for_layout(layout_doc):
-    """layout → {grid, quad, H, Hinv}；note 里没有 quad 或不可解时返回 None。"""
+def geometry_for_layout(layout_doc, override_quad=None):
+    """layout + 可选 override quad → {grid, quad, H, Hinv, quad_source}。
+
+    override（用户在「校准网格」里拖出来的 4 角）优先于 layout.json note 里的 quad；
+    没有 override 或 override 非法时回落到 layout.json。
+    """
     if not isinstance(layout_doc, dict):
         return None
     grid = layout_doc.get("grid", GRID_DEFAULT)
     if isinstance(grid, bool) or not isinstance(grid, int) or grid <= 0:
         grid = GRID_DEFAULT
-    quad = parse_quad(layout_doc.get("note") or "")
+    quad, source = effective_quad(layout_doc, override_quad)
     if quad is None:
         return None
     h = homography_from_quad(quad, grid)
-    return {"grid": grid, "quad": order_diamond(quad), "H": h, "Hinv": invert3x3(h)}
+    return {"grid": grid, "quad": order_diamond(quad), "H": h, "Hinv": invert3x3(h),
+            "quad_source": source}
+
+
+# ---------------------------------------------------------------------------
+# 网格校准（quad override）：out/annotate/NN_quad.json 优先于 layout.json
+# ---------------------------------------------------------------------------
+
+OVERRIDE_QUAD_SUFFIX = "_quad.json"
+
+
+def validate_quad(quad, image_size=None):
+    """校验像素 quad：4 个有限数值点、非退化、面积不过小；给定图像尺寸时限制在图像内（10% 容差）。"""
+    errors = []
+    if not isinstance(quad, (list, tuple)) or len(quad) != 4:
+        return ["quad 必须是 4 个 [x, y] 点"]
+    pts = []
+    for i, pt in enumerate(quad):
+        if not isinstance(pt, (list, tuple)) or len(pt) != 2:
+            errors.append("quad[%d] 必须是 [x, y]" % i)
+            continue
+        vals = []
+        ok = True
+        for v in pt:
+            if isinstance(v, bool) or not isinstance(v, (int, float)) or not math.isfinite(float(v)):
+                errors.append("quad[%d] 含非数值/非有限值：%r" % (i, v))
+                ok = False
+                break
+            vals.append(float(v))
+        if ok:
+            pts.append(vals)
+    if errors:
+        return errors
+    try:
+        q = order_diamond(pts)
+    except ValueError as exc:
+        return ["quad 无法排序：" + str(exc)]
+    if _polygon_area(q) < 100.0:
+        errors.append("quad 退化（面积 < 100 平方像素，四点可能共线/重合）")
+    if isinstance(image_size, (list, tuple)) and len(image_size) == 2:
+        try:
+            w, h = float(image_size[0]), float(image_size[1])
+        except (TypeError, ValueError):
+            w = h = 0.0
+        if w > 0 and h > 0:
+            pad_x, pad_y = 0.10 * w, 0.10 * h
+            for i, (x, y) in enumerate(q):
+                if not (-pad_x <= x <= w + pad_x and -pad_y <= y <= h + pad_y):
+                    errors.append("quad[%d]=(%g,%g) 超出 base.png 范围（容差 10%%）"
+                                  % (i, x, y))
+    return errors
+
+
+def normalize_quad(quad):
+    """校验并整理成「上、右、下、左」顺序；非法抛 ValueError。"""
+    errors = validate_quad(quad)
+    if errors:
+        raise ValueError("quad 非法：" + "；".join(errors))
+    return order_diamond(quad)
+
+
+def geometry_for_quad(quad, grid=GRID_DEFAULT):
+    """直接用一组已校准 quad 求 H/Hinv（前端校准预览 / 测试用）。"""
+    q = normalize_quad(quad)
+    h = homography_from_quad(q, grid)
+    return {"grid": int(grid), "quad": q, "H": h, "Hinv": invert3x3(h), "quad_source": "override"}
+
+
+def effective_quad(layout_doc, override_quad=None):
+    """返回 (quad, source)：override 合法则优先，否则回落 layout.json note，都没有则 (None, "none")。"""
+    layout_quad = None
+    if isinstance(layout_doc, dict):
+        layout_quad = parse_quad(layout_doc.get("note") or "")
+    if override_quad is not None and not validate_quad(override_quad):
+        return order_diamond(override_quad), "override"
+    if layout_quad is not None:
+        return layout_quad, "layout"
+    return None, "none"
+
+
+def override_quad_rel_path(base_id):
+    return os.path.join(OUT_DIR_REL, "%s%s" % (str(base_id), OVERRIDE_QUAD_SUFFIX))
+
+
+def override_quad_path(root, base_id):
+    return os.path.join(root, override_quad_rel_path(base_id))
+
+
+def load_override_quad(root, base_id):
+    """读 out/annotate/<id>_quad.json；缺失/损坏/非法均返回 None（回落到 layout）。"""
+    data = load_json(override_quad_path(root, base_id))
+    if not isinstance(data, dict):
+        return None
+    quad = data.get("quad")
+    if validate_quad(quad):
+        return None
+    return order_diamond(quad)
+
+
+def save_override_quad(root, base_id, quad, image_size=None):
+    """保存校准 quad（原子写）；非法 quad 抛 ValueError（服务端返回 400）。"""
+    errors = validate_quad(quad, image_size=image_size)
+    if errors:
+        raise ValueError("quad 非法：" + "；".join(errors))
+    q = order_diamond(quad)
+    doc = {
+        "quad": q,
+        "saved_at": now_iso(),
+        "note": "tools/annotate 网格校准覆盖：优先于 layout.json 的 quad（DELETE /api/quad 可重置）",
+    }
+    path = override_quad_path(root, base_id)
+    write_json_atomic(path, doc)
+    return {"quad": q, "path": path, "saved_at": doc["saved_at"]}
+
+
+def delete_override_quad(root, base_id):
+    """删除校准覆盖；返回是否真的删掉了文件。"""
+    path = override_quad_path(root, base_id)
+    try:
+        os.remove(path)
+        return True
+    except FileNotFoundError:
+        return False
+    except OSError:
+        return False
 
 
 # ---------------------------------------------------------------------------
@@ -526,7 +654,7 @@ def diff_layout(before, after):
 _PROV_MARKER = "tools/annotate 人工校正"
 
 
-def with_provenance(note, edits, candidate="layout", stamp=None):
+def with_provenance(note, edits, candidate="layout", stamp=None, quad_source=None):
     """把「人工校正」溯源写进 note（重复保存只保留最新一条，不叠加）。
 
     备注里本身可能带分号（provenance 自己的括号里就有），所以不用正则啃后缀：
@@ -540,8 +668,9 @@ def with_provenance(note, edits, candidate="layout", stamp=None):
         if pos > cut:
             cut = pos
     base = (text[:cut] if cut >= 0 else text).rstrip()
-    prov = "tools/annotate 人工校正 %s（edits=%d；candidate=%s）" % (
-        stamp, int(edits or 0), candidate or "layout")
+    extra = "" if (not quad_source or quad_source == "layout") else "；quad=" + str(quad_source)
+    prov = "tools/annotate 人工校正 %s（edits=%d；candidate=%s%s）" % (
+        stamp, int(edits or 0), candidate or "layout", extra)
     return (base + "；" + prov) if base else prov
 
 

@@ -74,6 +74,11 @@ aside{width:340px;flex:0 0 340px;border-left:1px solid var(--line);background:va
 .baseRow .bid{font-weight:600}
 .baseRow .meta{flex:1 1 auto;color:var(--muted);font-size:11px;text-align:right}
 code{background:#12151b;border:1px solid var(--line);border-radius:4px;padding:0 4px;color:#c9d4e6}
+.quad-badge{font-size:11.5px;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:2px 9px;white-space:nowrap}
+.quad-badge.manual{color:#ffd76a;border-color:#6d5c25;background:#2e2916}
+#calibBar{position:absolute;left:12px;right:12px;top:12px;z-index:15;display:flex;gap:8px;align-items:center;flex-wrap:wrap;
+  background:rgba(18,21,27,.95);border:1px solid #6d5c25;border-radius:8px;padding:8px 10px;box-shadow:0 8px 26px rgba(0,0,0,.55)}
+#calibBar #calibHint{flex:1 1 320px;font-size:12px;color:#ffe08a;line-height:1.5}
 #toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(14px);opacity:0;pointer-events:none;
   background:#232a36;border:1px solid #46506a;border-radius:7px;padding:8px 16px;font-size:13px;max-width:70vw;z-index:60;transition:all .18s}
 #toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
@@ -103,6 +108,8 @@ kbd{background:#12151b;border:1px solid #46506a;border-bottom-width:2px;border-r
   <button id="saveNextBtn" class="primary" title="保存并进入下一阵（Enter）">保存并下一阵 Enter</button>
   <button id="skipBtn" title="保存并标记跳过（Space）">跳过 Space</button>
   <button id="resetBtn" title="重置为 layout.json 预填（连按两次 R）">重置</button>
+  <button id="calibBtn" title="校准网格：拖动 4 个角点贴合草地（G）">校准网格 G</button>
+  <span id="quadBadge" class="quad-badge" title="当前 tile 映射使用的网格来源">网格: layout 默认</span>
   <button id="summaryBtn" title="打开 out/annotate/summary.json">汇总</button>
   <button id="helpBtn" title="快捷键（H）">帮助 H</button>
 </header>
@@ -112,6 +119,12 @@ kbd{background:#12151b;border:1px solid #46506a;border-bottom-width:2px;border-r
     <div id="stage"><canvas id="cv"></canvas></div>
     <div id="busy" class="hidden">加载中…</div>
     <div id="cursorInfo">移动鼠标查看像素 / tile</div>
+    <div id="calibBar" class="calib-bar hidden">
+      <span id="calibHint"></span>
+      <button id="calibApply" class="primary">应用 Enter</button>
+      <button id="calibReset">重置为 layout.json 默认</button>
+      <button id="calibCancel">取消 Esc</button>
+    </div>
   </div>
   <aside>
     <section class="panel">
@@ -152,6 +165,7 @@ kbd{background:#12151b;border:1px solid #46506a;border-bottom-width:2px;border-r
       <tr><td><kbd>Q</kbd> / <kbd>E</kbd></td><td>上一候选 / 下一候选方案</td></tr>
       <tr><td><kbd>PageUp</kbd> / <kbd>PageDown</kbd></td><td>上一阵 / 下一阵</td></tr>
       <tr><td><kbd>R</kbd> 两次</td><td>重置当前阵为 layout.json 预填</td></tr>
+      <tr><td><kbd>G</kbd></td><td>进入/退出「校准网格」：拖 4 个角点（上/右/下/左）对齐草地外沿；方向键 ±1px、Shift+方向键 ±10px；Enter 应用 / Esc 取消</td></tr>
       <tr><td><kbd>Esc</kbd></td><td>取消选中 / 关闭本帮助</td></tr>
     </table>
     <h2 style="margin-top:14px;font-size:14px">减少工作量的推荐流程</h2>
@@ -160,7 +174,8 @@ kbd{background:#12151b;border:1px solid #46506a;border-bottom-width:2px;border-r
       2. 逐个核对：位置不对就拖动方框；类型不对就选中它再点调色板（或按 1–9）。<br>
       3. 预填漏掉的建筑：用当前类型点它应该在的格子即可补录；多出来的按 Delete 删掉。<br>
       4. 一栋都没问题的阵直接按 <kbd>Enter</kbd> 保存并下一阵；不想标的按 <kbd>Space</kbd> 跳过。<br>
-      5. 全部阵标完看 <code>out/annotate/summary.json</code>（每阵建筑数 / 人工修改次数 / 耗时）。
+      5. 若发现预填整体偏/斜（quad 不贴合草地），按 <kbd>G</kbd> 进「校准网格」：拖 4 个角点对齐外墙/草地四角 → <kbd>Enter</kbd> 应用；之后拖拽与保存都用新映射（覆盖存 out/annotate/NN_quad.json，可一键重置）。<br>
+      6. 全部阵标完看 <code>out/annotate/summary.json</code>（每阵建筑数 / 人工修改次数 / 耗时）。
     </div>
     <button class="close" id="helpClose">关闭 (Esc)</button>
   </div>
@@ -183,7 +198,9 @@ kbd{background:#12151b;border:1px solid #46506a;border-bottom-width:2px;border-r
     drag: null, moved: false,
     dirty: false, saving: false, saveTimer: null, loadToken: 0,
     startedAt: 0, savedAt: '', skipped: false, candidate: 'layout',
-    lastResetPress: 0, busy: false
+    lastResetPress: 0, busy: false,
+    quadSource: 'layout', layoutQuad: null, overrideQuad: null,
+    calib: { on: false, quad: null, sel: -1, hover: -1, dragging: false }
   };
 
   var DEFENSE = ['cannon','archer-tower','mortar','wizard-tower','air-defense','x-bow','inferno-tower',
@@ -275,10 +292,18 @@ kbd{background:#12151b;border:1px solid #46506a;border-bottom-width:2px;border-r
   function gridToCanvas(gx, gy) { var p = applyH(S.base.H, gx, gy); return [p[0] * S.scale, p[1] * S.scale]; }
   function cellToCanvas(tx, ty) { return gridToCanvas(tx + 0.5, ty + 0.5); }
   function cellToImage(tx, ty) { return applyH(S.base.H, tx + 0.5, ty + 0.5); }
-  function canvasToImage(clientX, clientY) {
+  // 统一指针换算：client 坐标 -> base.png 图像像素。
+  // 必须用 canvas 的 getBoundingClientRect() 显示尺寸与原始图像尺寸比例换算，
+  // 不能只用 offsetX 或只除 S.scale：CSS 缩放 / DPR 下 backing store 与显示尺寸不同。
+  function pointerToImage(clientX, clientY) {
     var r = cv.getBoundingClientRect();
-    return [(clientX - r.left) / S.scale, (clientY - r.top) / S.scale];
+    var w = (S.imgW || (S.base && S.base.image_size ? S.base.image_size[0] : 0)) || 1;
+    var h = (S.imgH || (S.base && S.base.image_size ? S.base.image_size[1] : 0)) || 1;
+    var sx = r.width > 0 ? (w / r.width) : (1 / S.scale);
+    var sy = r.height > 0 ? (h / r.height) : (1 / S.scale);
+    return [(clientX - r.left) * sx, (clientY - r.top) * sy];
   }
+  function canvasToImage(clientX, clientY) { return pointerToImage(clientX, clientY); }
   function imageToCell(ix, iy, doClamp) {
     var t = applyH(S.base.Hinv, ix, iy);
     var gx = Math.floor(t[0]), gy = Math.floor(t[1]);
@@ -327,6 +352,7 @@ kbd{background:#12151b;border:1px solid #46506a;border-bottom-width:2px;border-r
     for (var i = 0; i < S.doc.buildings.length; i++) { order.push(i); }
     order.sort(function (a, b) { return (a === S.sel ? 1 : 0) - (b === S.sel ? 1 : 0); });
     for (var k = 0; k < order.length; k++) { drawBuilding(order[k]); }
+    if (S.calib.on) { drawCalibHandles(); }
   }
   function drawGrid() {
     var g = S.base.grid;
@@ -340,7 +366,7 @@ kbd{background:#12151b;border:1px solid #46506a;border-bottom-width:2px;border-r
     ctx.restore();
   }
   function drawQuad() {
-    var q = S.base.quad;
+    var q = (S.calib.on && S.calib.quad) ? S.calib.quad : S.base.quad;
     if (!q) return;
     ctx.save();
     ctx.strokeStyle = 'rgba(240,196,82,0.95)';
@@ -402,6 +428,202 @@ kbd{background:#12151b;border:1px solid #46506a;border-bottom-width:2px;border-r
       ctx.fillText(cn(b.type), c[0], c[1]);
     }
     ctx.restore();
+  }
+
+  // ---------- 网格校准（G）：4 角可拖，override 优先于 layout.json ----------
+  var CALIB_LABELS = ['上', '右', '下', '左'];
+  var CALIB_COLORS = ['#ffd700', '#60a5fa', '#f87171', '#4ade80'];
+
+  function solveLinear(A, b) {
+    var n = b.length, M = [], i, j, k, col, piv, tmp, f, sum;
+    for (i = 0; i < n; i++) { M.push(A[i].slice()); M[i].push(b[i]); }
+    for (col = 0; col < n; col++) {
+      piv = col;
+      for (i = col + 1; i < n; i++) { if (Math.abs(M[i][col]) > Math.abs(M[piv][col])) piv = i; }
+      if (Math.abs(M[piv][col]) < 1e-12) return null;
+      if (piv !== col) { tmp = M[col]; M[col] = M[piv]; M[piv] = tmp; }
+      for (i = col + 1; i < n; i++) {
+        f = M[i][col] / M[col][col];
+        if (f !== 0) { for (k = col; k <= n; k++) { M[i][k] -= f * M[col][k]; } }
+      }
+    }
+    var x = [];
+    for (i = n - 1; i >= 0; i--) {
+      sum = M[i][n];
+      for (j = i + 1; j < n; j++) { sum -= M[i][j] * x[j]; }
+      x[i] = sum / M[i][i];
+    }
+    return x;
+  }
+  function homographyFromQuad(quad, grid) {
+    var src = [[0, 0], [grid, 0], [grid, grid], [0, grid]];
+    var A = [], b = [], i, u, v, x, y;
+    for (i = 0; i < 4; i++) {
+      u = src[i][0]; v = src[i][1]; x = quad[i][0]; y = quad[i][1];
+      A.push([u, v, 1, 0, 0, 0, -x * u, -x * v]); b.push(x);
+      A.push([0, 0, 0, u, v, 1, -y * u, -y * v]); b.push(y);
+    }
+    var h = solveLinear(A, b);
+    if (!h) return null;
+    return [[h[0], h[1], h[2]], [h[3], h[4], h[5]], [h[6], h[7], 1]];
+  }
+  function invert3x3(m) {
+    var a = m[0][0], b = m[0][1], c = m[0][2], d = m[1][0], e = m[1][1], f = m[1][2];
+    var g = m[2][0], h = m[2][1], i = m[2][2];
+    var det = a * (e * i - f * h) - b * (d * i - f * g) + c * (d * h - e * g);
+    if (Math.abs(det) < 1e-12) return null;
+    return [[(e * i - f * h) / det, (c * h - b * i) / det, (b * f - c * e) / det],
+            [(f * g - d * i) / det, (a * i - c * g) / det, (c * d - a * f) / det],
+            [(d * h - e * g) / det, (b * g - a * h) / det, (a * e - b * d) / det]];
+  }
+  function applyCalibH() {
+    if (!S.base || !S.calib.quad) return false;
+    var H = homographyFromQuad(S.calib.quad, S.base.grid);
+    var Hinv = H ? invert3x3(H) : null;
+    if (!H || !Hinv) return false;
+    S.base.H = H; S.base.Hinv = Hinv;
+    return true;
+  }
+  function updateQuadBadge() {
+    var el = $('quadBadge');
+    var manual = S.quadSource === 'override';
+    if (el) {
+      el.textContent = manual ? '网格: 手动校准' : '网格: layout 默认';
+      el.className = 'quad-badge' + (manual ? ' manual' : '');
+    }
+    var btn = $('calibBtn');
+    if (btn) {
+      btn.textContent = S.calib.on ? '退出校准 G' : '校准网格 G';
+      btn.className = S.calib.on ? 'primary' : '';
+    }
+  }
+  function showCalibBar(on) {
+    var bar = $('calibBar');
+    if (!bar) return;
+    bar.className = on ? 'calib-bar' : 'calib-bar hidden';
+    $('calibHint').textContent = on
+      ? '校准网格：拖动 4 个角点（上/右/下/左）对齐草地外沿；方向键 ±1px，Shift+方向键 ±10px。应用后拖拽/保存都用新映射。'
+      : '';
+  }
+  function enterCalib() {
+    if (!S.base || !S.img) { toast('先加载一个阵再校准网格'); return; }
+    S.calib.on = true;
+    S.calib.quad = clone(S.base.quad);
+    S.calib.sel = -1; S.calib.hover = -1; S.calib.dragging = false;
+    applyCalibH();
+    showCalibBar(true); updateQuadBadge();
+    S.sel = -1;
+    draw();
+    setStatus('校准模式：拖动四角（上/右/下/左）贴合草地；方向键微调；Enter 应用 / Esc 取消');
+  }
+  function exitCalib(restore) {
+    if (!S.calib.on) return;
+    S.calib.on = false; S.calib.sel = -1; S.calib.hover = -1; S.calib.dragging = false;
+    S.calib.quad = null;
+    if (restore && S.base && S.base.quad) {
+      var H = homographyFromQuad(S.base.quad, S.base.grid);
+      var Hinv = H ? invert3x3(H) : null;
+      if (H && Hinv) { S.base.H = H; S.base.Hinv = Hinv; }
+    }
+    showCalibBar(false); updateQuadBadge(); draw();
+  }
+  function toggleCalib() {
+    if (S.calib.on) { exitCalib(true); setStatus('已取消校准'); } else { enterCalib(); }
+  }
+  function hitCorner(canvasX, canvasY) {
+    if (!S.calib.quad) return -1;
+    var best = -1, bestD = 18;
+    for (var i = 0; i < 4; i++) {
+      var px = S.calib.quad[i][0] * S.scale, py = S.calib.quad[i][1] * S.scale;
+      var d = Math.hypot(px - canvasX, py - canvasY);
+      if (d <= bestD) { bestD = d; best = i; }
+    }
+    return best;
+  }
+  function setCornerPx(i, ix, iy) {
+    if (!S.calib.quad || i < 0 || i > 3) return;
+    var padX = S.imgW * 0.15, padY = S.imgH * 0.15;
+    S.calib.quad[i][0] = Math.min(Math.max(ix, -padX), S.imgW + padX);
+    S.calib.quad[i][1] = Math.min(Math.max(iy, -padY), S.imgH + padY);
+    applyCalibH();
+    draw();
+  }
+  function nudgeCorner(key, step) {
+    if (!S.calib.on) return;
+    if (S.calib.sel < 0) { S.calib.sel = 0; draw(); }
+    var dx = key === 'ArrowLeft' ? -step : (key === 'ArrowRight' ? step : 0);
+    var dy = key === 'ArrowUp' ? -step : (key === 'ArrowDown' ? step : 0);
+    var q = S.calib.quad[S.calib.sel];
+    setCornerPx(S.calib.sel, q[0] + dx, q[1] + dy);
+    var nq = S.calib.quad[S.calib.sel];
+    setStatus('校准角点[' + CALIB_LABELS[S.calib.sel] + '] → (' + Math.round(nq[0]) + ',' + Math.round(nq[1]) + ') px'
+      + '（方向键 ±1px，Shift ±10px）');
+  }
+  function drawCalibHandles() {
+    if (!S.calib.quad) return;
+    ctx.save();
+    for (var i = 0; i < 4; i++) {
+      var px = S.calib.quad[i][0] * S.scale, py = S.calib.quad[i][1] * S.scale;
+      var sel = i === S.calib.sel, hov = i === S.calib.hover;
+      ctx.beginPath();
+      ctx.arc(px, py, sel ? 12 : (hov ? 10 : 8), 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(8,10,14,0.78)';
+      ctx.fill();
+      ctx.lineWidth = sel ? 3.5 : 2;
+      ctx.strokeStyle = CALIB_COLORS[i];
+      ctx.stroke();
+      ctx.fillStyle = CALIB_COLORS[i];
+      ctx.font = '700 13px "Microsoft YaHei",sans-serif';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(CALIB_LABELS[i], px, py);
+      ctx.font = '11px "Microsoft YaHei",sans-serif';
+      ctx.fillText(Math.round(S.calib.quad[i][0]) + ',' + Math.round(S.calib.quad[i][1]), px, py + 19);
+    }
+    ctx.restore();
+  }
+  async function applyCalib() {
+    if (!S.calib.on || !S.base) return;
+    var quad = S.calib.quad.map(function (p) {
+      return [Math.round(p[0] * 10) / 10, Math.round(p[1] * 10) / 10];
+    });
+    try {
+      var res = await api('/api/quad', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ th: S.th, id: S.id, quad: quad })
+      });
+      S.base.quad = res.quad;
+      S.quadSource = res.source || 'override';
+      S.overrideQuad = res.quad;
+      S.calib.on = false; S.calib.quad = null; S.calib.sel = -1; S.calib.hover = -1; S.calib.dragging = false;
+      var H = homographyFromQuad(res.quad, S.base.grid);
+      var Hinv = H ? invert3x3(H) : null;
+      if (H && Hinv) { S.base.H = H; S.base.Hinv = Hinv; }
+      showCalibBar(false); updateQuadBadge(); draw();
+      toast('已应用校准网格（' + res.quad.map(function (p) { return Math.round(p[0]) + ',' + Math.round(p[1]); }).join(' / ') + '）');
+      setStatus('网格已校准并落盘 ' + res.path + '：拖拽/保存都用新映射；「重置」可删除覆盖');
+    } catch (err) {
+      toast('应用校准失败：' + err.message, true);
+    }
+  }
+  async function resetCalib() {
+    if (!S.base) return;
+    try {
+      var res = await api('/api/quad?th=' + encodeURIComponent(S.th) + '&id=' + encodeURIComponent(S.id),
+        { method: 'DELETE' });
+      S.quadSource = res.source || 'layout';
+      S.overrideQuad = null;
+      S.base.quad = res.quad || S.layoutQuad;
+      var H = homographyFromQuad(S.base.quad, S.base.grid);
+      var Hinv = H ? invert3x3(H) : null;
+      if (H && Hinv) { S.base.H = H; S.base.Hinv = Hinv; }
+      S.calib.on = false; S.calib.quad = null; S.calib.sel = -1; S.calib.hover = -1;
+      showCalibBar(false); updateQuadBadge(); draw();
+      toast('已重置为 layout.json 默认网格（' + (res.removed ? '删除覆盖文件' : '本来就没有覆盖') + '）');
+    } catch (err) {
+      toast('重置失败：' + err.message, true);
+    }
   }
 
   // ---------- 交互 ----------
@@ -513,6 +735,17 @@ kbd{background:#12151b;border:1px solid #46506a;border-bottom-width:2px;border-r
 
   cv.addEventListener('pointerdown', function (e) {
     if (e.button !== 0 || !S.img || S.busy) return;
+    if (S.calib.on) {
+      var cr = cv.getBoundingClientRect();
+      var ci = hitCorner(e.clientX - cr.left, e.clientY - cr.top);
+      if (ci >= 0) {
+        S.calib.sel = ci; S.calib.dragging = true;
+        cv.setPointerCapture(e.pointerId);
+      }
+      draw();
+      e.preventDefault();
+      return;
+    }
     cv.setPointerCapture(e.pointerId);
     var pt = canvasToImage(e.clientX, e.clientY);
     var hit = hitTest(pt[0], pt[1]);
@@ -528,6 +761,17 @@ kbd{background:#12151b;border:1px solid #46506a;border-bottom-width:2px;border-r
   });
   cv.addEventListener('pointermove', function (e) {
     if (!S.img) return;
+    if (S.calib.on) {
+      if (S.calib.dragging && S.calib.sel >= 0) {
+        var cip = pointerToImage(e.clientX, e.clientY);
+        setCornerPx(S.calib.sel, cip[0], cip[1]);
+      } else {
+        var cr2 = cv.getBoundingClientRect();
+        var hi = hitCorner(e.clientX - cr2.left, e.clientY - cr2.top);
+        if (hi !== S.calib.hover) { S.calib.hover = hi; draw(); }
+      }
+      return;
+    }
     var pt = canvasToImage(e.clientX, e.clientY);
     var cell = imageToCell(pt[0], pt[1], true);
     if (cell) { setStatus('像素 (' + Math.round(pt[0]) + ',' + Math.round(pt[1]) + ') → tile (' + cell[0] + ',' + cell[1] + ')'); }
@@ -551,6 +795,7 @@ kbd{background:#12151b;border:1px solid #46506a;border-bottom-width:2px;border-r
     }
   });
   cv.addEventListener('pointerup', function (e) {
+    if (S.calib.on) { S.calib.dragging = false; draw(); return; }
     if (!S.drag) return;
     if (S.moved) {
       var pt = canvasToImage(e.clientX, e.clientY);
@@ -572,6 +817,7 @@ kbd{background:#12151b;border:1px solid #46506a;border-bottom-width:2px;border-r
   cv.addEventListener('pointercancel', function () { S.drag = null; S.moved = false; });
   cv.addEventListener('contextmenu', function (e) {
     e.preventDefault();
+    if (S.calib.on) return;
     if (!S.img || S.busy) return;
     var pt = canvasToImage(e.clientX, e.clientY);
     var hit = hitTest(pt[0], pt[1]);
@@ -816,6 +1062,11 @@ kbd{background:#12151b;border:1px solid #46506a;border-bottom-width:2px;border-r
       S.savedAt = '';
       CN = {};
       for (var i = 0; i < S.palette.length; i++) { CN[S.palette[i].type] = S.palette[i].cn; }
+      S.quadSource = data.quad_source || 'layout';
+      S.layoutQuad = data.layout_quad || null;
+      S.overrideQuad = data.override_quad || null;
+      S.calib.on = false; S.calib.quad = null; S.calib.sel = -1; S.calib.hover = -1; S.calib.dragging = false;
+      showCalibBar(false); updateQuadBadge();
       buildThSelect(); buildBaseSelect(); buildCandSelect(); buildPalette();
       renderSelected(); renderBList(); renderBaseList(); renderProgress(); updateSaveState();
       var img = new Image();
@@ -973,6 +1224,15 @@ kbd{background:#12151b;border:1px solid #46506a;border-bottom-width:2px;border-r
     }
     if (e.altKey) { return; }
     var k = e.key;
+    if (S.calib.on) {
+      if (k === 'g' || k === 'G' || k === 'Escape') { e.preventDefault(); exitCalib(true); return; }
+      if (k === 'Enter') { e.preventDefault(); applyCalib(); return; }
+      if (k === 'ArrowUp' || k === 'ArrowDown' || k === 'ArrowLeft' || k === 'ArrowRight') {
+        e.preventDefault(); nudgeCorner(k, e.shiftKey ? 10 : 1); return;
+      }
+      return;
+    }
+    if (k === 'g' || k === 'G') { toggleCalib(); return; }
     if (k >= '1' && k <= '9') {
       var t = S.typeByHotkey[parseInt(k, 10)];
       if (t) { setPaletteType(t); e.preventDefault(); }
@@ -1011,6 +1271,10 @@ kbd{background:#12151b;border:1px solid #46506a;border-bottom-width:2px;border-r
   $('saveNextBtn').addEventListener('click', saveAndNext);
   $('skipBtn').addEventListener('click', skipCurrent);
   $('resetBtn').addEventListener('click', resetToPrefill);
+  $('calibBtn').addEventListener('click', toggleCalib);
+  $('calibApply').addEventListener('click', applyCalib);
+  $('calibReset').addEventListener('click', resetCalib);
+  $('calibCancel').addEventListener('click', function () { exitCalib(true); setStatus('已取消校准'); });
   $('summaryBtn').addEventListener('click', function () { window.open('/api/summary', '_blank'); });
   $('helpBtn').addEventListener('click', toggleHelp);
   $('helpClose').addEventListener('click', toggleHelp);

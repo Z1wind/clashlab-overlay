@@ -156,7 +156,9 @@ class App(object):
         else:
             # 候选方案不与默认方案的标注混用
             prefill, prefill_source = core.resolve_prefill(cand_doc, None)
-        geo = core.geometry_for_layout(cand_doc) or core.geometry_for_layout(layout_doc)
+        override_quad = core.load_override_quad(self.root, bid)
+        geo = (core.geometry_for_layout(cand_doc, override_quad)
+               or core.geometry_for_layout(layout_doc, override_quad))
         if geo is None:
             raise AppError(400, "该阵 quad 无法求解单应矩阵（四点共线或格式异常）")
         size = core.image_size(base["image"])
@@ -177,6 +179,10 @@ class App(object):
             "layout_name": base["layout_name"],
             "grid": geo["grid"],
             "quad": geo["quad"],
+            "quad_source": geo.get("quad_source", "layout"),
+            "layout_quad": core.parse_quad(layout_doc.get("note") or ""),
+            "override_quad": override_quad,
+            "quad_url": "/api/quad?th=%s&id=%s" % (urllib.parse.quote(th), urllib.parse.quote(bid)),
             "H": geo["H"],
             "Hinv": geo["Hinv"],
             "image_url": "/img?th=%s&id=%s&v=%d" % (urllib.parse.quote(th), urllib.parse.quote(bid), mtime),
@@ -222,7 +228,10 @@ class App(object):
         normalized = core.normalize_layout(doc, grid=base.get("grid"))
         baseline = core.normalize_layout(layout_doc, grid=base.get("grid"))
         diff = core.diff_layout(baseline, normalized)
-        normalized["note"] = core.with_provenance(normalized.get("note", ""), diff["edits"], cand_id)
+        override_quad = core.load_override_quad(self.root, bid)
+        quad_source = "override" if override_quad is not None else "layout"
+        normalized["note"] = core.with_provenance(normalized.get("note", ""), diff["edits"],
+                                                  cand_id, quad_source=quad_source)
         annotated_path = core.annotated_path(self.root, bid)
         core.write_json_atomic(annotated_path, normalized)
         elapsed = body.get("elapsed_ms") or 0
@@ -240,6 +249,7 @@ class App(object):
         return {
             "ok": True,
             "saved": _rel(core.annotated_rel_path(bid)),
+            "quad_source": quad_source,
             "diff": diff,
             "entry": entry,
             "totals": summary["totals"],
@@ -248,6 +258,53 @@ class App(object):
 
     def summary_payload(self):
         return {"ok": True, "summary": core.load_summary(core.summary_path(self.root))}
+
+    # ---- GET /api/quad（网格校准：当前生效 quad + 来源）----
+    def quad_payload(self, th, bid):
+        g, base = self.find_base(th, bid)
+        layout_doc = core.load_json(base["layout"])
+        if not isinstance(layout_doc, dict):
+            raise AppError(500, "读不到 layout.json：%s" % base["layout"])
+        layout_quad = core.parse_quad(layout_doc.get("note") or "")
+        override = core.load_override_quad(self.root, bid)
+        quad, source = core.effective_quad(layout_doc, override)
+        return {
+            "ok": True, "th": th, "id": bid,
+            "quad": quad,
+            "source": source,
+            "layout_quad": layout_quad,
+            "override_exists": override is not None,
+            "override_path": _rel(core.override_quad_rel_path(bid)),
+        }
+
+    # ---- POST /api/quad（保存校准覆盖）----
+    def save_quad(self, body):
+        if not isinstance(body, dict):
+            raise AppError(400, "请求体必须是 JSON 对象")
+        th = str(body.get("th") or "")
+        bid = str(body.get("id") or "")
+        g, base = self.find_base(th, bid)
+        size = core.image_size(base["image"])
+        try:
+            result = core.save_override_quad(self.root, bid, body.get("quad"), image_size=size)
+        except ValueError as exc:
+            raise AppError(400, str(exc))
+        return {
+            "ok": True, "th": th, "id": bid,
+            "quad": result["quad"],
+            "source": "override",
+            "saved_at": result["saved_at"],
+            "path": _rel(core.override_quad_rel_path(bid)),
+            "image_size": list(size) if size else None,
+        }
+
+    # ---- DELETE /api/quad（重置为 layout.json 默认）----
+    def delete_quad(self, th, bid):
+        self.find_base(th, bid)
+        removed = core.delete_override_quad(self.root, bid)
+        payload = self.quad_payload(th, bid)
+        payload["removed"] = removed
+        return payload
 
 
 class AnnotateServer(ThreadingHTTPServer):
@@ -308,6 +365,9 @@ class Handler(BaseHTTPRequestHandler):
                     self._q1(q, "th"), self._q1(q, "id"), self._q1(q, "candidate")))
             if path == "/api/summary":
                 return self._json(200, self.server.app.summary_payload())
+            if path == "/api/quad":
+                return self._json(200, self.server.app.quad_payload(
+                    self._q1(q, "th"), self._q1(q, "id")))
             if path == "/img":
                 return self._serve_image(self._q1(q, "th"), self._q1(q, "id"))
             if path == "/favicon.ico":
@@ -322,10 +382,26 @@ class Handler(BaseHTTPRequestHandler):
     def do_POST(self):
         path, _q = self._query()
         try:
-            if path != "/api/save":
-                return self._error(404, "未知路径：%s" % path)
-            body = self._read_body()
-            return self._json(200, self.server.app.save_payload(body))
+            if path == "/api/save":
+                body = self._read_body()
+                return self._json(200, self.server.app.save_payload(body))
+            if path == "/api/quad":
+                body = self._read_body()
+                return self._json(200, self.server.app.save_quad(body))
+            return self._error(404, "未知路径：%s" % path)
+        except AppError as e:
+            return self._error(e.status, e.message)
+        except Exception:
+            traceback.print_exc()
+            return self._error(500, "服务器内部错误（看控制台 traceback）")
+
+    def do_DELETE(self):
+        path, q = self._query()
+        try:
+            if path == "/api/quad":
+                return self._json(200, self.server.app.delete_quad(
+                    self._q1(q, "th"), self._q1(q, "id")))
+            return self._error(404, "未知路径：%s" % path)
         except AppError as e:
             return self._error(e.status, e.message)
         except Exception:
@@ -352,7 +428,8 @@ class Handler(BaseHTTPRequestHandler):
             raise AppError(413, "请求体过大（> %d 字节）" % MAX_BODY_BYTES)
         raw = self.rfile.read(length)
         try:
-            return json.loads(raw.decode("utf-8"))
+            # utf-8-sig：兼容 PowerShell Set-Content / 某些 curl 场景写出的 BOM
+            return json.loads(raw.decode("utf-8-sig"))
         except (ValueError, UnicodeError):
             raise AppError(400, "请求体不是合法 JSON")
 
