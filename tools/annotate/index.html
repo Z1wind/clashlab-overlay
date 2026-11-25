@@ -1,0 +1,1068 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ClashLab · TH16 阵型标注</title>
+<style>
+:root{
+  --bg:#111319; --panel:#1a1d25; --panel2:#212530; --line:#2e3440;
+  --ink:#e9edf4; --muted:#93a0b7; --accent:#f0c452; --ok:#4ade80; --warn:#f87171; --blue:#60a5fa;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;display:flex;flex-direction:column;background:var(--bg);color:var(--ink);
+  font:13px/1.5 "Microsoft YaHei",system-ui,-apple-system,sans-serif;overflow:hidden}
+button,select,input{font:inherit;color:var(--ink);background:var(--panel2);border:1px solid var(--line);border-radius:5px;padding:4px 8px}
+button{cursor:pointer}
+button:hover{background:#2c3240;border-color:#46506a}
+button.primary{background:#3a3520;border-color:#6d5c25;color:#ffe89a}
+button.primary:hover{background:#4a4429}
+button:disabled{opacity:.45;cursor:not-allowed}
+header{display:flex;align-items:center;gap:8px;padding:7px 10px;background:linear-gradient(#20242e,#191c24);
+  border-bottom:1px solid var(--line);flex-wrap:wrap}
+.brand{font-weight:700;color:var(--accent);letter-spacing:.5px;margin-right:6px;white-space:nowrap}
+.field{display:flex;align-items:center;gap:4px;color:var(--muted);white-space:nowrap}
+.field select{max-width:230px}
+.grow{flex:1 1 auto}
+.save-state{font-size:12px;color:var(--muted);min-width:110px;text-align:right}
+.save-state.unsaved{color:var(--accent)}
+.save-state.saved{color:var(--ok)}
+#progressBar{position:relative;height:20px;background:#151820;border-bottom:1px solid var(--line);font-size:11px;color:var(--muted);flex:0 0 auto}
+#progressFill{position:absolute;left:0;top:0;bottom:0;width:0;background:linear-gradient(90deg,#3a4d33,#527a44);transition:width .25s}
+#progressText{position:relative;z-index:1;display:block;text-align:center;line-height:20px}
+main{flex:1 1 auto;display:flex;min-height:0}
+#stageWrap{position:relative;flex:1 1 auto;min-width:0;overflow:auto;background:#0a0c10;
+  background-image:linear-gradient(45deg,#0d1014 25%,transparent 25%),linear-gradient(-45deg,#0d1014 25%,transparent 25%),linear-gradient(45deg,transparent 75%,#0d1014 75%),linear-gradient(-45deg,transparent 75%,#0d1014 75%);
+  background-size:24px 24px;background-position:0 0,0 12px,12px -12px,-12px 0}
+#stage{position:relative;display:inline-block;padding:12px}
+canvas{display:block;cursor:crosshair;border-radius:4px;box-shadow:0 6px 24px rgba(0,0,0,.55)}
+#busy{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(8,10,14,.72);color:var(--accent);font-size:15px;z-index:20}
+#cursorInfo{position:absolute;left:8px;bottom:8px;z-index:10;font-size:11px;color:#cfd8e6;background:rgba(10,12,16,.78);
+  border:1px solid var(--line);border-radius:5px;padding:3px 8px;pointer-events:none;white-space:nowrap}
+aside{width:340px;flex:0 0 340px;border-left:1px solid var(--line);background:var(--panel);overflow:auto;padding:8px}
+.panel{background:var(--panel2);border:1px solid var(--line);border-radius:7px;padding:8px;margin-bottom:8px}
+.panel h3{margin:0 0 6px;font-size:12.5px;color:var(--accent);font-weight:700;display:flex;gap:6px;align-items:baseline;flex-wrap:wrap}
+.hint{color:var(--muted);font-size:11px;font-weight:400}
+.palette{display:grid;grid-template-columns:repeat(3,1fr);gap:5px}
+.palette button{position:relative;padding:5px 3px 4px;text-align:center;font-size:11.5px;border-width:1px;line-height:1.2;min-height:34px}
+.palette button .hk{position:absolute;left:3px;top:2px;font-size:9.5px;color:#0e1116;background:var(--accent);border-radius:3px;padding:0 3px;font-weight:700}
+.palette button .cn{display:block;margin-top:8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.palette button.active{outline:2px solid var(--accent);outline-offset:1px;background:#2d3240}
+.selected{font-size:12px;color:var(--muted);min-height:70px}
+.selected .row{display:flex;align-items:center;gap:6px;margin:5px 0;flex-wrap:wrap}
+.selected .row b{color:var(--ink);font-weight:600}
+.selected select{flex:1 1 auto}
+.selected input[type=number]{width:64px}
+.selected .danger{background:#3a2027;border-color:#6d2b36;color:#ffc2c9}
+.blist{max-height:240px;overflow:auto;font-size:12px}
+.brow{display:flex;align-items:center;gap:6px;padding:2px 4px;border-radius:4px;cursor:pointer;white-space:nowrap}
+.brow:hover{background:#2b303c}
+.brow.sel{background:#33384a;outline:1px solid #5b6a91}
+.brow .dot{width:9px;height:9px;border-radius:2px;flex:0 0 auto}
+.brow .bidx{color:var(--muted);width:26px;text-align:right;font-variant-numeric:tabular-nums}
+.brow .bcn{flex:1 1 auto;overflow:hidden;text-overflow:ellipsis}
+.brow .btile{color:var(--muted);font-variant-numeric:tabular-nums}
+.baselist{font-size:12px}
+.baseRow{display:flex;align-items:center;gap:6px;padding:3px 4px;border-radius:4px;cursor:pointer}
+.baseRow:hover{background:#2b303c}
+.baseRow.cur{background:#33384a;outline:1px solid #5b6a91}
+.baseRow .st{width:16px;text-align:center}
+.baseRow .st.done{color:var(--ok)}
+.baseRow .st.skip{color:var(--accent)}
+.baseRow .st.todo{color:#5a6376}
+.baseRow .bid{font-weight:600}
+.baseRow .meta{flex:1 1 auto;color:var(--muted);font-size:11px;text-align:right}
+code{background:#12151b;border:1px solid var(--line);border-radius:4px;padding:0 4px;color:#c9d4e6}
+#toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(14px);opacity:0;pointer-events:none;
+  background:#232a36;border:1px solid #46506a;border-radius:7px;padding:8px 16px;font-size:13px;max-width:70vw;z-index:60;transition:all .18s}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+#toast.error{background:#3a2027;border-color:#7a303c;color:#ffd0d6}
+.overlay{position:fixed;inset:0;background:rgba(5,7,10,.72);z-index:80;display:flex;align-items:center;justify-content:center}
+.hidden{display:none !important}
+.dialog{background:var(--panel2);border:1px solid #46506a;border-radius:10px;padding:16px 18px;max-width:640px;max-height:82vh;overflow:auto;box-shadow:0 20px 60px rgba(0,0,0,.6)}
+.dialog h2{margin:0 0 10px;color:var(--accent);font-size:16px}
+.dialog table{border-collapse:collapse;width:100%;font-size:12.5px}
+.dialog td{padding:3px 8px;border-bottom:1px solid #2b3140;vertical-align:top}
+.dialog td:first-child{white-space:nowrap;color:#ffe08a}
+kbd{background:#12151b;border:1px solid #46506a;border-bottom-width:2px;border-radius:4px;padding:0 5px;font-family:inherit;font-size:12px}
+.dialog .close{margin-top:12px}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">TH16 阵型标注</div>
+  <label class="field">TH <select id="thSel" title="TH 分组（当前只有 TH16）"></select></label>
+  <label class="field">阵 <select id="baseSel" title="当前 TH 下的阵（bases/th16/NN）"></select></label>
+  <label class="field">候选 <select id="candSel" title="候选方案（layouts/*.json 或 layout*.json；无候选时只有预填）"></select></label>
+  <button id="prevBaseBtn" title="上一阵（PageUp）">◀ 上一阵</button>
+  <button id="nextBaseBtn" title="下一阵（PageDown）">下一阵 ▶</button>
+  <span class="grow"></span>
+  <span id="saveState" class="save-state">未加载</span>
+  <button id="saveBtn" title="保存（Ctrl+S）">保存 Ctrl+S</button>
+  <button id="saveNextBtn" class="primary" title="保存并进入下一阵（Enter）">保存并下一阵 Enter</button>
+  <button id="skipBtn" title="保存并标记跳过（Space）">跳过 Space</button>
+  <button id="resetBtn" title="重置为 layout.json 预填（连按两次 R）">重置</button>
+  <button id="summaryBtn" title="打开 out/annotate/summary.json">汇总</button>
+  <button id="helpBtn" title="快捷键（H）">帮助 H</button>
+</header>
+<div id="progressBar"><i id="progressFill"></i><span id="progressText">加载中…</span></div>
+<main>
+  <div id="stageWrap">
+    <div id="stage"><canvas id="cv"></canvas></div>
+    <div id="busy" class="hidden">加载中…</div>
+    <div id="cursorInfo">移动鼠标查看像素 / tile</div>
+  </div>
+  <aside>
+    <section class="panel">
+      <h3>类型调色板 <span class="hint">数字键 1–9 直选；选中建筑时点类型＝改型</span></h3>
+      <div id="palette" class="palette"></div>
+    </section>
+    <section class="panel">
+      <h3>选中建筑</h3>
+      <div id="selectedBox" class="selected">点画布上的建筑选中；点空白处用当前类型新增一栋。</div>
+    </section>
+    <section class="panel">
+      <h3>建筑列表 <span id="bcount" class="hint"></span></h3>
+      <div id="blist" class="blist"></div>
+    </section>
+    <section class="panel">
+      <h3>全部阵型 <span id="progressMini" class="hint"></span></h3>
+      <div id="baselist" class="baselist"></div>
+      <div class="hint" style="margin-top:6px">保存位置：<code>out/annotate/NN_annotated.json</code> + <code>summary.json</code></div>
+    </section>
+  </aside>
+</main>
+<div id="toast"></div>
+<div id="help" class="overlay hidden">
+  <div class="dialog">
+    <h2>快捷键与标注流程</h2>
+    <table>
+      <tr><td><kbd>鼠标左键</kbd></td><td>点建筑＝选中；点空白＝用当前类型新增一栋；按住拖动＝移动位置</td></tr>
+      <tr><td><kbd>鼠标右键</kbd></td><td>删除鼠标下的建筑（可撤销）</td></tr>
+      <tr><td><kbd>滚轮</kbd></td><td>缩放（以鼠标为中心）</td></tr>
+      <tr><td><kbd>1</kbd>–<kbd>9</kbd></td><td>选常用类型；若已选中建筑则直接改它的类型</td></tr>
+      <tr><td><kbd>方向键</kbd></td><td>选中建筑微调 1 格</td></tr>
+      <tr><td><kbd>Tab</kbd> / <kbd>Shift+Tab</kbd></td><td>下一栋 / 上一栋（自动滚动到可见）</td></tr>
+      <tr><td><kbd>Delete</kbd></td><td>删除选中建筑</td></tr>
+      <tr><td><kbd>Backspace</kbd> / <kbd>Ctrl+Z</kbd></td><td>撤销上一步</td></tr>
+      <tr><td><kbd>Ctrl+S</kbd></td><td>立即保存（平时改动后 1.2 秒自动保存）</td></tr>
+      <tr><td><kbd>Enter</kbd></td><td>保存并进入下一阵</td></tr>
+      <tr><td><kbd>Space</kbd></td><td>保存并标记「跳过」，进入下一阵</td></tr>
+      <tr><td><kbd>Q</kbd> / <kbd>E</kbd></td><td>上一候选 / 下一候选方案</td></tr>
+      <tr><td><kbd>PageUp</kbd> / <kbd>PageDown</kbd></td><td>上一阵 / 下一阵</td></tr>
+      <tr><td><kbd>R</kbd> 两次</td><td>重置当前阵为 layout.json 预填</td></tr>
+      <tr><td><kbd>Esc</kbd></td><td>取消选中 / 关闭本帮助</td></tr>
+    </table>
+    <h2 style="margin-top:14px;font-size:14px">减少工作量的推荐流程</h2>
+    <div style="font-size:12.5px;color:var(--muted);line-height:1.7">
+      1. layout.json 已预填好建筑框（红＝防御、金＝大本营、紫＝部落城堡、绿＝资源、蓝＝兵营）。<br>
+      2. 逐个核对：位置不对就拖动方框；类型不对就选中它再点调色板（或按 1–9）。<br>
+      3. 预填漏掉的建筑：用当前类型点它应该在的格子即可补录；多出来的按 Delete 删掉。<br>
+      4. 一栋都没问题的阵直接按 <kbd>Enter</kbd> 保存并下一阵；不想标的按 <kbd>Space</kbd> 跳过。<br>
+      5. 全部阵标完看 <code>out/annotate/summary.json</code>（每阵建筑数 / 人工修改次数 / 耗时）。
+    </div>
+    <button class="close" id="helpClose">关闭 (Esc)</button>
+  </div>
+</div>
+<script>
+(function () {
+  'use strict';
+  var $ = function (id) { return document.getElementById(id); };
+  var cv = $('cv');
+  var ctx = cv.getContext('2d');
+
+  var S = {
+    state: null, groups: [], th: '', id: '',
+    base: null, doc: null, prefill: null,
+    palette: [], paletteType: 'cannon', typeByHotkey: {},
+    sel: -1, hover: -1,
+    undo: [],
+    zoom: 1, fit: 1, scale: 1, dpr: window.devicePixelRatio || 1,
+    img: null, imgW: 0, imgH: 0,
+    drag: null, moved: false,
+    dirty: false, saving: false, saveTimer: null, loadToken: 0,
+    startedAt: 0, savedAt: '', skipped: false, candidate: 'layout',
+    lastResetPress: 0, busy: false
+  };
+
+  var DEFENSE = ['cannon','archer-tower','mortar','wizard-tower','air-defense','x-bow','inferno-tower',
+    'hidden-tesla','air-sweeper','eagle-artillery','scattershot','monolith','spell-tower','bomb-tower',
+    'multi-archer-tower','ricochet-cannon','firespitter'];
+  var COLORS = {
+    'town-hall': '#ffd700', 'clan-castle': '#c084fc', defense: '#ff5a76',
+    resource: '#34d399', army: '#60a5fa', other: '#9aa7bd'
+  };
+  var CN = {};
+
+  function categoryOf(t) {
+    if (t === 'town-hall') return 'town-hall';
+    if (t === 'clan-castle') return 'clan-castle';
+    if (DEFENSE.indexOf(t) >= 0) return 'defense';
+    if (t.indexOf('storage') >= 0 || t.indexOf('mine') >= 0 || t.indexOf('collector') >= 0 || t.indexOf('drill') >= 0) return 'resource';
+    if (t.indexOf('barrack') >= 0 || ['army-camp','laboratory','spell-factory','dark-spell-factory','builder-hut'].indexOf(t) >= 0) return 'army';
+    return 'other';
+  }
+  function colorFor(t) { return COLORS[categoryOf(t)] || COLORS.other; }
+  function cn(t) { return CN[t] || t; }
+  function sizeOf(t) {
+    var it = findByType(t);
+    return it && it.size ? it.size : 3;
+  }
+  function findByType(t) {
+    for (var i = 0; i < S.palette.length; i++) { if (S.palette[i].type === t) return S.palette[i]; }
+    return null;
+  }
+  function clone(x) { return JSON.parse(JSON.stringify(x)); }
+  function hexA(hex, a) {
+    var h = String(hex).replace('#', '');
+    if (h.length === 3) { h = h[0] + h[0] + h[1] + h[1] + h[2] + h[2]; }
+    var r = parseInt(h.slice(0, 2), 16), g = parseInt(h.slice(2, 4), 16), b = parseInt(h.slice(4, 6), 16);
+    return 'rgba(' + r + ',' + g + ',' + b + ',' + a + ')';
+  }
+  function esc(s) {
+    return String(s).replace(/[&<>"']/g, function (c) {
+      return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c];
+    });
+  }
+  function toast(msg, isError) {
+    var el = $('toast');
+    el.textContent = msg;
+    el.className = 'show' + (isError ? ' error' : '');
+    clearTimeout(toast._t);
+    toast._t = setTimeout(function () { el.className = 'hidden'; }, 2600);
+  }
+  function setStatus(msg) { $('cursorInfo').textContent = msg; }
+  function showBusy(on) { S.busy = !!on; $('busy').className = on ? '' : 'hidden'; }
+  function api(url, opts) {
+    return fetch(url, opts || {}).then(function (resp) {
+      return resp.text().then(function (text) {
+        var data;
+        try { data = JSON.parse(text); } catch (e) { data = { ok: false, error: '非 JSON 响应（HTTP ' + resp.status + '）' }; }
+        if (!resp.ok || data.ok === false) { throw new Error(data.error || ('HTTP ' + resp.status)); }
+        return data;
+      });
+    });
+  }
+  function allBases() {
+    var out = [];
+    for (var i = 0; i < S.groups.length; i++) {
+      var g = S.groups[i];
+      for (var j = 0; j < g.bases.length; j++) {
+        var b = g.bases[j];
+        b._th = g.th;
+        out.push(b);
+      }
+    }
+    return out;
+  }
+  function basesFor(th) {
+    for (var i = 0; i < S.groups.length; i++) { if (S.groups[i].th === th) return S.groups[i].bases; }
+    return [];
+  }
+  function currentBases() { return basesFor(S.th); }
+  function findBase(th, id) {
+    var list = basesFor(th);
+    for (var i = 0; i < list.length; i++) { if (list[i].id === id) return list[i]; }
+    return null;
+  }
+
+  // ---------- 几何：tile <-> 像素（用服务端算好的 H / Hinv，前端只做矩阵乘法） ----------
+  function applyH(H, x, y) {
+    var w = H[2][0] * x + H[2][1] * y + H[2][2];
+    return [(H[0][0] * x + H[0][1] * y + H[0][2]) / w, (H[1][0] * x + H[1][1] * y + H[1][2]) / w];
+  }
+  function gridToCanvas(gx, gy) { var p = applyH(S.base.H, gx, gy); return [p[0] * S.scale, p[1] * S.scale]; }
+  function cellToCanvas(tx, ty) { return gridToCanvas(tx + 0.5, ty + 0.5); }
+  function cellToImage(tx, ty) { return applyH(S.base.H, tx + 0.5, ty + 0.5); }
+  function canvasToImage(clientX, clientY) {
+    var r = cv.getBoundingClientRect();
+    return [(clientX - r.left) / S.scale, (clientY - r.top) / S.scale];
+  }
+  function imageToCell(ix, iy, doClamp) {
+    var t = applyH(S.base.Hinv, ix, iy);
+    var gx = Math.floor(t[0]), gy = Math.floor(t[1]);
+    var g = S.base.grid;
+    if (gx >= 0 && gx < g && gy >= 0 && gy < g) return [gx, gy];
+    if (!doClamp) return null;
+    return [Math.min(Math.max(gx, 0), g - 1), Math.min(Math.max(gy, 0), g - 1)];
+  }
+  function tileCanvasSize() {
+    var a = gridToCanvas(0, 0), b = gridToCanvas(1, 0), c = gridToCanvas(0, 1);
+    return Math.max(4, (Math.hypot(b[0] - a[0], b[1] - a[1]) + Math.hypot(c[0] - a[0], c[1] - a[1])) / 2);
+  }
+
+  // ---------- 画布 ----------
+  function fitCanvas() {
+    if (!S.img) return;
+    var wrap = $('stageWrap');
+    var availW = Math.max(200, wrap.clientWidth - 26);
+    var availH = Math.max(200, wrap.clientHeight - 26);
+    S.fit = Math.min(availW / S.imgW, availH / S.imgH);
+    resizeCanvas();
+  }
+  function resizeCanvas() {
+    if (!S.img) return;
+    S.scale = S.fit * S.zoom;
+    var cssW = Math.max(1, Math.round(S.imgW * S.scale));
+    var cssH = Math.max(1, Math.round(S.imgH * S.scale));
+    cv.style.width = cssW + 'px';
+    cv.style.height = cssH + 'px';
+    cv.width = Math.round(cssW * S.dpr);
+    cv.height = Math.round(cssH * S.dpr);
+    draw();
+  }
+  function strokeLine(p, q) { ctx.beginPath(); ctx.moveTo(p[0], p[1]); ctx.lineTo(q[0], q[1]); ctx.stroke(); }
+  function draw() {
+    if (!S.img || !S.base) return;
+    var cssW = cv.width / S.dpr, cssH = cv.height / S.dpr;
+    ctx.setTransform(S.dpr, 0, 0, S.dpr, 0, 0);
+    ctx.clearRect(0, 0, cssW, cssH);
+    ctx.imageSmoothingEnabled = true;
+    ctx.drawImage(S.img, 0, 0, cssW, cssH);
+    drawGrid();
+    drawQuad();
+    drawWalls();
+    var order = [];
+    for (var i = 0; i < S.doc.buildings.length; i++) { order.push(i); }
+    order.sort(function (a, b) { return (a === S.sel ? 1 : 0) - (b === S.sel ? 1 : 0); });
+    for (var k = 0; k < order.length; k++) { drawBuilding(order[k]); }
+  }
+  function drawGrid() {
+    var g = S.base.grid;
+    ctx.save();
+    ctx.lineWidth = 1;
+    for (var i = 0; i <= g; i++) {
+      ctx.strokeStyle = (i % 5 === 0) ? 'rgba(255,255,255,0.16)' : 'rgba(255,255,255,0.055)';
+      strokeLine(gridToCanvas(i, 0), gridToCanvas(i, g));
+      strokeLine(gridToCanvas(0, i), gridToCanvas(g, i));
+    }
+    ctx.restore();
+  }
+  function drawQuad() {
+    var q = S.base.quad;
+    if (!q) return;
+    ctx.save();
+    ctx.strokeStyle = 'rgba(240,196,82,0.95)';
+    ctx.lineWidth = 2;
+    var pts = [];
+    for (var i = 0; i < 4; i++) { pts.push([q[i][0] * S.scale, q[i][1] * S.scale]); }
+    ctx.beginPath();
+    ctx.moveTo(pts[0][0], pts[0][1]);
+    for (var j = 1; j < 4; j++) { ctx.lineTo(pts[j][0], pts[j][1]); }
+    ctx.closePath();
+    ctx.stroke();
+    ctx.restore();
+  }
+  function drawWalls() {
+    var walls = S.doc.walls || [];
+    if (!walls.length) return;
+    ctx.save();
+    ctx.fillStyle = 'rgba(200,210,225,0.28)';
+    for (var i = 0; i < walls.length; i++) {
+      var p = gridToCanvas(walls[i][0], walls[i][1]);
+      ctx.fillRect(p[0] - 1.5, p[1] - 1.5, 3, 3);
+    }
+    ctx.restore();
+  }
+  function roundRectPath(x, y, w, h, r) {
+    ctx.beginPath();
+    ctx.moveTo(x + r, y);
+    ctx.arcTo(x + w, y, x + w, y + h, r);
+    ctx.arcTo(x + w, y + h, x, y + h, r);
+    ctx.arcTo(x, y + h, x, y, r);
+    ctx.arcTo(x, y, x + w, y, r);
+    ctx.closePath();
+  }
+  function drawBuilding(i) {
+    var b = S.doc.buildings[i];
+    if (!b) return;
+    var c = cellToCanvas(b.tile[0], b.tile[1]);
+    var tpx = tileCanvasSize();
+    var k = sizeOf(b.type);
+    var half = Math.max(4.5, k * 0.5 * tpx);
+    var sel = (i === S.sel), hov = (i === S.hover);
+    var col = colorFor(b.type);
+    ctx.save();
+    roundRectPath(c[0] - half, c[1] - half, half * 2, half * 2, Math.min(4, half * 0.28));
+    ctx.fillStyle = hexA(col, sel ? 0.42 : (hov ? 0.30 : 0.17));
+    ctx.fill();
+    ctx.lineWidth = sel ? 3 : (hov ? 2.2 : 1.4);
+    ctx.strokeStyle = sel ? '#ffe600' : col;
+    ctx.stroke();
+    if (half >= 9) {
+      var fs = Math.max(9, Math.min(14, half * 0.6));
+      ctx.font = '600 ' + fs + 'px "Microsoft YaHei",sans-serif';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.lineWidth = 2.5;
+      ctx.strokeStyle = 'rgba(0,0,0,0.62)';
+      ctx.strokeText(cn(b.type), c[0], c[1]);
+      ctx.fillStyle = '#ffffff';
+      ctx.fillText(cn(b.type), c[0], c[1]);
+    }
+    ctx.restore();
+  }
+
+  // ---------- 交互 ----------
+  function hitTest(ix, iy) {
+    var tpxImg = tileCanvasSize() / S.scale;
+    var lim = Math.max(tpxImg * 0.62, 12);
+    var best = -1, bestD = 1e9;
+    for (var i = 0; i < S.doc.buildings.length; i++) {
+      var b = S.doc.buildings[i];
+      var p = cellToImage(b.tile[0], b.tile[1]);
+      var d = Math.hypot(p[0] - ix, p[1] - iy);
+      if (d < lim && d < bestD) { bestD = d; best = i; }
+    }
+    return best;
+  }
+  function selectBuilding(i) {
+    S.sel = i;
+    draw();
+    renderSelected();
+    renderBList();
+    scrollSelectedIntoView();
+  }
+  function scrollSelectedIntoView() {
+    if (S.sel < 0 || !S.img) return;
+    var b = S.doc.buildings[S.sel];
+    if (!b) return;
+    var wrap = $('stageWrap');
+    var p = cellToCanvas(b.tile[0], b.tile[1]);
+    var stage = $('stage');
+    var absX = stage.offsetLeft + cv.offsetLeft + p[0];
+    var absY = stage.offsetTop + cv.offsetTop + p[1];
+    var m = 90;
+    if (absX < wrap.scrollLeft + m) { wrap.scrollLeft = Math.max(0, absX - m); }
+    else if (absX > wrap.scrollLeft + wrap.clientWidth - m) { wrap.scrollLeft = absX - wrap.clientWidth + m; }
+    if (absY < wrap.scrollTop + m) { wrap.scrollTop = Math.max(0, absY - m); }
+    else if (absY > wrap.scrollTop + wrap.clientHeight - m) { wrap.scrollTop = absY - wrap.clientHeight + m; }
+  }
+  function pushUndoSnapshot(snap) {
+    S.undo.push(snap || clone(S.doc.buildings));
+    if (S.undo.length > 200) { S.undo.shift(); }
+  }
+  function undo() {
+    if (!S.undo.length) { toast('没有可撤销的操作'); return; }
+    S.doc.buildings = S.undo.pop();
+    if (S.sel >= S.doc.buildings.length) { S.sel = S.doc.buildings.length - 1; }
+    S.dirty = true;
+    scheduleSave();
+    draw(); renderSelected(); renderBList();
+    setStatus('已撤销一步（还剩 ' + S.undo.length + ' 步）');
+  }
+  function addBuildingAt(ix, iy) {
+    var cell = imageToCell(ix, iy, false);
+    if (!cell) { toast('点在阵型范围外，未新增'); return; }
+    for (var i = 0; i < S.doc.buildings.length; i++) {
+      if (S.doc.buildings[i].tile[0] === cell[0] && S.doc.buildings[i].tile[1] === cell[1]) {
+        selectBuilding(i);
+        toast('该格已有建筑，已选中（改类型请点调色板）');
+        return;
+      }
+    }
+    pushUndoSnapshot();
+    S.doc.buildings.push({ type: S.paletteType, tile: cell, source: 'manual', conf: 1.0, note: 'tools/annotate 补录' });
+    S.sel = S.doc.buildings.length - 1;
+    S.dirty = true;
+    scheduleSave();
+    draw(); renderSelected(); renderBList(); scrollSelectedIntoView();
+    setStatus('已新增 ' + cn(S.paletteType) + ' @ tile(' + cell[0] + ',' + cell[1] + ')');
+  }
+  function changeType(i, t) {
+    if (i < 0 || i >= S.doc.buildings.length) return;
+    if (S.doc.buildings[i].type === t) { return; }
+    pushUndoSnapshot();
+    S.doc.buildings[i].type = t;
+    S.doc.buildings[i].conf = 1.0;
+    S.dirty = true;
+    scheduleSave();
+    draw(); renderSelected(); renderBList();
+  }
+  function deleteSelected() {
+    if (S.sel < 0) { toast('先选中一栋建筑再删除'); return; }
+    var removed = S.doc.buildings[S.sel];
+    pushUndoSnapshot();
+    S.doc.buildings.splice(S.sel, 1);
+    if (S.sel >= S.doc.buildings.length) { S.sel = S.doc.buildings.length - 1; }
+    S.dirty = true;
+    scheduleSave();
+    draw(); renderSelected(); renderBList();
+    toast('已删除 ' + cn(removed.type) + ' @ tile(' + removed.tile[0] + ',' + removed.tile[1] + ')，可 Backspace 撤销');
+  }
+  function nudge(dx, dy) {
+    if (S.sel < 0) { toast('先选中一栋建筑（点它或按 Tab）'); return; }
+    var b = S.doc.buildings[S.sel];
+    var g = S.base.grid;
+    var nx = Math.min(Math.max(b.tile[0] + dx, 0), g - 1);
+    var ny = Math.min(Math.max(b.tile[1] + dy, 0), g - 1);
+    if (nx === b.tile[0] && ny === b.tile[1]) { return; }
+    pushUndoSnapshot();
+    b.tile = [nx, ny];
+    S.dirty = true;
+    scheduleSave();
+    draw(); renderSelected(); renderBList();
+  }
+  function cycleBuilding(delta) {
+    if (!S.doc.buildings.length) { toast('当前阵没有建筑'); return; }
+    var n = S.doc.buildings.length;
+    S.sel = (S.sel < 0 ? (delta > 0 ? 0 : n - 1) : (S.sel + delta + n) % n);
+    draw(); renderSelected(); renderBList(); scrollSelectedIntoView();
+  }
+
+  cv.addEventListener('pointerdown', function (e) {
+    if (e.button !== 0 || !S.img || S.busy) return;
+    cv.setPointerCapture(e.pointerId);
+    var pt = canvasToImage(e.clientX, e.clientY);
+    var hit = hitTest(pt[0], pt[1]);
+    if (hit >= 0) {
+      S.sel = hit;
+      S.moved = false;
+      S.drag = { idx: hit, startX: e.clientX, startY: e.clientY, snapshot: clone(S.doc.buildings), pushed: false };
+      renderSelected(); renderBList(); draw();
+    } else {
+      addBuildingAt(pt[0], pt[1]);
+    }
+    e.preventDefault();
+  });
+  cv.addEventListener('pointermove', function (e) {
+    if (!S.img) return;
+    var pt = canvasToImage(e.clientX, e.clientY);
+    var cell = imageToCell(pt[0], pt[1], true);
+    if (cell) { setStatus('像素 (' + Math.round(pt[0]) + ',' + Math.round(pt[1]) + ') → tile (' + cell[0] + ',' + cell[1] + ')'); }
+    if (S.drag) {
+      if (!S.moved && Math.hypot(e.clientX - S.drag.startX, e.clientY - S.drag.startY) > 4) {
+        S.moved = true;
+        pushUndoSnapshot(S.drag.snapshot);
+      }
+      if (S.moved) {
+        var b = S.doc.buildings[S.drag.idx];
+        if (b && (b.tile[0] !== cell[0] || b.tile[1] !== cell[1])) {
+          b.tile = [cell[0], cell[1]];
+          S.dirty = true;
+          scheduleSave();
+          draw(); renderSelected(); renderBList();
+        }
+      }
+    } else {
+      var hit = hitTest(pt[0], pt[1]);
+      if (hit !== S.hover) { S.hover = hit; draw(); }
+    }
+  });
+  cv.addEventListener('pointerup', function (e) {
+    if (!S.drag) return;
+    if (S.moved) {
+      var pt = canvasToImage(e.clientX, e.clientY);
+      var cell = imageToCell(pt[0], pt[1], true);
+      var b = S.doc.buildings[S.drag.idx];
+      if (b && cell) {
+        if (b.tile[0] !== cell[0] || b.tile[1] !== cell[1]) {
+          b.tile = [cell[0], cell[1]];
+          S.dirty = true;
+          scheduleSave();
+        }
+        setStatus('已移动 ' + cn(b.type) + ' → tile (' + b.tile[0] + ',' + b.tile[1] + ')');
+      }
+    }
+    S.drag = null;
+    S.moved = false;
+    draw(); renderSelected(); renderBList();
+  });
+  cv.addEventListener('pointercancel', function () { S.drag = null; S.moved = false; });
+  cv.addEventListener('contextmenu', function (e) {
+    e.preventDefault();
+    if (!S.img || S.busy) return;
+    var pt = canvasToImage(e.clientX, e.clientY);
+    var hit = hitTest(pt[0], pt[1]);
+    if (hit >= 0) { S.sel = hit; deleteSelected(); }
+  });
+  $('stageWrap').addEventListener('wheel', function (e) {
+    if (!S.img) return;
+    e.preventDefault();
+    var wrap = $('stageWrap');
+    var wrapRect = wrap.getBoundingClientRect();
+    var p = canvasToImage(e.clientX, e.clientY);
+    var stage = $('stage');
+    var originX = stage.offsetLeft + cv.offsetLeft;
+    var originY = stage.offsetTop + cv.offsetTop;
+    S.zoom = Math.min(10, Math.max(0.4, S.zoom * (e.deltaY < 0 ? 1.2 : 1 / 1.2)));
+    resizeCanvas();
+    wrap.scrollLeft = originX + p[0] * S.scale - (e.clientX - wrapRect.left);
+    wrap.scrollTop = originY + p[1] * S.scale - (e.clientY - wrapRect.top);
+  }, { passive: false });
+
+  // ---------- 调色板 / 侧栏 ----------
+  function buildPalette() {
+    var box = $('palette');
+    box.innerHTML = '';
+    var frag = document.createDocumentFragment();
+    S.typeByHotkey = {};
+    for (var i = 0; i < S.palette.length; i++) {
+      var item = S.palette[i];
+      if (item.hotkey) { S.typeByHotkey[item.hotkey] = item.type; }
+      var btn = document.createElement('button');
+      btn.className = 'pal' + (item.type === S.paletteType ? ' active' : '');
+      btn.title = item.type + '（' + item.cn + '）';
+      btn.style.borderColor = colorFor(item.type);
+      var hk = item.hotkey ? '<span class="hk">' + item.hotkey + '</span>' : '';
+      btn.innerHTML = hk + '<span class="cn">' + esc(item.cn) + '</span>';
+      (function (t) { btn.addEventListener('click', function () { setPaletteType(t); }); })(item.type);
+      frag.appendChild(btn);
+    }
+    box.appendChild(frag);
+  }
+  function setPaletteType(t) {
+    S.paletteType = t;
+    if (S.sel >= 0) { changeType(S.sel, t); }
+    buildPalette();
+    setStatus('当前类型：' + cn(t) + '（' + t + '）');
+  }
+  function renderSelected() {
+    var box = $('selectedBox');
+    if (S.sel < 0 || !S.doc.buildings[S.sel]) {
+      box.innerHTML = '点画布上的建筑选中；点空白处用当前类型 <b>' + esc(cn(S.paletteType)) +
+        '</b> 新增一栋。<br><span class="hint">拖动方框改位置；选中后点调色板改类型；Tab 切换建筑。</span>';
+      return;
+    }
+    var b = S.doc.buildings[S.sel];
+    var opts = '';
+    for (var i = 0; i < S.palette.length; i++) {
+      var it = S.palette[i];
+      opts += '<option value="' + esc(it.type) + '"' + (it.type === b.type ? ' selected' : '') + '>' +
+        esc(it.cn) + '（' + esc(it.type) + '）</option>';
+    }
+    var g = S.base.grid;
+    box.innerHTML =
+      '<div class="row"><b>#' + (S.sel + 1) + '</b> / ' + S.doc.buildings.length + ' 栋 <span class="hint">拖动＝移动；Delete＝删除</span></div>' +
+      '<div class="row">类型 <select id="selType">' + opts + '</select></div>' +
+      '<div class="row">tile x <input id="selX" type="number" min="0" max="' + (g - 1) + '" value="' + b.tile[0] + '">' +
+      ' y <input id="selY" type="number" min="0" max="' + (g - 1) + '" value="' + b.tile[1] + '">' +
+      '<span class="hint">grid=' + g + '（0..' + (g - 1) + '）</span></div>' +
+      '<div class="row"><button id="delSel" class="danger">删除选中（Delete）</button>' +
+      '<button id="prevB">上一栋</button><button id="nextB">下一栋</button></div>';
+    $('selType').addEventListener('change', function (e) { changeType(S.sel, e.target.value); });
+    $('selX').addEventListener('change', function (e) { setTileFromInputs(); });
+    $('selY').addEventListener('change', function (e) { setTileFromInputs(); });
+    $('delSel').addEventListener('click', deleteSelected);
+    $('prevB').addEventListener('click', function () { cycleBuilding(-1); });
+    $('nextB').addEventListener('click', function () { cycleBuilding(1); });
+  }
+  function setTileFromInputs() {
+    if (S.sel < 0) return;
+    var g = S.base.grid;
+    var x = parseInt($('selX').value, 10), y = parseInt($('selY').value, 10);
+    if (isNaN(x) || isNaN(y) || x < 0 || x >= g || y < 0 || y >= g) { toast('tile 超出范围 0..' + (g - 1)); renderSelected(); return; }
+    var b = S.doc.buildings[S.sel];
+    if (b.tile[0] === x && b.tile[1] === y) return;
+    pushUndoSnapshot();
+    b.tile = [x, y];
+    S.dirty = true;
+    scheduleSave();
+    draw(); renderSelected(); renderBList();
+  }
+  function renderBList() {
+    if (!S.doc) return;
+    $('bcount').textContent = '共 ' + S.doc.buildings.length + ' 栋 · 预填 ' + S.prefill.buildings.length;
+    var box = $('blist');
+    var html = '';
+    for (var i = 0; i < S.doc.buildings.length; i++) {
+      var b = S.doc.buildings[i];
+      html += '<div class="brow' + (i === S.sel ? ' sel' : '') + '" data-i="' + i + '">' +
+        '<span class="dot" style="background:' + colorFor(b.type) + '"></span>' +
+        '<span class="bidx">' + (i + 1) + '</span>' +
+        '<span class="bcn">' + esc(cn(b.type)) + '</span>' +
+        '<span class="btile">' + b.tile[0] + ',' + b.tile[1] + '</span></div>';
+    }
+    box.innerHTML = html || '<span class="hint">还没有建筑</span>';
+  }
+  $('blist').addEventListener('click', function (e) {
+    var row = e.target.closest ? e.target.closest('.brow') : null;
+    if (!row) return;
+    selectBuilding(parseInt(row.getAttribute('data-i'), 10));
+  });
+  function renderProgress() {
+    var bases = allBases();
+    var done = 0, skipped = 0;
+    for (var i = 0; i < bases.length; i++) {
+      var sm = bases[i].summary;
+      if (sm && sm.status === 'done') done++;
+      else if (sm && sm.status === 'skipped') skipped++;
+    }
+    var pct = bases.length ? Math.round(100 * (done + skipped) / bases.length) : 0;
+    $('progressFill').style.width = pct + '%';
+    $('progressText').textContent = '已标注 ' + done + ' 阵 · 跳过 ' + skipped + ' 阵 · 共 ' + bases.length + ' 阵（' + pct + '%）';
+    $('progressMini').textContent = done + '/' + bases.length + ' 完成';
+  }
+  function renderBaseList() {
+    var box = $('baselist');
+    var html = '';
+    var bases = allBases();
+    for (var i = 0; i < bases.length; i++) {
+      var b = bases[i];
+      var sm = b.summary;
+      var st = 'todo', glyph = '○';
+      if (sm && sm.status === 'done') { st = 'done'; glyph = '✓'; }
+      else if (sm && sm.status === 'skipped') { st = 'skip'; glyph = '⤼'; }
+      else if (b.annotated && b.annotated.exists) { st = 'done'; glyph = '●'; }
+      var meta = b.prefilled + ' 栋';
+      if (sm) { meta = sm.buildings + ' 栋 · 改 ' + sm.manual_edits + ' · ' + fmtMs(sm.elapsed_ms); }
+      if (S.th === b._th && S.id === b.id) { st = st; }
+      html += '<div class="baseRow' + ((S.th === b._th && S.id === b.id) ? ' cur' : '') + '" data-th="' + esc(b._th) + '" data-id="' + esc(b.id) + '">' +
+        '<span class="st ' + st + '">' + glyph + '</span>' +
+        '<span class="bid">' + esc(b._th.toUpperCase()) + '-' + esc(b.id) + '</span>' +
+        '<span class="meta">' + esc(meta) + '</span></div>';
+    }
+    box.innerHTML = html || '<span class="hint">没有阵</span>';
+  }
+  $('baselist').addEventListener('click', function (e) {
+    var row = e.target.closest ? e.target.closest('.baseRow') : null;
+    if (!row) return;
+    switchTo(row.getAttribute('data-th'), row.getAttribute('data-id'), 'layout');
+  });
+  function fmtMs(ms) {
+    if (!ms && ms !== 0) return '-';
+    var s = Math.round(ms / 1000);
+    if (s < 60) return s + 's';
+    return Math.floor(s / 60) + 'm' + (s % 60) + 's';
+  }
+
+  // ---------- 选择器 ----------
+  function buildThSelect() {
+    var sel = $('thSel');
+    var html = '';
+    for (var i = 0; i < S.groups.length; i++) {
+      var g = S.groups[i];
+      html += '<option value="' + esc(g.th) + '">' + esc(g.label) + '（' + g.bases.length + ' 阵）</option>';
+    }
+    sel.innerHTML = html || '<option value="">（无）</option>';
+    if (S.th) { sel.value = S.th; }
+    sel.onchange = function () { switchTo(sel.value, (basesFor(sel.value)[0] || {}).id, 'layout'); };
+  }
+  function buildBaseSelect() {
+    var sel = $('baseSel');
+    var list = currentBases();
+    var html = '';
+    for (var i = 0; i < list.length; i++) {
+      var b = list[i];
+      var mark = '○';
+      if (b.summary && b.summary.status === 'done') mark = '✓';
+      else if (b.summary && b.summary.status === 'skipped') mark = '⤼';
+      else if (b.annotated && b.annotated.exists) mark = '●';
+      html += '<option value="' + esc(b.id) + '">' + mark + ' ' + esc(b.id) + ' · ' + esc(b.layout_name || '') + '（' + b.prefilled + ' 栋）' + (b.has_quad ? '' : ' ⚠无quad') + '</option>';
+    }
+    sel.innerHTML = html || '<option value="">（无）</option>';
+    if (S.id) { sel.value = S.id; }
+    sel.onchange = function () { switchTo(S.th, sel.value, 'layout'); };
+  }
+  function candidateList() {
+    var out = [{ id: 'layout', title: '预填 layout.json', source: 'layout.json' }];
+    var extras = (S.base && S.base.candidates) || [];
+    for (var i = 0; i < extras.length; i++) { out.push(extras[i]); }
+    return out;
+  }
+  function buildCandSelect() {
+    var sel = $('candSel');
+    var list = candidateList();
+    var html = '';
+    for (var i = 0; i < list.length; i++) {
+      html += '<option value="' + esc(list[i].id) + '">' + esc(list[i].title) + '</option>';
+    }
+    sel.innerHTML = html;
+    sel.value = S.candidate;
+    sel.disabled = list.length <= 1;
+    sel.title = list.length <= 1 ? '该阵没有候选方案（只有 layout.json 预填）' : '候选方案切换（Q/E）';
+    sel.onchange = function () { switchTo(S.th, S.id, sel.value); };
+  }
+  async function cycleCandidate(delta) {
+    var list = candidateList();
+    if (list.length <= 1) { toast('该阵没有候选方案（只有 layout.json 预填）'); return; }
+    var idx = 0;
+    for (var i = 0; i < list.length; i++) { if (list[i].id === S.candidate) { idx = i; } }
+    var next = (idx + delta + list.length) % list.length;
+    await switchTo(S.th, S.id, list[next].id);
+  }
+
+  // ---------- 加载 / 切换 ----------
+  function label() {
+    if (!S.base) return '';
+    return (S.base.th || '').toUpperCase() + '-' + S.base.id + ' · ' + (S.base.layout_name || '');
+  }
+  async function switchTo(th, id, candidate) {
+    if (!th || !id) return;
+    if (S.saving) { toast('正在保存，请稍候'); return; }
+    try { await saveIfDirty(); } catch (err) { return; }
+    try { await doLoad(th, id, candidate || 'layout'); } catch (err) { /* doLoad 已提示 */ }
+  }
+  async function doLoad(th, id, candidate) {
+    S.loadToken++;
+    var token = S.loadToken;
+    candidate = candidate || 'layout';
+    showBusy(true);
+    $('saveState').textContent = '加载中…';
+    $('saveState').className = 'save-state';
+    try {
+      var data = await api('/api/base?th=' + encodeURIComponent(th) + '&id=' + encodeURIComponent(id) + '&candidate=' + encodeURIComponent(candidate));
+      if (token !== S.loadToken) return;
+      S.th = th; S.id = id;
+      S.base = data;
+      S.doc = clone(data.doc);
+      S.prefill = clone(data.doc);
+      S.palette = data.palette || [];
+      S.candidate = data.candidate || 'layout';
+      S.sel = -1; S.hover = -1; S.undo = [];
+      S.dirty = false; S.skipped = false; S.zoom = 1;
+      S.startedAt = performance.now();
+      S.savedAt = '';
+      CN = {};
+      for (var i = 0; i < S.palette.length; i++) { CN[S.palette[i].type] = S.palette[i].cn; }
+      buildThSelect(); buildBaseSelect(); buildCandSelect(); buildPalette();
+      renderSelected(); renderBList(); renderBaseList(); renderProgress(); updateSaveState();
+      var img = new Image();
+      var loaded = new Promise(function (resolve, reject) {
+        img.onload = resolve;
+        img.onerror = reject;
+      });
+      img.src = data.image_url;
+      try { await loaded; } catch (e) { throw new Error('底图加载失败：' + data.image_url); }
+      if (token !== S.loadToken) return;
+      S.img = img; S.imgW = img.naturalWidth; S.imgH = img.naturalHeight;
+      fitCanvas();
+      showBusy(false);
+      setStatus('已载入 ' + label() + ' · 预填 ' + S.doc.buildings.length + ' 栋（来源：' +
+        (data.prefill_source === 'annotated' ? '上次标注' : 'layout.json') + '）');
+      $('saveState').textContent = data.annotated && data.annotated.exists ? '已标注过' : '未保存改动';
+      $('saveState').className = 'save-state';
+      updateProgressState();
+    } catch (err) {
+      if (token === S.loadToken) { showBusy(false); toast('加载失败：' + err.message, true); }
+      throw err;
+    }
+  }
+  function updateProgressState() {
+    var bases = allBases();
+    var done = 0;
+    for (var i = 0; i < bases.length; i++) { if (bases[i].summary && bases[i].summary.status) done++; }
+    $('progressMini').textContent = done + '/' + bases.length + ' 完成';
+  }
+  function firstUnfinished() {
+    var bases = allBases();
+    for (var i = 0; i < bases.length; i++) { if (!bases[i].summary || !bases[i].summary.status) return bases[i]; }
+    return bases[0] || null;
+  }
+
+  // ---------- 保存 ----------
+  function updateSaveState() {
+    var el = $('saveState');
+    if (S.dirty) { el.textContent = '未保存改动'; el.className = 'save-state unsaved'; return; }
+    if (S.savedAt) { el.textContent = '已保存 ' + S.savedAt; el.className = 'save-state saved'; return; }
+    el.textContent = '无改动'; el.className = 'save-state';
+  }
+  function scheduleSave() {
+    S.dirty = true;
+    updateSaveState();
+    clearTimeout(S.saveTimer);
+    S.saveTimer = setTimeout(function () {
+      if (S.dirty && !S.saving && !S.drag) { save(false).catch(function () {}); }
+    }, 1200);
+  }
+  async function save(skipped) {
+    if (!S.base || !S.doc) return null;
+    if (S.saving) return null;
+    S.saving = true;
+    $('saveState').textContent = '保存中…';
+    $('saveState').className = 'save-state';
+    var elapsed = Math.round(performance.now() - S.startedAt);
+    var payload = {
+      th: S.th, id: S.id, candidate: S.candidate,
+      doc: S.doc, elapsed_ms: elapsed, skipped: !!skipped
+    };
+    try {
+      var res = await api('/api/save', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      S.dirty = false;
+      S.savedAt = new Date().toLocaleTimeString();
+      if (skipped) { S.skipped = true; }
+      updateSaveState();
+      $('saveState').className = 'save-state saved';
+      $('saveState').textContent = '已保存 ' + S.savedAt;
+      setStatus('已保存 → ' + res.saved + ' · 人工修改 ' + res.diff.edits + ' 处（+ ' + res.diff.added +
+        ' / - ' + res.diff.removed + ' / 移 ' + res.diff.moved + ' / 改型 ' + res.diff.retyped + '）');
+      toast('已保存 ' + res.saved + '（edits=' + res.diff.edits + '，' + res.totals.done + '/' + res.totals.bases + ' 阵完成）');
+      await refreshState();
+      return res;
+    } catch (err) {
+      $('saveState').textContent = '保存失败';
+      $('saveState').className = 'save-state unsaved';
+      toast('保存失败：' + err.message, true);
+      throw err;
+    } finally {
+      S.saving = false;
+    }
+  }
+  async function saveIfDirty() {
+    if (!S.dirty) return null;
+    return save(false);
+  }
+  async function refreshState() {
+    try {
+      var st = await api('/api/state');
+      S.state = st;
+      S.groups = st.groups || [];
+      buildThSelect(); buildBaseSelect(); buildCandSelect();
+      renderBaseList(); renderProgress(); updateProgressState();
+    } catch (err) { /* 状态刷新失败不影响标注 */ }
+  }
+  async function refreshStateKeepDoc() {
+    var parts = { th: S.th, id: S.id, candidate: S.candidate, doc: S.doc, prefill: S.prefill, sel: S.sel };
+    await refreshState();
+    S.th = parts.th; S.id = parts.id; S.candidate = parts.candidate;
+    S.doc = parts.doc; S.prefill = parts.prefill; S.sel = parts.sel;
+    buildThSelect(); buildBaseSelect(); buildCandSelect();
+    draw(); renderSelected(); renderBList(); renderBaseList(); renderProgress();
+  }
+  async function advance(delta) {
+    var list = currentBases();
+    var idx = -1;
+    for (var i = 0; i < list.length; i++) { if (list[i].id === S.id) { idx = i; } }
+    var next = idx + delta;
+    if (next < 0 || next >= list.length) {
+      toast(delta > 0 ? '已经是最后一阵；左上「汇总」看 summary.json' : '已经是第一阵');
+      return;
+    }
+    await switchTo(S.th, list[next].id, 'layout');
+  }
+  async function saveAndNext() {
+    try { await save(false); } catch (err) { return; }
+    await advance(1);
+  }
+  async function skipCurrent() {
+    try { await save(true); } catch (err) { return; }
+    await advance(1);
+  }
+  async function resetToPrefill() {
+    var now = Date.now();
+    if (now - S.lastResetPress > 2600) {
+      S.lastResetPress = now;
+      toast('再按一次 R 确认重置为 layout.json 预填（当前修改会丢）');
+      return;
+    }
+    S.lastResetPress = 0;
+    S.doc = clone(S.prefill);
+    S.sel = -1; S.undo = [];
+    S.dirty = true;
+    scheduleSave();
+    draw(); renderSelected(); renderBList();
+    toast('已重置为预填');
+  }
+
+  // ---------- 键盘 ----------
+  document.addEventListener('keydown', function (e) {
+    var tag = (e.target && e.target.tagName ? e.target.tagName : '').toLowerCase();
+    if (tag === 'input' || tag === 'select' || tag === 'textarea') {
+      if (e.key === 'Escape') { e.target.blur(); }
+      return;
+    }
+    if (e.ctrlKey || e.metaKey) {
+      if (e.key.toLowerCase() === 's') { e.preventDefault(); save(false).catch(function () {}); }
+      if (e.key.toLowerCase() === 'z') { e.preventDefault(); undo(); }
+      return;
+    }
+    if (e.altKey) { return; }
+    var k = e.key;
+    if (k >= '1' && k <= '9') {
+      var t = S.typeByHotkey[parseInt(k, 10)];
+      if (t) { setPaletteType(t); e.preventDefault(); }
+      return;
+    }
+    if (k === 'Enter') { e.preventDefault(); saveAndNext(); return; }
+    if (k === ' ') { e.preventDefault(); skipCurrent(); return; }
+    if (k === 'Backspace') { e.preventDefault(); undo(); return; }
+    if (k === 'Delete') { e.preventDefault(); deleteSelected(); return; }
+    if (k === 'Tab') { e.preventDefault(); cycleBuilding(e.shiftKey ? -1 : 1); return; }
+    if (k === 'ArrowUp') { e.preventDefault(); nudge(0, -1); return; }
+    if (k === 'ArrowDown') { e.preventDefault(); nudge(0, 1); return; }
+    if (k === 'ArrowLeft') { e.preventDefault(); nudge(-1, 0); return; }
+    if (k === 'ArrowRight') { e.preventDefault(); nudge(1, 0); return; }
+    if (k === 'PageUp') { e.preventDefault(); switchTo(S.th, (currentBases()[Math.max(0, idxOfCurrent() - 1)] || {}).id, 'layout'); return; }
+    if (k === 'PageDown') { e.preventDefault(); advance(1); return; }
+    if (k === 'q' || k === 'Q') { cycleCandidate(-1); return; }
+    if (k === 'e' || k === 'E') { cycleCandidate(1); return; }
+    if (k === 'h' || k === 'H' || k === '?') { toggleHelp(); return; }
+    if (k === 'r' || k === 'R') { resetToPrefill(); return; }
+    if (k === 'Escape') {
+      if (!$('help').classList.contains('hidden')) { toggleHelp(); return; }
+      S.sel = -1; draw(); renderSelected(); renderBList();
+    }
+  });
+  function idxOfCurrent() {
+    var list = currentBases();
+    for (var i = 0; i < list.length; i++) { if (list[i].id === S.id) return i; }
+    return 0;
+  }
+
+  // ---------- 按钮 / 帮助 ----------
+  $('prevBaseBtn').addEventListener('click', function () { switchTo(S.th, (currentBases()[Math.max(0, idxOfCurrent() - 1)] || {}).id, 'layout'); });
+  $('nextBaseBtn').addEventListener('click', function () { advance(1); });
+  $('saveBtn').addEventListener('click', function () { save(false).catch(function () {}); });
+  $('saveNextBtn').addEventListener('click', saveAndNext);
+  $('skipBtn').addEventListener('click', skipCurrent);
+  $('resetBtn').addEventListener('click', resetToPrefill);
+  $('summaryBtn').addEventListener('click', function () { window.open('/api/summary', '_blank'); });
+  $('helpBtn').addEventListener('click', toggleHelp);
+  $('helpClose').addEventListener('click', toggleHelp);
+  function toggleHelp() { $('help').classList.toggle('hidden'); }
+
+  document.addEventListener('click', function (e) {
+    if (e.target && e.target.tagName === 'BUTTON') { e.target.blur(); }
+  });
+  window.addEventListener('resize', function () { fitCanvas(); });
+  if (window.ResizeObserver) {
+    try { new ResizeObserver(function () { fitCanvas(); }).observe($('stageWrap')); } catch (err) {}
+  }
+  window.addEventListener('beforeunload', function (e) {
+    if (!S.dirty || !S.base) return;
+    try {
+      var payload = JSON.stringify({
+        th: S.th, id: S.id, candidate: S.candidate, doc: S.doc,
+        elapsed_ms: Math.round(performance.now() - S.startedAt), skipped: false
+      });
+      if (navigator.sendBeacon) {
+        navigator.sendBeacon('/api/save', new Blob([payload], { type: 'application/json' }));
+      }
+    } catch (err) {}
+  });
+
+  // ---------- 启动 ----------
+  async function boot() {
+    try {
+      var st = await api('/api/state');
+      S.state = st;
+      S.groups = st.groups || [];
+      S.state.palette = st.palette || [];
+      S.palette = st.palette || [];
+      CN = {};
+      for (var i = 0; i < S.palette.length; i++) { CN[S.palette[i].type] = S.palette[i].cn; }
+      buildThSelect(); renderBaseList(); renderProgress();
+      var first = firstUnfinished();
+      if (!first) {
+        showBusy(false);
+        $('progressText').textContent = '没有找到 bases/<th>/NN/{base.png,layout.json}';
+        toast('没有找到可标注的阵：检查 bases/ 目录', true);
+        return;
+      }
+      await doLoad(first._th, first.id, 'layout');
+    } catch (err) {
+      showBusy(false);
+      toast('启动失败：' + err.message, true);
+      $('progressText').textContent = '启动失败：' + err.message;
+    }
+  }
+  boot();
+})();
+</script>
+</body>
+</html>

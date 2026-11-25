@@ -4,7 +4,7 @@
 
 ## 怎么验证 / How verified
 
-- [ ] `python -m unittest discover -s tests`（应 86+ 全绿）
+- [ ] `python -m unittest discover -s tests`（应全部通过）
 - [ ] 相关命令的真实输出贴在此处
 
 ## 备注 / Notes
