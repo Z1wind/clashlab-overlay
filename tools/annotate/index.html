@@ -108,7 +108,7 @@ kbd{background:#12151b;border:1px solid #46506a;border-bottom-width:2px;border-r
   <button id="saveNextBtn" class="primary" title="保存并进入下一阵（Enter）">保存并下一阵 Enter</button>
   <button id="skipBtn" title="保存并标记跳过（Space）">跳过 Space</button>
   <button id="resetBtn" title="重置为 layout.json 预填（连按两次 R）">重置</button>
-  <button id="calibBtn" title="校准网格：拖动 4 个角点贴合草地（G）">校准网格 G</button>
+  <button id="calibBtn" title="校准网格：拖动 4 个角点贴合「地图最外圈格」边界，不是最外侧建筑/墙（G）">校准网格 G</button>
   <span id="quadBadge" class="quad-badge" title="当前 tile 映射使用的网格来源">网格: layout 默认</span>
   <button id="summaryBtn" title="打开 out/annotate/summary.json">汇总</button>
   <button id="helpBtn" title="快捷键（H）">帮助 H</button>
@@ -165,7 +165,7 @@ kbd{background:#12151b;border:1px solid #46506a;border-bottom-width:2px;border-r
       <tr><td><kbd>Q</kbd> / <kbd>E</kbd></td><td>上一候选 / 下一候选方案</td></tr>
       <tr><td><kbd>PageUp</kbd> / <kbd>PageDown</kbd></td><td>上一阵 / 下一阵</td></tr>
       <tr><td><kbd>R</kbd> 两次</td><td>重置当前阵为 layout.json 预填</td></tr>
-      <tr><td><kbd>G</kbd></td><td>进入/退出「校准网格」：拖 4 个角点（上/右/下/左）对齐草地外沿；方向键 ±1px、Shift+方向键 ±10px；Enter 应用 / Esc 取消</td></tr>
+      <tr><td><kbd>G</kbd></td><td>进入/退出「校准网格」：拖 4 个角点（上/右/下/左）对齐<b>整张 44×44 地图的最外圈格边界</b>（不是最外侧建筑/墙）；方向键 ±1px、Shift+方向键 ±10px；Enter 应用 / Esc 取消</td></tr>
       <tr><td><kbd>Esc</kbd></td><td>取消选中 / 关闭本帮助</td></tr>
     </table>
     <h2 style="margin-top:14px;font-size:14px">减少工作量的推荐流程</h2>
@@ -174,7 +174,7 @@ kbd{background:#12151b;border:1px solid #46506a;border-bottom-width:2px;border-r
       2. 逐个核对：位置不对就拖动方框；类型不对就选中它再点调色板（或按 1–9）。<br>
       3. 预填漏掉的建筑：用当前类型点它应该在的格子即可补录；多出来的按 Delete 删掉。<br>
       4. 一栋都没问题的阵直接按 <kbd>Enter</kbd> 保存并下一阵；不想标的按 <kbd>Space</kbd> 跳过。<br>
-      5. 若发现预填整体偏/斜（quad 不贴合草地），按 <kbd>G</kbd> 进「校准网格」：拖 4 个角点对齐外墙/草地四角 → <kbd>Enter</kbd> 应用；之后拖拽与保存都用新映射（覆盖存 out/annotate/NN_quad.json，可一键重置）。<br>
+      5. 若发现预填整体偏/斜（quad 不贴合地图边界），按 <kbd>G</kbd> 进「校准网格」：拖 4 个角点对齐<b>整张地图最外圈格的四个角</b>（从最外圈格算起，不是从最外侧建筑或墙算起） → <kbd>Enter</kbd> 应用；之后拖拽与保存都用新映射（覆盖存 out/annotate/NN_quad.json，可一键重置）。<br>
       6. 全部阵标完看 <code>out/annotate/summary.json</code>（每阵建筑数 / 人工修改次数 / 耗时）。
     </div>
     <button class="close" id="helpClose">关闭 (Esc)</button>
@@ -502,7 +502,7 @@ kbd{background:#12151b;border:1px solid #46506a;border-bottom-width:2px;border-r
     if (!bar) return;
     bar.className = on ? 'calib-bar' : 'calib-bar hidden';
     $('calibHint').textContent = on
-      ? '校准网格：拖动 4 个角点（上/右/下/左）对齐草地外沿；方向键 ±1px，Shift+方向键 ±10px。应用后拖拽/保存都用新映射。'
+      ? '校准网格：拖动 4 个角点（上/右/下/左）对齐整张地图最外圈格的边界（不是最外侧建筑/墙）；方向键 ±1px，Shift+方向键 ±10px。应用后拖拽/保存都用新映射。'
       : '';
   }
   function enterCalib() {
@@ -514,7 +514,7 @@ kbd{background:#12151b;border:1px solid #46506a;border-bottom-width:2px;border-r
     showCalibBar(true); updateQuadBadge();
     S.sel = -1;
     draw();
-    setStatus('校准模式：拖动四角（上/右/下/左）贴合草地；方向键微调；Enter 应用 / Esc 取消');
+    setStatus('校准模式：拖动四角（上/右/下/左）贴合地图最外圈格边界（不是外墙）；方向键微调；Enter 应用 / Esc 取消');
   }
   function exitCalib(restore) {
     if (!S.calib.on) return;

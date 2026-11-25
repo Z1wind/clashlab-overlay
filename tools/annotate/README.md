@@ -98,3 +98,8 @@ round-trip、summary 聚合、bases 发现与候选方案、**网格校准（qua
 - 若 8765 端口上还跑着**旧版** start.py 进程，新页面会 404 `/api/quad`；先结束旧进程再 `python tools/annotate/start.py`（日志会打印自动换端口）。
 - 本工具不改 `layout.json`；校准只写 `out/annotate/NN_quad.json` 覆盖层，重置即回落。
 
+
+## 标定规则（重要）
+
+44x44 网格覆盖整张地图的 44 格。四角 = **地图最外圈格的四个角**（通常就是可建造草地/边界），
+**不是最外侧建筑或墙**。角点贴到墙上会让整张网格缩一圈，所有 tile 都会偏 1~3 格。

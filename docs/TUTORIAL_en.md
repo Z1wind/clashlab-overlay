@@ -103,6 +103,7 @@ Infers left-right / up-down / 180° symmetry from building positions, mirrors mi
 Open the shared layout link in the emulator, get to the base preview, then run the command above (ADB screencap by default; --from-file shot.png also works):
 
 - Detects the grass boundary for a 44x44 calibration and writes bases/th16/07/base.png + layout_draft.json;
+- Calibration rule: the 44x44 grid spans the whole map; the four corners are the outer edges of the outermost tile row/column, NOT the outermost building or wall.
 - out/import/07_grid.png visualises the grid for a quick check;
 - A WARN is printed when the quad covers too little of the frame (the screenshot is not an in-game village);
 - Seed buildings from a similar layout with --copy-from bases/th16/03/layout.json;
