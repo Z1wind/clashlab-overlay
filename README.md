@@ -41,7 +41,7 @@
 ## 🚀 快速开始
 
 ```powershell
-git clone https://github.com/<your-name>/clashlab-overlay.git
+git clone https://github.com/Z1wind/clashlab-overlay.git
 cd clashlab-overlay
 python -m pip install -r requirements.txt
 
@@ -52,7 +52,13 @@ python run_overlay.py --show --mode HUD --always-on-top --run-seconds 8
 python -m unittest discover -s tests
 ```
 
-详细步骤见 [docs/教程.md](docs/教程.md)（环境 / 模拟器 / 模式 / 评分 / 简报 / 打包 / FAQ）。
+详细步骤见 [docs/教程.md](docs/教程.md)（环境 / 模拟器 / 模式 / 评分 / 简报 / 打包 / 排障 / FAQ）。
+
+## ⬇️ 下载
+
+- 现成 exe：[Release v0.1.0 · ClashOverlay.exe](https://github.com/Z1wind/clashlab-overlay/releases/download/v0.1.0/ClashOverlay.exe)（Windows x64，约 90MB）
+- 完整源码包：[Release v0.1.0 · ClashLab_open_source_v0.1.0.zip](https://github.com/Z1wind/clashlab-overlay/releases/download/v0.1.0/ClashLab_open_source_v0.1.0.zip)
+- 校验：[SHA256SUMS.txt](https://github.com/Z1wind/clashlab-overlay/releases/download/v0.1.0/SHA256SUMS.txt)
 
 ## 🧩 架构
 
