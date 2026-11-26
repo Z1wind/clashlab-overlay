@@ -91,6 +91,22 @@ def _f(v, default=0.0):
         return default
 
 
+AIR_DEFENSE = "air-defense"      # 防空火箭（放空）
+AIR_SWEEPER = "air-sweeper"        # 吹风机
+AIR_TARGETS = {AIR_DEFENSE, AIR_SWEEPER}
+HIDDEN_TYPES = {"hidden-tesla"}    # 默认不现形，不能当已确认目标
+
+
+def summarize_hits(hits):
+    """被穿目标分类：防空火箭 / 吹风机 / 特斯拉(隐身) / 其它。"""
+    ad = sum(1 for h in hits if h.get("type") == AIR_DEFENSE)
+    sw = sum(1 for h in hits if h.get("type") == AIR_SWEEPER)
+    tesla = sum(1 for h in hits if h.get("type") in HIDDEN_TYPES)
+    return {"total": len(hits), "air_defense": ad, "air_sweeper": sw,
+            "air_total": ad + sw, "tesla_hidden": tesla,
+            "other": len(hits) - ad - sw - tesla}
+
+
 def match_skewered(layout, frm, to, tol=1.2):
     """被穿建筑：中心到 from->to 直线垂直距离 <= tol 格，且投影 t ∈ [-0.02, 1.02]。
 
@@ -125,8 +141,10 @@ def match_skewered(layout, frm, to, tol=1.2):
         perp = abs(wx * dy - wy * dx) / length
         if perp > float(tol):
             continue
-        hits.append({"type": b.get("type") or "", "tile": [int(round(x)), int(round(y))],
-                     "t": round(t, 4), "perp": round(perp, 3)})
+        typ = b.get("type") or ""
+        hits.append({"type": typ, "tile": [int(round(x)), int(round(y))],
+                     "t": round(t, 4), "perp": round(perp, 3),
+                     "air": typ in AIR_TARGETS, "hidden": typ in HIDDEN_TYPES})
     hits.sort(key=lambda h: h["t"])
     for i, h in enumerate(hits):
         h["order"] = i + 1
@@ -329,8 +347,14 @@ def render_giant_arrow_diagram(layout, plan, out_png, title="女王穿云箭战�
 
     # ---- 4) 被穿防御高亮 + 编号
     for h in hits:
-        is_ad = h["type"] == "air-defense"
-        col = _pr.THREAT_RED if is_ad else _pr.TEAL
+        if h["type"] == AIR_DEFENSE:
+            col = _pr.THREAT_RED
+        elif h["type"] == AIR_SWEEPER:
+            col = _pr.AMBER
+        elif h["type"] in HIDDEN_TYPES:
+            col = (150, 150, 150)
+        else:
+            col = _pr.TEAL
         poly = _footprint_poly(proj, h["tile"], _size_of(h["type"]))
         d.polygon(poly, fill=col + (110,), outline=col + (255,))
         xs = [p[0] for p in poly]
@@ -339,7 +363,7 @@ def render_giant_arrow_diagram(layout, plan, out_png, title="女王穿云箭战�
         r = max(14, int(fs * 1.05))
         d.ellipse([bx - r, by - r, bx + r, by + r], fill=col,
                   outline=_pr.INK, width=2)
-        num = str(h["order"])
+        num = "?" if h["type"] in HIDDEN_TYPES else str(h["order"])
         tw = d.textlength(num, font=f_badge)
         d.text((bx - tw / 2, by - fs / 2 - 2), num, font=f_badge, fill=_pr.BG)
 
@@ -353,8 +377,10 @@ def render_giant_arrow_diagram(layout, plan, out_png, title="女王穿云箭战�
         d.text((22, head_h + 8), f"箭清目的：{spec['purpose']}", font=f_lab,
                fill=_pr.SUB)
 
-    info = (f"撒兵环 {len(ring_cells)} 格 · 被穿 {len(hits)} 座"
-            f"（防空×{sum(1 for h in hits if h['type'] == 'air-defense')}）"
+    _hs = summarize_hits(hits)
+    info = (f"撒兵环 {len(ring_cells)} 格 · 被穿 {_hs['total']} 座"
+            f"（防空火箭×{_hs['air_defense']} · 吹风机×{_hs['air_sweeper']}"
+            f" · 特斯拉隐身×{_hs['tesla_hidden']}）"
             + (f" · 箭线 {math.hypot(spec['to'][0]-spec['from'][0], spec['to'][1]-spec['from'][1]):.1f} 格"
                if spec else " · 无穿云箭阶段"))
     tw = d.textlength(info, font=f_lab)
@@ -372,7 +398,7 @@ def render_giant_arrow_diagram(layout, plan, out_png, title="女王穿云箭战�
     d.text((lx, ly), "图例", font=f_lab, fill=_pr.INK)
     legend = [(_pr.TEAL, "撒兵环=可撒兵格（analysis.deployment_ring）"),
               (_pr.AMBER, "琥珀直线箭头=女王穿云箭 from→to"),
-              (_pr.THREAT_RED, "红色编号=被箭线穿到的关键防御"),
+              (_pr.THREAT_RED, "红=防空火箭（放空）；橙=吹风机；灰?=特斯拉（默认不现形）"),
               (_pr.AMBER, "底部色条=阶段时序（白框=穿云箭阶段）")]
     for k, (col, txt) in enumerate(legend):
         y = ly + 34 + k * lh
@@ -388,7 +414,14 @@ def render_giant_arrow_diagram(layout, plan, out_png, title="女王穿云箭战�
         for h in hits:
             y += lh
             name = _pr._zh_of(h["type"]) or h["type"]
-            mark = "◉" if h["type"] == "air-defense" else "○"
+            if h["type"] == AIR_DEFENSE:
+                mark = "◉"
+            elif h["type"] == AIR_SWEEPER:
+                mark = "◍"
+            elif h["type"] in HIDDEN_TYPES:
+                mark = "?"
+            else:
+                mark = "○"
             d.text((lx, y),
                    f"{h['order']} {mark} {name} 格({h['tile'][0]},{h['tile'][1]}) "
                    f"偏 {h['perp']:.2f} 格", font=f_sm, fill=_pr.SUB)
