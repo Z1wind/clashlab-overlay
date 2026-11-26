@@ -1422,8 +1422,9 @@ def _draw_collect(ctx, state, root, ready, panel_w, px, H):
 
     y = _content_top(root)
     imgui.set_cursor_screen_pos(imgui.ImVec2(px + PAD, y))
-    imgui.text(f"模式={farm.get('mode') or '-'}  "
-               _L(ready, f"实时={'开' if live else '演练'}", f"Live={'on' if live else 'dry'}"))
+    imgui.text(_L(ready,
+                  f"模式={farm.get('mode') or '-'}  实时={'开' if live else '演练'}",
+                  f"Mode={farm.get('mode') or '-'}  Live={'on' if live else 'dry'}"))
     y += 22.0
     imgui.set_cursor_screen_pos(imgui.ImVec2(px + PAD, y))
     imgui.text(f"已侦察 {stats.get('scouted', 0)} 跳过 {stats.get('skipped', 0)} "
