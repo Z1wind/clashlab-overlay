@@ -145,7 +145,7 @@ def render_topdown(layout, out_png, cell=24, grid=None):
     _rounded_rect(img, margin, 12, w - margin, 12 + hud_h - 16, 10, (16, 21, 28), -1)
     cv2.line(img, (margin + 10, 30), (margin + 26, 30), (61, 163, 232), 3, cv2.LINE_AA)
     _text_outline(img, "ClashLab  ·  2D top-down", (margin + 34, 36), 0.52, (243, 247, 251))
-    _text_outline(img, "grid %d  annotated %d  walls %d  (未标注建筑不会显示)" % (g, len(buildings), len(walls)),
+    _text_outline(img, "grid %d  annotated %d  walls %d  (unannotated hidden)" % (g, len(buildings), len(walls)),
                   (margin + 300, 36), 0.42, (170, 186, 204))
     # 图例（cv2 不渲染中文，用英文；底部独立带，不压地图）
     lx, ly = margin + 10, h - 16

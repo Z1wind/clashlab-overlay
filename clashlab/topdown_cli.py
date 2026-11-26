@@ -26,7 +26,8 @@ def main(argv=None):
     os.makedirs(a.out, exist_ok=True)
     name = os.path.splitext(os.path.basename(src))[0]
     parent = os.path.basename(os.path.dirname(os.path.abspath(src)))
-    base = parent if parent else name
+    # 标注文件（NN_annotated）直接用文件名，避免多次渲染互相覆盖
+    base = name if a.annotated else (parent if parent else name)
     w, h, nb, nw = render_topdown(lay, os.path.join(a.out, base + "_topdown.png"), cell=a.cell)
     export_2d_json(lay, os.path.join(a.out, base + "_2d.json"))
     print("2D ok: %dx%d px, buildings=%d walls=%d -> %s" % (w, h, nb, nw, a.out))
