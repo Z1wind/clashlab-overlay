@@ -1099,9 +1099,13 @@ def run(root: str, config: dict | None = None) -> None:
             win32gui.SetWindowPos(hwnd, win32con.HWND_TOPMOST, wx, wy,
                                   420, 90, win32con.SWP_NOACTIVATE)
 
-        # PANEL 态自喂鼠标（兜底通路，见 _feed_panel_mouse）；HUD 保持穿透不喂
+        # PANEL 态默认不再自喂鼠标：窗口自身可点击（无 WS_EX_TRANSPARENT），
+        # GLFW 原生事件足够；双通道会让同一次点击被注入两次、ImGui 点击被抵消
+        # （实测：标签页点击不切换）。需要旧行为时 config/overlay.json 设
+        # "panel_mouse_feed": true。
         if rt.state.mode == "PANEL" and not wait:
-            _feed_panel_mouse(rt, window, hwnd, io, prev)
+            if bool(rt.cfg.get("panel_mouse_feed", False)):
+                _feed_panel_mouse(rt, window, hwnd, io, prev)
 
         imgui.new_frame()
         dl = imgui.get_foreground_draw_list()
