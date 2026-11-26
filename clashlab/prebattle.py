@@ -376,6 +376,22 @@ def collect_info(sim=None, layout=None, frame=None, profile=None, enemy=None) ->
     except Exception:  # noqa: BLE001 - 布局缺/坏不阻断简报
         pass
 
+    # --- 6.6 布阵 -> 兵种搭配推荐（弱点驱动；失败不阻断简报）---
+    try:
+        if lay_doc:
+            import re as _re
+            from . import strategy as _strategy
+            _name = str(lay_doc.get("name") or "") + " " + str(lay_doc.get("note") or "")
+            _m = _re.search(r"th(\d{1,2})", _name, _re.I)
+            _th = int(_m.group(1)) if _m else 16
+            _recs = _strategy.recommend(lay_doc, th=_th)
+            if _recs:
+                info["strategies"] = _recs[:2]
+                _first = _recs[0]
+                info["strategy_summary"] = "%s（%s）" % (_first.get("name"), _first.get("reason"))
+    except Exception:  # noqa: BLE001 - 推荐失败不影响简报
+        pass
+
     # 把 report / rules 挂在私有键上供 brief 复用，不进对外契约字段
     info["_report"] = report
     info["_rules"] = rules

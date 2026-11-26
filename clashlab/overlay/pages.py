@@ -526,6 +526,8 @@ def _draw_local(ctx, state, root, ready, panel_w, px, H):
     imgui.set_cursor_screen_pos(imgui.ImVec2(px + PAD, y))
     imgui.text_colored(imgui.ImVec4(*SUBTLE), _sim_line(state))
     y += 20.0
+    imgui.text_colored(imgui.ImVec4(*SUBTLE), _strategy_line(state))
+    y += 20.0
 
     # ---- 重要防御行（整行可点；选中=2px 琥珀左条+底板提亮，与 rank 解耦；C3/C6）----
     # P1-4 720 竖向预算：列表按可用高度伸缩，吃满到状态栏上方，不再只按行数收缩
@@ -1175,6 +1177,46 @@ def _score_lines(state):
         return _sc.detail_lines(getattr(state, "layout", None))
     except Exception:
         return []
+
+
+
+_STRATEGY_CACHE = {"key": None, "line": ""}
+
+
+def _fmt_strategy_info(info):
+    """把 prebattle info 里的 strategies 压成一行文案（纯函数，便于测试）。"""
+    if not isinstance(info, dict):
+        return "推荐：无数据"
+    summary = info.get("strategy_summary")
+    if summary:
+        return "推荐：" + str(summary)[:42]
+    recs = info.get("strategies")
+    if isinstance(recs, list) and recs and isinstance(recs[0], dict):
+        r0 = recs[0]
+        return "推荐：" + ("%s（%s）" % (r0.get("name"), r0.get("reason")))[:42]
+    return "推荐：无数据"
+
+
+def _strategy_line(state):
+    """v11-战绩推荐行：读 out/prebattle/info.json（按 mtime 缓存），失败给「无数据」。"""
+    try:
+        root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+        path = os.path.join(root, "out", "prebattle", "info.json")
+        try:
+            mtime = os.stat(path).st_mtime
+        except OSError:
+            return "推荐：无数据"
+        key = (path, mtime)
+        if _STRATEGY_CACHE.get("key") == key:
+            return _STRATEGY_CACHE.get("line") or "推荐：无数据"
+        with open(path, "r", encoding="utf-8") as f:
+            info = json.load(f)
+        line = _fmt_strategy_info(info)
+        _STRATEGY_CACHE["key"] = key
+        _STRATEGY_CACHE["line"] = line
+        return line
+    except Exception:
+        return "推荐：无数据"
 
 
 def _sim_line(state):
