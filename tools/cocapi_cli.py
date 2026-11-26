@@ -25,6 +25,8 @@ def main():
     ap.add_argument("--clan", default=None)
     ap.add_argument("--auto-levels", default=None)
     ap.add_argument("--th", type=int, default=None)
+    ap.add_argument("--search-name", default=None, help="按玩家名字搜 tag/TH")
+    ap.add_argument("--search-clan", default=None, help="按部落名字搜 tag")
     a = ap.parse_args()
     if a.player:
         th = cocapi.player_th(a.player)
@@ -45,6 +47,9 @@ def main():
             ms = w[side]["members"]
             print(" %s(%s) %d 人：" % (side, w[side]["tag"], len(ms)))
             print("   ", ", ".join("%s TH%s" % (m["name"], m["th"]) for m in ms[:8]))
+    if a.search_name or a.search_clan:
+        r = cocapi.resolve_opponent(a.search_name, a.search_clan)
+        print(json.dumps(r, ensure_ascii=False, indent=1)[:2000])
     if a.auto_levels:
         th = a.th or 16
         doc = json.load(open(a.auto_levels, encoding="utf-8"))
