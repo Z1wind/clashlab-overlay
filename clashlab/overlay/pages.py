@@ -27,6 +27,7 @@ from . import data
 from . import keys as keybind
 from . import tactics
 from . import theme
+from . import lang
 from .editor import EditorModel, ViewTransform, Rect
 
 PAGE_RESEARCH = "Research"
@@ -1372,7 +1373,7 @@ def _bottom_status(px, H, m, ready, page, avail_w, extra=None, extra_lines=None)
             imgui.ImVec2(px + PAD, H - 26.0 - 18.0 * (len(_lines) - _i)))
         imgui.text_colored(imgui.ImVec4(*GREY), _ln[:60])
     imgui.set_cursor_screen_pos(imgui.ImVec2(px + PAD, H - 26.0))
-    right = extra if extra else f"候选 {total} / 可见 {visible}"
+    right = extra if extra else _L(ready, f"候选 {total} / 可见 {visible}", f"candidates {total} / visible {visible}")
     imgui.text_colored(imgui.ImVec4(*GREY), f"{label}  ·  {right}")
 
 
@@ -1559,7 +1560,7 @@ def _draw_setting(ctx, state, root, ready, panel_w, px, H):
         if cap_active:
             imgui.text_colored(imgui.ImVec4(*theme.WARN), "按新键（ESC）")
         else:
-            imgui.text(d["zh"])
+            imgui.text(_L(ready, d["zh"], d.get("en") or d["zh"]))
         # 中：当前键（未绑定显示「未绑定」）；键列右对齐，终点让开按钮列。
         # P1-5：仅 f8/f9/f11（雷电占用）显黄色警告；Insert/Delete/F7/F12/ESC 等正常键
         # 不显示任何后缀。
@@ -1577,7 +1578,7 @@ def _draw_setting(ctx, state, root, ready, panel_w, px, H):
         # 右：[改键]/[取消]（最右） [清除]（其左）；三态灰按钮
         bx = px + panel_w - PAD - 62.0
         imgui.set_cursor_screen_pos(imgui.ImVec2(bx, row_y))
-        if _btn(("取消" if cap_active else "改键") + f"##{aid}",
+        if _btn((_L(ready, "取消", "Cancel") if cap_active else _L(ready, "改键", "Rebind")) + f"##{aid}",
                 imgui.ImVec2(62.0, row_h), kind="sec", key=f"key_{aid}"):
             if cap_active:
                 _SESSION["keys_capture"] = None

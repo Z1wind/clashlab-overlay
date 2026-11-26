@@ -19,17 +19,17 @@ import os
 # id: 运行时内部动作；zh: 面板设置页中文名；key: 默认键；desc: 说明
 # 默认键已避开雷电热键（F8 录屏 / F9 操作录制 / F11 全屏）。
 ACTION_DEFS = [
-    {"id": "toggle_mode", "zh": "切换面板", "key": "insert",
+    {"id": "toggle_mode", "zh": "切换面板", "en": "Toggle panel", "key": "insert",
      "desc": "HUD <-> PANEL 切换"},
-    {"id": "capture", "zh": "采集一帧", "key": "delete",
+    {"id": "capture", "zh": "采集一帧", "en": "Capture frame", "key": "delete",
      "desc": "开始/停止采集请求"},
-    {"id": "live", "zh": "Live 跟随", "key": "f7",
+    {"id": "live", "zh": "Live 跟随", "en": "Live follow", "key": "f7",
      "desc": "live / dry-run 切换"},
-    {"id": "reload", "zh": "重载情报", "key": "f12",
+    {"id": "reload", "zh": "重载情报", "en": "Reload intel", "key": "f12",
      "desc": "重新加载阵型/情报数据"},
-    {"id": "ocr_opponent", "zh": "识别对手", "key": "f6",
+    {"id": "ocr_opponent", "zh": "识别对手", "en": "Identify opponent", "key": "f6",
      "desc": "抓帧 OCR → ClashKing API 查 TH/部落战"},
-    {"id": "back_hud", "zh": "回 HUD", "key": "esc",
+    {"id": "back_hud", "zh": "回 HUD", "en": "Back to HUD", "key": "esc",
      "desc": "返回 HUD 穿透模式"},
 ]
 
