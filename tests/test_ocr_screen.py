@@ -42,5 +42,11 @@ class TestOcrParse(unittest.TestCase):
         self.assertEqual(got["clan"], "Wrath of Kings")
 
 
+    def test_multiline_name(self):
+        from clashlab.ocr_screen import _parse_lines
+        got = _parse_lines(["9. SUVRO", "Sumon 2", "20", "babY WaRioR"])
+        self.assertEqual(got["name"], "SUVRO Sumon 2")
+        self.assertEqual(got["clan"], "babY WaRioR")
+
 if __name__ == "__main__":
     unittest.main()

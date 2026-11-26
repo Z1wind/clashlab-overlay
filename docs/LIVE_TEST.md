@@ -62,3 +62,14 @@
 
 敌方建筑**位置**仍需标注（检测器不可用）：用 APK 标注该阵 → 导出 JSON → 跑评分/穿云箭选线；
 原始截图已存档，可作为后续检测训练的真实样本。
+
+## 战图收集（2026-11-26 21:2x，用户逐个点开敌方基地）
+
+| 文件 | OCR 名字 | 部落 | tag | TH |
+|---|---|---|---|---|
+| map_01.json | SuVRO | Sumon 2 | #92PPC2RVQ | 8 |
+| scout_01_6a402f3c30.json | SHADOW | babY WaRioR | #PLVYQ0G2U | 17 |
+| war_01.json | SUVRO Sumon 2 | babY WaRioR | #LR8GVY892 | 16 |
+
+- 采集器 @tools/war_map_collect3.py@：按 API tag 去重、8 分钟窗口；
+- 修复：玩家名折行（SUVRO / Sumon 2）曾被当成两个字段，现在 >=3 行时最后一行才是部落，中间并入名字；新增测试。

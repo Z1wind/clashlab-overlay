@@ -74,8 +74,14 @@ def _parse_lines(lines):
             tag = "#" + x.replace("#", "").replace(" ", "").upper()
             continue
         named.append(x)
-    name = named[0] if named else None
-    clan = named[1] if len(named) > 1 else None
+    # 玩家名可能折成两行（如 SUVRO / Sumon 2）：>=3 行时最后一行是部落，
+    # 中间全部并入名字；两张时保持 name/clan。
+    if len(named) >= 3:
+        name = " ".join(named[:-1])
+        clan = named[-1]
+    else:
+        name = named[0] if named else None
+        clan = named[1] if len(named) > 1 else None
     return {"level": level, "name": name, "clan": clan, "tag": tag}
 
 
