@@ -103,6 +103,8 @@ python -m unittest discover -s tests
 
 - **批量压测**：98 例（真实 6 阵 × 6 变体 + 20 生成阵）跑穿云箭选线/落点敏感性，仅 26% 落点稳定、13 例目标翻转（`docs/ARROW_BATCH.md`）。
 
+- **真实战图实机验证**：部落战侦察屏 OCR+API 一次成功（SHADOW TH17 / #PLVYQ0G2U），见 `docs/LIVE_TEST.md`。
+
 ## 🗺 路线图
 
 - [x] 覆盖层 HUD/PANEL + 自动重标定
