@@ -58,3 +58,18 @@
 - 资产：`ClashOverlay.exe`（121,346,737 B，md5 CEE1FBBB…）+ `clashlab_annotated_20261126.zip`（11,674,555 B，md5 1476B595…；含 6 阵标注 JSON、真实战图、批量压测报告）
 - 源码：仓库 main 分支 + tag 的自动源码 zip
 - 校验：下载 zip 实测 HTTP 200 / Content-Length 11,674,555 / md5 与本地一致
+
+
+## 🔄 2026-11-27 更新（本轮处理 STATUS 待办）
+
+### 已修 / 已验证
+- **P0-1 鼠标双通道**：PANEL 默认不再注入自喂鼠标（配置项 `panel_mouse_feed: true` 可恢复）；exe 实测点击四个标签页 → 研究/阵型/采集/设置 均正确切换（OCR 底栏验证）。
+- **P0-2 研究页重叠**：本地面板从 `content_top+56` 开始，刷新按钮/统计不再压引擎说明（截图 `out/live/research_final3.png`）。
+- **P1-4 HUD 穿云箭**：HUD 实机截图可见箭线+编号；日志 `hud-arrow: plan from=[6.24,44] to=[23,0] hits_drawn=4`。
+- **P1-5 异常窗口尺寸**：新增命名互斥 `ClashLabOverlaySingleton`；第二次启动实测日志 `another ClashLab overlay is already running; exit this instance`，窗口保持唯一 440×700。
+- **P2-7 调试行**：锚点坐标调试行默认隐藏（`config/overlay.json` 的 `show_anchor_debug: true` 才显示）。
+
+### 仍需人工 / 搁置
+- **P1-3 真实战图标注**：自动模板匹配不可用（误匹配严重），需用 `tools/annotate_web.py` 人工点 3–5 分钟；标注后一条命令可跑 `tools/enemy_pipeline.py`。
+- **P2-6 ClashKing token/布局库**：按要求本轮搁置。
+- **P2-8 检测器**：未启动（需单独立项）。

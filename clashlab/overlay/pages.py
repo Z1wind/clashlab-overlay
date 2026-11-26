@@ -539,7 +539,9 @@ def _draw_local(ctx, state, root, ready, panel_w, px, H):
     avail_w = panel_w - 2 * PAD
     doc = _doc_cached(root)
     rows = doc.get("rows") or []
-    y = _content_top(root)
+    # 顶部固定栈（标签/状态/引擎按钮+两行说明）约占 content_top+50；
+    # 本地面板从说明行下方开始，避免「刷新情报/统计」压住引擎说明（实机重叠）。
+    y = _content_top(root) + 56.0
 
     # ---- 顶行：刷新按钮（左）+ 统计（右对齐）----
     imgui.set_cursor_screen_pos(imgui.ImVec2(px + PAD, y))
@@ -1541,18 +1543,27 @@ def _draw_setting(ctx, state, root, ready, panel_w, px, H):
     y += 18.0
     # 审计 R3 压缩：前 3 条并入一行折行（text_wrapped 到面板宽），不再各占一行；
     # 不缩字号，只合并行距，省 ~32px 纵向预算。
-    _anchor_brief = "  ".join(
-        (f"{a['key']}({a['point'][0]},{a['point'][1]})"
-         if a["confirmed"] else f"{a['key']}({a['point'][0]},{a['point'][1]})·未验证")
-        for a in anchors[:3]) or "—"
-    imgui.set_cursor_screen_pos(imgui.ImVec2(px + PAD, y))
-    imgui.text_wrapped(_anchor_brief)
-    y += 34.0
-    if len(anchors) > 3:
+    # 调试锚点默认隐藏（技术数据，普通用户不需要）；config/overlay.json 里
+    # "show_anchor_debug": true 才显示完整锚点坐标。
+    _show_dbg = False
+    try:
+        _ov, _err = data.load_json(os.path.join(root, "config", "overlay.json"))
+        _show_dbg = bool((_ov or {}).get("show_anchor_debug", False))
+    except Exception:
+        _show_dbg = False
+    if _show_dbg:
+        _anchor_brief = "  ".join(
+            (f"{a['key']}({a['point'][0]},{a['point'][1]})"
+             if a["confirmed"] else f"{a['key']}({a['point'][0]},{a['point'][1]})·未验证")
+            for a in anchors[:3]) or "—"
         imgui.set_cursor_screen_pos(imgui.ImVec2(px + PAD, y))
-        imgui.text_colored(imgui.ImVec4(*DIM),
-                           f"…其余 {len(anchors) - 3} 条见 config/anchors.json")
-        y += 16.0
+        imgui.text_wrapped(_anchor_brief)
+        y += 34.0
+        if len(anchors) > 3:
+            imgui.set_cursor_screen_pos(imgui.ImVec2(px + PAD, y))
+            imgui.text_colored(imgui.ImVec4(*DIM),
+                               f"…其余 {len(anchors) - 3} 条见 config/anchors.json")
+            y += 16.0
     y += 4.0
 
     # ---- 快捷键绑定表（可改键 / 可清除 / 可恢复默认；行高 22，三态按钮） ----

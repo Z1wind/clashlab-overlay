@@ -780,12 +780,26 @@ class _Runtime:
     _hwnd = None
 
 
+def _single_instance_guard() -> bool:
+    """命名互斥：一台机器只允许一个覆盖层实例（多例会互相抢窗口/尺寸错乱）。"""
+    try:
+        import ctypes
+        k32 = ctypes.windll.kernel32
+        k32.CreateMutexW(None, False, "Global\\ClashLabOverlaySingleton")
+        return k32.GetLastError() != 183  # ERROR_ALREADY_EXISTS
+    except Exception:
+        return True
+
+
 def run(root: str, config: dict | None = None) -> None:
     cfg = load_overlay_config(root)
     if isinstance(config, dict):
         cfg.update(config)
     rt = _Runtime(root, cfg)
     rt.log("overlay runtime start")
+    if not _single_instance_guard():
+        rt.log("another ClashLab overlay is already running; exit this instance")
+        return
     # v9-⑥：启动即查 info.json 缺失/过期（离线仅置位，真抓帧留实机）
     rt._maybe_autograb()
 
@@ -1126,9 +1140,17 @@ def run(root: str, config: dict | None = None) -> None:
                     from . import giant_arrow_hud
                     _gap = giant_arrow_hud.load_overlay_plan(rt.root)
                     if _gap:
-                        giant_arrow_hud.draw_giant_arrow(dl, rt.calib, _gap, 1280.0, 720.0)
-                except Exception:
-                    pass
+                        _n = giant_arrow_hud.draw_giant_arrow(dl, rt.calib, _gap, 1280.0, 720.0)
+                        if not prev.get("hud_arrow_logged"):
+                            prev["hud_arrow_logged"] = True
+                            rt.log(f"hud-arrow: plan from={_gap.get('from')} to={_gap.get('to')} hits_drawn={_n}")
+                    elif not prev.get("hud_arrow_missing"):
+                        prev["hud_arrow_missing"] = True
+                        rt.log("hud-arrow: no config/giant_arrow_overlay.json")
+                except Exception as e:
+                    if not prev.get("hud_arrow_err"):
+                        prev["hud_arrow_err"] = True
+                        rt.log(f"hud-arrow error: {e!r}")
                 # H4 引擎互斥：llm 只画策略点，local 只画 rank 点，绝不同帧共存；
                 # 切引擎后分支互斥，旧标注下一帧即归零，不留残影
                 if tactics.SEL.get("engine") == "llm":

@@ -1,6 +1,7 @@
 # Changelog
 
 ## v0.3.0 (unreleased)
+- 2026-11-27：修复 PANEL 点击不切换（去双鼠标通道）、研究页/设置页重叠、HUD 箭线绘制验证、单实例互斥、调试锚点默认隐藏。
 - 2026-11-26 收工：状态/待办归档 docs/STATUS.md；已知 P0（PANEL 鼠标双通道点击不切换）。
 - 本地网页标注器 tools/annotate_web.py（4 角标定 + 建筑点选 + 导出 JSON）。
 - 敌方阵型流水线 tools/enemy_pipeline.py（评分 + 穿云箭选线 + 落点敏感性）。
