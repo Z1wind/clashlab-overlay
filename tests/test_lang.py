@@ -48,6 +48,17 @@ class TestLang(unittest.TestCase):
         with self.assertRaises(ValueError):
             self.lang.set(root, "fr")
 
+    def test_hant_label(self):
+        self.lang._current = "zh-hant"
+        out = self.lang.label("设置", "Settings")
+        self.assertIn("設", out)
+
+    def test_pages_L_hant(self):
+        from clashlab.overlay import pages, lang
+        lang._current = "zh-hant"
+        self.assertEqual(pages._L(True, "设置", "setting"), lang.to_hant("设置"))
+        lang._current = "auto"
+
     def test_pages_L_respects_mode(self):
         from clashlab.overlay import pages, lang
         lang._current = "en"

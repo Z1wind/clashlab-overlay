@@ -98,6 +98,9 @@ python -m unittest discover -s tests
 
 - **中英文界面切换**：设置页 [中文]/[English] 一键切换，或 `--lang en` / `CLASHLAB_LANG=en`（docs/I18N.md）。
 
+- **英雄落点→穿云箭方向**：按「最近建筑中心」推箭线，并做 ±0.5 格落点敏感性测试（stable/flips）；`tools/arrow_placement_cli.py`。
+- **三语界面**：设置页 [中文] [繁體] [English]，或 `--lang zh-hant`。
+
 ## 🗺 路线图
 
 - [x] 覆盖层 HUD/PANEL + 自动重标定

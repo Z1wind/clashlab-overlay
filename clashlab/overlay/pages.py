@@ -29,10 +29,10 @@ from . import tactics
 from . import theme
 from .editor import EditorModel, ViewTransform, Rect
 
-PAGE_RESEARCH = "research"
-PAGE_LAYOUT = "layout"
-PAGE_COLLECT = "collect"
-PAGE_SETTING = "setting"
+PAGE_RESEARCH = "Research"
+PAGE_LAYOUT = "Layout"
+PAGE_COLLECT = "Capture"
+PAGE_SETTING = "Settings"
 # 引擎模式：local=本地规则引擎（离线、确定）/ llm=大模型战术策略（联网、异步）
 ENGINE_LOCAL = "local"
 ENGINE_LLM = "llm"
@@ -206,6 +206,8 @@ def _L(ready, zh, en):
     mode = lang.get()
     if mode == "en":
         return en
+    if mode == "zh-hant":
+        return lang.to_hant(zh)
     if mode == "zh":
         return zh
     return en if not ready else zh
@@ -372,8 +374,8 @@ def _engine_row(ctx, state, ready, px, panel_w):
     bw = (avail_w - GAP) / 2.0
     # v6-C8：模式改名 + 各加一行 10px 灰字说明差别（按钮下 y=102，STACK_TOP=112）
     captions = {
-        ENGINE_LOCAL: _L(ready, "规则引擎本地算威胁，不联网", "local rule engine, offline"),
-        ENGINE_LLM: _L(ready, "联网调大模型出三段战术", "LLM online plan generation"),
+        ENGINE_LOCAL: _L(ready, "规则引擎本地算威胁，不联网", "Local rule engine, offline"),
+        ENGINE_LLM: _L(ready, "联网调大模型出三段战术", "LLM plan generation (online)"),
     }
     for i, (key, zh, en) in enumerate(((ENGINE_LOCAL, "离线分析（本地）", "Local"),
                                        (ENGINE_LLM, "AI 生成策略", "LLM"))):
@@ -393,10 +395,10 @@ def _engine_row(ctx, state, ready, px, panel_w):
 def _tab_row(ctx, state, ready, px, panel_w):
     """标签条：4 个等宽按钮，显式坐标排布（依赖 same_line 自动宽度会在 4 个时换行叠字）。"""
     tabs = [
-        (PAGE_RESEARCH, _L(ready, "研究", "research")),
-        (PAGE_LAYOUT, _L(ready, "阵型", "layout")),
-        (PAGE_COLLECT, _L(ready, "采集", "collect")),
-        (PAGE_SETTING, _L(ready, "设置", "setting")),
+        (PAGE_RESEARCH, _L(ready, "研究", "Research")),
+        (PAGE_LAYOUT, _L(ready, "阵型", "Layout")),
+        (PAGE_COLLECT, _L(ready, "采集", "Capture")),
+        (PAGE_SETTING, _L(ready, "设置", "Settings")),
     ]
     avail_w = panel_w - 2 * PAD
     bw = (avail_w - GAP * (len(tabs) - 1)) / len(tabs)
@@ -426,7 +428,7 @@ def _text_right(text, rgba, px, panel_w, y):
 
 def _status_row(ctx, state, root, ready, px, panel_w):
     live = bool(getattr(state, "live", False))
-    live_txt = _L(ready, "运行", "ON") if live else _L(ready, "待命", "dry")
+    live_txt = _L(ready, "运行", "Live") if live else _L(ready, "待命", "Dry run")
     # v6-C7：删掉 study/cand/farm 英文时效行（阻断项），右栏只留中文化
     # 「阵型 已加载 · 候选 N」；候选数读 layout_candidates.json，失败按 0。
     cand_n = 0
@@ -448,7 +450,7 @@ def _status_row(ctx, state, root, ready, px, panel_w):
     try:
         from . import score_card as _score_card
         right += _score_card.status_suffix(
-            _score_card.card_from_layout(getattr(state, "layout", None)))
+            _score_card.card_from_layout(getattr(state, "Layout", None)))
     except Exception:
         pass
     imgui.set_cursor_screen_pos(imgui.ImVec2(px + PAD, 48.0))
@@ -508,7 +510,7 @@ def _draw_local(ctx, state, root, ready, panel_w, px, H):
 
     # ---- 顶行：刷新按钮（左）+ 统计（右对齐）----
     imgui.set_cursor_screen_pos(imgui.ImVec2(px + PAD, y))
-    if _btn(_L(ready, "刷新情报", "Refresh"), imgui.ImVec2(96.0, 26.0), key="refresh"):
+    if _btn(_L(ready, "刷新情报", "Refresh intel"), imgui.ImVec2(96.0, 26.0), key="refresh"):
         _SESSION["doc"] = tactics.load_local(root)
         _SESSION["doc_root"] = root
         _SESSION["doc_t"] = time.time()
@@ -552,9 +554,9 @@ def _draw_local(ctx, state, root, ready, panel_w, px, H):
         # 真抓帧分析留实机）
         imgui.text_colored(imgui.ImVec4(*GREY),
                            _L(ready, "未加载阵型：点下方按钮自动采集当前基地",
-                              "no layout loaded: press auto-capture"))
+                              "No layout loaded - press Auto-capture"))
         imgui.set_cursor_screen_pos(imgui.ImVec2(px + PAD, y + 34.0))
-        if _btn(_L(ready, "自动采集", "Auto capture"),
+        if _btn(_L(ready, "自动采集", "Auto-capture"),
                 imgui.ImVec2(120.0, 26.0), kind="pri", key="auto_capture"):
             try:
                 ctx.request_data_prep()  # v9-⑥闭环：置位 -> 主循环查表/抓帧+detect 消费
@@ -622,10 +624,10 @@ def _draw_local(ctx, state, root, ready, panel_w, px, H):
                            f"聚焦 {cur['name']} · {cur['dps']} dps · {edge}")
         imgui.text_colored(imgui.ImVec4(*GREY),
                            _L(ready, "HUD 上该建筑已加粗高亮，其余弱化",
-                              "highlighted on HUD"))
+                              "Highlighted on HUD (others dimmed)"))
     else:
         imgui.text_colored(imgui.ImVec4(*GREY),
-                           _L(ready, "无可标注目标", "nothing to mark"))
+                           _L(ready, "无可标注目标", "Nothing to annotate"))
 
     _bottom_status(px, H, None, ready, PAGE_RESEARCH, avail_w,
                    extra=f"本地 · {doc.get('source') or '无数据'}")
@@ -679,7 +681,7 @@ def _draw_llm(ctx, state, root, ready, panel_w, px, H):
     # 不选=空，保持原行为；选项只收 KB 卡面实有 id，见 tactics.ARMY/EQUIPMENT_OPTIONS）----
     for key, label, opts in (
             ("army", _L(ready, "兵种", "Army"), tactics.ARMY_OPTIONS),
-            ("equipment", _L(ready, "装备", "Equip"), tactics.EQUIPMENT_OPTIONS)):
+            ("equipment", _L(ready, "装备", "Equipment"), tactics.EQUIPMENT_OPTIONS)):
         imgui.set_cursor_screen_pos(imgui.ImVec2(px + PAD, y))
         imgui.text(label)
         # 同上：不用 same_line，显式把下拉放到本行右侧（审计 R1）
@@ -737,7 +739,7 @@ def _draw_llm(ctx, state, root, ready, panel_w, px, H):
             now_s = float(job.get("elapsed", 0.0) or 0.0)
             ratio = 1.0
             head = _L(ready, "AI 生成失败，已切换本地分析",
-                      "AI failed; local analysis active")
+                      "AI failed - switched to local analysis")
             head_col = theme.WARN
             bar_col = theme.ACCENT
         fg.add_rect_filled(imgui.ImVec2(px + PAD, y),
@@ -766,7 +768,7 @@ def _draw_llm(ctx, state, root, ready, panel_w, px, H):
                                col=_col(bar_col), rounding=0.0)
         y += block_h + GAP
     else:
-        if _btn(_L(ready, "生成策略", "Generate"), imgui.ImVec2(140.0, BTN_H),
+        if _btn(_L(ready, "生成策略", "Generate plan"), imgui.ImVec2(140.0, BTN_H),
                 kind="pri", key="gen"):
             sel = tactics.selected(doc)
             tactics.start_plan(
@@ -793,7 +795,7 @@ def _draw_llm(ctx, state, root, ready, panel_w, px, H):
                       imgui.ChildFlags_.borders)
     if job["state"] == "fail" and job.get("err"):
         imgui.text_colored(imgui.ImVec4(*RED),
-                           _L(ready, "生成失败：", "failed: ") + str(job["err"])[:160])
+                           _L(ready, "生成失败：", "Generation failed: ") + str(job["err"])[:160])
     if job["state"] == "done" and job.get("text"):
         _full = tactics.load_plan(root) or {}
         plan = {"text": job["text"], "model": job["model"],
@@ -806,7 +808,7 @@ def _draw_llm(ctx, state, root, ready, panel_w, px, H):
     if job["state"] == "fallback" or (plan or {}).get("fallback"):
         imgui.text_colored(imgui.ImVec4(*YELLOW),
                            _L(ready, "AI 生成失败，已切换本地分析",
-                              "AI failed; local analysis active"))
+                              "AI failed - switched to local analysis"))
         reason = job.get("err") or (plan or {}).get("reason") or ""
         if reason:
             imgui.text_colored(imgui.ImVec4(*GREY), f"原因：{str(reason)[:120]}")
@@ -820,7 +822,7 @@ def _draw_llm(ctx, state, root, ready, panel_w, px, H):
         imgui.text_colored(
             imgui.ImVec4(*GREY),
             _L(ready, "点“生成策略”让大模型读当前情报给三段战术。",
-               "press Generate for a 3-part plan."))
+               "Press Generate plan for a three-part plan."))
 
     # ---- v2 路线图阶段 + 威胁清单（phases 命中才画；旧 v5 无 phases 不显示）----
     # 阶段色直接取 plan_render.PHASE_COLORS，不在此另调色板。
@@ -919,8 +921,8 @@ def _draw_layout(ctx, state, root, ready, panel_w, px, H):
             imgui.pop_style_color()
         imgui.same_line(spacing=GAP)
     # 补框模式开关（筛选行末端，独立小按钮）
-    add_label = _L(ready, "退出补框", "Exit add") if _SESSION["add_mode"] \
-        else _L(ready, "补框模式", "Add box")
+    add_label = _L(ready, "退出补框", "Finish boxes") if _SESSION["add_mode"] \
+        else _L(ready, "补框模式", "Add box mode")
     st = theme.primary_states() if _SESSION["add_mode"] else theme.secondary_states()
     imgui.push_style_color(imgui.Col_.button, st["normal"])
     imgui.push_style_color(imgui.Col_.button_hovered, st["hover"])
@@ -992,7 +994,7 @@ def _draw_layout(ctx, state, root, ready, panel_w, px, H):
         imgui.push_style_color(imgui.Col_.button_hovered, st3["hover"])
         imgui.push_style_color(imgui.Col_.button_active, st3["pressed"])
         imgui.push_style_color(imgui.Col_.text, theme.DANGER)
-        if imgui.small_button(_L(ready, "删", "Del")):
+        if imgui.small_button(_L(ready, "删", "Delete")):
             m.delete(c["id"])
             ctx.log(f"editor: 删除 {c['id']}")
         for _ in range(4):
@@ -1003,7 +1005,7 @@ def _draw_layout(ctx, state, root, ready, panel_w, px, H):
 
     # ---- 冻结行（独立一行，按钮 28px；主绿三态；结果提示换行显示，不挤在右侧）----
     imgui.set_cursor_screen_pos(imgui.ImVec2(px + PAD, y))
-    if _btn(_L(ready, "冻结 layout", "Freeze layout"),
+    if _btn(_L(ready, "冻结 layout", "Lock layout"),
             imgui.ImVec2(140.0, BTN_H), kind="pri", key="freeze"):
         source_meta = {
             "image": str(getattr(state, "candidates_png", None)
@@ -1025,7 +1027,7 @@ def _draw_layout(ctx, state, root, ready, panel_w, px, H):
 
     # ---- 来源行：触发研究按钮（次要灰三态）+ 换行灰字说明 ----
     imgui.set_cursor_screen_pos(imgui.ImVec2(px + PAD, y))
-    if _btn(_L(ready, "触发研究", "Run study"),
+    if _btn(_L(ready, "触发研究", "Run research"),
             imgui.ImVec2(110.0, SOURCE_H), kind="sec", key="run_study"):
         fn = getattr(ctx, "request_study", None)
         if callable(fn):
@@ -1035,12 +1037,12 @@ def _draw_layout(ctx, state, root, ready, panel_w, px, H):
             ctx.log("study: request_study 未由运行时提供（见 needs_from_a N7）")
     imgui.same_line(spacing=GAP)
     imgui.text_colored(imgui.ImVec4(*GREY),
-                       _L(ready, "后台子进程，完成自动刷新", "background; auto-reload"))
+                       _L(ready, "后台子进程，完成自动刷新", "Runs in background; auto-reloads"))
 
     try:
         from . import score_card as _score_card
         _extra = _score_card.bottom_text(
-            _score_card.card_from_layout(getattr(state, "layout", None))) or None
+            _score_card.card_from_layout(getattr(state, "Layout", None))) or None
     except Exception:
         _extra = None
     _bottom_status(px, H, m, ready, PAGE_LAYOUT, avail_w, extra=_extra)
@@ -1090,7 +1092,7 @@ def _editor_canvas(ctx, state, m, ready, rect):
                     _col(theme.SUB[:3] + (0.7,)), 1.5)
         dl.add_text(imgui.ImVec2(cx + 10.0, cy + 8.0), _col(SUBTLE),
                     _L(ready, "无底图：网格/菱形为参考层，可直接点选补框",
-                       "no base: grid/diamond reference; click to add-box"))
+                       "No base image: grid/diamond is a reference - click to add boxes"))
 
     # ---- 鼠标交互（全局坐标；ctx.mouse 缺省回退 io） ----
     mouse = ctx.mouse() if hasattr(ctx, "mouse") else _io_mouse()
@@ -1184,7 +1186,7 @@ def _score_lines(state):
     """P3b-3：布局弱点明细（最多 2 行）；无布局/无数据返回 []。"""
     try:
         from . import score_card as _sc
-        return _sc.detail_lines(getattr(state, "layout", None))
+        return _sc.detail_lines(getattr(state, "Layout", None))
     except Exception:
         return []
 
@@ -1331,6 +1333,8 @@ def _buildings_line(state):
     try:
         layout = getattr(state, "layout", None)
         if not isinstance(layout, dict):
+            layout = getattr(state, "Layout", None)
+        if not isinstance(layout, dict):
             return "建筑：无数据"
         key = (layout.get("name"), len(layout.get("buildings") or []), len(layout.get("walls") or []))
         if _BUILDINGS_CACHE.get("key") == key:
@@ -1347,7 +1351,7 @@ def _sim_line(state):
     try:
         from . import sim_panel as _sp
         return _sp.line_from_summary(
-            _sp.summary_from_layout(getattr(state, "layout", None)))
+            _sp.summary_from_layout(getattr(state, "Layout", None)))
     except Exception:
         return "推演：无数据"
 
@@ -1357,10 +1361,10 @@ def _bottom_status(px, H, m, ready, page, avail_w, extra=None, extra_lines=None)
     total = len(items)
     visible = sum(1 for c in items if not c.get("hidden")
                   and c["confidence"] >= _SESSION["threshold"])
-    label = {PAGE_RESEARCH: _L(ready, "研究", "research"),
-             PAGE_LAYOUT: _L(ready, "阵型", "layout"),
-             PAGE_COLLECT: _L(ready, "采集", "collect"),
-             PAGE_SETTING: _L(ready, "设置", "setting")}.get(page, page)
+    label = {PAGE_RESEARCH: _L(ready, "研究", "Research"),
+             PAGE_LAYOUT: _L(ready, "阵型", "Layout"),
+             PAGE_COLLECT: _L(ready, "采集", "Capture"),
+             PAGE_SETTING: _L(ready, "设置", "Settings")}.get(page, page)
     # P3b-3：布局弱点明细画在状态栏上方（最多 2 行，不参与流式布局）
     _lines = [str(x) for x in (extra_lines or []) if str(x).strip()][:2]
     for _i, _ln in enumerate(_lines):
@@ -1399,12 +1403,12 @@ def _draw_collect(ctx, state, root, ready, panel_w, px, H):
 
     # 操作行：开始 / 停止 / Live 切换（按钮 28px，8px 间距；统一三态）
     imgui.set_cursor_screen_pos(imgui.ImVec2(px + PAD, y))
-    if _btn(_L(ready, "开始采集", "Start"),
+    if _btn(_L(ready, "开始采集", "Start capture"),
             imgui.ImVec2(110.0, BTN_H), kind="pri", key="collect_start"):
         ctx.request_farm_start()
         ctx.log("collect: request start")
     imgui.same_line(spacing=GAP)
-    if _btn(_L(ready, "停止", "Stop"),
+    if _btn(_L(ready, "停止", "Stop capture"),
             imgui.ImVec2(90.0, BTN_H), kind="sec", key="collect_stop"):
         ctx.request_farm_stop()
         ctx.log("collect: request stop")
@@ -1418,7 +1422,7 @@ def _draw_collect(ctx, state, root, ready, panel_w, px, H):
 
     # clicks.log 尾部 20 行（高度随内容收缩，封顶 160px，不拉满；C6）
     imgui.set_cursor_screen_pos(imgui.ImVec2(px + PAD, y))
-    imgui.text(_L(ready, "最近点击日志（末 20 行）", "clicks.log tail"))
+    imgui.text(_L(ready, "最近点击日志（末 20 行）", "Recent clicks (last 20)"))
     y += 22.0
     lines, err = data.read_clicks_tail(os.path.join(root, "out", "overlay", "clicks.log"), n=20)
     # P1-4：日志框按可用高度伸缩（720 不留空白），短高由 avail 自然收小
@@ -1491,6 +1495,10 @@ def _draw_setting(ctx, state, root, ready, panel_w, px, H):
         lang.set(root, "zh")
         ctx.log("UI language -> zh")
     imgui.same_line(0.0, 6.0)
+    if _btn("繁體", (64.0, 24.0), kind="sec", active=_cur_lang == "zh-hant"):
+        lang.set(root, "zh-hant")
+        ctx.log("UI language -> zh-hant")
+    imgui.same_line(0.0, 6.0)
     if _btn("English", (84.0, 24.0), kind="sec", active=_cur_lang == "en"):
         lang.set(root, "en")
         ctx.log("UI language -> en")
@@ -1536,7 +1544,7 @@ def _draw_setting(ctx, state, root, ready, panel_w, px, H):
     imgui.set_cursor_screen_pos(imgui.ImVec2(px + PAD + 96.0, y))
     imgui.text_colored(imgui.ImVec4(*GREY),
                        _L(ready, "默认键已避开雷电热键（F8/F9/F11）",
-                          "defaults avoid LD hotkeys (F8/F9/F11)"))
+                          "Defaults avoid LDPlayer hotkeys (F8/F9/F11)"))
     y += 20.0
     bindings = keybind.bindings()
     row_h = 22.0
@@ -1599,13 +1607,13 @@ def _draw_setting(ctx, state, root, ready, panel_w, px, H):
 
     # ---- 恢复默认（左）；ESC 提示同行右对齐，[清除] 右括号必在框内（C7）----
     imgui.set_cursor_screen_pos(imgui.ImVec2(px + PAD, y))
-    if _btn(_L(ready, "恢复默认", "Reset"), imgui.ImVec2(110.0, 24.0),
+    if _btn(_L(ready, "恢复默认", "Reset to defaults"), imgui.ImVec2(110.0, 24.0),
             kind="sec", key="keys_reset"):
         ok, kind, msg = keybind.reset()
         _SESSION["keys_msg"] = (kind, msg)
         ctx.log("keys: reset to defaults")
     _text_right(_L(ready, "ESC 取消捕获；解绑用 [清除]",
-                   "ESC cancels capture; use [Clear] to unbind"),
+                   "ESC cancels capture; use Clear to unbind"),
                 GREY, px, panel_w, y + 5.0)
     y += 26.0
 
@@ -1653,7 +1661,7 @@ def _draw_setting(ctx, state, root, ready, panel_w, px, H):
     imgui.set_cursor_screen_pos(imgui.ImVec2(px + PAD, y))
     vw = ctx.view_warn if hasattr(ctx, "view_warn") else False
     _, vw_new = imgui.checkbox(_L(ready, "HUD 显示「视角可能已变」角标",
-                                 "show view-changed badge on HUD"), vw)
+                                 "Show the view-may-have-changed badge on HUD"), vw)
     if vw_new != vw:
         ctx.set_view_warn(vw_new)
     y += 22.0
@@ -1666,7 +1674,7 @@ def _draw_setting(ctx, state, root, ready, panel_w, px, H):
         _SESSION["offset_dy"] = ctypes.c_float(float(off.get("dy", 0) or 0))
     imgui.set_cursor_screen_pos(imgui.ImVec2(px + PAD, y))
     imgui.text(_L(ready, "贴合偏移（保存由运行时写 config）",
-                  "Fit offset (runtime saves config)"))
+                  "Fit offset (saved by the runtime)"))
     y += 18.0
     # 输入框去 ImGui 默认蓝：frame/步进按钮统一灰系（C1）
     sec = theme.secondary_states()
@@ -1702,7 +1710,7 @@ def _draw_setting(ctx, state, root, ready, panel_w, px, H):
     y += 28.0
     # 退出提示只在剩余空间放得下时绘制（底界 H-44），贴底则省略，不骑线横切
     _exit_hint = _L(ready, "（窗口关闭按钮 / 任务管理器亦可退出）",
-                    "(close window also exits)")
+                    "(closing the window also exits)")
     if y + 18.0 <= H - 44.0:
         _hw = imgui.calc_text_size(_exit_hint).x
         _hx = px + panel_w - PAD - _hw

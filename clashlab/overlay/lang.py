@@ -9,7 +9,7 @@ from __future__ import annotations
 import json
 import os
 
-_MODES = ("auto", "zh", "en")
+_MODES = ("auto", "zh", "zh-hant", "en")
 _current = "auto"
 _loaded_root = None
 
@@ -67,8 +67,28 @@ def set(root, mode):
     return mode
 
 
+_HANT_CACHE = {}
+
+
+def to_hant(text):
+    """懒加载 zhconv 做简->繁。zhconv 不可用时原样返回。"""
+    s = str(text or "")
+    hit = _HANT_CACHE.get(s)
+    if hit is not None:
+        return hit
+    try:
+        import zhconv
+        out = zhconv.convert(s, "zh-hant")
+    except Exception:
+        out = s
+    _HANT_CACHE[s] = out
+    return out
+
+
 def label(zh, en):
     """按当前语言取文案；auto 时给中文（字体不可用的情况由 pages 的 ready 逻辑兜底）。"""
     if _current == "en":
         return en
+    if _current == "zh-hant":
+        return to_hant(zh)
     return zh

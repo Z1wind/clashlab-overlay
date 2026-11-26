@@ -32,3 +32,10 @@
 - `clashlab/overlay/giant_arrow_diagram.py`：AIR_TARGETS、HIDDEN_TYPES、summarize_hits、tesla_warning、score_hits、optimize_giant_arrow
 - `knowledge/tactics.json`：机器可读的战术条目（含来源）
 - 测试：`tests/test_giant_arrow_air.py`、`tests/test_giant_arrow_optimizer.py`、`tests/test_tesla_tactics.py`
+
+## 5. 英雄落点与穿云箭方向（谨慎测试）
+
+- 英雄部署后优先攻击**最近建筑的中心**；穿云箭方向 = 英雄位置 → 最近建筑中心 的连线。
+- 因此落点偏移 **0.1–0.5 格**就可能换目标，整条箭线命中的建筑随之改变。
+- 本项目新增 `tools/arrow_placement_cli.py`：输入落点，输出最近目标、箭线角度、命中列表，并在落点周围 ±0.5 格采样做**敏感性测试**（stable / flips）。
+- 实机结论：先在离线阵型上跑敏感性，stable=False 的落点禁止用于实战；进游戏再用截图核对目标建筑。

@@ -67,7 +67,7 @@ def main() -> None:
                     help="start mode")
     ap.add_argument("--always-on-top", action="store_true",
                     help="always visible (default: follow foreground, hide when LDPlayer not front)")
-    ap.add_argument("--lang", default=None, choices=["auto", "zh", "en"],
+    ap.add_argument("--lang", default=None, choices=["auto", "zh", "zh-hant", "en"],
                     help="UI language: auto / zh / en")
     ap.add_argument("--allow-primary", action="store_true",
                     help="allow target on primary display (single-monitor setups)")
