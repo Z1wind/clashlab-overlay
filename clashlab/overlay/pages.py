@@ -487,7 +487,7 @@ def _status_row(ctx, state, root, ready, px, panel_w):
     except Exception:
         pass
     imgui.set_cursor_screen_pos(imgui.ImVec2(px + PAD, 48.0))
-    imgui.text_colored(imgui.ImVec4(*theme.ACCENT), f"面板 实时={live_txt}")
+    imgui.text_colored(imgui.ImVec4(*theme.ACCENT), _L(ready, f"面板 实时={live_txt}", f"Panel · {live_txt}"))
     _text_right(right, INK, px, panel_w, 48.0)
 
 
@@ -1423,7 +1423,7 @@ def _draw_collect(ctx, state, root, ready, panel_w, px, H):
     y = _content_top(root)
     imgui.set_cursor_screen_pos(imgui.ImVec2(px + PAD, y))
     imgui.text(f"模式={farm.get('mode') or '-'}  "
-               f"实时={'开' if live else '演练'}")
+               _L(ready, f"实时={'开' if live else '演练'}", f"Live={'on' if live else 'dry'}"))
     y += 22.0
     imgui.set_cursor_screen_pos(imgui.ImVec2(px + PAD, y))
     imgui.text(f"已侦察 {stats.get('scouted', 0)} 跳过 {stats.get('skipped', 0)} "
@@ -1519,7 +1519,9 @@ def _keys_capture_poll(ctx):
 def _draw_setting(ctx, state, root, ready, panel_w, px, H):
     avail_w = panel_w - 2 * PAD
     paths = data.Paths(root)
-    y = _content_top(root)
+    # 顶部固定栈（标签/状态/引擎按钮+说明）约占到 content_top+34，
+    # 设置页从这里再往下排，避免锚点行压住引擎说明（实机重叠问题）。
+    y = _content_top(root) + 34.0
 
 
     # ---- 竖向预算（C7）：563 实机高度下全部行在框内，ESC 说明行 [清除] 括号可见。
@@ -1602,7 +1604,7 @@ def _draw_setting(ctx, state, root, ready, panel_w, px, H):
                 _SESSION["keys_capture"] = aid
                 _SESSION["keys_msg"] = None
         imgui.set_cursor_screen_pos(imgui.ImVec2(px + panel_w - PAD - 62.0 - 8.0 - 52.0, row_y))
-        if _btn(f"清除##{aid}", imgui.ImVec2(52.0, row_h),
+        if _btn(f"{_L(ready, '清除', 'Clear')}##{aid}", imgui.ImVec2(52.0, row_h),
                 kind="sec", key=f"clear_{aid}"):
             ok, kind, msg = keybind.clear_key(aid)
             _SESSION["keys_msg"] = (kind, msg)
