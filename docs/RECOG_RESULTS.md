@@ -74,3 +74,17 @@ python tools\train_save_model.py --layouts "out\annotate\*_annotated.json" --onl
 
 结论：**06 阵补标是这轮最大收益**；全类模型现在 LOBO 0.820，已明显优于仅防御（0.809），
 推荐作为默认识别模型；仅防御模型保留作对照。
+
+## 2026-11-26 16:30 合成素材「类型 + 等级」双头模型（GPU）
+
+素材：ClashKingAssets 逐级立绘（513 张 / 48 种建筑），合成 14,880 张 96×96 样本（29 种类型 / 372 个类型-等级组合）。
+训练：RTX 4060 Laptop 8GB，torch 2.14.1+cu126，300 epoch，batch 256，bf16，约 6 分钟。
+
+| 指标 | 数值 |
+|---|---|
+| 类型准确率（合成验证集） | **0.9792** |
+| 等级 MAE（平均差几级） | **1.135** |
+
+产物：`models/synth_level.pt`（685,635 B）+ `models/synth_level_metrics.json`。
+
+局限：这是**合成集**指标（立绘 + 随机背景），与真实截图有 domain gap；真实等级精度需要人工标几栋验证。

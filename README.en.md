@@ -25,6 +25,11 @@ A note before you dig in: this version still has unfinished parts and bugs, and 
 
 ## Recent updates (2026-11-26)
 
+- **Type+level dual-head model (GPU)**: 14,880 synthetic samples from ClashKing per-level sprites (29 types / 372 type-level combos), 300 epochs on RTX 4060 → **type_acc 0.979 / level_mae 1.14** (synthetic), checkpoint `models/synth_level.pt`.
+- **Data-driven auto levels**: `clashlab/cocapi.py` + `tools/cocapi_cli.py` use ClashKing public API to resolve **TH level** and both clans' member THs from a player/clan tag (no token), and auto-fill building levels; hero/troop levels need an official Supercell token (hook reserved).
+- **Recognition retrain (473 buildings)**: all classes within **0.879** / LOBO **0.820**; defense-only 0.880 / 0.809 (previously 0.718/0.581).
+- **Android annotator v0.2**: landscape + on-map type/level labels + JSON export (4,666,248 B).
+- **Level system**: building/troop/hero levels in the wargame; low-level troops drop destruction 18.95% → 8.55%.
 - **Level system (new)**: `clashlab/levels.py` + `clashlab/th_data.py` take building/troop/hero levels; measured: low-level troops drop destruction from 18.95% to 8.55%, low-level enemy buildings raise it to 21.05%; see `docs/LEVELS.md`.
 - **TH1–TH19 support**: `clashlab/th_data.py` + `knowledge/th_ruleset.json` (reviewed ruleset: sizes/levels/unlocks exact; TH17-19 hp/dps low-confidence extrapolation); see `docs/TH_SUPPORT.md`.
 - **Layout -> army recommendation**: `clashlab/strategy.py` picks 3 meta compositions from weakness signals, with deployment steps and YouTube search links; data in `knowledge/strategies.json`; docs `docs/STRATEGY.md`.

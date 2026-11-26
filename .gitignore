@@ -60,3 +60,6 @@ android/build/
 android/dist/
 android/assets/img/
 android/debug.keystore
+# 第三方素材/数据集（本地训练用，不入库）
+assets/clashking/
+datasets/

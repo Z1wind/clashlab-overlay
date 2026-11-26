@@ -25,6 +25,11 @@ ClashLab 是一个以 LLM 为辅的部落冲突（Clash of Clans）布阵研究�
 
 ## 最近更新（2026-11-26）
 
+- **类型+等级双头模型（GPU）**：用 ClashKing 逐级立绘合成 14,880 张样本（29 类 / 372 个类型-等级组合），RTX 4060 训练 300 epoch → **type_acc 0.979 / level_mae 1.14**（合成集），产物 `models/synth_level.pt`。
+- **数据驱动自动等级**：新增 `clashlab/cocapi.py` + `tools/cocapi_cli.py`，用 ClashKing 公开 API 按玩家/部落标签拿 **TH 等级**与部落战双方成员 TH（无需 token），并可自动回填布局建筑等级；英雄/兵种等级需官方 API token（接口已预留）。
+- **识别模型重训（473 栋）**：全类 within **0.879** / LOBO **0.820**；仅防御类 within 0.880 / LOBO 0.809（此前 0.718/0.581）。
+- **Android 标注 App v0.2**：强制横屏 + 建筑文字标签（类型+等级）+ 导出 JSON（4,666,248 B，debug 签名）。
+- **等级体系**：建筑/兵种/英雄等级参与推演，实测低配兵摧毁率 18.95% → 8.55%；TH 满级自动回填。
 - **等级体系（新）**：`clashlab/levels.py` + `clashlab/th_data.py` 支持建筑/兵种/英雄等级；推演实测「低等级兵/英雄」让摧毁率从 18.95% 掉到 8.55%，「低等级敌方建筑」升到 21.05%；说明见 `docs/LEVELS.md`。
 - **全大本营支持（TH1–TH19）**：`clashlab/th_data.py` + `knowledge/th_ruleset.json`（reviewed ruleset：尺寸/等级/解锁精确，TH17–19 hp/dps 低置信外推），文档 `docs/TH_SUPPORT.md`。
 - **布阵 → 兵种搭配推荐**：`clashlab/strategy.py` 按弱点判定（对空缺口/大本营偏心/隔间密集）给 3 条 meta 搭配与投放步骤，附 YouTube 搜索入口（不存储第三方内容）；数据 `knowledge/strategies.json`；文档 `docs/STRATEGY.md`。
