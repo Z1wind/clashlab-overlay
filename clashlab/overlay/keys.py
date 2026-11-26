@@ -27,6 +27,8 @@ ACTION_DEFS = [
      "desc": "live / dry-run 切换"},
     {"id": "reload", "zh": "重载情报", "key": "f12",
      "desc": "重新加载阵型/情报数据"},
+    {"id": "ocr_opponent", "zh": "识别对手", "key": "f6",
+     "desc": "抓帧 OCR → ClashKing API 查 TH/部落战"},
     {"id": "back_hud", "zh": "回 HUD", "key": "esc",
      "desc": "返回 HUD 穿透模式"},
 ]

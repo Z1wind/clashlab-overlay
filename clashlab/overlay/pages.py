@@ -530,6 +530,8 @@ def _draw_local(ctx, state, root, ready, panel_w, px, H):
     y += 20.0
     imgui.text_colored(imgui.ImVec4(*SUBTLE), _buildings_line(state))
     y += 20.0
+    imgui.text_colored(imgui.ImVec4(*SUBTLE), _opponent_line(state))
+    y += 20.0
 
     # ---- 重要防御行（整行可点；选中=2px 琥珀左条+底板提亮，与 rank 解耦；C3/C6）----
     # P1-4 720 竖向预算：列表按可用高度伸缩，吃满到状态栏上方，不再只按行数收缩
@@ -1276,6 +1278,46 @@ def _count_buildings(layout):
     if out["total"]:
         out["maxed_pct"] = round(100.0 * maxed / out["total"])
     return out
+
+
+_OPP_CACHE = {"key": None, "line": ""}
+
+
+def _fmt_ocr_payload(payload):
+    """把 out/ocr_latest.json 压成一行（纯函数，便于测试）。"""
+    if not isinstance(payload, dict) or not payload:
+        return "对手：未识别（F6）"
+    line = payload.get("line")
+    if line:
+        return str(line)
+    th = payload.get("th")
+    ocr = payload.get("ocr") or {}
+    if not th and not ocr.get("name"):
+        return "对手：未识别（F6）"
+    name = ocr.get("name") or "未知"
+    return "对手：%s（TH%s）· OCR" % (name, th if th else "?")
+
+
+def _opponent_line(state):
+    """读 out/ocr_latest.json（按 mtime 缓存）；无文件给「F6 识别」。"""
+    try:
+        root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+        path = os.path.join(root, "out", "ocr_latest.json")
+        try:
+            mtime = os.stat(path).st_mtime
+        except OSError:
+            return "对手：未识别（F6）"
+        key = (path, mtime)
+        if _OPP_CACHE.get("key") == key:
+            return _OPP_CACHE.get("line") or "对手：未识别（F6）"
+        with open(path, "r", encoding="utf-8") as f:
+            payload = json.load(f)
+        line = _fmt_ocr_payload(payload)
+        _OPP_CACHE["key"] = key
+        _OPP_CACHE["line"] = line
+        return line
+    except Exception:
+        return "对手：未识别（F6）"
 
 
 def _buildings_line(state):

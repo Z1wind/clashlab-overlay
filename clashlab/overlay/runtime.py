@@ -1338,9 +1338,34 @@ def _keys_vkmap(rt, prev):
     return keybind.vk_map()
 
 
+def _start_ocr_job(rt) -> None:
+    """F6：抓当前帧 → OCR → ClashKing API → 写 out/ocr_latest.json（后台线程，不阻塞渲染）。"""
+    import threading
+
+    def worker():
+        try:
+            frame = rt._default_grab()
+            if frame is None:
+                rt.log("OCR: 抓帧失败（游戏窗口不可用）")
+                return
+            from clashlab import ocr_job
+            payload = ocr_job.run_ocr(rt.root, frame)
+            rt.ocr_line = payload.get("line") or ""
+            rt.log("OCR: " + rt.ocr_line)
+        except Exception as e:  # noqa: BLE001 - 热键失败只记录，不崩面板
+            rt.log("OCR 失败: %r" % (e,))
+
+    threading.Thread(target=worker, daemon=True).start()
+
+
 def _dispatch_action(rt, action: str) -> None:
     """绑键动作分发：未绑定动作不进 vk_map，自动跳过。"""
-    if action == "toggle_mode":
+    if action == "ocr_opponent":
+        try:
+            _start_ocr_job(rt)
+        except Exception as e:  # noqa: BLE001
+            rt.log("ocr request fail: %r" % (e,))
+    elif action == "toggle_mode":
         # 主屏守卫拦截：主屏上禁止切出 PANEL（HUD 也被强制隐藏）
         if getattr(rt, "_primary_blocked", False):
             rt.log("toggle_mode ignored: target-on-primary-display guard blocks PANEL")
