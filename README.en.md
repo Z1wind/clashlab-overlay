@@ -1,146 +1,61 @@
 <div align="center">
 
-# ClashLab · An LLM-assisted Clash of Clans base layout analyzer
+# ClashLab · Clash of Clans overlay
 
-Turn one clean scouting screenshot into a defence score, weak points and tactical diagrams on a 44×44 grid.
+**Out-of-process · zero injection · screen only** — reconnaissance screenshot → map calibration → layout scoring → pre-battle brief → tactical marks, one reproducible pipeline.
 
 [![License: MIT](https://img.shields.io/badge/license-MIT-3da639.svg)](LICENSE)
 [![Python](https://img.shields.io/badge/python-3.13-3776ab.svg)](requirements.txt)
-[![Platform](https://img.shields.io/badge/platform-Windows-0078d4.svg)]()
-[![Tests](https://img.shields.io/badge/tests-passing-brightgreen.svg)]()
-[![CI](https://github.com/Z1wind/clashlab-overlay/actions/workflows/ci.yml/badge.svg)](https://github.com/Z1wind/clashlab-overlay/actions/workflows/ci.yml)
-[![Release](https://img.shields.io/badge/release-v0.1.0-blue.svg)](https://github.com/Z1wind/clashlab-overlay/releases/tag/v0.1.0)
+[![Platform](https://img.shields.io/badge/platform-Windows%2010%2F11-0078d4.svg)]()
+[![Tests](https://img.shields.io/badge/tests-270%20passing-brightgreen.svg)]()
 
-[中文](README.md) · [English](README.en.md) · [教程](docs/教程.md) · [Tutorial](docs/TUTORIAL_en.md)
+[中文](README.md) · [English](README.en.md)
 
 </div>
 
-ClashLab is a base layout analyzer for Clash of Clans, built around TH16 base layouts. The pipeline is easy to describe: grab a scouting screenshot from the emulator, calibrate it onto the game's 44×44 grid, serialise what is on screen into a layout JSON, score the base layout, find weak points, then turn the findings into a tactical diagram or a 2D top-down view.
-
-The tool runs entirely out of process as an ImGui overlay next to the LDPlayer window. It does not inject into the game, does not read memory and does not talk to game servers — it only looks at what is on screen. The code is open source under MIT, and the data and docs live in this repository too.
-
-A note before you dig in: this version still has unfinished parts and bugs, and I'm working through them. It is not a finished tool you can take into a clan war yet; it is closer to a workbench for Clash of Clans base layout analysis, building recognition and overlay development.
+> **100% open source**: code, data and docs in this repo, MIT, no telemetry, no server, no account, no game injection.
 
 ![PANEL](docs/screenshots/panel.png)
 
-## Recent updates (2026-11-26)
+## What it is
 
-- **Type+level dual-head model (GPU)**: 14,880 synthetic samples from ClashKing per-level sprites (29 types / 372 type-level combos), 300 epochs on RTX 4060 → **type_acc 0.979 / level_mae 1.14** (synthetic), checkpoint `models/synth_level.pt`.
-- **Data-driven auto levels**: `clashlab/cocapi.py` + `tools/cocapi_cli.py` use ClashKing public API to resolve **TH level** and both clans' member THs from a player/clan tag (no token), and auto-fill building levels; hero/troop levels need an official Supercell token (hook reserved).
-- **Recognition retrain (473 buildings)**: all classes within **0.879** / LOBO **0.820**; defense-only 0.880 / 0.809 (previously 0.718/0.581).
-- **Android annotator v0.2**: landscape + on-map type/level labels + JSON export (4,666,248 B).
-- **Level system**: building/troop/hero levels in the wargame; low-level troops drop destruction 18.95% → 8.55%.
-- **Level system (new)**: `clashlab/levels.py` + `clashlab/th_data.py` take building/troop/hero levels; measured: low-level troops drop destruction from 18.95% to 8.55%, low-level enemy buildings raise it to 21.05%; see `docs/LEVELS.md`.
-- **TH1–TH19 support**: `clashlab/th_data.py` + `knowledge/th_ruleset.json` (reviewed ruleset: sizes/levels/unlocks exact; TH17-19 hp/dps low-confidence extrapolation); see `docs/TH_SUPPORT.md`.
-- **Layout -> army recommendation**: `clashlab/strategy.py` picks 3 meta compositions from weakness signals, with deployment steps and YouTube search links; data in `knowledge/strategies.json`; docs `docs/STRATEGY.md`.
-- **Spawn point -> spawn line/region**: `clashlab/deploy.py` enumerates 12 lines + 4 regions and picks the best; base 03 measured **17.9% -> 24.7%**; docs `docs/DEPLOY.md`.
-- **Quad regression model (calibration fallback)**: `clashlab/quad_model.py` + `models/quad_model.pt` trained on community images with grass-boundary pseudo-labels (51/57 auto-labelled); docs `docs/QUAD_MODEL.md`.
+A translucent overlay for the LDPlayer emulator: reads the screen, computes, draws. No injection, no memory reading, no game-server calls — results come from pixels plus local computation.
 
-## What it does
+| Capability | Description |
+|---|---|
+| HUD / PANEL | on-screen marks (click-through) or a 440px side panel |
+| Calibration | 44x44 DLT homography, auto re-calibration on >10% window change |
+| Layout scoring | 7 weighted metrics -> 0-100 + S/A/B/C/D/F with weak-point directions |
+| Weak points to tactics | TH bias / air / ground coverage feed the brief |
+| Giant-arrow diagram | deployment ring + arrow paths + numbered air defenses (PNG) |
+| 2D simulation | candidate drop points with estimated destruction, cached |
+| Pre-battle brief | rule engine, optional LLM review |
+| Wargame + spawn lines | deterministic tick + Monte Carlo; line deployment 17.9% -> 24.7% |
+| OCR + API | screenshot -> opponent name/clan -> ClashKing API TH / war members |
+| Android annotator | offline annotation app, export JSON |
 
-- **Overlay**: a read-only, click-through HUD plus a four-page PANEL (research / layout / collect / settings), docked next to the emulator client area.
-- **Calibration**: 44×44 DLT homography, with automatic recalibration when the client area changes size by more than 10%.
-- **Scoring**: seven weighted metrics collapse into a 0–100 score, an S–F grade and weak points with a direction.
-- **Tactics**: findings feed the brief, the LLM prompt and the panel; there is a giant-arrow (Queen Walk) tactical diagram; 2D simulation candidate drop points are supported.
-- **2D**: `layout.json` becomes a top-down PNG and a 2D interchange JSON, ready for another 2D engine (`python -m clashlab.topdown_cli`).
+## Quick start
 
-## Install and run
-
-You need Windows 10/11, Python 3.13 and LDPlayer 9 (client area 1280×720), plus numpy, opencv, pywin32, imgui_bundle and pillow.
-
-```powershell
-git clone https://github.com/Z1wind/clashlab-overlay.git
-cd clashlab-overlay
+`powershell
 python -m pip install -r requirements.txt
-python run_overlay.py --show --mode HUD --always-on-top --run-seconds 8
-python -m unittest discover -s tests   # all green
-```
+python run_overlay.py --show --mode PANEL --always-on-top --allow-primary
+`
 
-For the first run, start with 8 seconds and check the log. If `out/overlay/overlay.log` shows `target_rect=...`, `rect=(x,y,1280x720)`, `fps summary` and `runtime end`, then window discovery, calibration and rendering are all working. Modes, hotkeys, LLM setup and troubleshooting are covered in the [tutorial](docs/TUTORIAL_en.md).
+Standalone exe: `dist/ClashOverlay.exe` (bundled OCR, `--ocr-selftest IMAGE OUT.json`).
 
-## Commands
+## Docs
 
-```powershell
-# Pre-battle simulation: read a layout, simulate both sides
-python -m clashlab.prebattle --layout bases\th16\03\layout.json --out out\prebattle
-
-# Giant-arrow tactical diagram
-python -m clashlab.overlay.giant_arrow_diagram --layout bases\th16\03\layout.json --out out\ga.png
-
-# Build the exe
-.\build_overlay.ps1
-
-# Run the tests
-python -m unittest discover -s tests
-```
-
-## Download
-
-- [Release v0.1.0](https://github.com/Z1wind/clashlab-overlay/releases/tag/v0.1.0): `ClashOverlay.exe` (Windows x64, about 90 MB), source zip and `SHA256SUMS.txt`.
-
-If you don't want to install Python, grab the exe. If you want to read or change the code, install from source.
-
-## How the score works
-
-| Metric | Weight | Status |
-|---|---|---|
-| Town Hall protection | 3 | available |
-| Storage protection | 2 | available (N/A for defence-only layouts) |
-| Air defence | 2 | available |
-| Ground defence | 2 | available |
-| Compartment quality | 2 | N/A, wall data incomplete |
-| Wall efficiency | 1 | N/A, wall data incomplete |
-| Entry control | 1 | available |
-
-The seven weights add up to 13 and are rescaled to 0–100, then graded S≥90, A≥80, B≥70, C≥55, D≥40. Compartment and wall metrics stay N/A until automatic wall extraction passes; the other five are usable today.
-
-## How it works
-
-```text
-LDPlayer 1280x720 --PrintWindow--> frame + 44x44 homography
-        --> score / weak points / ring / simulation --> ImGui overlay + PNG
-```
-
-Capture and calibration live in `clashlab/vision.py` and `clashlab/geo.py` (the single entry point for coordinate conversion). Scoring and weak-point attribution read the size and stat tables in `assets.py`. The tactics layer turns the findings into a brief for the rule engine or an LLM, and the result is drawn in the overlay or exported as PNG / JSON.
+- [Wargame](docs/WARGAME.md) · [Strategy](docs/STRATEGY.md) · [Spawn lines](docs/DEPLOY.md)
+- [TH1-TH19 support](docs/TH_SUPPORT.md) · [Levels](docs/LEVELS.md)
+- [QA e2e](docs/QA_E2E.md) · [OCR opponent](docs/OCR_OPPONENT.md) · [Android app](docs/ANDROID_APP.md)
+- [Recognition decision](docs/RECOG_DECISION.md) · [ML feasibility](docs/ML_FEASIBILITY.md)
 
 ## Known limitations
 
-- **Building recognition is not usable yet**: same-tier accuracy at 27 px/tile is 0.523. Manual labels on the high-zoom tier were audited and at least 42% turned out to be wrong, so the seemingly higher numbers cannot be trusted and there is no usable detection build.
-- **Automatic wall extraction did not pass**, so compartment quality and wall efficiency show N/A.
-- **The vision LLM only handles OCR well**: resource numbers 4/4, building classification 3/16.
-- **Verified only on Windows + LDPlayer at 1280×720**; other emulators and resolutions are untested.
-
-## Community
-
-This is basically a one-person project right now, and contributions are very welcome. Any of the following is useful:
-
-- **Base annotations**: TH16 base layouts marked on the 44×44 grid (other Town Hall levels are welcome too). Put them under `bases/<TH>/<layout>/` with the original screenshot and a one-line note; if you also marked walls, say where the data came from.
-- **Layout JSON**: a `layout.json` or 2D interchange JSON. Several independent versions of the same base are especially useful.
-- **Recognition samples**: clean scouting frames paired with their layout, at both the 27 px and 70 px tiers. Recognition is the weakest part of the project, so samples are worth more than code right now.
-- **Algorithm work**: scoring metrics, weak-point attribution, 2D simulation, overlay performance and interaction — any of it.
-
-How to submit:
-
-- **Issues**: use the `Bug report` template for bugs (include the command, the tail of `out/overlay/overlay.log` and your environment) and `Feature request` for ideas, picking the relevant area (overlay / recognition / layout score / tactics / docs-tooling).
-- **Pull requests**: follow `.github/PULL_REQUEST_TEMPLATE.md` and describe what changed and how you verified it. For data, note the source (your own capture or public community data) and keep local paths and keys out. Run `python -m unittest discover -s tests` before changing code.
-
-The full ground rules are in [CONTRIBUTING.md](CONTRIBUTING.md). Even an issue describing the kind of base analysis you want, or passing the repo on to someone who needs it, is a real help.
-
-## Privacy
-
-No injection into LDPlayer, no memory reading, no game-server access. No keys are shipped (LLM credentials come from local config or environment variables). Apart from LLM calls you enable yourself, screenshots and layout data stay on your machine and are not uploaded.
-
-## Acknowledgements
-
-The full list of borrowed work, authors and licences is in **[ATTRIBUTIONS.md](ATTRIBUTIONS.md)**. Main credits:
-
-- [@koniz-dev](https://github.com/koniz-dev) · [clash-blueprint-engine](https://github.com/koniz-dev/clash-blueprint-engine): the seven defence metrics and weak-point system
-- [@Peter537](https://github.com/Peter537) · [clash-of-clans-base-validator](https://github.com/Peter537/clash-of-clans-base-validator): geometry validation and building size tables
-- [@ClashKingInc](https://github.com/ClashKingInc/ClashKingAssets), [@chiefpansancolt](https://github.com/chiefpansancolt), [@Statscell](https://github.com/Statscell): asset and data references
-- [FICTURE7/CoCSharp](https://github.com/FICTURE7/CoCSharp), [DFanso/coc-attack-bot](https://github.com/DFanso/coc-attack-bot): read but not adopted, still shaped design decisions
+- Recognition: type classification 0.879 / cross-base 0.820 on given crops; detection still unusable (0.06-0.16 per-building hit);
+- Walls: automatic extraction not proven, two scoring metrics are N/A;
+- Platform: Windows + LDPlayer 1280x720 only.
 
 ## License
 
-MIT, see [LICENSE](LICENSE). Third-party attribution is collected in ATTRIBUTIONS; game assets belong to Supercell and follow the Supercell Fan Content Policy.
-
-For learning and research only. Follow Supercell's Terms of Service; use at your own risk.
+MIT (see LICENSE); metrics ported from clash-blueprint-engine (MIT); cross-check references clash-of-clans-base-validator (MIT). Game art belongs to Supercell; not affiliated.

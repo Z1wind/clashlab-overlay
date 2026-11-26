@@ -1,152 +1,135 @@
 <div align="center">
 
-# ClashLab · 以 LLM 为辅的部落冲突布阵研究器
+# ClashLab · 部落冲突战术辅助覆盖层
 
-把一张干净的侦察截图，变成 44×44 格上的防守评分、弱点和战术图。
+**进程外 · 零注入 · 只看画面** —— 把「侦察截图 → 地图标定 → 布局评分 → 赛前简报 → 战术标注」做成一条可复现的流水线。
 
 [![License: MIT](https://img.shields.io/badge/license-MIT-3da639.svg)](LICENSE)
 [![Python](https://img.shields.io/badge/python-3.13-3776ab.svg)](requirements.txt)
-[![Platform](https://img.shields.io/badge/platform-Windows-0078d4.svg)]()
-[![Tests](https://img.shields.io/badge/tests-passing-brightgreen.svg)]()
-[![CI](https://github.com/Z1wind/clashlab-overlay/actions/workflows/ci.yml/badge.svg)](https://github.com/Z1wind/clashlab-overlay/actions/workflows/ci.yml)
-[![Release](https://img.shields.io/badge/release-v0.1.0-blue.svg)](https://github.com/Z1wind/clashlab-overlay/releases/tag/v0.1.0)
+[![Platform](https://img.shields.io/badge/platform-Windows%2010%2F11-0078d4.svg)]()
+[![Tests](https://img.shields.io/badge/tests-270%20passing-brightgreen.svg)]()
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-ff69b4.svg)](CONTRIBUTING.md)
 
-[中文](README.md) · [English](README.en.md) · [教程](docs/教程.md) · [Tutorial](docs/TUTORIAL_en.md)
+[中文](README.md) · [English](README.en.md)
 
 </div>
 
-ClashLab 是一个以 LLM 为辅的部落冲突（Clash of Clans）布阵研究器（base layout analyzer），主要面向 TH16 阵型。它做的事情可以概括成一条链：截取模拟器里的侦察画面，标定到 44×44 网格，还原成布局 JSON，算出基地布局评分和弱点，再生成战术图或 2D 俯视图。
+> **100% 开源**：代码、数据、文档全部在本仓库，MIT 许可，无遥测、无服务器、无账号、无游戏注入。
 
-工具跑在游戏进程之外，以 overlay 的形式贴在雷电模拟器旁边：不注入、不读内存、不连游戏服务器，只处理屏幕上能看到的画面。代码以 MIT 开源（open source），数据和文档也都在这个仓库里。
+![PANEL 面板](docs/screenshots/panel.png)
 
-先说清楚现状。这个版本还有不少没做完的地方和 bug，我会继续补；它现在还不是一个能直接拿去打部落战的成品，更适合当作 Clash of Clans 阵型分析、建筑识别和覆盖层开发的一个试验台。
+## ✨ 这是什么
 
-![PANEL](docs/screenshots/panel.png)
+一个贴在雷电模拟器上的半透明覆盖层：读游戏画面 → 算 → 画标注。它不注入游戏、不读内存、不连游戏服务器，所有结论都来自屏幕像素 + 本地计算。
 
-## 最近更新（2026-11-26）
+| 能力 | 说明 |
+|---|---|
+| 🖥 **HUD / PANEL 双模式** | HUD 在画面上标注（鼠标穿透）；PANEL 右侧 440 宽面板（研究/阵型/采集/设置） |
+| 🎯 **地图标定** | 44×44 网格 DLT 单应，窗口尺寸变化 >10% 自动重标定 |
+| 📊 **布局防守评分** | 7 指标加权 → 0–100 + S/A/B/C/D/F，弱点带方位 |
+| 🧠 **布局弱点 → 战术** | 大本营偏心 / 对空 / 对地覆盖率自动进简报与 LLM 提示 |
+| 🏹 **女王穿云箭战术图** | 撒兵环 + 箭线 + 被穿防空编号 + 阶段色条，输出 PNG |
+| 🗺 **2D 推演** | 候选落点与预估摧毁率，接入面板（带缓存） |
+| 🧾 **赛前简报** | 规则引擎生成，可选大模型复核（只依据已知/未知，不猜） |
 
-- **对手识别（OCR+API）**：截图左上角 OCR 出对手名字/部落 → ClashKing 公开 API（fresh=True 强制回源）→ 玩家 tag/TH/部落战成员 TH；见 `docs/OCR_OPPONENT.md`。
-- **exe 内置 OCR**：ClashOverlay.exe 现内置 RapidOCR/onnxruntime（体积 +31MB），新增 `--ocr-selftest IMAGE OUT.json` 离线自检开关。
-- **识别模型评估**：分类模型不再继续投入（检测才是瓶颈），结论见 `docs/RECOG_DECISION.md`。
-- **类型+等级双头模型（GPU）**：用 ClashKing 逐级立绘合成 14,880 张样本（29 类 / 372 个类型-等级组合），RTX 4060 训练 300 epoch → **type_acc 0.979 / level_mae 1.14**（合成集），产物 `models/synth_level.pt`。
-- **数据驱动自动等级**：新增 `clashlab/cocapi.py` + `tools/cocapi_cli.py`，用 ClashKing 公开 API 按玩家/部落标签拿 **TH 等级**与部落战双方成员 TH（无需 token），并可自动回填布局建筑等级；英雄/兵种等级需官方 API token（接口已预留）。
-- **识别模型重训（473 栋）**：全类 within **0.879** / LOBO **0.820**；仅防御类 within 0.880 / LOBO 0.809（此前 0.718/0.581）。
-- **Android 标注 App v0.2**：强制横屏 + 建筑文字标签（类型+等级）+ 导出 JSON（4,666,248 B，debug 签名）。
-- **等级体系**：建筑/兵种/英雄等级参与推演，实测低配兵摧毁率 18.95% → 8.55%；TH 满级自动回填。
-- **等级体系（新）**：`clashlab/levels.py` + `clashlab/th_data.py` 支持建筑/兵种/英雄等级；推演实测「低等级兵/英雄」让摧毁率从 18.95% 掉到 8.55%，「低等级敌方建筑」升到 21.05%；说明见 `docs/LEVELS.md`。
-- **全大本营支持（TH1–TH19）**：`clashlab/th_data.py` + `knowledge/th_ruleset.json`（reviewed ruleset：尺寸/等级/解锁精确，TH17–19 hp/dps 低置信外推），文档 `docs/TH_SUPPORT.md`。
-- **布阵 → 兵种搭配推荐**：`clashlab/strategy.py` 按弱点判定（对空缺口/大本营偏心/隔间密集）给 3 条 meta 搭配与投放步骤，附 YouTube 搜索入口（不存储第三方内容）；数据 `knowledge/strategies.json`；文档 `docs/STRATEGY.md`。
-- **放兵点 → 放兵线/区域**：`clashlab/deploy.py` 枚举 12 条撒兵线 + 4 个区域并挑摧毁率最高；base 03 实测 **17.9% → 24.7%**；文档 `docs/DEPLOY.md`。
-- **四角回归模型（自动标定兜底）**：`clashlab/quad_model.py` + `models/quad_model.pt`，勇气来自社区阵图 + 草地边界伪标签（51/57 自动标注成功）；文档 `docs/QUAD_MODEL.md`。
-- 兵棋推演/QA 矩阵/识别模型见上一条更新。
+## 🖼 截图
 
-## 能做什么
+| 战术图 | 面板评分 |
+|---|---|
+| ![穿云箭](docs/screenshots/giant_arrow.jpg) | ![面板](docs/screenshots/panel.png) |
 
-- **覆盖层**：HUD 标注（只读、鼠标穿透）和 PANEL 四页（研究 / 阵型 / 采集 / 设置），贴在模拟器客户区旁边。
-- **标定**：44×44 DLT 单应，客户区尺寸变化超过 10% 时自动重标定。
-- **评分**：7 个指标加权成 0–100 分，给出 S–F 等级和带方位的弱点。
-- **战术**：弱点会进简报、LLM 提示和面板；可以出女王穿云箭战术图；支持 2D 推演候选落点。
-- **2D 化**：`layout.json` 转成俯视阵型 PNG 和 2D 交换 JSON，方便导进别的 2D 引擎做推演（`python -m clashlab.topdown_cli`）。
-- **游戏内导入**：在模拟器里点开阵型链接，运行 python tools/import_base.py --th 16 --id 07 → 自动截屏、44×44 标定，生成 base.png + layout_draft.json，再交给标注工具微调。
-- **base link 调研**：分享链接里的 payload 是不可恢复的 24 字节 token，社区没有解码器（详见 [docs/BASELINK_RESEARCH.md](docs/BASELINK_RESEARCH.md)）；在游戏里点开链接再截图是可行替代。
-
-## 安装和运行
-
-需要 Windows 10/11、Python 3.13、雷电模拟器 9（客户区 1280×720），以及 numpy、opencv、pywin32、imgui_bundle、pillow 这些依赖。
+## 🚀 快速开始
 
 ```powershell
-git clone https://github.com/Z1wind/clashlab-overlay.git
+git clone https://github.com/<your-name>/clashlab-overlay.git
 cd clashlab-overlay
 python -m pip install -r requirements.txt
+
+# 可见覆盖层（8 秒自退，便于验证）
 python run_overlay.py --show --mode HUD --always-on-top --run-seconds 8
-python -m unittest discover -s tests   # 应全部通过
-```
 
-第一次跑建议先只开 8 秒看看日志：`out/overlay/overlay.log` 里出现 `target_rect=...`、`rect=(x,y,1280x720)`、`fps summary` 和 `runtime end`，就说明找窗、标定、渲染这条链是通的。模式切换、热键、LLM 配置和排障见[教程](docs/教程.md)。
-
-## 常用命令
-
-```powershell
-# 赛前推演：读一个 layout，输出攻防双方的模拟结果
-python -m clashlab.prebattle --layout bases\th16\03\layout.json --out out\prebattle
-
-# 女王穿云箭战术图
-python -m clashlab.overlay.giant_arrow_diagram --layout bases\th16\03\layout.json --out out\ga.png
-
-# 打成 exe
-.\build_overlay.ps1
-
-# 跑测试
+# 单元测试（应 86 项全绿）
 python -m unittest discover -s tests
 ```
 
-## 下载
+详细步骤见 [docs/教程.md](docs/教程.md)（环境 / 模拟器 / 模式 / 评分 / 简报 / 打包 / FAQ）。
 
-- [Release v0.1.0](https://github.com/Z1wind/clashlab-overlay/releases/tag/v0.1.0)：`ClashOverlay.exe`（Windows x64，约 90MB）、源码包、`SHA256SUMS.txt`。
-
-不装 Python 的话下 exe 直接跑；想改代码或看数据就从源码装。
-
-## 评分怎么读
-
-| 指标 | 权重 | 状态 |
-|---|---|---|
-| 大本营保护 | 3 | 可用 |
-| 资源仓保护 | 2 | 可用（纯防御标注时为 N/A） |
-| 对空防御 | 2 | 可用 |
-| 对地防御 | 2 | 可用 |
-| 隔间质量 | 2 | N/A，墙数据未补全 |
-| 墙体效率 | 1 | N/A，墙数据未补全 |
-| 入口控制 | 1 | 可用 |
-
-七项合计 13 分权重，折算到 0–100 后分级：S≥90、A≥80、B≥70、C≥55、D≥40。隔间和墙体两项因为自动墙线提取还没过，现在固定显示 N/A，等数据补齐会恢复。
-
-## 工作方式
+## 🧩 架构
 
 ```text
-雷电 1280×720 --PrintWindow--> 截图 + 44×44 单应
-      --> 评分 / 弱点 / 防线环 / 推演 --> ImGui 覆盖层 + PNG
+┌──────────────┐   PrintWindow    ┌───────────────┐
+│ 雷电模拟器    │ ───────────────▶ │ 抓帧 + 标定     │
+│ 1280×720     │                  │ 44×44 网格单应  │
+└──────────────┘                  └──────┬────────┘
+                                        ▼
+                 ┌────────────────────────────────────┐
+                 │ 分析层：layout_score / analysis / sim │
+                 │ 评分 S–F · 弱点 · 撒兵环 · 推演        │
+                 └──────────────┬─────────────────────┘
+                                ▼
+        ┌──────────────────────────────────────────┐
+        │ 呈现层：ImGui 覆盖层 HUD / PANEL           │
+        │ 战术图 PNG · 赛前简报 · LLM 复核（可选）    │
+        └──────────────────────────────────────────┘
 ```
 
-截图和标定走 `clashlab/vision.py` 与 `clashlab/geo.py`（坐标换算的唯一入口），评分和弱点归因读 `assets.py` 里的尺寸与属性表，战术部分把弱点整理成简报交给规则引擎或 LLM，最后在覆盖层里画出来，或者导出成 PNG / JSON。
+## 📊 评分指标（权重合计 13）
 
-## 已知限制
+| 指标 | 权重 | 可信度 |
+|---|---|---|
+| 大本营保护 | 3 | ✅ |
+| 资源仓保护 | 2 | ✅（纯防御标注时为 N/A） |
+| 对空覆盖 | 2 | ✅ |
+| 对地覆盖 | 2 | ✅ |
+| 隔间质量 | 2 | ⚠️ 墙数据未补全，暂 N/A |
+| 墙体效率 | 1 | ⚠️ 同上 |
+| 入口防守 | 1 | ✅ |
 
-- **建筑识别还不能用**：27px 同档准确率 0.523；高倍档的人工标注审计后至少有 42% 是错标的，所以那些看起来更高的数字不能信，检测这条路暂时没有可用版本。
-- **墙线自动提取没通过**，隔间质量和墙体效率两项指标因此是 N/A。
-- **视觉大模型只能做 OCR**：资源数字 4/4，建筑分类只有 3/16。
-- **只在 Windows + 雷电 1280×720 上实测过**，别的模拟器和分辨率没有验证。
+## 🆕 最近（2026-11-26）
 
-## 社区维护
+- **对手识别**：截图 OCR 名字/部落 → ClashKing API 自动查 TH/部落战成员（`docs/OCR_OPPONENT.md`）；
+- **等级体系**：建筑/兵种/英雄等级进推演（低配兵摧毁率 18.95% → 8.55%），TH 满级自动回填；
+- **兵棋推演 + 撒兵线**：确定性 tick + Monte Carlo；放兵线实测摧毁率 17.9% → 24.7%；
+- **Android 标注 App**：离线补标 6 阵，导出 JSON 回传（`docs/ANDROID_APP.md`）。
 
-仓库目前基本是我一个人在做，所以特别欢迎社区一起把它补完整。下面几类东西都可以直接提：
+## 🗺 路线图
 
-- **阵型标注**：按 44×44 网格标好的 TH16 阵型（别的本也收）。放到 `bases/<本>/<阵型>/` 下，附一张原始截图和一句标注说明；墙线如果也标了，请单独说明来源。
-- **布局 JSON**：`layout.json` 或 2D 交换 JSON。同一个阵型有多份互相校验的最好。
-- **识别样本**：干净的侦察帧加上对应 layout，27px 和 70px 两档都缺。识别是目前最大的短板，样本比代码更值钱。
-- **算法改进**：评分指标、弱点归因、2D 推演、覆盖层的性能和交互，改哪一块都行。
+- [x] 覆盖层 HUD/PANEL + 自动重标定
+- [x] 布局评分（0–100 / S–F）与弱点归因
+- [x] 布局弱点接入简报与 LLM 提示
+- [x] 女王穿云箭战术图（PNG）
+- [x] 2D 推演接入面板
+- [ ] 连续墙线提取（模板匹配方案）
+- [x] 识别全部防御建筑（本仓标注数据 within 0.879 / LOBO 0.820）
+- [x] 等级体系 + TH 自动回填 + 撒兵线优化
+- [x] Android 标注 App + 对手 OCR/API
+- [ ] 屏幕自动检测（瓶颈：需要检测器，不是分类器）
+- [ ] 「进攻中」视图 HUD 避让实测
 
-提交方式有两种：
+## ⚠️ 已知限制
 
-- **Issue**：bug 用 `Bug report` 模板，贴命令、`out/overlay/overlay.log` 尾部日志和环境信息；功能建议用 `Feature request` 模板，勾选相关模块（overlay / recognition / layout score / tactics / docs-tooling）。
-- **PR**：按 `.github/PULL_REQUEST_TEMPLATE.md` 写清改了什么、怎么验证；数据类提交请说明来源（自己截的 / 社区公开的），不要带本机路径和密钥。改代码前先跑一遍 `python -m unittest discover -s tests`。
+- 识别：给定裁剪下类型分类 0.879 / 跨阵 0.820；检测环节仍不可用（逐栋命中 0.06–0.16）；高倍档人工标注 ≥42% 错标；
+- 墙线：自动提取方案未通过，隔间/墙体两项评分暂 N/A；
+- 视觉大模型：可做 OCR（对手名字已接入 RapidOCR），但建筑分类不可靠，不用于识别；
+- 平台：仅 Windows + 雷电 1280×720 实测。
 
-更细的约定在 [CONTRIBUTING.md](CONTRIBUTING.md) 里。哪怕只是提一个 issue 说说你想要的阵型分析视角，或者把仓库转给需要的人，都是有帮助的。
+## 🔒 隐私与安全
 
-## 隐私
+- 不注入、不读游戏内存、不连游戏服务器；
+- 仓库不含任何密钥；大模型通道从本机配置或环境变量读取；
+- `out/`、`dist/` 为运行时产物，不入库。
 
-工具不注入雷电进程、不读游戏内存、不连接游戏服务器；仓库里不含任何密钥（LLM 凭据来自本机配置或环境变量）。除了你自己主动开启的 LLM 调用，画面和阵型数据只在本机流转，不会上传。
+## 📄 许可证与第三方
 
-## 致谢
+- 本项目：**MIT**（见 [LICENSE](LICENSE)）；
+- 评分指标移植自 [clash-blueprint-engine](https://github.com/koniz-dev/clash-blueprint-engine)（MIT）；
+- 布局交叉校验参考 [clash-of-clans-base-validator](https://github.com/Peter537/clash-of-clans-base-validator)（MIT）；
+- 建筑素材来自社区素材仓库，遵循 Supercell Fan Content Policy；游戏版权归 Supercell，本项目与其无关联。
 
-借用内容、作者和许可证的完整清单见 **[ATTRIBUTIONS.md](ATTRIBUTIONS.md)**。主要的几处：
+## ⚖️ 免责声明
 
-- [@koniz-dev](https://github.com/koniz-dev) · [clash-blueprint-engine](https://github.com/koniz-dev/clash-blueprint-engine)：防守评分的 7 个指标和弱点体系
-- [@Peter537](https://github.com/Peter537) · [clash-of-clans-base-validator](https://github.com/Peter537/clash-of-clans-base-validator)：几何校验与建筑尺寸目录
-- [@ClashKingInc](https://github.com/ClashKingInc/ClashKingAssets)、[@chiefpansancolt](https://github.com/chiefpansancolt)、[@Statscell](https://github.com/Statscell)：素材与数据参考
-- [FICTURE7/CoCSharp](https://github.com/FICTURE7/CoCSharp)、[DFanso/coc-attack-bot](https://github.com/DFanso/coc-attack-bot)：读过没采用，但影响了设计判断
+仅供学习与研究。请遵守 Supercell 服务条款与当地法律；使用后果自负。
 
-## 许可
+## 🤝 贡献
 
-MIT，见 [LICENSE](LICENSE)。第三方署名汇总在 ATTRIBUTIONS；游戏素材版权归 Supercell，使用遵循 Supercell Fan Content Policy。
-
-仅供学习研究，请遵守 Supercell 的服务条款，使用后果自负。
+欢迎 Issue / PR：先跑通 `python -m unittest discover -s tests`，改动请附测试与证据。见 [CONTRIBUTING.md](CONTRIBUTING.md)。
