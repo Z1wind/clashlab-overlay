@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>ClashLab 标注</title>
+<style>
+html,body{margin:0;height:100%;background:#0e1218;color:#e9eef5;font-family:"Microsoft YaHei",sans-serif;-webkit-user-select:none;user-select:none;overscroll-behavior:none}
+#app{display:flex;flex-direction:column;height:100%}
+#top{display:flex;align-items:center;gap:6px;padding:8px 10px;background:#151b24;border-bottom:1px solid #263141;flex-wrap:wrap}
+#top b{color:#ffd76a;font-size:15px}
+.tab{background:#1d2532;border:1px solid #314054;border-radius:8px;color:#cfd8e5;padding:6px 10px;font-size:14px}
+.tab.on{background:#2d6a4f;border-color:#40916c;color:#fff}
+#wrap{position:relative;flex:1;overflow:hidden;background:#0a0e14}
+canvas{display:block;width:100%;height:100%;touch-action:none}
+#hint{position:absolute;left:8px;top:8px;font-size:11px;color:#9fb0c4;background:rgba(10,14,20,.72);border:1px solid #2a3646;border-radius:6px;padding:3px 7px;pointer-events:none}
+#pal{display:flex;gap:6px;overflow-x:auto;padding:8px;background:#151b24;border-top:1px solid #263141;scrollbar-width:thin}
+#pal button{flex:0 0 auto;background:#1d2532;border:1px solid #314054;color:#cfd8e5;border-radius:8px;padding:6px 9px;font-size:13px}
+#pal button.on{background:#3a5a8c;border-color:#6ea8fe;color:#fff}
+#bar{display:flex;align-items:center;gap:6px;padding:8px;background:#111720;border-top:1px solid #263141;flex-wrap:wrap}
+#bar button{background:#1d2532;border:1px solid #314054;color:#dfe8f3;border-radius:8px;padding:8px 10px;font-size:14px}
+#bar button.danger{background:#3a2027;border-color:#6d2b36;color:#ffc2c9}
+#bar button.pri{background:#2d6a4f;border-color:#40916c;color:#fff}
+#lv{color:#ffd76a;font-weight:700;min-width:74px;text-align:center;font-size:15px}
+#sel{font-size:12px;color:#6f86a0;flex:1 1 100%}
+#toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);background:#22304a;border:1px solid #40557a;color:#e8eef8;padding:8px 14px;border-radius:8px;font-size:13px;opacity:0;transition:opacity .2s;pointer-events:none;max-width:86%}
+#toast.show{opacity:1}
+#help{position:absolute;left:8px;right:8px;top:40px;background:rgba(14,18,24,.94);border:1px solid #3a4a60;border-radius:10px;padding:10px 12px;font-size:12px;line-height:1.7;color:#cfd8e5;display:none}
+</style>
+</head>
+<body>
+<div id="app">
+  <div id="top">
+    <b>ClashLab 标注</b><span id="baseTabs" style="display:flex;gap:4px;flex-wrap:wrap"></span>
+    <span style="flex:1"></span>
+    <button class="tab" id="btnHelp">帮助</button>
+    <button class="tab" id="btnExport">导出 JSON</button>
+  </div>
+  <div id="wrap">
+    <canvas id="cv"></canvas>
+    <div id="hint">点建筑=选中 · 点空白=按当前类型新增 · 长按拖动=移动 · 双指=缩放</div>
+    <div id="help">
+      1) 顶部选阵（01–06）<br>
+      2) 底部选类型，点画布空白处 = 在该格新增一栋<br>
+      3) 点已有建筑 = 选中（黄框）；下方 +/- 改等级；拖动它可移动<br>
+      4) 拖空白处 = 平移画布；双指捏合 = 缩放<br>
+      5) 改完点「导出 JSON」→ 文件存到手机「下载」→ 发给我<br>
+      6) 数据每 1 秒自动存本地，关掉再开不丢
+    </div>
+  </div>
+  <div id="pal"></div>
+  <div id="bar">
+    <button id="btnZoomOut">－</button>
+    <button id="btnZoomIn">＋</button>
+    <button id="btnLvDown">Lv－</button>
+    <span id="lv">Lv -</span>
+    <button id="btnLvUp">Lv＋</button>
+    <button id="btnDel" class="danger">删除</button>
+    <button id="btnUndo">撤销</button>
+    <span id="sel">未选中</span>
+  </div>
+</div>
+<div id="toast"></div>
+<script>
+window.onerror = function(msg, src, line, col){
+  var h = document.getElementById('hint');
+  if(h){ h.textContent = 'JS错误: ' + msg + ' @' + line + ':' + col; h.style.color = '#ff9a9a'; }
+  try { if (window.AndroidBridge) window.AndroidBridge.toast('JS错误: ' + msg); } catch(e){}
+  return false;
+};
+</script>
+<script src="data.js"></script>
+<script>
+try {
+  var _h = document.getElementById('hint');
+  if (_h) _h.textContent = 'DATA: ' + (window.CLASH_DATA ? window.CLASH_DATA.bases.length + ' 阵' : 'data.js 未加载');
+} catch(e) {}
+</script>
+<script>
+(function(){
+  var D = window.CLASH_DATA || {bases:[], cn:{}};
+  var cv = document.getElementById('cv'), ctx = cv.getContext('2d');
+  var state = { base: 0, sel: -1, type: 'cannon', scale: 1, ox: 0, oy: 0, dpr: 1,
+                drag: null, pinch: null, lastTap: 0 };
+  var PAL = ['cannon','archer-tower','mortar','air-defense','wizard-tower','x-bow','inferno-tower',
+             'scattershot','eagle-artillery','monolith','firespitter','ricochet-cannon',
+             'multi-archer-tower','spell-tower','air-sweeper','hidden-tesla','bomb-tower','town-hall',
+             'gold-mine','elixir-collector','gold-storage','elixir-storage','barracks','army-camp',
+             'clan-castle','bomb','spring-trap','builder-hut'];
+  var SIZE = {'town-hall':4,'eagle-artillery':3,'scattershot':3,'inferno-tower':2,'monolith':3,
+              'hidden-tesla':2,'air-sweeper':2,'spell-tower':2,'clan-castle':3,'builder-hut':2,
+              'builders-hut':2,'bomb':1,'spring-trap':1,'air-bomb':1,'giant-bomb':2,
+              'seeking-air-mine':1,'tornado-trap':1,'skeleton-trap':1,'giga-bomb':1};
+  var CAT = {'town-hall':'#ffcc33','defense':'#5f95e6','economy':'#e8b23d','storage':'#4fbf7a',
+             'army':'#8fb34a','trap':'#d9534f','other':'#9aa7b5'};
+  var DEF = {cannon:1,'archer-tower':1,mortar:1,'air-defense':1,'wizard-tower':1,'x-bow':1,
+             'inferno-tower':1,scattershot:1,'eagle-artillery':1,monolith:1,firespitter:1,
+             'ricochet-cannon':1,'multi-archer-tower':1,'spell-tower':1,'air-sweeper':1,
+             'hidden-tesla':1,'bomb-tower':1};
+  var TRAP = {bomb:1,'spring-trap':1,'air-bomb':1,'giant-bomb':1,'seeking-air-mine':1,
+              'tornado-trap':1,'skeleton-trap':1,'giga-bomb':1};
+  var STORE = {'gold-mine':1,'elixir-collector':1,'dark-elixir-drill':1,'gold-storage':1,
+               'elixir-storage':1,'dark-elixir-storage':1};
+  var ARMY = {barracks:1,'dark-barracks':1,'army-camp':1,laboratory:1,'spell-factory':1,
+              'dark-spell-factory':1,'builder-hut':1,'builders-hut':1,'clan-castle':1,
+              workshop:1,'pet-house':1,blacksmith:1,'hero-hall':1};
+  function cat(t){
+    if(t==='town-hall') return 'town-hall';
+    if(TRAP[t]) return 'trap';
+    if(DEF[t]) return 'defense';
+    if(STORE[t]) return 'storage';
+    if(t==='gold-mine'||t==='elixir-collector'||t==='dark-elixir-drill') return 'economy';
+    if(ARMY[t]) return 'army';
+    return 'other';
+  }
+  function size(t){ return SIZE[t] || 3; }
+  function cn(t){ return (D.cn && D.cn[t]) || t; }
+  function b(){ return D.bases[state.base]; }
+  function toast(msg){
+    var el = document.getElementById('toast');
+    el.textContent = msg; el.className = 'show';
+    setTimeout(function(){ el.className = ''; }, 1800);
+    try { if (window.AndroidBridge) window.AndroidBridge.toast(msg); } catch(e){}
+  }
+  // ---- 单应 ----
+  function solveLinear(A, bb){
+    var n = bb.length, M = [], i, j, k, col, piv, tmp, f, sum;
+    for(i=0;i<n;i++){ M.push(A[i].slice()); M[i].push(bb[i]); }
+    for(col=0;col<n;col++){
+      piv=col;
+      for(i=col+1;i<n;i++){ if(Math.abs(M[i][col])>Math.abs(M[piv][col])) piv=i; }
+      if(Math.abs(M[piv][col])<1e-12) return null;
+      if(piv!==col){ tmp=M[col]; M[col]=M[piv]; M[piv]=tmp; }
+      for(i=col+1;i<n;i++){
+        f=M[i][col]/M[col][col];
+        if(f!==0){ for(k=col;k<=n;k++){ M[i][k]-=f*M[col][k]; } }
+      }
+    }
+    var x=[];
+    for(i=n-1;i>=0;i--){ sum=M[i][n]; for(j=i+1;j<n;j++){ sum-=M[i][j]*x[j]; } x[i]=sum/M[i][i]; }
+    return x;
+  }
+  function homography(quad, grid){
+    if(!quad || quad.length!==4) return null;
+    var src=[[0,0],[grid,0],[grid,grid],[0,grid]], A=[], bb=[], i, u, v, x, y;
+    for(i=0;i<4;i++){
+      u=src[i][0]; v=src[i][1]; x=quad[i][0]; y=quad[i][1];
+      A.push([u,v,1,0,0,0,-x*u,-x*v]); bb.push(x);
+      A.push([0,0,0,u,v,1,-y*u,-y*v]); bb.push(y);
+    }
+    var h=solveLinear(A,bb);
+    if(!h) return null;
+    return [[h[0],h[1],h[2]],[h[3],h[4],h[5]],[h[6],h[7],1]];
+  }
+  function inv3(m){
+    var a=m[0][0],b1=m[0][1],c=m[0][2],d=m[1][0],e=m[1][1],f=m[1][2],g=m[2][0],h=m[2][1],i=m[2][2];
+    var det=a*(e*i-f*h)-b1*(d*i-f*g)+c*(d*h-e*g);
+    if(Math.abs(det)<1e-12) return null;
+    return [[(e*i-f*h)/det,(c*h-b1*i)/det,(b1*f-c*e)/det],
+            [(f*g-d*i)/det,(a*i-c*g)/det,(c*d-a*f)/det],
+            [(d*h-e*g)/det,(b1*g-a*h)/det,(a*e-b1*d)/det]];
+  }
+  function proj(H, x, y){
+    var d=H[2][0]*x+H[2][1]*y+H[2][2];
+    return [(H[0][0]*x+H[0][1]*y+H[0][2])/d, (H[1][0]*x+H[1][1]*y+H[1][2])/d];
+  }
+  var H=null, Hinv=null, img=new Image(), ready=false;
+  function loadBase(i){
+    state.base=i; state.sel=-1; state.ox=0; state.oy=0;
+    var bs=b();
+    img=new Image();
+    img.onload=function(){
+      H=homography(bs.quad, bs.grid||44); Hinv=H?inv3(H):null;
+      ready=true; fitZoom(); draw(); renderTabs(); renderSel();
+      // 本地缓存优先
+      try {
+        var s=localStorage.getItem('clashlab_base_'+bs.id);
+        if(s){ var arr=JSON.parse(s); if(arr && arr.length){ bs.buildings=arr; draw(); } }
+      } catch(e){}
+    };
+    img.src=bs.img;
+  }
+  function fitZoom(){
+    var w=cv.clientWidth||360, h=cv.clientHeight||500;
+    var iw=img.width||1000, ih=img.height||1000;
+    var s=Math.min(w/iw, h/ih)*0.98;
+    state.scale=s; state.ox=(w-iw*s)/2; state.oy=(h-ih*s)/2;
+  }
+  function resize(){
+    var dpr=window.devicePixelRatio||1; state.dpr=dpr;
+    var w=cv.clientWidth||360, h=cv.clientHeight||500;
+    cv.width=Math.round(w*dpr); cv.height=Math.round(h*dpr);
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    if(ready && !state.fitted){ fitZoom(); state.fitted=true; }
+    draw();
+  }
+  window.addEventListener('resize', function(){ state.fitted=false; resize(); });
+  function draw(){
+    var w=cv.clientWidth||360, h=cv.clientHeight||500;
+    ctx.clearRect(0,0,w,h);
+    ctx.fillStyle='#0a0e14'; ctx.fillRect(0,0,w,h);
+    if(!ready) return;
+    ctx.save();
+    ctx.translate(state.ox,state.oy); ctx.scale(state.scale,state.scale);
+    ctx.drawImage(img,0,0);
+    // 网格
+    if(H){
+      ctx.strokeStyle='rgba(120,180,255,0.16)'; ctx.lineWidth=1/state.scale;
+      for(var g=0; g<= (b().grid||44); g+=4){
+        var p1=proj(H,g,0), p2=proj(H,g,b().grid||44), p3=proj(H,0,g), p4=proj(H,b().grid||44,g);
+        ctx.beginPath(); ctx.moveTo(p1[0],p1[1]); ctx.lineTo(p2[0],p2[1]); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(p3[0],p3[1]); ctx.lineTo(p4[0],p4[1]); ctx.stroke();
+      }
+    }
+    // 建筑
+    var bs=b().buildings||[];
+    for(var i=0;i<bs.length;i++){
+      var bb=bs[i]; var c=bb.tile||[22,22];
+      var p=H?proj(H,c[0],c[1]):null; if(!p) continue;
+      var k=size(bb.type); var px=p[0], py=p[1];
+      var half=(k*0.5)*(H?Math.hypot(proj(H,c[0]+1,c[1])[0]-px, proj(H,c[0]+1,c[1])[1]-py):18);
+      var col=CAT[cat(bb.type)]||'#9aa7b5';
+      ctx.fillStyle=col; ctx.globalAlpha=0.85;
+      ctx.beginPath(); ctx.arc(px,py,Math.max(6,half*0.9),0,Math.PI*2); ctx.fill();
+      ctx.globalAlpha=1;
+      if(i===state.sel){ ctx.strokeStyle='#ffd76a'; ctx.lineWidth=3/state.scale; ctx.beginPath(); ctx.arc(px,py,Math.max(9,half*0.9)+3,0,Math.PI*2); ctx.stroke(); }
+    }
+    ctx.restore();
+  }
+  function imgToCanvas(ev){
+    var r=cv.getBoundingClientRect();
+    var cx=(ev.clientX-r.left), cy=(ev.clientY-r.top);
+    return [(cx-state.ox)/state.scale, (cy-state.oy)/state.scale, cx, cy];
+  }
+  function tileAt(ix,iy){
+    if(!Hinv) return null;
+    var d=Hinv[2][0]*ix+Hinv[2][1]*iy+Hinv[2][2];
+    var x=(Hinv[0][0]*ix+Hinv[0][1]*iy+Hinv[0][2])/d;
+    var y=(Hinv[1][0]*ix+Hinv[1][1]*iy+Hinv[1][2])/d;
+    if(x<0||y<0||x>(b().grid||44)||y>(b().grid||44)) return null;
+    return [Math.round(x),Math.round(y)];
+  }
+  function hitBuilding(tx,ty){
+    var bs=b().buildings||[], best=-1, bestD=1e9;
+    for(var i=0;i<bs.length;i++){
+      var c=bs[i].tile; var d=Math.hypot(c[0]-tx,c[1]-ty);
+      if(d<Math.max(2.2,size(bs[i].type)*0.8) && d<bestD){ bestD=d; best=i; }
+    }
+    return best;
+  }
+  function snapshot(){
+    try{ state.undo=(state.undo||[]); state.undo.push(JSON.stringify(b().buildings)); if(state.undo.length>30) state.undo.shift(); }catch(e){}
+  }
+  function persist(){ try{ localStorage.setItem('clashlab_base_'+b().id, JSON.stringify(b().buildings)); }catch(e){} }
+  function renderTabs(){
+    var box=document.getElementById('baseTabs'); box.innerHTML='';
+    D.bases.forEach(function(bs,i){
+      var el=document.createElement('button'); el.className='tab'+(i===state.base?' on':'');
+      el.textContent=bs.id; el.onclick=function(){ state.fitted=false; loadBase(i); };
+      box.appendChild(el);
+    });
+    document.getElementById('hint').textContent = '阵 ' + b().id + ' · ' + b().buildings.length + ' 栋 · 点空白新增 / 点建筑选中';
+  }
+  function renderPal(){
+    var box=document.getElementById('pal'); box.innerHTML='';
+    PAL.forEach(function(t){
+      var el=document.createElement('button');
+      el.textContent=cn(t); el.className=(t===state.type?'on':'');
+      el.onclick=function(){ state.type=t; renderPal(); };
+      box.appendChild(el);
+    });
+  }
+  function renderSel(){
+    var el=document.getElementById('sel'), lv=document.getElementById('lv');
+    if(state.sel<0){ el.textContent='未选中'; lv.textContent='Lv -'; return; }
+    var s=b().buildings[state.sel];
+    el.textContent='#'+(state.sel+1)+' '+cn(s.type)+' ('+s.tile[0]+','+s.tile[1]+')';
+    lv.textContent='Lv '+(s.level||'-');
+  }
+  function setLevel(delta){
+    if(state.sel<0) return;
+    var s=b().buildings[state.sel];
+    var v=parseInt(s.level||0,10);
+    if(!v) v=delta>0?1:1;
+    v=Math.max(1,Math.min(99,v+delta));
+    snapshot(); s.level=v; persist(); renderSel(); draw();
+  }
+  function addBuilding(tile){
+    var bs=b().buildings;
+    var t=state.type;
+    if(!t) return;
+    snapshot();
+    bs.push({type:t, tile:[tile[0],tile[1]], level:null});
+    state.sel=bs.length-1;
+    persist(); renderSel(); draw(); toast('新增 '+cn(t));
+  }
+  // ---- 指针交互 ----
+  var ptrs={}, start=null, moved=false;
+  cv.addEventListener('pointerdown', function(e){
+    cv.setPointerCapture(e.pointerId);
+    ptrs[e.pointerId]={x:e.clientX,y:e.clientY};
+    var n=Object.keys(ptrs).length;
+    if(n===2){
+      var ks=Object.keys(ptrs);
+      var p1=ptrs[ks[0]], p2=ptrs[ks[1]];
+      state.pinch={d:Math.hypot(p1.x-p2.x,p1.y-p2.y), s:state.scale};
+      start=null; return;
+    }
+    if(!ready) return;
+    var q=imgToCanvas(e), t=tileAt(q[0],q[1]);
+    if(!t) return;
+    var hit=hitBuilding(t[0],t[1]);
+    moved=false;
+    start={x:e.clientX,y:e.clientY, tile:t, hit:hit, wasSel:state.sel, ox:state.ox, oy:state.oy};
+  });
+  cv.addEventListener('pointermove', function(e){
+    if(!ptrs[e.pointerId]) return;
+    ptrs[e.pointerId]={x:e.clientX,y:e.clientY};
+    var n=Object.keys(ptrs).length;
+    if(n===2 && state.pinch){
+      var ks=Object.keys(ptrs); var p1=ptrs[ks[0]], p2=ptrs[ks[1]];
+      var d=Math.hypot(p1.x-p2.x,p1.y-p2.y);
+      state.scale=Math.max(0.05,Math.min(6,state.pinch.s*d/Math.max(1,state.pinch.d)));
+      draw(); return;
+    }
+    if(!start) return;
+    var dx=e.clientX-start.x, dy=e.clientY-start.y;
+    if(!moved && Math.hypot(dx,dy)>8){ moved=true; if(start.hit>=0) state.sel=start.hit; }
+    if(!moved) return;
+    if(start.hit>=0){
+      var q=imgToCanvas(e); var t=tileAt(q[0],q[1]);
+      if(t){ b().buildings[start.hit].tile=[t[0],t[1]]; draw(); }
+    } else {
+      state.ox=start.ox+dx; state.oy=start.oy+dy; draw();
+    }
+  });
+  function pointerEnd(e){
+    delete ptrs[e.pointerId];
+    if(Object.keys(ptrs).length<2) state.pinch=null;
+    if(!start) return;
+    if(!moved){
+      if(start.hit>=0){ state.sel=start.hit; renderSel(); draw(); }
+      else { addBuilding(start.tile); }
+    } else {
+      if(start.hit>=0){ persist(); renderSel(); }
+    }
+    start=null;
+  }
+  cv.addEventListener('pointerup', pointerEnd);
+  cv.addEventListener('pointercancel', pointerEnd);
+  // ---- 按钮 ----
+  document.getElementById('btnZoomIn').onclick=function(){ state.scale*=1.25; draw(); };
+  document.getElementById('btnZoomOut').onclick=function(){ state.scale/=1.25; draw(); };
+  document.getElementById('btnLvDown').onclick=function(){ setLevel(-1); };
+  document.getElementById('btnLvUp').onclick=function(){ setLevel(1); };
+  document.getElementById('btnDel').onclick=function(){
+    if(state.sel<0) return;
+    snapshot(); b().buildings.splice(state.sel,1); state.sel=-1; persist(); renderSel(); renderTabs(); draw();
+  };
+  document.getElementById('btnUndo').onclick=function(){
+    if(!state.undo || !state.undo.length) return;
+    b().buildings=JSON.parse(state.undo.pop()); state.sel=-1; persist(); renderSel(); renderTabs(); draw();
+  };
+  document.getElementById('btnHelp').onclick=function(){
+    var h=document.getElementById('help'); h.style.display=(h.style.display==='block'?'none':'block');
+  };
+  document.getElementById('btnExport').onclick=function(){
+    var payload={schema:'clashlab-annotator-v1', exported_at:new Date().toISOString(),
+      grid:b().grid||44, bases:D.bases.map(function(bs){
+        return {id:bs.id, name:bs.name, grid:bs.grid||44, buildings:bs.buildings};
+      })};
+    var text=JSON.stringify(payload);
+    var name='clash_annotate_'+new Date().toISOString().slice(0,19).replace(/[:T]/g,'')+'.json';
+    try {
+      if(window.AndroidBridge && window.AndroidBridge.saveFile){
+        var res=window.AndroidBridge.saveFile(name, text);
+        toast(res);
+        try { if (window.AndroidBridge.shareLast) window.AndroidBridge.shareLast(); } catch(e){}
+        return;
+      }
+    } catch(e){}
+    var blob=new Blob([text],{type:'application/json'});
+    var a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=name; a.click();
+    toast('已下载 '+name);
+  };
+  document.getElementById('btnUndo').addEventListener('click', function(){});
+  // ---- 启动 ----
+  renderPal();
+  if(D.bases && D.bases.length){ loadBase(0); } else { toast('data.js 没有阵型数据'); }
+  resize();
+})();
+</script>
+</body>
+</html>

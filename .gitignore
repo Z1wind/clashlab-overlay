@@ -55,3 +55,8 @@ tools/**/*.zip
 # 编辑器
 .vscode/
 .idea/
+# Android 构建产物与图片副本
+android/build/
+android/dist/
+android/assets/img/
+android/debug.keystore
