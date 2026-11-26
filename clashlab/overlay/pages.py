@@ -129,7 +129,7 @@ def _strip_dupe(body):
     return "【".join(out).strip()
 
 
-def _btn(label, size, *, kind="sec", active=False, disabled=False, key=None):
+def _btn(label, size, *, kind="sec", active=False, disabled=False, key=None, tip=None):
     """统一按钮（C1/C2）：主=绿系三态，次=灰系三态；disabled alpha 0.45 不可点。
 
     三态：常态填充；hover 提亮 8%（theme.primary/secondary_states hover）；
@@ -144,6 +144,8 @@ def _btn(label, size, *, kind="sec", active=False, disabled=False, key=None):
         imgui.push_style_color(imgui.Col_.button_active, theme.DISABLED_BG)
         imgui.push_style_color(imgui.Col_.text, theme.DIS_TXT)
         imgui.button(f"{label}##{fid}", size)
+        if tip and imgui.is_item_hovered():
+            imgui.set_tooltip(tip + "（当前不可用）")
         for _ in range(4):
             imgui.pop_style_color()
         return False
@@ -170,6 +172,8 @@ def _btn(label, size, *, kind="sec", active=False, disabled=False, key=None):
             imgui.ImVec2(r0.x + 1.0, r0.y + 1.0),
             imgui.ImVec2(r1.x - 1.0, r1.y - 1.0),
             col=_col(theme.ACCENT), rounding=0.0, thickness=1.0)
+    if tip and imgui.is_item_hovered():
+        imgui.set_tooltip(tip)
     for _ in range(4):
         imgui.pop_style_color()
     return clicked
@@ -460,8 +464,8 @@ def _status_row(ctx, state, root, ready, px, panel_w):
     except Exception:
         cand_n = 0
     study_png = getattr(state, "study_png", None)
-    loaded = bool(study_png)
-    right = _L(ready, f"阵型 {'已加载' if loaded else '未加载'} · 候选 {cand_n}",
+    loaded = bool(getattr(state, "layout", None) or getattr(state, "Layout", None))
+    right = _L(ready, f"阵型 {'已加载' if loaded else '未加载/点采集'} · 候选 {cand_n}",
                f"layout {'loaded' if loaded else 'none'} · cand {cand_n}")
     # 左：live 角标（暖黄）；右：中文状态（正文色），各自定位，不互相挤
     # P3b-1：布局已加载时，右栏追加防御评分（无布局保持原样）
@@ -575,7 +579,8 @@ def _draw_local(ctx, state, root, ready, panel_w, px, H):
                               "No layout loaded - press Auto-capture"))
         imgui.set_cursor_screen_pos(imgui.ImVec2(px + PAD, y + 34.0))
         if _btn(_L(ready, "自动采集", "Auto-capture"),
-                imgui.ImVec2(120.0, 26.0), kind="pri", key="auto_capture"):
+                imgui.ImVec2(120.0, 26.0), kind="pri", key="auto_capture",
+                tip="抓取当前游戏画面并自动检测阵型（需要雷电窗口在前台）"):
             try:
                 ctx.request_data_prep()  # v9-⑥闭环：置位 -> 主循环查表/抓帧+detect 消费
                 ctx.request_study({"auto": True})
@@ -787,7 +792,8 @@ def _draw_llm(ctx, state, root, ready, panel_w, px, H):
         y += block_h + GAP
     else:
         if _btn(_L(ready, "生成策略", "Generate plan"), imgui.ImVec2(140.0, BTN_H),
-                kind="pri", key="gen"):
+                kind="pri", key="gen",
+                tip="需要先加载阵型/候选；LLM 模式还需要 API 配置"):
             sel = tactics.selected(doc)
             tactics.start_plan(
                 root, doc, goal=_SESSION["goal"], sel=sel,
@@ -1046,7 +1052,8 @@ def _draw_layout(ctx, state, root, ready, panel_w, px, H):
     # ---- 来源行：触发研究按钮（次要灰三态）+ 换行灰字说明 ----
     imgui.set_cursor_screen_pos(imgui.ImVec2(px + PAD, y))
     if _btn(_L(ready, "触发研究", "Run research"),
-            imgui.ImVec2(110.0, SOURCE_H), kind="sec", key="run_study"):
+            imgui.ImVec2(110.0, SOURCE_H), kind="sec", key="run_study",
+            tip="后台跑研究报告，完成后自动刷新面板"):
         fn = getattr(ctx, "request_study", None)
         if callable(fn):
             fn({})

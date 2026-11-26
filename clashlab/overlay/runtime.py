@@ -1438,10 +1438,14 @@ def _draw_panel_container(imgui, rt, ctx):
     _bg = theme.PANEL_BG
     _top = theme._lift(_bg, 1.16)
     _bot = theme._lift(_bg, 0.88)
-    dl.add_rect_filled_multi_color(
-        imgui.ImVec2(px, py), imgui.ImVec2(W, H),
-        _u(imgui.ImVec4(*_top)), _u(imgui.ImVec4(*_top)),
-        _u(imgui.ImVec4(*_bot)), _u(imgui.ImVec4(*_bot)))
+    try:
+        dl.add_rect_filled_multi_color(
+            imgui.ImVec2(px, py), imgui.ImVec2(W, H),
+            _u(imgui.ImVec4(*_top)), _u(imgui.ImVec4(*_top)),
+            _u(imgui.ImVec4(*_bot)), _u(imgui.ImVec4(*_bot)))
+    except TypeError:
+        # 不同 imgui_bundle 版本签名不一致：退化为纯色，避免 draw frame error
+        dl.add_rect_filled(imgui.ImVec2(px, py), imgui.ImVec2(W, H), _u(imgui.ImVec4(*_bg)))
     # 顶部琥珀强调条（左亮右暗，像一条细高光）
     _bar_w = 3.0
     _accent = theme.ACCENT
