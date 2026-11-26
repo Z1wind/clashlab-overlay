@@ -395,6 +395,10 @@ def render_giant_arrow_diagram(layout, plan, out_png, title="女王穿云箭战�
     lx, ly = 26, max(26, bar_y - fs_sm - 24 - panel_h)
     d.rounded_rectangle([lx - 8, ly - 8, lx + panel_w, ly + panel_h], radius=6,
                         fill=(16, 19, 24, 215), outline=_pr.SUB, width=1)
+    _warn = tesla_warning(layout)
+    if _warn:
+        d.text((lx, ly), _warn, font=f_sm, fill=_pr.AMBER)
+        ly += lh
     d.text((lx, ly), "图例", font=f_lab, fill=_pr.INK)
     legend = [(_pr.TEAL, "撒兵环=可撒兵格（analysis.deployment_ring）"),
               (_pr.AMBER, "琥珀直线箭头=女王穿云箭 from→to"),
@@ -500,3 +504,121 @@ def main(argv=None):
 
 if __name__ == "__main__":
     raise SystemExit(main())
+
+
+# ---------------------------------------------------------------- 自动选线
+# 评分口径：吹风机 3 分（影响整片空军路线）> 防空火箭 2 分 > 其它防御 1 分；
+# 特斯拉默认不现形，不确定收益，按 -0.5 计（把它穿掉是运气，不是计划）。
+_AIR_SCORE = {AIR_SWEEPER: 3.0, AIR_DEFENSE: 2.0}
+_OTHER_DEF_SCORE = 1.0
+_TESLA_PENALTY = -0.5
+
+
+def _defense_types():
+    try:
+        from clashlab import assets
+        return set(assets.STATS.keys())
+    except Exception:
+        return {AIR_DEFENSE, AIR_SWEEPER, "cannon", "archer-tower", "mortar", "wizard-tower",
+                "x-bow", "inferno-tower", "scattershot", "eagle-artillery", "monolith",
+                "bomb-tower", "hidden-tesla"}
+
+
+def score_hits(hits):
+    """给一组命中打分（越高越好）。"""
+    defs = _defense_types()
+    s = 0.0
+    for h in hits:
+        typ = h.get("type")
+        if typ in _AIR_SCORE:
+            s += _AIR_SCORE[typ]
+        elif typ in HIDDEN_TYPES:
+            s += _TESLA_PENALTY
+        elif typ in defs:
+            s += _OTHER_DEF_SCORE
+    return round(s, 2)
+
+
+def _clip_line(p, q, grid=44):
+    """把过 p、q 的无限直线用 slab 法裁到 [0,grid]^2，返回端点或 None。"""
+    import math as _m
+    x1, y1 = float(p[0]), float(p[1])
+    x2, y2 = float(q[0]), float(q[1])
+    dx, dy = x2 - x1, y2 - y1
+    if abs(dx) < 1e-9 and abs(dy) < 1e-9:
+        return None
+    lo, hi = -1e9, 1e9
+    for origin, delta in ((x1, dx), (y1, dy)):
+        if abs(delta) < 1e-9:
+            if origin < 0 or origin > grid:
+                return None
+            continue
+        t0 = (0.0 - origin) / delta
+        t1 = (float(grid) - origin) / delta
+        if t0 > t1:
+            t0, t1 = t1, t0
+        lo = max(lo, t0)
+        hi = min(hi, t1)
+    if hi - lo < 1e-6:
+        return None
+    a = (x1 + dx * lo, y1 + dy * lo)
+    b = (x1 + dx * hi, y1 + dy * hi)
+    if _m.hypot(b[0] - a[0], b[1] - a[1]) < 6:
+        return None
+    return [round(a[0], 2), round(a[1], 2)], [round(b[0], 2), round(b[1], 2)]
+
+
+def candidate_arrow_lines(layout, grid=44, tol=1.2):
+    """候选箭线：每座对空目标过点的 4 个方向 + 两座对空目标的连线（裁到地图内）。"""
+    import math as _m
+    air = []
+    for b in (layout or {}).get("buildings") or []:
+        if isinstance(b, dict) and b.get("type") in AIR_TARGETS:
+            try:
+                air.append((float(b["tile"][0]), float(b["tile"][1])))
+            except Exception:
+                continue
+    raw = []
+    for (x, y) in air:
+        for ang in (0, 45, 90, 135):
+            rad = _m.radians(ang)
+            dx, dy = _m.cos(rad), _m.sin(rad)
+            raw.append(((x, y), (x + dx, y + dy)))
+    for i in range(len(air)):
+        for j in range(i + 1, len(air)):
+            raw.append((air[i], air[j]))
+    seen = set()
+    out = []
+    for p, q in raw:
+        seg = _clip_line(p, q, grid)
+        if not seg:
+            continue
+        a, b = seg
+        key = (round(a[0], 1), round(a[1], 1), round(b[0], 1), round(b[1], 1))
+        key2 = (round(b[0], 1), round(b[1], 1), round(a[0], 1), round(a[1], 1))
+        if key in seen or key2 in seen:
+            continue
+        seen.add(key)
+        hits = match_skewered(layout, a, b, tol=tol)
+        out.append({"from": list(a), "to": list(b), "hits": hits,
+                    "score": score_hits(hits), "summary": summarize_hits(hits)})
+    out.sort(key=lambda c: (-c["summary"]["air_sweeper"], -c["score"],
+                            -len(c["hits"]), c["from"][0], c["from"][1]))
+    return out
+
+
+def optimize_giant_arrow(layout, grid=44, tol=1.2, top=5):
+    """返回按评分排序的候选箭线；best 为最高分（无对空目标时为空）。"""
+    cands = candidate_arrow_lines(layout, grid=grid, tol=tol)
+    return {"best": cands[0] if cands else None, "candidates": cands[:int(top)]}
+
+
+TESLA_WARNING = "⚠ 特斯拉默认不现形：图中格位仅为推测；其 DPS 低，穿云箭收益低"
+
+
+def tesla_warning(layout):
+    """布局里有隐形特斯拉时返回提醒文案，否则返回空串。"""
+    for b in (layout or {}).get("buildings") or []:
+        if isinstance(b, dict) and b.get("type") in HIDDEN_TYPES:
+            return TESLA_WARNING
+    return ""

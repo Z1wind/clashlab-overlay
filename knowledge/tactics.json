@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "updated_at": "2026-11-26",
+  "sources": [
+    "Supercell 官方游戏内数据（隐形特斯拉：侦察/进攻前不显示，触发或被侦察后才现身）",
+    "coc.guide / Clash of Clans Wiki：Hidden Tesla 页面（DPS/等级表，https://coc.guide/defense/hidden-tesla/）",
+    "本项目 TH16 数据表 clashlab/assets.py + knowledge/th_ruleset.json（见下方 numbers）"
+  ],
+  "entries": [
+    {"id": "hidden-tesla-invisible", "topic": "隐形特斯拉",
+     "fact": "隐形特斯拉在侦察/进攻开始前不显示，踩到或被打后才现身；布阵时用来阴空军/收尾部队。",
+     "numbers": {"th16_hp": 1000, "th16_dps": 130, "range": 7, "size": 2},
+     "source": "Supercell 游戏机制 + coc.guide/defense/hidden-tesla + 本仓 TH16 数据表"},
+    {"id": "hidden-tesla-low-value", "topic": "隐形特斯拉收益",
+     "fact": "同 TH16 下特斯拉 DPS 130，明显低于防空火箭 330、地狱塔 250、X 连弩 200；单体低血（1000）。穿云箭/法术清它收益低，不应为它调整箭线。",
+     "numbers": {"tesla_dps": 130, "air_defense_dps": 330, "inferno_dps": 250, "xbow_dps": 200},
+     "source": "本仓 TH16 数据表（assets.STATS/TH16_OVERRIDE）+ coc.guide 逐级数据对照"},
+    {"id": "giant-arrow-priority", "topic": "穿云箭优先目标",
+     "fact": "穿云箭只打箭线经过的建筑。优先串吹风机（影响整片空军路线）与防空火箭；特斯拉默认不现形、DPS 低，按未知风险处理，不计收益。",
+     "source": "游戏机制（Giant Arrow 直线伤害）+ 社区攻略共识 + 本项目实测算例（base03 最优线：吹风机1+防空1）"},
+    {"id": "sweeper-value", "topic": "吹风机价值",
+     "fact": "吹风机本身 DPS 0，但吹风会打乱空军路线/时间轴，是空军流最优先清的目标之一；穿云箭串到吹风机通常比多串一座防空更值。",
+     "source": "Supercell 机制（Air Sweeper 只推不伤）+ 社区空军攻略"}
+  ]
+}

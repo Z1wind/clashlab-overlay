@@ -92,6 +92,8 @@ python -m unittest discover -s tests
 - **兵棋推演 + 撒兵线**：确定性 tick + Monte Carlo；放兵线实测摧毁率 17.9% → 24.7%；
 - **Android 标注 App**：离线补标 6 阵，导出 JSON 回传（`docs/ANDROID_APP.md`）。
 
+- **战术知识库**：特斯拉默认隐身且 DPS 低（TH16 130 vs 防空 330），穿云箭优先串吹风机+防空火箭，图例/评分自动提醒（`docs/TACTICS.md`）。
+
 ## 🗺 路线图
 
 - [x] 覆盖层 HUD/PANEL + 自动重标定
