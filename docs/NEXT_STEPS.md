@@ -20,3 +20,6 @@
 2. 标完跑 `python tools/train_from_annotations.py --layouts "bases/th16/*/layout.json" "out/annotate/*.json"`，看准确率相对基线 0.523 的变化；
 3. 若标注顺利，再做自动标定增强（用墙格/建筑格做自校准，减少手拖）；
 4. 收尾：撤销 GitHub token（权限过大）、更新 README 截图（校准后界面）。
+## 本机位置（2026-11-26 迁移）
+
+项目已迁到 E:\ClashLab；旧路径 C:\Users\Admin（无密码）\Doubao\chats\2026-11-23\new-chat 是 Junction（C 盘 0 字节），命令照旧可用。
