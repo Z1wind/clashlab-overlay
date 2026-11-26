@@ -154,3 +154,7 @@ python -m unittest discover -s tests
 
 - 公开数据与思路：[ClashKing](https://github.com/ClashKingInc/ClashKing)（战争数据 API）、[ClashKingBot](https://github.com/ClashKingInc/ClashKingBot)（数据驱动思路）、[ClashKingAssets](https://github.com/ClashKingInc/ClashKingAssets)（逐级建筑素材）；
 - 完整名单见 [ATTRIBUTIONS.md](ATTRIBUTIONS.md)，集成说明见 [docs/CLASHKING.md](docs/CLASHKING.md)。
+
+## 📌 当前状态 / 待办
+
+今天的完成项与明天的待办（含 P0 鼠标点击问题的定位）都在 `docs/STATUS.md`。

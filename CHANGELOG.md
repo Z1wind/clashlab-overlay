@@ -1,6 +1,7 @@
 # Changelog
 
 ## v0.3.0 (unreleased)
+- 2026-11-26 收工：状态/待办归档 docs/STATUS.md；已知 P0（PANEL 鼠标双通道点击不切换）。
 - 本地网页标注器 tools/annotate_web.py（4 角标定 + 建筑点选 + 导出 JSON）。
 - 敌方阵型流水线 tools/enemy_pipeline.py（评分 + 穿云箭选线 + 落点敏感性）。
 - 批量阵型压测 98 例：落点稳定率 26%、13 例目标翻转（docs/ARROW_BATCH.md）。
