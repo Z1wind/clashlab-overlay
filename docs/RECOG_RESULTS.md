@@ -34,3 +34,28 @@ python tools/train_from_annotations.py --layouts "bases/th16/*/layout.json" --ep
 ```
 
 结果 JSON：`out/recog/train_from_annotations.json`（标注）/ `out/recog/baseline/train_from_annotations.json`（对照，未跑完）。
+
+## 2026-11-26 重训（用户补标后，6 阵 262 栋）
+
+数据：`out/annotate/01..06_annotated.json`（262 栋，32 类；仅防御类 190 栋 / 19 类）。
+命令：
+
+`powershell
+python tools\train_save_model.py --layouts "out\annotate\*_annotated.json" --epochs 40 \
+  --models-dir models\all6_all --checkpoint recog_all6.pt
+python tools\train_save_model.py --layouts "out\annotate\*_annotated.json" --only-defense --epochs 40 \
+  --models-dir models\all6_defense --checkpoint recog_all6_def.pt
+`
+
+| 配置 | 样本 | 类别 | within-5fold | LOBO | 产物 |
+|---|---|---|---|---|---|
+| 6 阵 · 全部类型 | 262 | 32 | **0.718** | **0.581** | models/all6_all/recog_all6.pt |
+| **6 阵 · 仅防御类** | 190 | 19 | **0.853** | **0.767** | models/all6_defense/recog_all6_def.pt |
+
+分阵 LOBO（仅防御模型）：01 0.830 / 02 0.625 / 03 0.929 / 04 0.958 / 05 0.917 / **06 0.278**。
+06 只有 18 栋，跨阵最不稳定；02 的 0.625 主要是经济类混标错误被去掉后仍缺样本。
+
+对照（同日之前）：旧 154 样本全类模型 within 0.662 / LOBO 0.503；两阵 168 样本全类 within 0.571 / LOBO 0.355。
+结论：**补标 + 只保留防御类**是这轮提升的主因；识别链路现在有可用的跨阵泛化（LOBO 0.767）。
+
+局限：颜色/等级仍未进标签；06 阵样本太少；经济类不参与训练（只做布局用）。

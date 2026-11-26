@@ -201,6 +201,8 @@ def main():
     ap.add_argument("--models-dir", default=os.path.join(ROOT, "models"))
     ap.add_argument("--checkpoint", default="recog_27px.pt")
     ap.add_argument("--threads", type=int, default=0)
+    ap.add_argument("--only-defense", action="store_true",
+                    help="只用防御类样本（assets.STATS + TH16_OVERRIDE），去掉经济/兵营/陷阱")
     a = ap.parse_args()
 
     torch.set_num_threads(a.threads or min(os.cpu_count() or 4, 8))
@@ -212,6 +214,15 @@ def main():
     crops, labels, bases = build_dataset(files)
     if not crops:
         raise SystemExit("build_dataset 返回空（layout 缺 quad 或 base.png 缺失）")
+    if a.only_defense:
+        from clashlab import assets as _assets
+        keep = set(_assets.STATS) | set(getattr(_assets, "TH16_OVERRIDE", {}))
+        idx = [i for i, lb in enumerate(labels) if lb in keep]
+        dropped = len(labels) - len(idx)
+        crops = [crops[i] for i in idx]
+        labels = [labels[i] for i in idx]
+        bases = [bases[i] for i in idx]
+        print("[filter] only-defense keep=%d dropped=%d" % (len(idx), dropped), flush=True)
 
     classes = sorted(set(labels))
     cmap = {c: i for i, c in enumerate(classes)}
