@@ -97,10 +97,13 @@ def main(argv=None):
         return 2
     try:
         army = _parse_army_arg(args.army)
+        workers = args.workers
+        if workers <= 0:
+            workers = min(8, os.cpu_count() or 1) if args.trials >= 64 else 1
         t0 = time.perf_counter()
         result = run(args.layout, army, trials=args.trials, seed=args.seed,
                      tick=args.tick, max_time=args.max_time, wall_hp=args.wall_hp,
-                     workers=args.workers)
+                     workers=workers)
         elapsed = time.perf_counter() - t0
     except (ValueError, OSError, TypeError) as e:
         print("[wargame] 失败: %s" % (e,), file=sys.stderr)

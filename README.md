@@ -23,13 +23,12 @@ ClashLab 是一个以 LLM 为辅的部落冲突（Clash of Clans）布阵研究�
 
 ![PANEL](docs/screenshots/panel.png)
 
-## 最近更新（2026-11-25）
+## 最近更新（2026-11-26）
 
-- 半自动标注工具 tools/annotate：layout.json 预填 + 点选修正 + 自动保存；新增**网格校准（G）**——拖动 4 个角点对齐整张地图，44×44 网格按「地图最外圈格」起算（不是最外侧建筑/墙）。
-- tools/import_base.py：游戏里点开阵型链接 → 截屏 → 自动 44×44 标定 → 生成 base.png + layout_draft.json。
-- 标注 → 训练闭环：clashlab/recog_dataset.py + tools/train_from_annotations.py。
-- 城墙对称推理 clashlab/wall_symmetry.py；2D 化 clashlab/topdown.py；Windows + Python 3.13 的 CI。
-- base link 解码调研（见 docs/BASELINK_RESEARCH.md）；进度与下一步见 docs/NEXT_STEPS.md。
+- **兵棋推演** `clashlab/wargame.py`：军队构成 + 投放点 → 确定性 tick 战斗模拟 + Monte Carlo 摧毁率分布（base 03 实测 mean 15.5%，最佳投放点 22.1%），CLI 见 `tools/wargame_cli.py`。
+- **实机 UI 验证**：`tools/qa_e2e.py` 一条命令跑 7 项矩阵（HUD/PANEL × 有/无布局、页签切换、缩放重标定、exe 自检），本机实跑 **7/7 PASS**，报告 `docs/QA_E2E.md`。
+- **机器学习可行性**：`tools/train_save_model.py` 训练并保存 `models/recog_27px.pt`（within 0.630 / LOBO 0.477；充分训练可到 0.734 / 0.641），推理接口 `clashlab/recog_model.py`，报告 `docs/ML_FEASIBILITY.md`。
+- 新增四角标注工具 `tools/label_corners/`（给自动标定模型造数据）。
 
 ## 能做什么
 

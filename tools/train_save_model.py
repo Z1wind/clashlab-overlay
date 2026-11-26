@@ -33,6 +33,7 @@ import sys
 import time
 from datetime import datetime, timezone
 
+import cv2
 import numpy as np
 import torch
 import torch.nn.functional as F
@@ -164,7 +165,10 @@ def draw_confusion(matrix, classes, title, path):
     cv2.putText(img, title, (4, 24), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 0, 0), 1, cv2.LINE_AA)
     cv2.putText(img, "rows=true (name,index)  cols=pred(index)", (4, top + n * cell + 28),
                 cv2.FONT_HERSHEY_SIMPLEX, 0.48, (90, 90, 90), 1, cv2.LINE_AA)
-    cv2.imwrite(path, img)
+    ok, buf = cv2.imencode(".png", img)
+    if not ok:
+        raise RuntimeError("混淆矩阵编码失败：%s" % path)
+    buf.tofile(path)  # cv2.imwrite 在非 ASCII 路径下会静默失败
     return path
 
 
@@ -185,9 +189,6 @@ def resolve_files(source, layouts):
 
 
 def main():
-    global cv2
-    import cv2  # noqa: F811  （aug/draw_confusion 用，延迟导入便于 --help）
-
     ap = argparse.ArgumentParser(description="训练 27px CNN 并保存 checkpoint/metrics/confusion")
     ap.add_argument("--layouts", nargs="+", default=None,
                     help="数据 glob；默认 auto（标注优先，回退 layout）")

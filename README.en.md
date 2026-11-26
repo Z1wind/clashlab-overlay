@@ -23,13 +23,12 @@ A note before you dig in: this version still has unfinished parts and bugs, and 
 
 ![PANEL](docs/screenshots/panel.png)
 
-## Recent updates (2026-11-25)
+## Recent updates (2026-11-26)
 
-- Semi-automatic annotation tool tools/annotate: layout.json prefill + click-to-fix + autosave; new **grid calibration (G)** — drag 4 corners to fit the whole map (44x44 counts from the outermost map tile, not the outermost building/wall).
-- tools/import_base.py: open a shared base link in-game -> screenshot -> auto 44x44 calibration -> base.png + layout_draft.json.
-- Annotation -> training loop: clashlab/recog_dataset.py + tools/train_from_annotations.py.
-- Wall symmetry inference (clashlab/wall_symmetry.py), 2D top-down renderer (clashlab/topdown.py), CI on Windows + Python 3.13.
-- Base-link decoding research (docs/BASELINK_RESEARCH.md), progress and next steps in docs/NEXT_STEPS.md.
+- **Wargame simulation** (`clashlab/wargame.py`): army + spawn -> deterministic tick battle sim + Monte Carlo destruction distribution (base 03 mean 15.5%, best spawn 22.1%); CLI in `tools/wargame_cli.py`.
+- **In-game UI verification**: `tools/qa_e2e.py` runs a 7-case matrix (HUD/PANEL with and without layout, tab switch, resize recalibration, exe self-check); 7/7 PASS on this machine; report `docs/QA_E2E.md`.
+- **ML feasibility**: `tools/train_save_model.py` trains and saves `models/recog_27px.pt` (within 0.630 / LOBO 0.477; 0.734 / 0.641 with longer training); inference `clashlab/recog_model.py`; report `docs/ML_FEASIBILITY.md`.
+- New corner-labeling tool `tools/label_corners/` for auto-calibration data.
 
 ## What it does
 

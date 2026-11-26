@@ -1,5 +1,12 @@
 # Changelog
 
+## v0.1.2 (unreleased)
+
+- wargame 引擎与 CLI：确定性兵棋推演 + Monte Carlo 摧毁率；
+- qa_e2e 实机 UI 矩阵（本机 7/7 PASS）与报告；
+- 识别模型训练/推理/可行性报告（models/recog_27px.pt、docs/ML_FEASIBILITY.md）；
+- 四角标注工具 tools/label_corners/。
+
 ## v0.1.1 (unreleased)
 
 - tools/import_base.py：游戏内点开阵型链接 → 截屏 → 自动 44x44 标定 → 生成 base.png + layout_draft.json（含标定合理性检查）。
