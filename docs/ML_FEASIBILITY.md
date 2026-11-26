@@ -23,12 +23,12 @@
 - 网络：3 个 double-conv 块（3→24→48→96）+ BN + ReLU + MaxPool，全局平均池化 → Dropout 0.35 → 1×Linear；
   与 `tools/train_from_annotations.py` **完全同构**（对照实验只变数据，不变网络）。
 - 增强：旋转 ±8°、缩放 0.9–1.1、平移 ±8px、亮度/对比度抖动（p=0.7）、随机擦除 8–18px（p=0.2）。
-- 优化：AdamW(lr=3e-3, wd=2e-3) + cosine，**30 epochs**，batch 24，
+- 优化：AdamW(lr=3e-3, wd=2e-3) + cosine，**40 epochs**，batch 24，
   交叉熵 + label_smoothing 0.05 + 类别权重 `1/sqrt(count)`（归一化）。
 - 加速：`channels_last` + CPU `bf16` autocast（权重仍是 fp32，checkpoint 无精度损失）。
 - 全部 CPU，总耗时见第 3 节；预算 5 分钟，实测见 `models/metrics.json` 的 `runtime.total_s`。
 - 注：`docs/RECOG_RESULTS.md` 的参考跑是同一网络/增强 + 60 epochs + fp32；
-  本脚本为守住 5 分钟预算压到 30 epochs，`--epochs 60 --precision fp32` 可回到参考档（>6 分钟）。
+  本脚本为守住 5 分钟预算压到 40 epochs，`--epochs 60 --precision fp32` 可回到参考档（>6 分钟）。
 
 ## 3. 指标（本机真实运行，非引用）
 

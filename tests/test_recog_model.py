@@ -18,7 +18,11 @@ class TestRecogModel(unittest.TestCase):
         if not os.path.exists(CKPT):
             raise AssertionError(
                 "checkpoint 不存在：%s\n先跑 python tools/train_save_model.py" % CKPT)
-        from clashlab.recog_model import load_model
+        try:
+            import torch  # noqa: F401
+            from clashlab.recog_model import load_model
+        except ImportError as exc:  # torch 是可选的推理/训练依赖，CI 不装
+            raise unittest.SkipTest("推理依赖未安装（可选）：%s；跳过" % exc)
         cls.model = load_model()
 
     def test_checkpoint_structure(self):

@@ -193,8 +193,8 @@ def main():
     ap.add_argument("--layouts", nargs="+", default=None,
                     help="数据 glob；默认 auto（标注优先，回退 layout）")
     ap.add_argument("--source", choices=["auto", "annotate", "layout"], default="auto")
-    ap.add_argument("--epochs", type=int, default=30,
-                    help="默认 30（5 分钟预算内）；参考跑为 60")
+    ap.add_argument("--epochs", type=int, default=40,
+                    help="默认 40（实测 <4 分钟，5 分钟预算内）；参考跑为 60")
     ap.add_argument("--seed", type=int, default=7)
     ap.add_argument("--precision", choices=["bf16", "fp32"], default="bf16")
     ap.add_argument("--no-channels-last", action="store_true")
