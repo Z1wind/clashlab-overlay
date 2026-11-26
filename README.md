@@ -108,6 +108,8 @@ python -m unittest discover -s tests
 - **本地网页标注器**：`python tools/annotate_web.py --image out/live/enemy_scout_live.png` → 浏览器点 4 角 + 建筑 → 导出 annotated JSON（docs/ANNOTATE_WEB.md）。
 - **敌方阵型流水线**：`python tools/enemy_pipeline.py --layout X_annotated.json` → 评分/弱点 + 穿云箭最优线 + 落点敏感性，一次输出。
 
+- 下载 / 备份：[Releases](https://github.com/Z1wind/clashlab-overlay/releases)（最新 `backup-2026-11-26`：exe + 标注数据 zip）。
+
 ## 🗺 路线图
 
 - [x] 覆盖层 HUD/PANEL + 自动重标定

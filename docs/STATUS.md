@@ -51,3 +51,10 @@
 - ClashKing 布局接口需 token；公开端点无布局
 - 夜世界（Builder Base）无数据模型
 - 等级曲线为近似值；结论用于相对比较
+
+## 💾 备份（GitHub Release）
+
+- **backup-2026-11-26**（prerelease）：https://github.com/Z1wind/clashlab-overlay/releases/tag/backup-2026-11-26
+- 资产：`ClashOverlay.exe`（121,346,737 B，md5 CEE1FBBB…）+ `clashlab_annotated_20261126.zip`（11,674,555 B，md5 1476B595…；含 6 阵标注 JSON、真实战图、批量压测报告）
+- 源码：仓库 main 分支 + tag 的自动源码 zip
+- 校验：下载 zip 实测 HTTP 200 / Content-Length 11,674,555 / md5 与本地一致
