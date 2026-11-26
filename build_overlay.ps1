@@ -39,6 +39,7 @@ if (Test-Path "$root\dist\ClashOverlay.exe") { Remove-Item "$root\dist\ClashOver
     --hidden-import onnxruntime.capi._pybind_state `
     --hidden-import clashlab.ocr_screen `
     --hidden-import clashlab.cocapi `
+    --hidden-import zhconv `
     --exclude-module torch `
     --exclude-module torchvision `
     --exclude-module torchaudio `

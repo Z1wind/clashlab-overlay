@@ -5,7 +5,7 @@ from PyInstaller.utils.hooks import collect_submodules
 
 datas = []
 binaries = []
-hiddenimports = ['imgui_bundle.python_backends.glfw_backend', 'OpenGL.GL', 'glfw', 'win32gui', 'win32con', 'win32api', 'win32process', 'win32ui', 'clashlab.vision', 'cv2', 'numpy', 'rapidocr_onnxruntime', 'onnxruntime', 'onnxruntime.capi._pybind_state', 'clashlab.ocr_screen', 'clashlab.cocapi']
+hiddenimports = ['imgui_bundle.python_backends.glfw_backend', 'OpenGL.GL', 'glfw', 'win32gui', 'win32con', 'win32api', 'win32process', 'win32ui', 'clashlab.vision', 'cv2', 'numpy', 'rapidocr_onnxruntime', 'onnxruntime', 'onnxruntime.capi._pybind_state', 'clashlab.ocr_screen', 'clashlab.cocapi', 'zhconv']
 datas += collect_data_files('imgui_bundle')
 datas += collect_data_files('rapidocr_onnxruntime')
 binaries += collect_dynamic_libs('glfw')
