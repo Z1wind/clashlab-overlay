@@ -18,6 +18,12 @@ class TestLang(unittest.TestCase):
         lang._current = "auto"
         self.lang = lang
 
+    def tearDown(self):
+        # 测试会改全局语言状态；复位，避免污染其它测试模块（曾导致面板测试误判为英文）
+        os.environ.pop("CLASHLAB_LANG", None)
+        self.lang._loaded_root = None
+        self.lang._current = "auto"
+
     def test_default_auto(self):
         root = tempfile.mkdtemp()
         self.assertEqual(self.lang.ensure_loaded(root), "auto")
