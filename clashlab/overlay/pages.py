@@ -202,6 +202,12 @@ def _font_ready(ctx, root):
 
 
 def _L(ready, zh, en):
+    from . import lang
+    mode = lang.get()
+    if mode == "en":
+        return en
+    if mode == "zh":
+        return zh
     return en if not ready else zh
 
 
@@ -1474,6 +1480,23 @@ def _draw_setting(ctx, state, root, ready, panel_w, px, H):
     avail_w = panel_w - 2 * PAD
     paths = data.Paths(root)
     y = _content_top(root)
+
+    # ---- 语言切换（简体中文 / English） ----
+    lang.ensure_loaded(root)
+    imgui.set_cursor_screen_pos(imgui.ImVec2(px + PAD, y))
+    imgui.text(_L(ready, "语言", "Language"))
+    imgui.same_line(0.0, 10.0)
+    _cur_lang = lang.get()
+    if _btn("中文", (68.0, 24.0), kind="sec", active=_cur_lang in ("zh", "auto")):
+        lang.set(root, "zh")
+        ctx.log("UI language -> zh")
+    imgui.same_line(0.0, 6.0)
+    if _btn("English", (84.0, 24.0), kind="sec", active=_cur_lang == "en"):
+        lang.set(root, "en")
+        ctx.log("UI language -> en")
+    imgui.same_line(0.0, 8.0)
+    imgui.text_disabled(_L(ready, "（立即生效）", "(applies instantly)"))
+    y += 30.0
 
     # ---- 竖向预算（C7）：563 实机高度下全部行在框内，ESC 说明行 [清除] 括号可见。
     # 预算：锚点段 74 + 快捷键段(22 + 5×26=152) + 消息行18 + 恢复/ESC 行26

@@ -1,6 +1,7 @@
 # Changelog
 
 ## v0.3.0 (unreleased)
+- UI 语言切换：设置页 [中文]/[English] + --lang / CLASHLAB_LANG（docs/I18N.md）
 - 穿云箭：吹风机计入对空目标、特斯拉隐身提醒+负收益、自动选线（优先吹风机）
 - 战术知识库 `knowledge/tactics.json` / `docs/TACTICS.md`
 - OCR 对手识别（RapidOCR）+ ClashKing API 自动解析 TH/部落战 + fresh=True 最新数据；

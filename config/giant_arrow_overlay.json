@@ -1,0 +1,58 @@
+{
+ "from": [
+  6.24,
+  44.0
+ ],
+ "to": [
+  23.0,
+  0.0
+ ],
+ "hits": [
+  {
+   "type": "scattershot",
+   "tile": [
+    12,
+    30
+   ],
+   "order": 1,
+   "perp": 0.399
+  },
+  {
+   "type": "air-defense",
+   "tile": [
+    15,
+    21
+   ],
+   "order": 2,
+   "perp": 0.001
+  },
+  {
+   "type": "eagle-artillery",
+   "tile": [
+    16,
+    16
+   ],
+   "order": 3,
+   "perp": 0.846
+  },
+  {
+   "type": "air-sweeper",
+   "tile": [
+    23,
+    0
+   ],
+   "order": 4,
+   "perp": 0.0
+  }
+ ],
+ "summary": {
+  "total": 4,
+  "air_defense": 1,
+  "air_sweeper": 1,
+  "air_total": 2,
+  "tesla_hidden": 0,
+  "other": 2
+ },
+ "score": 7.0,
+ "ts": "2026-11-26T19:25:05"
+}

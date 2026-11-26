@@ -67,11 +67,16 @@ def main() -> None:
                     help="start mode")
     ap.add_argument("--always-on-top", action="store_true",
                     help="always visible (default: follow foreground, hide when LDPlayer not front)")
+    ap.add_argument("--lang", default=None, choices=["auto", "zh", "en"],
+                    help="UI language: auto / zh / en")
     ap.add_argument("--allow-primary", action="store_true",
                     help="allow target on primary display (single-monitor setups)")
     ap.add_argument("--ocr-selftest", nargs=2, metavar=("IMAGE", "OUT_JSON"), default=None,
                     help="offline OCR self-test: read image -> write parsed result JSON")
     a = ap.parse_args()
+    if getattr(a, "lang", None):
+        import os as _os
+        _os.environ["CLASHLAB_LANG"] = a.lang
 
     if a.ocr_selftest:
         import json

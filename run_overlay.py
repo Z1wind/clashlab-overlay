@@ -24,10 +24,14 @@ def main():
     ap.add_argument("--mode", default=None, choices=["HUD", "PANEL"], help="启动模式")
     ap.add_argument("--always-on-top", action="store_true",
                     help="常显（默认关闭=跟随前台，雷电不在前台即隐藏）")
+    ap.add_argument("--lang", default=None, choices=["auto", "zh", "en"],
+                    help="UI language: auto / zh / en (overrides config/ui.json)")
     ap.add_argument("--allow-primary", action="store_true",
                     help="逃生开关（不建议使用）：允许覆盖层出现在主显示器；"
                          "默认关闭=渲染窗口在主屏即强制隐藏")
     a = ap.parse_args()
+    if getattr(a, "lang", None):
+        os.environ["CLASHLAB_LANG"] = a.lang
 
     cfg = {}
     if a.show:

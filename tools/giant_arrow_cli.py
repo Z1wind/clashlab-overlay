@@ -24,6 +24,8 @@ def main():
     ap.add_argument("--tol", type=float, default=1.2)
     ap.add_argument("--top", type=int, default=5)
     ap.add_argument("--json", action="store_true")
+    ap.add_argument("--emit-overlay", action="store_true",
+                    help="写 config/giant_arrow_overlay.json 供 HUD 直接画在游戏上")
     a = ap.parse_args()
     lay = json.load(open(a.layout, encoding="utf-8"))
     res = g.optimize_giant_arrow(lay, grid=a.grid, tol=a.tol, top=a.top)
@@ -31,6 +33,22 @@ def main():
         print(json.dumps(res, ensure_ascii=False, indent=1))
         return
     best = res.get("best")
+    if a.emit_overlay:
+        import time as _t
+        if not best:
+            print("没有对空目标，无法生成 overlay 计划")
+            return
+        out = os.path.join(ROOT, "config", "giant_arrow_overlay.json")
+        payload = {"from": best["from"], "to": best["to"],
+                   "hits": [{"type": h["type"], "tile": h["tile"],
+                             "order": h["order"], "perp": h["perp"]} for h in best["hits"]],
+                   "summary": best["summary"], "score": best["score"],
+                   "ts": _t.strftime("%Y-%m-%dT%H:%M:%S")}
+        os.makedirs(os.path.dirname(out), exist_ok=True)
+        import json as _json
+        _json.dump(payload, open(out, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+        print("已写 HUD overlay 计划:", out)
+        return
     if not best:
         print("没有对空目标（吹风机/防空火箭），无法选线")
         return

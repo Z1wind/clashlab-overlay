@@ -96,6 +96,8 @@ python -m unittest discover -s tests
 
 - **实机测试**：雷电窗口只读截图 + OCR + API（发现同名歧义并加 #TAG 优先解析），见 `docs/LIVE_TEST.md`。
 
+- **中英文界面切换**：设置页 [中文]/[English] 一键切换，或 `--lang en` / `CLASHLAB_LANG=en`（docs/I18N.md）。
+
 ## 🗺 路线图
 
 - [x] 覆盖层 HUD/PANEL + 自动重标定

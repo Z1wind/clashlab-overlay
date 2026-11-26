@@ -1105,6 +1105,13 @@ def run(root: str, config: dict | None = None) -> None:
                 # v9-②：calib 已按当前视口还原为客户区像素；draw 层内部按
                 # 1280x720 虚拟基准再缩放，这里传虚拟尺寸避免二次缩放
                 hud_draw.draw_marks(dl, rt.calib, rt.state.marks, 1280.0, 720.0)
+                try:
+                    from . import giant_arrow_hud
+                    _gap = giant_arrow_hud.load_overlay_plan(rt.root)
+                    if _gap:
+                        giant_arrow_hud.draw_giant_arrow(dl, rt.calib, _gap, 1280.0, 720.0)
+                except Exception:
+                    pass
                 # H4 引擎互斥：llm 只画策略点，local 只画 rank 点，绝不同帧共存；
                 # 切引擎后分支互斥，旧标注下一帧即归零，不留残影
                 if tactics.SEL.get("engine") == "llm":
