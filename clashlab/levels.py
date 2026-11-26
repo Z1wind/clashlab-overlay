@@ -19,6 +19,13 @@ TROOP_MAX_LEVEL = 11
 HERO_GROWTH = 1.03
 HERO_MAX_LEVEL = 95
 DEFAULT_MAX_LEVEL = 20
+# 标注工具/旧布局里的别名 -> ruleset 规范名
+ALIASES = {
+    "builder-hut": "builders-hut",
+    "builder-huts": "builders-hut",
+    "dark-spell-factory": "dark-spell-factory",
+    "seeking-air-mine": "seeking-air-mine",
+}
 
 
 def clamp_level(level, max_level):
@@ -71,12 +78,13 @@ def army_boost(hero_levels):
     return 0.5 + 0.5 * avg
 
 
-def max_level_of(name, th=None, default=DEFAULT_MAX_LEVEL):
+def max_level_of(name, th=None, default=DEFAULT_MAX_LEVEL, strict=False):
     """取某建筑在某 TH 的 reviewed 最高等级（优先 knowledge/th_ruleset.json）。
 
     顺序：ruleset.objects[name].max_levels[str(th)] -> th_data.stats().level -> default。
     """
     th = int(th or 16)
+    name = ALIASES.get(str(name), str(name))
     try:
         import json
         import os
@@ -93,6 +101,8 @@ def max_level_of(name, th=None, default=DEFAULT_MAX_LEVEL):
         from . import th_data
         st = th_data.stats(name, th)
         lv = int(st.get("level") or 0)
-        return lv or default
+        if lv > 0:
+            return lv
     except Exception:
-        return default
+        pass
+    return None if strict else default

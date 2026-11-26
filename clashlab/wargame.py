@@ -206,6 +206,32 @@ def _guess_th(text):
     return int(m.group(1)) if m else 16
 
 
+def _ruleset_size(btype, default=3):
+    """从 knowledge/th_ruleset.json 查建筑占地（reviewed）。"""
+    try:
+        import json as _json
+        import os as _os
+        _p = _os.path.join(_os.path.dirname(_os.path.dirname(_os.path.abspath(__file__))),
+                           "knowledge", "th_ruleset.json")
+        if not getattr(_ruleset_size, "_cache", None):
+            _ruleset_size._cache = _json.load(open(_p, encoding="utf-8")).get("objects") or {}
+        o = _ruleset_size._cache.get(str(btype)) or {}
+        w = int(o.get("width") or 0)
+        h = int(o.get("height") or 0)
+        return max(w, h) or default
+    except Exception:
+        return default
+
+
+def _is_defense_type(btype):
+    """只有 assets.STATS / TH16_OVERRIDE 里的类型算防御；经济/兵营/陷阱按非防御。"""
+    try:
+        from . import assets as _assets
+        return (str(btype) in _assets.STATS) or (str(btype) in getattr(_assets, "TH16_OVERRIDE", {}))
+    except Exception:
+        return False
+
+
 def parse_layout(data):
     """把 layout dict / 路径 / 已解析对象统一成 Layout。"""
     if isinstance(data, Layout):
@@ -233,6 +259,9 @@ def parse_layout(data):
         except Exception:
             tx, ty = grid // 2, grid // 2
         st = building_stats(typ)
+        if not _is_defense_type(typ):
+            # 经济/兵营等非防御建筑：不参与火力，HP 用通用低值，尺寸查 ruleset
+            st = {"hp": 1000.0, "dps": 0.0, "range": 0.0, "size": _ruleset_size(typ)}
         size = int(raw.get("size") or st["size"] or 3)
         size = max(1, min(size, grid))
         hp = float(raw["hp"]) if raw.get("hp") is not None else float(st["hp"])

@@ -1,0 +1,19 @@
+# -*- coding: utf-8 -*-
+import base64, hashlib, json, os, urllib.parse, urllib.request
+BASE = r"C:\Users\Admin（无密码）\Doubao\chats\2026-11-23\new-chat"
+TOKEN = os.environ["GH_TOKEN"]; REPO = "https://api.github.com/repos/Z1wind/clashlab-overlay"
+def get(u):
+    h = {"Authorization": "token " + TOKEN, "User-Agent": "c", "Accept": "application/vnd.github+json"}
+    with urllib.request.urlopen(urllib.request.Request(u, headers=h), timeout=60) as r:
+        return json.loads(r.read().decode("utf-8", "ignore"))
+for p in ("clashlab/levels.py", "tools/apply_max_levels.py", "docs/LEVELS.md",
+          "clashlab/level_visual.py", "tools/infer_levels.py"):
+    local = open(os.path.join(BASE, p), "rb").read()
+    rb = base64.b64decode(get(REPO + "/contents/" + urllib.parse.quote(p))["content"].replace("\n", ""))
+    print("%-30s local=%7d remote=%7d match=%s md5=%s" % (p, len(local), len(rb),
+          hashlib.md5(local).hexdigest() == hashlib.md5(rb).hexdigest(), hashlib.md5(local).hexdigest()))
+runs = get(REPO + "/actions/runs?per_page=2")
+for w in runs["workflow_runs"]:
+    print("CI:", w["head_sha"][:8], w["status"], w["conclusion"])
+rep = json.load(open(os.path.join(BASE, "out", "annotate", "level_fill_report.json"), encoding="utf-8"))
+print("fill totals:", rep["totals"]["buildings"], "types:", len(rep["totals"]["types"]))

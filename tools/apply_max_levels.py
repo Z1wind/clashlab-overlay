@@ -23,7 +23,10 @@ def fill_file(path, th, overwrite=False):
         t = str(b.get("type") or "")
         if not t:
             continue
-        max_lv = levels.max_level_of(t, th)
+        max_lv = levels.max_level_of(t, th, strict=True)
+        if max_lv is None:
+            rows.append({"type": t, "tile": b.get("tile"), "level": None, "skipped": "unknown-type"})
+            continue
         if b.get("level") and not overwrite:
             rows.append({"type": t, "tile": b.get("tile"), "level": b["level"], "kept": True})
             continue
