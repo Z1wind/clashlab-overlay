@@ -3,5 +3,6 @@
  "adb": "E:\\leidian\\LDPlayer9\\adb.exe",
  "model": "deepseek-v4.1-flash",
  "out": "out",
- "layout": "layouts\\th13_sample.json"
+ "layout": "layouts\\th13_sample.json",
+ "lang": "zh"
 }

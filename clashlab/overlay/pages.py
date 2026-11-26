@@ -179,6 +179,17 @@ def _btn(label, size, *, kind="sec", active=False, disabled=False, key=None, tip
     return clicked
 
 
+def _T(zh, en):
+    """无 ready 参数处的简/繁/英切换。"""
+    from . import lang
+    mode = lang.get()
+    if mode == "en":
+        return en
+    if mode == "zh-hant":
+        return lang.to_hant(zh)
+    return zh
+
+
 def _panel_origin():
     """面板原点与宽：外置独立窗口（W≈440）时铺满整个窗口；
     inner 回退（窗口=客户区）时固定 440 贴右。比例公式已删。"""
@@ -1544,11 +1555,11 @@ def _draw_setting(ctx, state, root, ready, panel_w, px, H):
     _keys_ensure_loaded(root)
     _keys_capture_poll(ctx)
     imgui.set_cursor_screen_pos(imgui.ImVec2(px + PAD, y))
-    imgui.text(_L(ready, "快捷键绑定", "Hotkeys"))
+    imgui.text(_L(ready, _T("快捷键绑定", "Hotkeys"), "Hotkeys"))
     # P1-5：默认键已避开雷电热键（F8/F9/F11）；占用键只在行内黄警，不加后缀
     imgui.set_cursor_screen_pos(imgui.ImVec2(px + PAD + 96.0, y))
     imgui.text_colored(imgui.ImVec4(*GREY),
-                       _L(ready, "默认键已避开雷电热键（F8/F9/F11）",
+                       _L(ready, _T("默认键已避开雷电热键（F8/F9/F11）", "Default keys avoid LDPlayer hotkeys (F8/F9/F11)"),
                           "Defaults avoid LDPlayer hotkeys (F8/F9/F11)"))
     y += 20.0
     bindings = keybind.bindings()
@@ -1607,7 +1618,7 @@ def _draw_setting(ctx, state, root, ready, panel_w, px, H):
                                           else (GREEN if kind == "green" else GREY))
         imgui.text_colored(imgui.ImVec4(*col), text)
     else:
-        imgui.text_colored(imgui.ImVec4(*GREY), "已保存 overlay_keys.json")
+        imgui.text_colored(imgui.ImVec4(*GREY), _T("已保存 overlay_keys.json", "Saved overlay_keys.json"))
     y += 20.0  # 审计 R5：文字底到下一行按钮顶留足 4px，不再微触
 
     # ---- 恢复默认（左）；ESC 提示同行右对齐，[清除] 右括号必在框内（C7）----
@@ -1625,7 +1636,7 @@ def _draw_setting(ctx, state, root, ready, panel_w, px, H):
     # ---- 面板位置：右 / 下 / 内（外置窗口；落盘 config/overlay.json，默认右） ----
     y += 4.0
     imgui.set_cursor_screen_pos(imgui.ImVec2(px + PAD, y))
-    imgui.text(_L(ready, "面板位置（外置窗口）", "Panel position"))
+    imgui.text(_L(ready, _T("面板位置（外置窗口）", "Panel position (external window)"), "Panel position"))
     y += 18.0
     try:
         from . import config as _ovcfg
@@ -1652,7 +1663,7 @@ def _draw_setting(ctx, state, root, ready, panel_w, px, H):
     # ---- P1-6 一键重对位：接 vision.detect_boundary/safe_calib（不改其内部）；禁 F11 ----
     y += 4.0
     imgui.set_cursor_screen_pos(imgui.ImVec2(px + PAD, y))
-    if _btn(_L(ready, "重新对位", "Recalibrate"), imgui.ImVec2(150.0, 24.0),
+    if _btn(_L(ready, _T("重新对位", "Recalibrate"), "Recalibrate"), imgui.ImVec2(150.0, 24.0),
             kind="sec", key="recalib_btn"):
         ctx.request_recalib()
     rk = ctx.recalib_msg if hasattr(ctx, "recalib_msg") else ("neutral", "")
@@ -1665,7 +1676,7 @@ def _draw_setting(ctx, state, root, ready, panel_w, px, H):
     y += 4.0
     imgui.set_cursor_screen_pos(imgui.ImVec2(px + PAD, y))
     vw = ctx.view_warn if hasattr(ctx, "view_warn") else False
-    _, vw_new = imgui.checkbox(_L(ready, "HUD 显示「视角可能已变」角标",
+    _, vw_new = imgui.checkbox(_L(ready, _T("HUD 显示「视角可能已变」角标", "Show 'view may have changed' badge on HUD"),
                                  "Show the view-may-have-changed badge on HUD"), vw)
     if vw_new != vw:
         ctx.set_view_warn(vw_new)
@@ -1678,7 +1689,7 @@ def _draw_setting(ctx, state, root, ready, panel_w, px, H):
         _SESSION["offset_dx"] = ctypes.c_float(float(off.get("dx", 0) or 0))
         _SESSION["offset_dy"] = ctypes.c_float(float(off.get("dy", 0) or 0))
     imgui.set_cursor_screen_pos(imgui.ImVec2(px + PAD, y))
-    imgui.text(_L(ready, "贴合偏移（保存由运行时写 config）",
+    imgui.text(_L(ready, _T("贴合偏移（保存由运行时写 config）", "Fit offset (runtime saves to config)"),
                   "Fit offset (saved by the runtime)"))
     y += 18.0
     # 输入框去 ImGui 默认蓝：frame/步进按钮统一灰系（C1）
@@ -1709,7 +1720,7 @@ def _draw_setting(ctx, state, root, ready, panel_w, px, H):
     # 自然流紧随偏移段，段间 4px，提示右对齐并夹在面板内边距内，按钮底留状态栏。
     y += 4.0
     imgui.set_cursor_screen_pos(imgui.ImVec2(px + PAD, y))
-    if _btn(_L(ready, "退出覆盖层", "Exit"), imgui.ImVec2(150.0, 24.0),
+    if _btn(_L(ready, _T("退出覆盖层", "Exit overlay"), "Exit"), imgui.ImVec2(150.0, 24.0),
             kind="sec", key="panel_exit"):
         ctx.request_exit()
     y += 28.0
