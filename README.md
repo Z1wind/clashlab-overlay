@@ -101,6 +101,8 @@ python -m unittest discover -s tests
 - **英雄落点→穿云箭方向**：按「最近建筑中心」推箭线，并做 ±0.5 格落点敏感性测试（stable/flips）；`tools/arrow_placement_cli.py`。
 - **三语界面**：设置页 [中文] [繁體] [English]，或 `--lang zh-hant`。
 
+- **批量压测**：98 例（真实 6 阵 × 6 变体 + 20 生成阵）跑穿云箭选线/落点敏感性，仅 26% 落点稳定、13 例目标翻转（`docs/ARROW_BATCH.md`）。
+
 ## 🗺 路线图
 
 - [x] 覆盖层 HUD/PANEL + 自动重标定
