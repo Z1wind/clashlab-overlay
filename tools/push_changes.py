@@ -56,8 +56,19 @@ head_sha = head["object"]["sha"]
 commit_info = call("GET", REPO + "/git/commits/" + head_sha)
 tree = call("POST", REPO + "/git/trees", {"base_tree": commit_info["tree"]["sha"], "tree": changed})
 print("tree:", tree["sha"], flush=True)
-commit = call("POST", REPO + "/git/commits", {"message": "docs: trim comments, bilingual README/tutorial/attributions",
-                                                "tree": tree["sha"], "parents": [head_sha]})
+def _local_commit_message():
+    try:
+        r = subprocess.run([git, "log", "-1", "--pretty=%B"], cwd=BASE, capture_output=True, text=True)
+        m = (r.stdout or "").strip()
+        return m or "chore: sync workspace"
+    except Exception:
+        return "chore: sync workspace"
+
+
+MSG = _local_commit_message()
+print("commit message:", (MSG.splitlines() or [""])[0][:80], flush=True)
+commit = call("POST", REPO + "/git/commits", {"message": MSG,
+                                              "tree": tree["sha"], "parents": [head_sha]})
 print("commit:", commit["sha"], flush=True)
 ref = call("PATCH", REPO + "/git/refs/heads/main", {"sha": commit["sha"], "force": True})
 print("ref:", ref["ref"], flush=True)
