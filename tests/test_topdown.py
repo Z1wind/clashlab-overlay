@@ -21,7 +21,9 @@ class TestTopdown(unittest.TestCase):
         d = tempfile.mkdtemp()
         p = os.path.join(d, "t.png")
         w, h, nb, nw = render_topdown(LAY, p, cell=12)
-        self.assertEqual((w, h), (44 * 12, 44 * 12))
+        # 新画布 = 地图 + 左右 margin 26*2 + 顶部标题栏 54 + 底部图例带 40
+        margin, hud_h, legend_h = 26, 54, 40
+        self.assertEqual((w, h), (44 * 12 + margin * 2, 44 * 12 + margin + hud_h + legend_h))
         self.assertEqual((nb, nw), (3, 3))
         self.assertGreater(os.path.getsize(p), 1000)
 
