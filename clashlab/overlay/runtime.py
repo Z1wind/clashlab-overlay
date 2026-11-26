@@ -185,15 +185,26 @@ def _last_input_idle_s():
 # ---------------------------------------------------------------- 目标窗口探测
 def find_render_target():
     """找 LDPlayerMainFrame；取其可见后代客户区最大者为渲染面。返回 (main, child)。"""
-    main = [None]
+    cands = []
 
     def _cb(h, _):
         if win32gui.GetClassName(h) == "LDPlayerMainFrame" and win32gui.IsWindowVisible(h):
-            main[0] = h
+            cands.append((h, win32gui.GetWindowText(h) or ""))
 
     win32gui.EnumWindows(_cb, None)
-    if not main[0]:
+    if not cands:
         return None, None
+    # 多开时选对实例：标题恰为「雷电模拟器」优先（CoC），其次不带 -1/-2 后缀
+    def _key(item):
+        _h, title = item
+        s = title.strip()
+        if s == "雷电模拟器":
+            return (0, len(s), _h)
+        if "雷电" in s and not s.endswith(("-1", "-2", "-3", "-4")):
+            return (1, len(s), _h)
+        return (2, len(s), _h)
+    cands.sort(key=_key)
+    main = [cands[0][0]]
     best = [None, 0]
 
     def _walk(h):
@@ -285,7 +296,9 @@ def _panel_zone_fit(zone, tx, ty, tw, th, sw, sh, work_bottom):
             旧实现返回整客户区 1280x720，左侧被不透明底板盖住且拦截鼠标（P2-5b）。
             最后兜底，总是可用（条带夹进主屏）。"""
     if zone == "right":
-        h = float(min(th, sh))
+        # 面板内容需要约 700px 高；目标客户区常常只有 ~560（1280x720 缩放），
+        # 之前直接取 th 导致设置页底部被裁。这里取 max(th, 700) 并夹进工作区。
+        h = float(min(max(float(th), 700.0), float(work_bottom - ty), float(sh)))
         y = float(max(0, min(ty, sh - int(h))))
         x = float(tx + tw + PANEL_GAP)
         if h < PANEL_MIN_H or x < 0 or x + PANEL_PW > sw:

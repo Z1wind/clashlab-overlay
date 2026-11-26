@@ -280,6 +280,7 @@ def draw_panel(ctx, state):
     if imgui is None:
         return
     root = getattr(state, "root", ".") or "."
+    _SESSION["_root"] = root
     ready = _font_ready(ctx, root)
     io = imgui.get_io()
     W, H = io.display_size.x, io.display_size.y
@@ -401,7 +402,10 @@ def _tab_row(ctx, state, ready, px, panel_w):
         (PAGE_COLLECT, _L(ready, "采集", "Capture")),
         (PAGE_SETTING, _L(ready, "设置", "Settings")),
     ]
-    avail_w = panel_w - 2 * PAD
+    LANGS = (("zh", "中"), ("zh-hant", "繁"), ("en", "EN"))
+    LANG_W, LANG_GAP = 27.0, 4.0
+    lang_reserve = len(LANGS) * LANG_W + (len(LANGS) - 1) * LANG_GAP + 8.0
+    avail_w = panel_w - 2 * PAD - lang_reserve
     bw = (avail_w - GAP * (len(tabs) - 1)) / len(tabs)
     for i, (key, label) in enumerate(tabs):
         imgui.set_cursor_screen_pos(imgui.ImVec2(px + PAD + i * (bw + GAP), 12.0))
@@ -415,6 +419,19 @@ def _tab_row(ctx, state, ready, px, panel_w):
         if _btn(label, imgui.ImVec2(bw, 26.0),
                 kind="amber" if active else "sec", key=f"tab_{key}"):
             ctx.set_page(key)
+    # 语言切换：标签条最右侧三个小钮（任何页都可见）
+    _root = _SESSION.get("_root") or "."
+    lang.ensure_loaded(_root)
+    cur = lang.get()
+    lx0 = px + panel_w - PAD - len(LANGS) * LANG_W - (len(LANGS) - 1) * LANG_GAP
+    for i, (mode, lab) in enumerate(LANGS):
+        imgui.set_cursor_screen_pos(imgui.ImVec2(lx0 + i * (LANG_W + LANG_GAP), 12.0))
+        if _btn(lab, imgui.ImVec2(LANG_W, 26.0), kind="sec",
+                active=(cur == mode or (mode == "zh" and cur == "auto")), key=f"lang_{mode}"):
+            try:
+                lang.set(_root, mode)
+            except Exception:
+                pass
 
 
 # ---------------------------------------------------------------- 状态角标
@@ -1486,26 +1503,6 @@ def _draw_setting(ctx, state, root, ready, panel_w, px, H):
     paths = data.Paths(root)
     y = _content_top(root)
 
-    # ---- 语言切换（简体中文 / English） ----
-    lang.ensure_loaded(root)
-    imgui.set_cursor_screen_pos(imgui.ImVec2(px + PAD, y))
-    imgui.text(_L(ready, "语言", "Language"))
-    imgui.same_line(0.0, 10.0)
-    _cur_lang = lang.get()
-    if _btn("中文", (68.0, 24.0), kind="sec", active=_cur_lang in ("zh", "auto")):
-        lang.set(root, "zh")
-        ctx.log("UI language -> zh")
-    imgui.same_line(0.0, 6.0)
-    if _btn("繁體", (64.0, 24.0), kind="sec", active=_cur_lang == "zh-hant"):
-        lang.set(root, "zh-hant")
-        ctx.log("UI language -> zh-hant")
-    imgui.same_line(0.0, 6.0)
-    if _btn("English", (84.0, 24.0), kind="sec", active=_cur_lang == "en"):
-        lang.set(root, "en")
-        ctx.log("UI language -> en")
-    imgui.same_line(0.0, 8.0)
-    imgui.text_disabled(_L(ready, "（立即生效）", "(applies instantly)"))
-    y += 30.0
 
     # ---- 竖向预算（C7）：563 实机高度下全部行在框内，ESC 说明行 [清除] 括号可见。
     # 预算：锚点段 74 + 快捷键段(22 + 5×26=152) + 消息行18 + 恢复/ESC 行26

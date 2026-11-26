@@ -11,6 +11,9 @@
     "dx": 0,
     "dy": 0
   },
+  "panel_position": "right",
   "self_check_seconds": 30,
-  "fps_window": 180
+  "fps_window": 180,
+  "always_on_top": false,
+  "allow_primary": false
 }
