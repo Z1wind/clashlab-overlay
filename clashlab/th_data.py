@@ -1036,7 +1036,7 @@ def support_status(th):
     return _TH_STATUS[_norm_th(th)][0]
 
 
-def stats(name, th):
+def stats(name, th, level=None):
     """按档位取数：优先精确档表，缺失回退「不高于该档的最近档」并标 approx=True。
 
     未知建筑回退 assets.DEFAULT_FALLBACK，unknown=True（只 WARN 一次）。
@@ -1081,4 +1081,16 @@ def stats(name, th):
     out["approx"] = approx
     out["approx_from"] = from_th if approx else None
     out["unknown"] = unknown
+    # 等级：显式给定则按曲线缩放 hp/dps（满级 = 原值），否则标记 level_estimated
+    if level is not None:
+        from . import levels as _levels
+        _mx = int(out.get("level") or 0) or _levels.DEFAULT_MAX_LEVEL
+        _sc = _levels.building_scale(int(level), _mx)
+        out["hp"] = round(float(out.get("hp") or 0) * _sc["hp"], 3)
+        out["dps"] = round(float(out.get("dps") or 0) * _sc["dps"], 3)
+        out["level"] = int(level)
+        out["level_max"] = _mx
+        out["level_estimated"] = False
+    else:
+        out["level_estimated"] = True
     return out

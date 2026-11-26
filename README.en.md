@@ -25,6 +25,7 @@ A note before you dig in: this version still has unfinished parts and bugs, and 
 
 ## Recent updates (2026-11-26)
 
+- **Level system (new)**: `clashlab/levels.py` + `clashlab/th_data.py` take building/troop/hero levels; measured: low-level troops drop destruction from 18.95% to 8.55%, low-level enemy buildings raise it to 21.05%; see `docs/LEVELS.md`.
 - **TH1–TH19 support**: `clashlab/th_data.py` + `knowledge/th_ruleset.json` (reviewed ruleset: sizes/levels/unlocks exact; TH17-19 hp/dps low-confidence extrapolation); see `docs/TH_SUPPORT.md`.
 - **Layout -> army recommendation**: `clashlab/strategy.py` picks 3 meta compositions from weakness signals, with deployment steps and YouTube search links; data in `knowledge/strategies.json`; docs `docs/STRATEGY.md`.
 - **Spawn point -> spawn line/region**: `clashlab/deploy.py` enumerates 12 lines + 4 regions and picks the best; base 03 measured **17.9% -> 24.7%**; docs `docs/DEPLOY.md`.

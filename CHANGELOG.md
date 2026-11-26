@@ -1,6 +1,7 @@
 # Changelog
 
 ## v0.2.0 (unreleased)
+- 等级体系：建筑/兵种/英雄等级参与推演（实测低配兵摧毁率 18.95%→8.55%）；
 
 - TH1–TH19 数据层（reviewed ruleset）与 assets.stats 委托；
 - 布阵 → 兵种搭配推荐（弱点判定 + 投放步骤 + YouTube 搜索入口）；

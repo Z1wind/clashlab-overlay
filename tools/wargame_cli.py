@@ -81,8 +81,25 @@ def build_parser():
                     help="单格墙血量（默认 %s）" % DEFAULT_WALL_HP)
     ap.add_argument("--workers", type=int, default=0,
                     help="并行进程数；0=自动（trials>=64 时用 8 进程，否则串行）")
+    ap.add_argument("--troop-levels", default=None,
+                    help='兵种等级，例如 giant=10,wizard=9（不传=满级）')
+    ap.add_argument("--hero-levels", default=None,
+                    help='英雄等级，例如 queen=80,king=75（不传=满级）')
     ap.add_argument("--quiet", action="store_true", help="不把 JSON 打到 stdout（配合 --out）")
     return ap
+
+
+def _parse_level_map(text):
+    out = {}
+    for part in str(text or "").split(","):
+        part = part.strip()
+        if not part:
+            continue
+        if "=" not in part:
+            raise ValueError("等级格式应为 key=level：%r" % part)
+        k, v = part.split("=", 1)
+        out[k.strip()] = int(v)
+    return out
 
 
 def main(argv=None):
@@ -101,9 +118,11 @@ def main(argv=None):
         if workers <= 0:
             workers = min(8, os.cpu_count() or 1) if args.trials >= 64 else 1
         t0 = time.perf_counter()
+        troop_levels = _parse_level_map(args.troop_levels) if args.troop_levels else None
+        hero_levels = _parse_level_map(args.hero_levels) if args.hero_levels else None
         result = run(args.layout, army, trials=args.trials, seed=args.seed,
                      tick=args.tick, max_time=args.max_time, wall_hp=args.wall_hp,
-                     workers=workers)
+                     workers=workers, troop_levels=troop_levels, hero_levels=hero_levels)
         elapsed = time.perf_counter() - t0
     except (ValueError, OSError, TypeError) as e:
         print("[wargame] 失败: %s" % (e,), file=sys.stderr)

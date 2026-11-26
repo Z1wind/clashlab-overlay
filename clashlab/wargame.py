@@ -200,6 +200,12 @@ def _deployment_mask(passable, grid, band=2):
     return mask
 
 
+def _guess_th(text):
+    import re as _re
+    m = _re.search(r"th(\d{1,2})", str(text or ""), _re.I)
+    return int(m.group(1)) if m else 16
+
+
 def parse_layout(data):
     """把 layout dict / 路径 / 已解析对象统一成 Layout。"""
     if isinstance(data, Layout):
@@ -232,6 +238,13 @@ def parse_layout(data):
         hp = float(raw["hp"]) if raw.get("hp") is not None else float(st["hp"])
         dps = float(raw["dps"]) if raw.get("dps") is not None else float(st["dps"])
         rng = float(raw["range"]) if raw.get("range") is not None else float(st["range"])
+        lvl = raw.get("level")
+        if lvl is not None and raw.get("hp") is None:
+            from . import levels as _levels
+            _mx = _levels.max_level_of(typ, _guess_th(name))
+            _sc = _levels.building_scale(lvl, _mx)
+            hp *= float(_sc["hp"])
+            dps *= float(_sc["dps"])
         x0 = tx - (size - 1) // 2
         y0 = ty - (size - 1) // 2
         tiles = [(x, y) for x in range(x0, x0 + size) for y in range(y0, y0 + size)
@@ -253,6 +266,7 @@ def parse_layout(data):
             "tiles": tiles,
             "center": center,
             "source": raw.get("source"),
+            "level": (int(lvl) if lvl is not None else None),
         })
 
     blocked = np.zeros((grid, grid), dtype=bool)
@@ -377,7 +391,7 @@ def default_spawns(layout):
     return out
 
 
-def _expand_units(army, space, spawn, rng, grid):
+def _expand_units(army, space, spawn, rng, grid, troop_levels=None, hero_levels=None):
     """按军队构成展开成逐兵数组。
 
     space 是可站立格掩膜（调用方传 passable：投放抖动只吸附到可站立格，
@@ -394,6 +408,10 @@ def _expand_units(army, space, spawn, rng, grid):
     speed = np.zeros(U, dtype=np.float64)
     rng_ = np.zeros(U, dtype=np.float64)
     prefer = np.zeros(U, dtype=bool)
+    hero_boost = 1.0
+    if hero_levels:
+        from . import levels as _levels
+        hero_boost = float(_levels.army_boost(hero_levels))
     for i, name in enumerate(names):
         st = TROOPS[name]
         jx, jy = rng.uniform(-1.6, 1.6, size=2)
@@ -401,8 +419,16 @@ def _expand_units(army, space, spawn, rng, grid):
         if p is None:
             p = _snap(spawn, space, grid, max_r=grid) or (int(spawn[0]), int(spawn[1]))
         pos[i] = p
-        hp[i] = float(st["hp"])
-        dps[i] = float(st["dps"])
+        hp_i, dps_i = float(st["hp"]), float(st["dps"])
+        if troop_levels:
+            _lv = dict(troop_levels).get(name)
+            if _lv is not None:
+                from . import levels as _levels
+                _sc = _levels.troop_scale(_lv)
+                hp_i *= float(_sc["hp"])
+                dps_i *= float(_sc["dps"])
+        hp[i] = hp_i
+        dps[i] = dps_i * hero_boost
         speed[i] = float(st["speed"])
         rng_[i] = float(st["range"])
         prefer[i] = bool(st["prefer_defense"])
@@ -456,7 +482,7 @@ def _norm_spawn_list(spawn):
     return [(int(round(float(spawn[0]))), int(round(float(spawn[1]))))]
 
 
-def _expand_units_multi(army, spawns, space, rng, grid):
+def _expand_units_multi(army, spawns, space, rng, grid, troop_levels=None, hero_levels=None):
     """按 spawn 数量拆分军队后逐个展开，返回拼接后的数组（线/区域投放）。"""
     n = max(1, len(spawns))
     parts = []
@@ -468,9 +494,11 @@ def _expand_units_multi(army, spawns, space, rng, grid):
             if base_c > 0:
                 sub[name] = base_c
         if sub:
-            parts.append(_expand_units(sub, space, sp, rng, grid))
+            parts.append(_expand_units(sub, space, sp, rng, grid,
+                                       troop_levels=troop_levels, hero_levels=hero_levels))
     if not parts:
-        return _expand_units(army, space, spawns[0], rng, grid)
+        return _expand_units(army, space, spawns[0], rng, grid,
+                             troop_levels=troop_levels, hero_levels=hero_levels)
     names = []
     for part in parts:
         names.extend(part[0])
@@ -479,6 +507,7 @@ def _expand_units_multi(army, spawns, space, rng, grid):
 
 def simulate_once(layout, army, *, spawn=(2, 2), seed=0, tick=DEFAULT_TICK,
                   max_time=DEFAULT_MAX_TIME, wall_hp=DEFAULT_WALL_HP,
+                  troop_levels=None, hero_levels=None,
                   collect_events=True):
     """跑一场确定性推演，返回单场结果 dict。
 
@@ -540,7 +569,8 @@ def simulate_once(layout, army, *, spawn=(2, 2), seed=0, tick=DEFAULT_TICK,
     rng = np.random.default_rng(seed)
     spawns = _norm_spawn_list(spawn)
     names, u_pos, u_hp, u_dps, u_speed, u_range, u_prefer = _expand_units_multi(
-        army_p, spawns, L.passable, rng, grid)
+        army_p, spawns, L.passable, rng, grid,
+        troop_levels=troop_levels, hero_levels=hero_levels)
     U = len(names)
     rows_all = np.arange(max(U, n_b), dtype=np.int64)
     if collect_events:
@@ -760,16 +790,19 @@ def _trial_chunk(payload):
     每个 trial 的 seed 与串行路径完全一致（seed=(seed, trial_index)），
     所以「分几片跑」不影响结果，只影响墙钟耗时。
     """
-    layout, army, tasks, tick, max_time, wall_hp = payload
+    layout, army, tasks, tick, max_time, wall_hp, troop_levels, hero_levels = payload
     out = []
     for spawn, seed_pair in tasks:
         r = simulate_once(layout, army, spawn=spawn, seed=seed_pair, tick=tick,
-                          max_time=max_time, wall_hp=wall_hp, collect_events=False)
+                          max_time=max_time, wall_hp=wall_hp,
+                          troop_levels=troop_levels, hero_levels=hero_levels,
+                          collect_events=False)
         out.append((r["destruction"], r["hp_destroyed"], r["buildings_destroyed"]))
     return out
 
 
-def _run_trials(L, army_p, tasks, tick, max_time, wall_hp, workers=1):
+def _run_trials(L, army_p, tasks, tick, max_time, wall_hp, workers=1,
+                troop_levels=None, hero_levels=None):
     """跑完全部 trial。workers>1 时用 spawn 进程池按 trial 分片。
 
     安全约定：调用方脚本必须有 if __name__ == "__main__": 保护（Windows spawn
@@ -783,7 +816,8 @@ def _run_trials(L, army_p, tasks, tick, max_time, wall_hp, workers=1):
         try:
             n = workers
             bounds = [(len(tasks) * k) // n for k in range(n + 1)]
-            payloads = [(L, army_p, tasks[bounds[k]:bounds[k + 1]], tick, max_time, wall_hp)
+            payloads = [(L, army_p, tasks[bounds[k]:bounds[k + 1]], tick, max_time, wall_hp,
+                         troop_levels, hero_levels)
                         for k in range(n) if bounds[k] < bounds[k + 1]]
             ctx = mp.get_context("spawn")
             with ctx.Pool(len(payloads)) as pool:
@@ -794,7 +828,9 @@ def _run_trials(L, army_p, tasks, tick, max_time, wall_hp, workers=1):
     rows = []
     for spawn, seed_pair in tasks:
         r = simulate_once(L, army_p, spawn=spawn, seed=seed_pair, tick=tick,
-                          max_time=max_time, wall_hp=wall_hp, collect_events=False)
+                          max_time=max_time, wall_hp=wall_hp,
+                          troop_levels=troop_levels, hero_levels=hero_levels,
+                          collect_events=False)
         rows.append((r["destruction"], r["hp_destroyed"], r["buildings_destroyed"]))
     return rows
 
@@ -811,7 +847,8 @@ def _stats(values):
 
 
 def run(layout, army, trials=DEFAULT_TRIALS, seed=1, tick=DEFAULT_TICK,
-        max_time=DEFAULT_MAX_TIME, wall_hp=DEFAULT_WALL_HP, workers=1):
+        max_time=DEFAULT_MAX_TIME, wall_hp=DEFAULT_WALL_HP, workers=1,
+        troop_levels=None, hero_levels=None):
     """Monte Carlo：分层抽样投放点，输出摧毁率分布与最佳投放点。
 
     分层规则：第 i 次 trial 用候选投放点[i % 候选数]，保证每个投放点机会均等；
@@ -826,7 +863,8 @@ def run(layout, army, trials=DEFAULT_TRIALS, seed=1, tick=DEFAULT_TICK,
     spawns = default_spawns(L)
 
     tasks = [(spawns[i % len(spawns)], (int(seed), i)) for i in range(trials)]
-    rows = _run_trials(L, army_p, tasks, tick, max_time, wall_hp, workers=workers)
+    rows = _run_trials(L, army_p, tasks, tick, max_time, wall_hp, workers=workers,
+                       troop_levels=troop_levels, hero_levels=hero_levels)
     destructions = [r[0] for r in rows]
     hp_pcts = [r[1] for r in rows]
     destroyed_counts = [r[2] for r in rows]
@@ -853,6 +891,7 @@ def run(layout, army, trials=DEFAULT_TRIALS, seed=1, tick=DEFAULT_TICK,
     best_trial = max(cand_idx, key=lambda i: (destructions[i], -i))
     best_run = simulate_once(L, army_p, spawn=best_spawn, seed=(int(seed), best_trial),
                              tick=tick, max_time=max_time, wall_hp=wall_hp,
+                             troop_levels=troop_levels, hero_levels=hero_levels,
                              collect_events=True)
 
     label = L.meta.get("raw_name") or L.name

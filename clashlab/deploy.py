@@ -73,13 +73,15 @@ def candidates(layout, mode="line"):
     return line_candidates(layout)
 
 
-def evaluate(layout, army, cand, trials=10, seed=1, tick=wargame.DEFAULT_TICK, max_time=wargame.DEFAULT_MAX_TIME):
+def evaluate(layout, army, cand, trials=10, seed=1, tick=wargame.DEFAULT_TICK, max_time=wargame.DEFAULT_MAX_TIME,
+             troop_levels=None, hero_levels=None):
     """对单个候选跑 trials 次，返回统计。"""
     vals = []
     for k in range(int(trials)):
         r = wargame.simulate_once(layout, army, spawn=cand["points"],
                                   seed=int(seed) * 100000 + k, tick=tick,
-                                  max_time=max_time, collect_events=False)
+                                  max_time=max_time, troop_levels=troop_levels,
+                                  hero_levels=hero_levels, collect_events=False)
         vals.append(float(r["destruction"]))
     vals.sort()
     return {"id": cand["id"], "kind": cand["kind"], "points": cand["points"],
@@ -89,16 +91,18 @@ def evaluate(layout, army, cand, trials=10, seed=1, tick=wargame.DEFAULT_TICK, m
             "p90": vals[min(len(vals) - 1, int(len(vals) * 0.9))]}
 
 
-def optimize(layout, army, mode="line", trials=10, seed=1):
+def optimize(layout, army, mode="line", trials=10, seed=1, troop_levels=None, hero_levels=None):
     """在候选线/区域里挑摧毁率最高的一条。"""
     cands = candidates(layout, mode)
-    rows = [evaluate(layout, army, c, trials=trials, seed=seed) for c in cands]
+    rows = [evaluate(layout, army, c, trials=trials, seed=seed,
+                     troop_levels=troop_levels, hero_levels=hero_levels) for c in cands]
     rows.sort(key=lambda r: (-r["mean"], r["id"]))
     best = rows[0] if rows else None
     point_rows = [r for r in rows if r["kind"] == "point"]
     baseline = max(point_rows, key=lambda r: r["mean"])["mean"] if point_rows else None
     if baseline is None and mode != "point":
-        base = evaluate(layout, army, point_candidates(layout)[0], trials=trials, seed=seed)
+        base = evaluate(layout, army, point_candidates(layout)[0], trials=trials, seed=seed,
+                        troop_levels=troop_levels, hero_levels=hero_levels)
         baseline = base["mean"]
     return {"mode": mode, "trials": int(trials), "candidates": rows, "best": best,
             "point_baseline": baseline,

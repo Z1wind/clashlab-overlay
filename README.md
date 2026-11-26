@@ -25,6 +25,7 @@ ClashLab 是一个以 LLM 为辅的部落冲突（Clash of Clans）布阵研究�
 
 ## 最近更新（2026-11-26）
 
+- **等级体系（新）**：`clashlab/levels.py` + `clashlab/th_data.py` 支持建筑/兵种/英雄等级；推演实测「低等级兵/英雄」让摧毁率从 18.95% 掉到 8.55%，「低等级敌方建筑」升到 21.05%；说明见 `docs/LEVELS.md`。
 - **全大本营支持（TH1–TH19）**：`clashlab/th_data.py` + `knowledge/th_ruleset.json`（reviewed ruleset：尺寸/等级/解锁精确，TH17–19 hp/dps 低置信外推），文档 `docs/TH_SUPPORT.md`。
 - **布阵 → 兵种搭配推荐**：`clashlab/strategy.py` 按弱点判定（对空缺口/大本营偏心/隔间密集）给 3 条 meta 搭配与投放步骤，附 YouTube 搜索入口（不存储第三方内容）；数据 `knowledge/strategies.json`；文档 `docs/STRATEGY.md`。
 - **放兵点 → 放兵线/区域**：`clashlab/deploy.py` 枚举 12 条撒兵线 + 4 个区域并挑摧毁率最高；base 03 实测 **17.9% → 24.7%**；文档 `docs/DEPLOY.md`。
