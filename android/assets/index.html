@@ -172,6 +172,7 @@ try {
     img.onload=function(){
       H=homography(bs.quad, bs.grid||44); Hinv=H?inv3(H):null;
       ready=true; fitZoom(); draw(); renderTabs(); renderSel();
+      setTimeout(function(){ fitZoom(); draw(); }, 60);
       // 本地缓存优先
       try {
         var s=localStorage.getItem('clashlab_base_'+bs.id);
@@ -181,7 +182,7 @@ try {
     img.src=bs.img;
   }
   function fitZoom(){
-    var w=cv.clientWidth||360, h=cv.clientHeight||500;
+    var w=cv.clientWidth||window.innerWidth||360, h=cv.clientHeight||(window.innerHeight-140)||500;
     var iw=img.width||1000, ih=img.height||1000;
     var s=Math.min(w/iw, h/ih)*0.98;
     state.scale=s; state.ox=(w-iw*s)/2; state.oy=(h-ih*s)/2;
@@ -212,18 +213,39 @@ try {
         ctx.beginPath(); ctx.moveTo(p3[0],p3[1]); ctx.lineTo(p4[0],p4[1]); ctx.stroke();
       }
     }
-    // 建筑
+    // 建筑：圆点 + 文字标签（类型 CN + 等级），小范围避让
     var bs=b().buildings||[];
+    var boxes=[], fs = 11/state.scale, pad = 3/state.scale;
     for(var i=0;i<bs.length;i++){
       var bb=bs[i]; var c=bb.tile||[22,22];
       var p=H?proj(H,c[0],c[1]):null; if(!p) continue;
       var k=size(bb.type); var px=p[0], py=p[1];
       var half=(k*0.5)*(H?Math.hypot(proj(H,c[0]+1,c[1])[0]-px, proj(H,c[0]+1,c[1])[1]-py):18);
       var col=CAT[cat(bb.type)]||'#9aa7b5';
-      ctx.fillStyle=col; ctx.globalAlpha=0.85;
-      ctx.beginPath(); ctx.arc(px,py,Math.max(6,half*0.9),0,Math.PI*2); ctx.fill();
+      ctx.fillStyle=col; ctx.globalAlpha=0.9;
+      ctx.beginPath(); ctx.arc(px,py,Math.max(7,half*0.95),0,Math.PI*2); ctx.fill();
       ctx.globalAlpha=1;
-      if(i===state.sel){ ctx.strokeStyle='#ffd76a'; ctx.lineWidth=3/state.scale; ctx.beginPath(); ctx.arc(px,py,Math.max(9,half*0.9)+3,0,Math.PI*2); ctx.stroke(); }
+      if(i===state.sel){ ctx.strokeStyle='#ffd76a'; ctx.lineWidth=3.5/state.scale; ctx.beginPath(); ctx.arc(px,py,Math.max(10,half*0.95)+4,0,Math.PI*2); ctx.stroke(); }
+      // 文字标签：选中必画，其它按缩放/避让
+      var show = (i===state.sel) || (state.scale >= 0.15);
+      if(!show) continue;
+      var txt = cn(bb.type) + (bb.level ? bb.level : '');
+      ctx.font = (i===state.sel ? '700 ' : '') + fs + 'px "Microsoft YaHei",sans-serif';
+      var tw2 = ctx.measureText(txt).width, th2 = fs + 2*pad;
+      var lx = px + Math.max(8, half*0.9) + 2/state.scale, ly = py - th2*0.5;
+      var r = {x:lx-pad, y:ly, w:tw2+2*pad, h:th2};
+      var clash=false;
+      for(var bi=0; bi<boxes.length; bi++){
+        var o=boxes[bi];
+        if(!(r.x+r.w < o.x || r.x > o.x+o.w || r.y+r.h < o.y || r.y > o.y+o.h)){ clash=true; break; }
+      }
+      if(clash && i!==state.sel) continue;
+      boxes.push(r);
+      ctx.fillStyle='rgba(6,10,16,0.72)';
+      ctx.fillRect(r.x, r.y, r.w, r.h);
+      ctx.fillStyle = (i===state.sel) ? '#ffd76a' : '#e9eef5';
+      ctx.textBaseline='middle'; ctx.textAlign='left';
+      ctx.fillText(txt, lx, py);
     }
     ctx.restore();
   }
