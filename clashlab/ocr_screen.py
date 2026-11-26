@@ -10,6 +10,11 @@ import re
 
 # 顶部区域的相对裁剪（对战界面：等级+名字+部落名在左上）
 TOP_CROP = (0.0, 0.0, 0.42, 0.13)
+_TAG_RE = re.compile(r"^#?([0-9A-Z]{6,12})$")
+
+# 游戏 UI 文案：不是对手名字/部落，解析前先剔除
+UI_LABELS = {"防守", "进攻", "攻击", "部落冲突", "挂机助手", "回放", "放弃", "结束",
+             "胜利", "失败", "观战", "对局", "实时", "剩余", "摧毁率", "离战斗结束还有"}
 _LEVEL_RE = re.compile(r"^\s*(?:\d{1,2}\s*本|Lv\.?\s*\d{1,2}|\d{1,3}\s*[.．、]?)\s*$")
 _BADGE_RE = re.compile(r"^\s*\d{1,3}\s*$")
 
@@ -42,7 +47,7 @@ def _parse_lines(lines):
     for ln in lines:
         t = ln.get("text") if isinstance(ln, dict) else ln
         t = _clean(t)
-        if t:
+        if t and t not in UI_LABELS:
             texts.append(t)
     level = None
     rest = []
@@ -62,9 +67,16 @@ def _parse_lines(lines):
         rest.append(raw)
     # 纯数字行（等级徽章/胜场数）不当作名字/部落
     rest = [x for x in rest if not re.match(r"^\d{1,3}$", x)]
-    name = rest[0] if rest else None
-    clan = rest[1] if len(rest) > 1 else None
-    return {"level": level, "name": name, "clan": clan}
+    tag = None
+    named = []
+    for x in rest:
+        if tag is None and _TAG_RE.match(x.replace(" ", "")) and any(c.isdigit() for c in x):
+            tag = "#" + x.replace("#", "").replace(" ", "").upper()
+            continue
+        named.append(x)
+    name = named[0] if named else None
+    clan = named[1] if len(named) > 1 else None
+    return {"level": level, "name": name, "clan": clan, "tag": tag}
 
 
 def _alias_plugins():

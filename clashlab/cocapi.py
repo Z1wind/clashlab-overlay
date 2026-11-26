@@ -266,6 +266,8 @@ def _find_clan_with_member(player_name, clan_name=None, fresh=True, ocr_level=No
 def resolve_opponent(name=None, clan_name=None, fresh=True, ocr_level=None):
     """OCR 出对手名字/部落名后的一步：名字 -> tag/TH/部落 -> 部落战成员 TH。"""
     import time as _t
+    if name and str(name).strip().startswith("#"):
+        return resolve_by_tag(name, fresh=fresh)
     res = {"query": {"name": name, "clan": clan_name}, "player": None, "clan": None,
            "war": None, "matched_member": None, "match": None,
            "fetched_at": _t.strftime("%Y-%m-%dT%H:%M:%S"), "fresh": bool(fresh)}
@@ -274,6 +276,38 @@ def resolve_opponent(name=None, clan_name=None, fresh=True, ocr_level=None):
     if pl:
         res["player"] = pl
         res["match"] = {"by": "player-search"}
+        # 同名玩家很多：OCR 给了部落名时，部落对不上就改用「部落战成员模糊匹配」重新定位
+        if clan_name:
+            pl_clan = ((pl.get("clan") or {}).get("name") or "")
+            if _name_score(clan_name, pl_clan) < 0.5:
+                c2, w2, m2 = _find_clan_with_member(name, clan_name, fresh=fresh, ocr_level=ocr_level)
+                if m2 and _name_score(name, m2.get("name")) >= 0.85:
+                    res["player"] = {"name": m2.get("name"), "tag": m2.get("tag"),
+                                     "th": m2.get("th"),
+                                     "clan": {"name": (c2 or {}).get("name"),
+                                              "tag": (c2 or {}).get("tag")}}
+                    res["clan"] = {"name": (c2 or {}).get("name"), "tag": (c2 or {}).get("tag")}
+                    res["war"] = w2
+                    res["matched_member"] = m2
+                    res["match"] = {"by": "war-member-fuzzy"}
+
+    if clan_name and pl and _name_score(clan_name, ((pl.get("clan") or {}).get("name") or "")) < 0.5:
+        if res.get("match", {}).get("by") != "war-member-fuzzy":
+            res["ambiguous"] = True
+            res["warning"] = "同名/部落不匹配：请用玩家标签或点选候选确认"
+
+    # 候选与歧义标记：同名不同部落时提示，避免「看起来成功其实认错人」
+    try:
+        cands = search_player(name, limit=5, fresh=fresh) if name else []
+        alts = []
+        for c in cands:
+            alts.append({"name": c.get("name"), "tag": c.get("tag"), "th": c.get("th"),
+                         "clan": (c.get("clan") or {}).get("name")})
+        res["candidates"] = alts[:5]
+        if len({(a.get("clan") or "") for a in alts}) > 1:
+            res["ambiguous"] = True
+    except Exception:
+        res["candidates"] = []
     # 2) 名字没找到，就用部落名找候选部落，再在战争成员里模糊匹配玩家
     if not pl and (name or clan_name):
         clan, war, member = _find_clan_with_member(name, clan_name, fresh=fresh, ocr_level=ocr_level)
@@ -295,4 +329,14 @@ def resolve_opponent(name=None, clan_name=None, fresh=True, ocr_level=None):
                 res["clan"] = {"name": (res["player"].get("clan") or {}).get("name"), "tag": tag}
             except Exception:
                 res["war"] = None
+    return res
+
+
+def resolve_by_tag(tag, fresh=True):
+    """OCR 到玩家 tag 时最可靠：直接按 tag 取 TH + 部落战。"""
+    tag = "#" + str(tag).strip().lstrip("#").upper()
+    th = player_th(tag, fresh=fresh)
+    res = {"query": {"tag": tag}, "player": {"name": None, "tag": tag, "th": th},
+           "clan": None, "war": None, "match": {"by": "player-tag"},
+           "fetched_at": time.strftime("%Y-%m-%dT%H:%M:%S"), "fresh": bool(fresh)}
     return res

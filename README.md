@@ -94,6 +94,8 @@ python -m unittest discover -s tests
 
 - **战术知识库**：特斯拉默认隐身且 DPS 低（TH16 130 vs 防空 330），穿云箭优先串吹风机+防空火箭，图例/评分自动提醒（`docs/TACTICS.md`）。
 
+- **实机测试**：雷电窗口只读截图 + OCR + API（发现同名歧义并加 #TAG 优先解析），见 `docs/LIVE_TEST.md`。
+
 ## 🗺 路线图
 
 - [x] 覆盖层 HUD/PANEL + 自动重标定

@@ -30,7 +30,16 @@ class TestOcrParse(unittest.TestCase):
 
     def test_empty(self):
         from clashlab.ocr_screen import _parse_lines
-        self.assertEqual(_parse_lines([]), {"level": None, "name": None, "clan": None})
+        self.assertEqual(_parse_lines([]), {"level": None, "name": None, "clan": None, "tag": None})
+
+
+
+
+    def test_ui_labels_dropped(self):
+        from clashlab.ocr_screen import _parse_lines
+        got = _parse_lines(["防守", "cHetzz", "Wrath of Kings"])
+        self.assertEqual(got["name"], "cHetzz")
+        self.assertEqual(got["clan"], "Wrath of Kings")
 
 
 if __name__ == "__main__":
