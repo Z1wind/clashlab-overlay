@@ -27,7 +27,7 @@ A note before you dig in: this version still has unfinished parts and bugs, and 
 
 - **Wargame simulation** (`clashlab/wargame.py`): army + spawn -> deterministic tick battle sim + Monte Carlo destruction distribution (base 03 mean 15.5%, best spawn 22.1%); CLI in `tools/wargame_cli.py`.
 - **In-game UI verification**: `tools/qa_e2e.py` runs a 7-case matrix (HUD/PANEL with and without layout, tab switch, resize recalibration, exe self-check); 7/7 PASS on this machine; report `docs/QA_E2E.md`.
-- **ML feasibility**: `tools/train_save_model.py` trains and saves `models/recog_27px.pt` (within 0.630 / LOBO 0.477; 0.734 / 0.641 with longer training); inference `clashlab/recog_model.py`; report `docs/ML_FEASIBILITY.md`.
+- **ML feasibility**: `tools/train_save_model.py` trains and saves `models/recog_27px.pt` (40-epoch default: within 0.662 / LOBO 0.503; 0.734 / 0.641 at 60 epochs); inference `clashlab/recog_model.py`; report `docs/ML_FEASIBILITY.md`.
 - New corner-labeling tool `tools/label_corners/` for auto-calibration data.
 
 ## What it does

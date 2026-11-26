@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-26T02:33:36+00:00",
+ "generated_at": "2026-11-26T02:37:38+00:00",
  "checkpoint": "models/recog_27px.pt",
  "arch": "smallcnn-24-48-96",
  "input_size": 96,
@@ -496,7 +496,7 @@
     5
    ]
   ],
-  "seconds": 96.1
+  "seconds": 95.5
  },
  "lobo": {
   "accuracy": 0.5032679738562091,
@@ -936,11 +936,11 @@
     2
    ]
   ],
-  "seconds": 117.5
+  "seconds": 115.3
  },
  "runtime": {
-  "total_s": 236.7,
-  "final_fit_s": 22.9,
+  "total_s": 235.1,
+  "final_fit_s": 24.0,
   "cpu_only": true
  },
  "figures": {

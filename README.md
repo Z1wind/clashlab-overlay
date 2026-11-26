@@ -27,7 +27,7 @@ ClashLab 是一个以 LLM 为辅的部落冲突（Clash of Clans）布阵研究�
 
 - **兵棋推演** `clashlab/wargame.py`：军队构成 + 投放点 → 确定性 tick 战斗模拟 + Monte Carlo 摧毁率分布（base 03 实测 mean 15.5%，最佳投放点 22.1%），CLI 见 `tools/wargame_cli.py`。
 - **实机 UI 验证**：`tools/qa_e2e.py` 一条命令跑 7 项矩阵（HUD/PANEL × 有/无布局、页签切换、缩放重标定、exe 自检），本机实跑 **7/7 PASS**，报告 `docs/QA_E2E.md`。
-- **机器学习可行性**：`tools/train_save_model.py` 训练并保存 `models/recog_27px.pt`（within 0.630 / LOBO 0.477；充分训练可到 0.734 / 0.641），推理接口 `clashlab/recog_model.py`，报告 `docs/ML_FEASIBILITY.md`。
+- **机器学习可行性**：`tools/train_save_model.py` 训练并保存 `models/recog_27px.pt`（默认 40 epoch：within 0.662 / LOBO 0.503；60 epoch 可到 0.734 / 0.641），推理接口 `clashlab/recog_model.py`，报告 `docs/ML_FEASIBILITY.md`。
 - 新增四角标注工具 `tools/label_corners/`（给自动标定模型造数据）。
 
 ## 能做什么
