@@ -146,3 +146,8 @@ python -m unittest discover -s tests
 ## 🤝 贡献
 
 欢迎 Issue / PR：先跑通 `python -m unittest discover -s tests`，改动请附测试与证据。见 [CONTRIBUTING.md](CONTRIBUTING.md)。
+
+## 🙏 致谢
+
+- 公开数据与思路：[ClashKing](https://github.com/ClashKingInc/ClashKing)（战争数据 API）、[ClashKingBot](https://github.com/ClashKingInc/ClashKingBot)（数据驱动思路）、[ClashKingAssets](https://github.com/ClashKingInc/ClashKingAssets)（逐级建筑素材）；
+- 完整名单见 [ATTRIBUTIONS.md](ATTRIBUTIONS.md)，集成说明见 [docs/CLASHKING.md](docs/CLASHKING.md)。

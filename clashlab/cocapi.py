@@ -340,3 +340,49 @@ def resolve_by_tag(tag, fresh=True):
            "clan": None, "war": None, "match": {"by": "player-tag"},
            "fetched_at": time.strftime("%Y-%m-%dT%H:%M:%S"), "fresh": bool(fresh)}
     return res
+
+
+# ---------------------------------------------------------------- 可选 token（拉布局库）
+_TOKEN_FILE = os.path.join(ROOT, "config", "cocapi_token.txt")
+
+
+def auth_token():
+    """读 CLASHKING_TOKEN 环境变量或 config/cocapi_token.txt；都没有返回空串。"""
+    tok = (os.environ.get("CLASHKING_TOKEN") or "").strip()
+    if tok:
+        return tok
+    try:
+        with open(_TOKEN_FILE, "r", encoding="utf-8") as f:
+            return f.read().strip()
+    except OSError:
+        return ""
+
+
+def auth_headers():
+    tok = auth_token()
+    h = {"User-Agent": "clashlab", "Accept": "application/json"}
+    if tok:
+        h["Authorization"] = "Bearer " + tok
+    return h
+
+
+def _auth_get(path, timeout=25):
+    """带可选 token 的 GET；401 时给出中文提示。"""
+    req = urllib.request.Request(API + path, headers=auth_headers())
+    try:
+        with urllib.request.urlopen(req, timeout=timeout) as r:
+            return json.loads(r.read().decode("utf-8", "ignore"))
+    except urllib.error.HTTPError as e:
+        if e.code == 401:
+            raise RuntimeError("ClashKing 需要登录 token：把 UserToken 写入 config/cocapi_token.txt 或设 CLASHKING_TOKEN") from None
+        raise
+
+
+def personal_bases():
+    """/v2/bases/personal：当前账号保存的阵型（需要 UserToken）。"""
+    return _auth_get("/v2/bases/personal")
+
+
+def server_bases(server_id):
+    """/v2/server/{id}/bases：服务器布局库（需要 UserToken/BotToken）。"""
+    return _auth_get("/v2/server/%s/bases" % urllib.parse.quote(str(server_id)))

@@ -37,3 +37,12 @@
 ## 版权 / Copyright
 
 Clash of Clans 及相关素材版权归 **Supercell**。本项目与其无关联、未获背书，遵循 [Supercell Fan Content Policy](https://supercell.com/en/fan-content-policy/)。
+
+## 特别致谢 ClashKing / Special thanks to ClashKing
+
+- ClashKingInc/ClashKing — 公开战争/玩家数据 API，本项目的对手 TH/战争成员自动分析直接使用其接口（`clashlab/cocapi.py`）；
+- ClashKingInc/ClashKingBot — 设计思路启发：数据驱动优先于纯图像识别（OCR→API 自动化的思路来源）；
+- ClashKingInc/ClashKingAssets — 逐级建筑立绘（合成训练集；版权归 Supercell，仅本地训练使用）。
+
+感谢 ClashKing 把这些接口与素材开放给社区。
+Thanks to ClashKing for the public data API and assets that make data-driven analysis possible.
