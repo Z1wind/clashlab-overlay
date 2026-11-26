@@ -20,7 +20,9 @@ GRID = 44
 # 注意：cv2 是 BGR 序
 CATEGORY_COLOR = {
     "town-hall": (0, 200, 255),      # 琥珀金
+    "trap": (80, 80, 215),           # 绯红
     "defense": (235, 150, 70),       # 钢蓝
+    "economy": (60, 200, 255),       # 暖金（矿/采集器/仓库）
     "storage": (90, 200, 120),       # 薄荷绿
     "army": (200, 210, 120),         # 沙金
     "other": (160, 160, 160),        # 灰
@@ -31,6 +33,11 @@ DEFENSE_TYPES = {"cannon", "archer-tower", "mortar", "air-defense", "wizard-towe
 STORAGE_TYPES = {"gold-storage", "elixir-storage", "dark-elixir-storage"}
 ARMY_TYPES = {"barracks", "dark-barracks", "army-camp", "laboratory", "spell-factory", "dark-spell-factory",
               "clan-castle", "builder-hut", "builders-hut"}
+ECONOMY_TYPES = {"gold-mine", "elixir-collector", "dark-elixir-drill", "gold-storage",
+                 "elixir-storage", "dark-elixir-storage"}
+TRAP_TYPES = {"bomb", "spring-trap", "air-bomb", "giant-bomb", "seeking-air-mine",
+              "tornado-trap", "skeleton-trap", "giga-bomb"}
+EXTRA_ARMY = {"hero-hall", "pet-house", "blacksmith", "workshop", "helper-hut", "bobs-hut"}
 SIZE_HINT = {
     "town-hall": 4, "eagle-artillery": 3, "scattershot": 3, "inferno-tower": 2, "monolith": 3,
     "hidden-tesla": 2, "air-sweeper": 2, "spell-tower": 2, "clan-castle": 3,
@@ -49,11 +56,15 @@ def _size(t):
 def _category(t):
     if t == "town-hall":
         return "town-hall"
+    if t in TRAP_TYPES:
+        return "trap"
     if t in DEFENSE_TYPES:
         return "defense"
+    if t in ECONOMY_TYPES:
+        return "economy"
     if t in STORAGE_TYPES:
         return "storage"
-    if t in ARMY_TYPES:
+    if t in ARMY_TYPES or t in EXTRA_ARMY:
         return "army"
     return "other"
 
@@ -134,17 +145,18 @@ def render_topdown(layout, out_png, cell=24, grid=None):
     _rounded_rect(img, margin, 12, w - margin, 12 + hud_h - 16, 10, (16, 21, 28), -1)
     cv2.line(img, (margin + 10, 30), (margin + 26, 30), (61, 163, 232), 3, cv2.LINE_AA)
     _text_outline(img, "ClashLab  ·  2D top-down", (margin + 34, 36), 0.52, (243, 247, 251))
-    _text_outline(img, "grid %d  buildings %d  walls %d" % (g, len(buildings), len(walls)),
+    _text_outline(img, "grid %d  annotated %d  walls %d  (未标注建筑不会显示)" % (g, len(buildings), len(walls)),
                   (margin + 300, 36), 0.42, (170, 186, 204))
     # 图例（cv2 不渲染中文，用英文；底部独立带，不压地图）
     lx, ly = margin + 10, h - 16
     cv2.line(img, (margin + 6, ly - 24), (w - margin - 6, ly - 24), (48, 58, 72), 1, cv2.LINE_AA)
-    for label, ckey in (("Town Hall", "town-hall"), ("Defense", "defense"), ("Storage", "storage"),
-                        ("Army", "army"), ("Other", "other")):
+    for label, ckey in (("Town Hall", "town-hall"), ("Trap", "trap"), ("Defense", "defense"),
+                        ("Economy", "economy"), ("Storage", "storage"), ("Army", "army"),
+                        ("Other", "other")):
         col = CATEGORY_COLOR[ckey]
         _rounded_rect(img, lx, ly - 12, lx + 14, ly + 2, 3, col, -1)
         _text_outline(img, label, (lx + 20, ly), 0.40, (205, 216, 230))
-        lx += 104
+        lx += 92
     cv2.imencode(".png", img)[1].tofile(out_png)
     return img.shape[1], img.shape[0], len(buildings), len(walls)
 

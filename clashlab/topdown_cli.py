@@ -13,15 +13,19 @@ from .topdown import render_topdown, export_2d_json
 
 def main(argv=None):
     ap = argparse.ArgumentParser(description="layout.json -> 2D top-down PNG / 2D JSON")
-    ap.add_argument("--layout", required=True)
+    ap.add_argument("--layout", default=None)
+    ap.add_argument("--annotated", default=None, help="标注文件（out/annotate/NN_annotated.json）")
     ap.add_argument("--out", default="out/overlay/_2d")
     ap.add_argument("--cell", type=int, default=24)
     a = ap.parse_args(argv)
     import json
-    lay = json.load(open(a.layout, encoding="utf-8"))
+    src = a.annotated or a.layout
+    if not src:
+        raise SystemExit("需要 --layout 或 --annotated")
+    lay = json.load(open(src, encoding="utf-8"))
     os.makedirs(a.out, exist_ok=True)
-    name = os.path.splitext(os.path.basename(a.layout))[0]
-    parent = os.path.basename(os.path.dirname(os.path.abspath(a.layout)))
+    name = os.path.splitext(os.path.basename(src))[0]
+    parent = os.path.basename(os.path.dirname(os.path.abspath(src)))
     base = parent if parent else name
     w, h, nb, nw = render_topdown(lay, os.path.join(a.out, base + "_topdown.png"), cell=a.cell)
     export_2d_json(lay, os.path.join(a.out, base + "_2d.json"))
