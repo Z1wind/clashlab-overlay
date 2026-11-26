@@ -653,9 +653,10 @@ def _draw_local(ctx, state, root, ready, panel_w, px, H):
     cur = tactics.selected(doc)
     imgui.set_cursor_screen_pos(imgui.ImVec2(px + PAD, y))
     if cur:
-        edge = f"距边 {cur['edge_dist']} 格" if cur.get("edge_dist") is not None else "距边未知"
+        edge = f"距边 {cur['edge_dist']} 格" if cur.get("edge_dist") is not None else _T("距边未知", "edge: unknown")
         imgui.text_colored(imgui.ImVec4(*INK),
-                           f"聚焦 {cur['name']} · {cur['dps']} dps · {edge}")
+                           _L(ready, f"聚焦 {cur['name']} · {cur['dps']} dps · {edge}",
+                              f"Focus {cur['name']} · {cur['dps']} dps · {edge}"))
         imgui.text_colored(imgui.ImVec4(*GREY),
                            _L(ready, "HUD 上该建筑已加粗高亮，其余弱化",
                               "Highlighted on HUD (others dimmed)"))
@@ -1234,7 +1235,7 @@ _STRATEGY_CACHE = {"key": None, "line": ""}
 def _fmt_strategy_info(info):
     """把 prebattle info 里的 strategies 压成一行文案（纯函数，便于测试）。"""
     if not isinstance(info, dict):
-        return "推荐：无数据"
+        return _T("推荐：无数据", "Recommendation: no data")
     summary = info.get("strategy_summary")
     if summary:
         return "推荐：" + str(summary)[:42]
@@ -1242,7 +1243,7 @@ def _fmt_strategy_info(info):
     if isinstance(recs, list) and recs and isinstance(recs[0], dict):
         r0 = recs[0]
         return "推荐：" + ("%s（%s）" % (r0.get("name"), r0.get("reason")))[:42]
-    return "推荐：无数据"
+    return _T("推荐：无数据", "Recommendation: no data")
 
 
 def _strategy_line(state):
@@ -1253,10 +1254,10 @@ def _strategy_line(state):
         try:
             mtime = os.stat(path).st_mtime
         except OSError:
-            return "推荐：无数据"
+            return _T("推荐：无数据", "Recommendation: no data")
         key = (path, mtime)
         if _STRATEGY_CACHE.get("key") == key:
-            return _STRATEGY_CACHE.get("line") or "推荐：无数据"
+            return _STRATEGY_CACHE.get("line") or _T("推荐：无数据", "Recommendation: no data")
         with open(path, "r", encoding="utf-8") as f:
             info = json.load(f)
         line = _fmt_strategy_info(info)
@@ -1264,7 +1265,7 @@ def _strategy_line(state):
         _STRATEGY_CACHE["line"] = line
         return line
     except Exception:
-        return "推荐：无数据"
+        return _T("推荐：无数据", "Recommendation: no data")
 
 
 
@@ -1275,7 +1276,7 @@ _BUILDINGS_CACHE = {"key": None, "line": ""}
 def _fmt_buildings_counts(counts):
     """把分类计数压成一行文案（纯函数，便于测试）。"""
     if not counts or not counts.get("total"):
-        return "建筑：无数据"
+        return _T("建筑：无数据", "Buildings: no data")
     parts = []
     for key, label in (("defense", "防御"), ("economy", "经济"), ("army", "兵营"),
                        ("trap", "陷阱"), ("storage", "仓库"), ("other", "其它")):
@@ -1330,14 +1331,14 @@ _OPP_CACHE = {"key": None, "line": ""}
 def _fmt_ocr_payload(payload):
     """把 out/ocr_latest.json 压成一行（纯函数，便于测试）。"""
     if not isinstance(payload, dict) or not payload:
-        return "对手：未识别（F6）"
+        return _T("对手：未识别（F6）", "Opponent: unknown (F6)")
     line = payload.get("line")
     if line:
         return str(line)
     th = payload.get("th")
     ocr = payload.get("ocr") or {}
     if not th and not ocr.get("name"):
-        return "对手：未识别（F6）"
+        return _T("对手：未识别（F6）", "Opponent: unknown (F6)")
     name = ocr.get("name") or "未知"
     return "对手：%s（TH%s）· OCR" % (name, th if th else "?")
 
@@ -1350,10 +1351,10 @@ def _opponent_line(state):
         try:
             mtime = os.stat(path).st_mtime
         except OSError:
-            return "对手：未识别（F6）"
+            return _T("对手：未识别（F6）", "Opponent: unknown (F6)")
         key = (path, mtime)
         if _OPP_CACHE.get("key") == key:
-            return _OPP_CACHE.get("line") or "对手：未识别（F6）"
+            return _OPP_CACHE.get("line") or _T("对手：未识别（F6）", "Opponent: unknown (F6)")
         with open(path, "r", encoding="utf-8") as f:
             payload = json.load(f)
         line = _fmt_ocr_payload(payload)
@@ -1361,7 +1362,7 @@ def _opponent_line(state):
         _OPP_CACHE["line"] = line
         return line
     except Exception:
-        return "对手：未识别（F6）"
+        return _T("对手：未识别（F6）", "Opponent: unknown (F6)")
 
 
 def _buildings_line(state):
@@ -1371,15 +1372,15 @@ def _buildings_line(state):
         if not isinstance(layout, dict):
             layout = getattr(state, "Layout", None)
         if not isinstance(layout, dict):
-            return "建筑：无数据"
+            return _T("建筑：无数据", "Buildings: no data")
         key = (layout.get("name"), len(layout.get("buildings") or []), len(layout.get("walls") or []))
         if _BUILDINGS_CACHE.get("key") == key:
-            return _BUILDINGS_CACHE.get("line") or "建筑：无数据"
+            return _BUILDINGS_CACHE.get("line") or _T("建筑：无数据", "Buildings: no data")
         line = _fmt_buildings_counts(_count_buildings(layout))
         _BUILDINGS_CACHE.update({"key": key, "line": line})
         return line
     except Exception:
-        return "建筑：无数据"
+        return _T("建筑：无数据", "Buildings: no data")
 
 def _sim_line(state):
     """P3c-3：2D 推演一行（sim_panel 指纹缓存，热路径不重算）；
@@ -1389,7 +1390,7 @@ def _sim_line(state):
         return _sp.line_from_summary(
             _sp.summary_from_layout(getattr(state, "Layout", None)))
     except Exception:
-        return "推演：无数据"
+        return _T("推演：无数据", "Simulation: no data")
 
 
 def _bottom_status(px, H, m, ready, page, avail_w, extra=None, extra_lines=None):
