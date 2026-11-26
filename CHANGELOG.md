@@ -1,5 +1,12 @@
 # Changelog
 
+## v0.2.0 (unreleased)
+
+- TH1–TH19 数据层（reviewed ruleset）与 assets.stats 委托；
+- 布阵 → 兵种搭配推荐（弱点判定 + 投放步骤 + YouTube 搜索入口）；
+- 放兵线/区域优化（候选枚举 + 自动挑选，base03 17.9%→24.7%）；
+- 四角回归模型（社区阵图 + 草地伪标签，import_base 兜底）。
+
 ## v0.1.2 (unreleased)
 
 - wargame 引擎与 CLI：确定性兵棋推演 + Monte Carlo 摧毁率；

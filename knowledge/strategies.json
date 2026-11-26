@@ -1,0 +1,835 @@
+{
+ "version": 2,
+ "updated_at": "2026-11-26",
+ "note": "社区 meta 参考模板，非官方数据；视频只给搜索入口，不存储第三方内容。",
+ "strategies": [
+  {
+   "id": "air-edrag",
+   "archetype": "air",
+   "name": "电龙平推（Air spam）",
+   "troops_by_th": {
+    "13": {
+     "electro-dragon": 7,
+     "balloon": 12,
+     "rage": 3,
+     "freeze": 2
+    },
+    "14": {
+     "electro-dragon": 7,
+     "balloon": 12,
+     "rage": 3,
+     "freeze": 2
+    },
+    "15": {
+     "electro-dragon": 7,
+     "balloon": 12,
+     "rage": 3,
+     "freeze": 2
+    },
+    "16": {
+     "electro-dragon": 7,
+     "balloon": 13,
+     "rage": 3,
+     "freeze": 2
+    },
+    "17": {
+     "electro-dragon": 8,
+     "balloon": 13,
+     "rage": 3,
+     "freeze": 2
+    },
+    "18": {
+     "electro-dragon": 8,
+     "balloon": 13,
+     "rage": 3,
+     "freeze": 2
+    },
+    "19": {
+     "electro-dragon": 8,
+     "balloon": 13,
+     "rage": 3,
+     "freeze": 2
+    }
+   },
+   "weakness_tags": [
+    "air-gap"
+   ],
+   "why": "对空覆盖不足时，空中单位可以越过墙体直取核心。",
+   "steps": [
+    "外围清边，逼出空气炮",
+    "电龙沿逆风侧一字排开",
+    "狂暴+冰冻强拆核心防空",
+    "英雄收尾清外围"
+   ],
+   "video_queries": [
+    "TH16 electro dragon attack strategy",
+    "clash of clans air army 3 star"
+   ],
+   "source": "community-meta",
+   "confidence": 0.72
+  },
+  {
+   "id": "air-lavaloon",
+   "archetype": "air",
+   "name": "熔岩猎犬 + 气球（LaLoon）",
+   "troops_by_th": {
+    "13": {
+     "lava-hound": 3,
+     "balloon": 24,
+     "rage": 3,
+     "haste": 2
+    },
+    "14": {
+     "lava-hound": 3,
+     "balloon": 24,
+     "rage": 3,
+     "haste": 2
+    },
+    "15": {
+     "lava-hound": 3,
+     "balloon": 25,
+     "rage": 3,
+     "haste": 2
+    },
+    "16": {
+     "lava-hound": 3,
+     "balloon": 25,
+     "rage": 3,
+     "haste": 2
+    },
+    "17": {
+     "lava-hound": 3,
+     "balloon": 26,
+     "rage": 3,
+     "haste": 2
+    },
+    "18": {
+     "lava-hound": 3,
+     "balloon": 26,
+     "rage": 3,
+     "haste": 2
+    },
+    "19": {
+     "lava-hound": 3,
+     "balloon": 27,
+     "rage": 3,
+     "haste": 2
+    }
+   },
+   "weakness_tags": [
+    "air-gap"
+   ],
+   "why": "猎犬吸防空火力，气球快速点名核心防御。",
+   "steps": [
+    "猎犬先手打掉一处防空",
+    "气球分两路压剩余防空",
+    "狂暴推进核心",
+    "冰冻给单头地狱塔"
+   ],
+   "video_queries": [
+    "TH16 lavaloon strategy",
+    "clash of clans lava hound balloon 3 star"
+   ],
+   "source": "community-meta",
+   "confidence": 0.68
+  },
+  {
+   "id": "air-dragon",
+   "archetype": "air",
+   "name": "飞龙平推（Dragon spam）",
+   "troops_by_th": {
+    "13": {
+     "dragon": 10,
+     "balloon": 8,
+     "rage": 3,
+     "freeze": 1
+    },
+    "14": {
+     "dragon": 10,
+     "balloon": 8,
+     "rage": 3,
+     "freeze": 1
+    },
+    "15": {
+     "dragon": 10,
+     "balloon": 8,
+     "rage": 3,
+     "freeze": 1
+    },
+    "16": {
+     "dragon": 11,
+     "balloon": 8,
+     "rage": 3,
+     "freeze": 1
+    },
+    "17": {
+     "dragon": 11,
+     "balloon": 9,
+     "rage": 3,
+     "freeze": 1
+    },
+    "18": {
+     "dragon": 11,
+     "balloon": 9,
+     "rage": 3,
+     "freeze": 1
+    },
+    "19": {
+     "dragon": 11,
+     "balloon": 9,
+     "rage": 3,
+     "freeze": 1
+    }
+   },
+   "weakness_tags": [
+    "air-gap"
+   ],
+   "why": "防空分散且级别低时，飞龙群可以平推。",
+   "steps": [
+    "一侧清边",
+    "飞龙一字排开",
+    "狂暴集中破防空",
+    "冰冻收尾"
+   ],
+   "video_queries": [
+    "clash of clans dragon attack strategy",
+    "TH16 dragon spam"
+   ],
+   "source": "community-meta",
+   "confidence": 0.6
+  },
+  {
+   "id": "ground-smash-yeti",
+   "archetype": "ground",
+   "name": "雪怪女巫强拆（Smash）",
+   "troops_by_th": {
+    "13": {
+     "yeti": 4,
+     "witch": 6,
+     "golem": 2,
+     "bowler": 8,
+     "jump": 2,
+     "rage": 2
+    },
+    "14": {
+     "yeti": 4,
+     "witch": 6,
+     "golem": 2,
+     "bowler": 8,
+     "jump": 2,
+     "rage": 2
+    },
+    "15": {
+     "yeti": 4,
+     "witch": 6,
+     "golem": 2,
+     "bowler": 8,
+     "jump": 2,
+     "rage": 2
+    },
+    "16": {
+     "yeti": 4,
+     "witch": 6,
+     "golem": 2,
+     "bowler": 8,
+     "jump": 2,
+     "rage": 2
+    },
+    "17": {
+     "yeti": 4,
+     "witch": 6,
+     "golem": 2,
+     "bowler": 9,
+     "jump": 2,
+     "rage": 2
+    },
+    "18": {
+     "yeti": 4,
+     "witch": 7,
+     "golem": 2,
+     "bowler": 9,
+     "jump": 2,
+     "rage": 2
+    },
+    "19": {
+     "yeti": 4,
+     "witch": 7,
+     "golem": 2,
+     "bowler": 9,
+     "jump": 2,
+     "rage": 2
+    }
+   },
+   "weakness_tags": [
+    "compartment-density"
+   ],
+   "why": "隔间密集或墙效率低时，跳墙+雪怪能一波推平核心。",
+   "steps": [
+    "双雪怪开墙",
+    "炸弹人破第一层后下主力",
+    "跳墙直插核心",
+    "女巫骷髅掩护侧翼"
+   ],
+   "video_queries": [
+    "TH16 yeti smash attack",
+    "clash of clans witch golem smash"
+   ],
+   "source": "community-meta",
+   "confidence": 0.7
+  },
+  {
+   "id": "ground-pekka",
+   "archetype": "ground",
+   "name": "皮卡超人强拆（Pekka smash）",
+   "troops_by_th": {
+    "13": {
+     "pekka": 4,
+     "wizard": 8,
+     "bowler": 6,
+     "jump": 2,
+     "rage": 2
+    },
+    "14": {
+     "pekka": 4,
+     "wizard": 8,
+     "bowler": 6,
+     "jump": 2,
+     "rage": 2
+    },
+    "15": {
+     "pekka": 4,
+     "wizard": 8,
+     "bowler": 6,
+     "jump": 2,
+     "rage": 2
+    },
+    "16": {
+     "pekka": 4,
+     "wizard": 8,
+     "bowler": 6,
+     "jump": 2,
+     "rage": 2
+    },
+    "17": {
+     "pekka": 4,
+     "wizard": 9,
+     "bowler": 6,
+     "jump": 2,
+     "rage": 2
+    },
+    "18": {
+     "pekka": 4,
+     "wizard": 9,
+     "bowler": 7,
+     "jump": 2,
+     "rage": 2
+    },
+    "19": {
+     "pekka": 4,
+     "wizard": 9,
+     "bowler": 7,
+     "jump": 2,
+     "rage": 2
+    }
+   },
+   "weakness_tags": [
+    "compartment-density"
+   ],
+   "why": "墙多、隔间深时，皮卡+跳墙可以一路砍穿。",
+   "steps": [
+    "清边建立推进走廊",
+    "皮卡带狂暴进核心",
+    "跳墙越过第二层",
+    "法师补伤害"
+   ],
+   "video_queries": [
+    "TH16 pekka smash",
+    "clash of clans pekka attack"
+   ],
+   "source": "community-meta",
+   "confidence": 0.66
+  },
+  {
+   "id": "ground-hog",
+   "archetype": "ground",
+   "name": "野猪骑士 + 治愈（Hog rush）",
+   "troops_by_th": {
+    "13": {
+     "hog-rider": 30,
+     "heal": 4,
+     "rage": 1,
+     "freeze": 1
+    },
+    "14": {
+     "hog-rider": 31,
+     "heal": 4,
+     "rage": 1,
+     "freeze": 1
+    },
+    "15": {
+     "hog-rider": 31,
+     "heal": 4,
+     "rage": 1,
+     "freeze": 1
+    },
+    "16": {
+     "hog-rider": 32,
+     "heal": 4,
+     "rage": 1,
+     "freeze": 1
+    },
+    "17": {
+     "hog-rider": 32,
+     "heal": 4,
+     "rage": 1,
+     "freeze": 1
+    },
+    "18": {
+     "hog-rider": 33,
+     "heal": 4,
+     "rage": 1,
+     "freeze": 1
+    },
+    "19": {
+     "hog-rider": 34,
+     "heal": 4,
+     "rage": 1,
+     "freeze": 1
+    }
+   },
+   "weakness_tags": [
+    "th-bias"
+   ],
+   "why": "外侧防御暴露、大本营偏心时，野猪可以成扇形点名。",
+   "steps": [
+    "先点掉炸弹塔区域",
+    "野猪扇形展开",
+    "治疗覆盖爆炸陷阱",
+    "英雄收尾清边"
+   ],
+   "video_queries": [
+    "TH16 hog rider attack",
+    "clash of clans hog rush"
+   ],
+   "source": "community-meta",
+   "confidence": 0.64
+  },
+  {
+   "id": "hero-dive-queen",
+   "archetype": "hero-dive",
+   "name": "女王切入（Queen charge）",
+   "troops_by_th": {
+    "13": {
+     "healer": 4,
+     "wall-breaker": 6,
+     "miner": 12,
+     "rage": 2,
+     "freeze": 1
+    },
+    "14": {
+     "healer": 4,
+     "wall-breaker": 6,
+     "miner": 12,
+     "rage": 2,
+     "freeze": 1
+    },
+    "15": {
+     "healer": 4,
+     "wall-breaker": 6,
+     "miner": 12,
+     "rage": 2,
+     "freeze": 1
+    },
+    "16": {
+     "healer": 4,
+     "wall-breaker": 6,
+     "miner": 13,
+     "rage": 2,
+     "freeze": 1
+    },
+    "17": {
+     "healer": 4,
+     "wall-breaker": 6,
+     "miner": 13,
+     "rage": 2,
+     "freeze": 1
+    },
+    "18": {
+     "healer": 4,
+     "wall-breaker": 7,
+     "miner": 13,
+     "rage": 2,
+     "freeze": 1
+    },
+    "19": {
+     "healer": 4,
+     "wall-breaker": 7,
+     "miner": 13,
+     "rage": 2,
+     "freeze": 1
+    }
+   },
+   "weakness_tags": [
+    "th-bias"
+   ],
+   "why": "大本营偏心时，用女王从弱点侧直接拆核心。",
+   "steps": [
+    "女王+天使从弱点侧开墙",
+    "狂暴压核心防御",
+    "矿工从缺口进入",
+    "冰冻保护女王"
+   ],
+   "video_queries": [
+    "TH16 queen charge attack",
+    "clash of clans queen walk"
+   ],
+   "source": "community-meta",
+   "confidence": 0.75
+  },
+  {
+   "id": "hero-dive-blimp",
+   "archetype": "hero-dive",
+   "name": "飞艇偷核心（Blimp snipe）",
+   "troops_by_th": {
+    "13": {
+     "balloon": 18,
+     "clone": 2,
+     "rage": 2,
+     "haste": 1
+    },
+    "14": {
+     "balloon": 18,
+     "clone": 2,
+     "rage": 2,
+     "haste": 1
+    },
+    "15": {
+     "balloon": 19,
+     "clone": 2,
+     "rage": 2,
+     "haste": 1
+    },
+    "16": {
+     "balloon": 19,
+     "clone": 2,
+     "rage": 2,
+     "haste": 1
+    },
+    "17": {
+     "balloon": 19,
+     "clone": 2,
+     "rage": 2,
+     "haste": 1
+    },
+    "18": {
+     "balloon": 20,
+     "clone": 2,
+     "rage": 2,
+     "haste": 1
+    },
+    "19": {
+     "balloon": 20,
+     "clone": 2,
+     "rage": 2,
+     "haste": 1
+    }
+   },
+   "weakness_tags": [
+    "th-bias"
+   ],
+   "why": "核心区防空被吸引后，飞艇+克隆可以砸穿大本营区域。",
+   "steps": [
+    "先清一侧防空",
+    "飞艇直飞核心",
+    "克隆+狂暴砸核心",
+    "后续气球补刀"
+   ],
+   "video_queries": [
+    "TH16 blimp attack",
+    "clash of clans blimp strategy"
+   ],
+   "source": "community-meta",
+   "confidence": 0.71
+  },
+  {
+   "id": "hybrid-miner",
+   "archetype": "hybrid",
+   "name": "矿工 + 女王混编（Hybrid）",
+   "troops_by_th": {
+    "13": {
+     "miner": 20,
+     "hog-rider": 10,
+     "healer": 4,
+     "heal": 3,
+     "rage": 2
+    },
+    "14": {
+     "miner": 20,
+     "hog-rider": 10,
+     "healer": 4,
+     "heal": 3,
+     "rage": 2
+    },
+    "15": {
+     "miner": 21,
+     "hog-rider": 10,
+     "healer": 4,
+     "heal": 3,
+     "rage": 2
+    },
+    "16": {
+     "miner": 21,
+     "hog-rider": 11,
+     "healer": 4,
+     "heal": 3,
+     "rage": 2
+    },
+    "17": {
+     "miner": 22,
+     "hog-rider": 11,
+     "healer": 4,
+     "heal": 3,
+     "rage": 2
+    },
+    "18": {
+     "miner": 22,
+     "hog-rider": 11,
+     "healer": 4,
+     "heal": 3,
+     "rage": 2
+    },
+    "19": {
+     "miner": 22,
+     "hog-rider": 11,
+     "healer": 4,
+     "heal": 3,
+     "rage": 2
+    }
+   },
+   "weakness_tags": [
+    "general"
+   ],
+   "why": "没有单一明显弱点时，混合路线更稳。",
+   "steps": [
+    "女王先切一侧",
+    "矿工从缺口进入",
+    "治疗覆盖陷阱",
+    "野猪补核心"
+   ],
+   "video_queries": [
+    "TH16 hybrid attack",
+    "clash of clans miner hog hybrid"
+   ],
+   "source": "community-meta",
+   "confidence": 0.69
+  },
+  {
+   "id": "hybrid-bowler",
+   "archetype": "hybrid",
+   "name": "投石手 + 女王（Bowler hybrid）",
+   "troops_by_th": {
+    "13": {
+     "bowler": 10,
+     "healer": 4,
+     "miner": 12,
+     "jump": 1,
+     "rage": 2
+    },
+    "14": {
+     "bowler": 10,
+     "healer": 4,
+     "miner": 12,
+     "jump": 1,
+     "rage": 2
+    },
+    "15": {
+     "bowler": 10,
+     "healer": 4,
+     "miner": 12,
+     "jump": 1,
+     "rage": 2
+    },
+    "16": {
+     "bowler": 11,
+     "healer": 4,
+     "miner": 13,
+     "jump": 1,
+     "rage": 2
+    },
+    "17": {
+     "bowler": 11,
+     "healer": 4,
+     "miner": 13,
+     "jump": 1,
+     "rage": 2
+    },
+    "18": {
+     "bowler": 11,
+     "healer": 4,
+     "miner": 13,
+     "jump": 1,
+     "rage": 2
+    },
+    "19": {
+     "bowler": 11,
+     "healer": 4,
+     "miner": 13,
+     "jump": 1,
+     "rage": 2
+    }
+   },
+   "weakness_tags": [
+    "general"
+   ],
+   "why": "远程溅射压制 + 女王切入，适合均衡阵型。",
+   "steps": [
+    "投石手清边",
+    "女王切入",
+    "跳墙进核心",
+    "矿工补刀"
+   ],
+   "video_queries": [
+    "TH16 bowler attack",
+    "clash of clans bowler hybrid"
+   ],
+   "source": "community-meta",
+   "confidence": 0.63
+  },
+  {
+   "id": "ground-root-rider",
+   "archetype": "ground",
+   "name": "根蔓骑士突进（Root Rider）",
+   "troops_by_th": {
+    "13": {
+     "root-rider": 6,
+     "valkyrie": 8,
+     "heal": 3,
+     "rage": 2
+    },
+    "14": {
+     "root-rider": 6,
+     "valkyrie": 8,
+     "heal": 3,
+     "rage": 2
+    },
+    "15": {
+     "root-rider": 6,
+     "valkyrie": 8,
+     "heal": 3,
+     "rage": 2
+    },
+    "16": {
+     "root-rider": 6,
+     "valkyrie": 8,
+     "heal": 3,
+     "rage": 2
+    },
+    "17": {
+     "root-rider": 6,
+     "valkyrie": 9,
+     "heal": 3,
+     "rage": 2
+    },
+    "18": {
+     "root-rider": 7,
+     "valkyrie": 9,
+     "heal": 3,
+     "rage": 2
+    },
+    "19": {
+     "root-rider": 7,
+     "valkyrie": 9,
+     "heal": 3,
+     "rage": 2
+    }
+   },
+   "weakness_tags": [
+    "compartment-density"
+   ],
+   "why": "根蔓骑士无视墙体，适合墙厚但隔间差的阵型。",
+   "steps": [
+    "根蔓骑士打头阵",
+    "女武神跟进清边",
+    "治疗覆盖核心",
+    "英雄补刀"
+   ],
+   "video_queries": [
+    "TH16 root rider attack",
+    "clash of clans root rider"
+   ],
+   "source": "community-meta(low)",
+   "confidence": 0.58
+  },
+  {
+   "id": "general-balanced",
+   "archetype": "hybrid",
+   "name": "通用均衡模板",
+   "troops_by_th": {
+    "13": {
+     "giant": 12,
+     "wizard": 10,
+     "archer": 20,
+     "heal": 2,
+     "rage": 1
+    },
+    "14": {
+     "giant": 12,
+     "wizard": 10,
+     "archer": 20,
+     "heal": 2,
+     "rage": 1
+    },
+    "15": {
+     "giant": 12,
+     "wizard": 10,
+     "archer": 21,
+     "heal": 2,
+     "rage": 1
+    },
+    "16": {
+     "giant": 13,
+     "wizard": 11,
+     "archer": 21,
+     "heal": 2,
+     "rage": 1
+    },
+    "17": {
+     "giant": 13,
+     "wizard": 11,
+     "archer": 22,
+     "heal": 2,
+     "rage": 1
+    },
+    "18": {
+     "giant": 13,
+     "wizard": 11,
+     "archer": 22,
+     "heal": 2,
+     "rage": 1
+    },
+    "19": {
+     "giant": 13,
+     "wizard": 11,
+     "archer": 22,
+     "heal": 2,
+     "rage": 1
+    }
+   },
+   "weakness_tags": [
+    "general"
+   ],
+   "why": "缺少明显弱点数据时的保守模板：坦克开路 + 远程输出。",
+   "steps": [
+    "坦克开路",
+    "远程跟进",
+    "治疗覆盖核心",
+    "英雄收尾"
+   ],
+   "video_queries": [
+    "clash of clans attack basics guide"
+   ],
+   "source": "baseline",
+   "confidence": 0.5
+  }
+ ]
+}

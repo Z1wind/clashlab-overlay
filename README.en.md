@@ -25,10 +25,10 @@ A note before you dig in: this version still has unfinished parts and bugs, and 
 
 ## Recent updates (2026-11-26)
 
-- **Wargame simulation** (`clashlab/wargame.py`): army + spawn -> deterministic tick battle sim + Monte Carlo destruction distribution (base 03 mean 15.5%, best spawn 22.1%); CLI in `tools/wargame_cli.py`.
-- **In-game UI verification**: `tools/qa_e2e.py` runs a 7-case matrix (HUD/PANEL with and without layout, tab switch, resize recalibration, exe self-check); 7/7 PASS on this machine; report `docs/QA_E2E.md`.
-- **ML feasibility**: `tools/train_save_model.py` trains and saves `models/recog_27px.pt` (40-epoch default: within 0.662 / LOBO 0.503; 0.734 / 0.641 at 60 epochs); inference `clashlab/recog_model.py`; report `docs/ML_FEASIBILITY.md`.
-- New corner-labeling tool `tools/label_corners/` for auto-calibration data.
+- **TH1–TH19 support**: `clashlab/th_data.py` + `knowledge/th_ruleset.json` (reviewed ruleset: sizes/levels/unlocks exact; TH17-19 hp/dps low-confidence extrapolation); see `docs/TH_SUPPORT.md`.
+- **Layout -> army recommendation**: `clashlab/strategy.py` picks 3 meta compositions from weakness signals, with deployment steps and YouTube search links; data in `knowledge/strategies.json`; docs `docs/STRATEGY.md`.
+- **Spawn point -> spawn line/region**: `clashlab/deploy.py` enumerates 12 lines + 4 regions and picks the best; base 03 measured **17.9% -> 24.7%**; docs `docs/DEPLOY.md`.
+- **Quad regression model (calibration fallback)**: `clashlab/quad_model.py` + `models/quad_model.pt` trained on community images with grass-boundary pseudo-labels (51/57 auto-labelled); docs `docs/QUAD_MODEL.md`.
 
 ## What it does
 

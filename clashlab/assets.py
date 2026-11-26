@@ -103,8 +103,12 @@ def stats(name, th=None):
     - th=None 或其它值：返回 STATS 基线；缺失再回 DEFAULT_FALLBACK。
     - name 两边都没有时记 WARN（模块级 set 去重，只 WARN 一次）。
 
-    注意：本函数只读 STATS / TH16_OVERRIDE，不写回，也不影响 building_path。
+    注意：TH 明确给定（非 None）时委托 clashlab.th_data（支持 TH1–TH19 与可信度标注）；
+    TH=None 保持旧语义（只读 STATS/TH16_OVERRIDE）。本函数不写回，不影响 building_path。
     """
+    if th is not None:
+        from . import th_data  # 延迟导入：th_data 顶部 import assets，避免循环
+        return th_data.stats(name, th)
     base = STATS.get(name)
     if th == 16 and name in TH16_OVERRIDE:
         out = dict(base) if base else {}

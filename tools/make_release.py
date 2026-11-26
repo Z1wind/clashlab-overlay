@@ -9,7 +9,7 @@ VERSION = "v0.1.0"
 zip_path = os.path.join(REL, "ClashLab_open_source_%s.zip" % VERSION)
 
 # tools/ 是开发期实验脚本（含本机绝对路径与大量实验产物），不随开源包发布
-INCLUDE_DIRS = ["clashlab", "tests", "bases", "assets", "config", "docs", "layouts"]
+INCLUDE_DIRS = ["clashlab", "tests", "bases", "assets", "config", "docs", "layouts", "knowledge", "models"]
 INCLUDE_FILES = ["README.md", "README.en.md", "LICENSE", "ATTRIBUTIONS.md", "PACKAGING.md",
                  "CONTRIBUTING.md", "CHANGELOG.md", "SECURITY.md",
                  "requirements.txt", "requirements-dev.txt",

@@ -1,0 +1,219 @@
+{
+ "version": 2,
+ "updated_at": "2026-11-26",
+ "disclaimer": "以下为参考建议，非官方数据；请结合版本与个人习惯调整。",
+ "recommendations": {
+  "13": {
+   "queen": {
+    "equipment": [
+     "giant-arrow",
+     "healer-puppet"
+    ],
+    "tips": [
+     "巨人箭拆多层墙"
+    ]
+   },
+   "king": {
+    "equipment": [
+     "earthquake-boots",
+     "vampstache"
+    ],
+    "tips": [
+     "地震靴开墙"
+    ]
+   }
+  },
+  "14": {
+   "queen": {
+    "equipment": [
+     "giant-arrow",
+     "invisibility-vial"
+    ],
+    "tips": [
+     "隐身保护切入"
+    ]
+   },
+   "king": {
+    "equipment": [
+     "earthquake-boots",
+     "rage-vial"
+    ],
+    "tips": [
+     "狂暴补输出"
+    ]
+   }
+  },
+  "15": {
+   "queen": {
+    "equipment": [
+     "giant-arrow",
+     "healer-puppet"
+    ],
+    "tips": [
+     "治疗木偶续航"
+    ]
+   },
+   "warden": {
+    "equipment": [
+     "eternal-tome",
+     "life-gem"
+    ],
+    "tips": [
+     "大招覆盖核心"
+    ]
+   }
+  },
+  "16": {
+   "queen": {
+    "equipment": [
+     "giant-arrow",
+     "healer-puppet"
+    ],
+    "tips": [
+     "巨人箭+治疗切入"
+    ]
+   },
+   "king": {
+    "equipment": [
+     "earthquake-boots",
+     "vampstache"
+    ],
+    "tips": [
+     "坦克流带吸血"
+    ]
+   },
+   "warden": {
+    "equipment": [
+     "eternal-tome",
+     "life-gem"
+    ],
+    "tips": [
+     "保核心推进"
+    ]
+   },
+   "royal-champion": {
+    "equipment": [
+     "royal-gem",
+     "seeking-shield"
+    ],
+    "tips": [
+     "收尾清边"
+    ]
+   }
+  },
+  "17": {
+   "queen": {
+    "equipment": [
+     "giant-arrow",
+     "invisibility-vial"
+    ],
+    "tips": [
+     "高本核心更硬，带隐身"
+    ]
+   },
+   "king": {
+    "equipment": [
+     "earthquake-boots",
+     "rage-vial"
+    ],
+    "tips": [
+     "强拆开墙"
+    ]
+   },
+   "warden": {
+    "equipment": [
+     "eternal-tome",
+     "life-gem"
+    ],
+    "tips": [
+     "大范围覆盖"
+    ]
+   },
+   "royal-champion": {
+    "equipment": [
+     "royal-gem",
+     "seeking-shield"
+    ],
+    "tips": [
+     "远程投掷"
+    ]
+   }
+  },
+  "18": {
+   "queen": {
+    "equipment": [
+     "giant-arrow",
+     "healer-puppet"
+    ],
+    "tips": [
+     "续航优先"
+    ]
+   },
+   "king": {
+    "equipment": [
+     "earthquake-boots",
+     "vampstache"
+    ],
+    "tips": [
+     "吸血保坦"
+    ]
+   },
+   "warden": {
+    "equipment": [
+     "eternal-tome",
+     "life-gem"
+    ],
+    "tips": [
+     "核心推进"
+    ]
+   },
+   "royal-champion": {
+    "equipment": [
+     "royal-gem",
+     "seeking-shield"
+    ],
+    "tips": [
+     "清边收尾"
+    ]
+   }
+  },
+  "19": {
+   "queen": {
+    "equipment": [
+     "giant-arrow",
+     "invisibility-vial"
+    ],
+    "tips": [
+     "高本护盾多，带隐身"
+    ]
+   },
+   "king": {
+    "equipment": [
+     "earthquake-boots",
+     "rage-vial"
+    ],
+    "tips": [
+     "开墙+狂暴"
+    ]
+   },
+   "warden": {
+    "equipment": [
+     "eternal-tome",
+     "life-gem"
+    ],
+    "tips": [
+     "覆盖全队"
+    ]
+   },
+   "royal-champion": {
+    "equipment": [
+     "royal-gem",
+     "seeking-shield"
+    ],
+    "tips": [
+     "远程补刀"
+    ]
+   }
+  }
+ }
+}

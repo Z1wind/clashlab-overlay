@@ -1,0 +1,9 @@
+{
+ "n_train": 40,
+ "n_val": 11,
+ "epochs": 120,
+ "corner_err_px_mean": 127.7,
+ "corner_err_px_max": 223.07,
+ "corner_err_tile_mean": 21.64,
+ "note": "伪标签来自草地边界检测；指标为对伪标签的拟合误差，非人工真值"
+}

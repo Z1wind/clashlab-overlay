@@ -67,6 +67,17 @@ def main(argv=None):
         frame = grab_screen(a.serial)
 
     calib, meta = calib_mod.detect_village_quad(frame, grid_n=44)
+    # 兜底：草地检测失败时用四角回归模型（存在 checkpoint 才用）
+    if calib is None:
+        try:
+            from clashlab import quad_model as _qm
+            _m = _qm.load_model()
+            _q = _m.predict(frame)
+            calib = calib_mod.Calib.from_quad(__import__("numpy").array(_q, dtype=__import__("numpy").float32), n=44)
+            meta = {"method": "quad-model", "quad": [[float(x), float(y)] for x, y in _q]}
+            print("草地检测失败，使用四角模型兜底")
+        except Exception as _e:
+            print("四角模型兜底不可用：%s" % str(_e)[:80])
     if calib is None:
         print("自动标定失败:", json.dumps(meta, ensure_ascii=False))
         raise SystemExit("未检测到草地/边界，请换一张画面更完整的截图，或用 --from-file 手动提供")

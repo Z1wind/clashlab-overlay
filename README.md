@@ -25,10 +25,11 @@ ClashLab 是一个以 LLM 为辅的部落冲突（Clash of Clans）布阵研究�
 
 ## 最近更新（2026-11-26）
 
-- **兵棋推演** `clashlab/wargame.py`：军队构成 + 投放点 → 确定性 tick 战斗模拟 + Monte Carlo 摧毁率分布（base 03 实测 mean 15.5%，最佳投放点 22.1%），CLI 见 `tools/wargame_cli.py`。
-- **实机 UI 验证**：`tools/qa_e2e.py` 一条命令跑 7 项矩阵（HUD/PANEL × 有/无布局、页签切换、缩放重标定、exe 自检），本机实跑 **7/7 PASS**，报告 `docs/QA_E2E.md`。
-- **机器学习可行性**：`tools/train_save_model.py` 训练并保存 `models/recog_27px.pt`（默认 40 epoch：within 0.662 / LOBO 0.503；60 epoch 可到 0.734 / 0.641），推理接口 `clashlab/recog_model.py`，报告 `docs/ML_FEASIBILITY.md`。
-- 新增四角标注工具 `tools/label_corners/`（给自动标定模型造数据）。
+- **全大本营支持（TH1–TH19）**：`clashlab/th_data.py` + `knowledge/th_ruleset.json`（reviewed ruleset：尺寸/等级/解锁精确，TH17–19 hp/dps 低置信外推），文档 `docs/TH_SUPPORT.md`。
+- **布阵 → 兵种搭配推荐**：`clashlab/strategy.py` 按弱点判定（对空缺口/大本营偏心/隔间密集）给 3 条 meta 搭配与投放步骤，附 YouTube 搜索入口（不存储第三方内容）；数据 `knowledge/strategies.json`；文档 `docs/STRATEGY.md`。
+- **放兵点 → 放兵线/区域**：`clashlab/deploy.py` 枚举 12 条撒兵线 + 4 个区域并挑摧毁率最高；base 03 实测 **17.9% → 24.7%**；文档 `docs/DEPLOY.md`。
+- **四角回归模型（自动标定兜底）**：`clashlab/quad_model.py` + `models/quad_model.pt`，勇气来自社区阵图 + 草地边界伪标签（51/57 自动标注成功）；文档 `docs/QUAD_MODEL.md`。
+- 兵棋推演/QA 矩阵/识别模型见上一条更新。
 
 ## 能做什么
 
