@@ -1,6 +1,8 @@
 # Changelog
 
 ## v0.3.0 (unreleased)
+- OCR 对手识别（RapidOCR）+ ClashKing API 自动解析 TH/部落战 + fresh=True 最新数据；
+- exe 内置 OCR（约 121MB）+ --ocr-selftest；识别模型评估结论（docs/RECOG_DECISION.md）。
 
 - 合成素材「类型+等级」双头模型（GPU 300 epoch）：type_acc 0.979 / level_mae 1.14（合成集）；
 - ClashKing 公开 API 客户端：玩家/部落标签 → 自动 TH 等级与部落战成员 TH，自动回填布局等级；

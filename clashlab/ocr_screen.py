@@ -67,16 +67,49 @@ def _parse_lines(lines):
     return {"level": level, "name": name, "clan": clan}
 
 
+def _alias_plugins():
+    """PyInstaller 冻结后 rapidocr 用 importlib.import_module("ch_ppocr_v3_det") 这种
+    顶层名找插件；把子包别名注册进 sys.modules，源码运行与冻结运行都适用。"""
+    import importlib
+    import sys
+    try:
+        import rapidocr_onnxruntime as _r
+    except Exception:
+        return
+    for name in ("ch_ppocr_v3_det", "ch_ppocr_v3_rec", "ch_ppocr_v2_cls"):
+        if name in sys.modules:
+            continue
+        try:
+            sys.modules[name] = importlib.import_module(_r.__name__ + "." + name)
+        except Exception:
+            pass
+
+
 def ocr_lines(img_bgr, crop=TOP_CROP, scale=3):
     """对图片（BGR ndarray）做 OCR，返回 [{"text","score","box"}]。"""
     from rapidocr_onnxruntime import RapidOCR  # 延迟导入：没装也能 import 本模块
     import cv2
+    _alias_plugins()
+    import importlib as _il
+    import rapidocr_onnxruntime.rapid_ocr_api as _rapi
+    _orig_import = _il.import_module
+    _plugins = ("ch_ppocr_v3_det", "ch_ppocr_v3_rec", "ch_ppocr_v2_cls")
+
+    def _patched(name, package=None):
+        if name in _plugins:
+            name = "rapidocr_onnxruntime." + name
+        return _orig_import(name, package) if package is not None else _orig_import(name)
+
+    _il.import_module = _patched
+    try:
+        engine = RapidOCR()
+    finally:
+        _il.import_module = _orig_import
     h, w = img_bgr.shape[:2]
     x0, y0, x1, y1 = crop
     sub = img_bgr[int(h * y0):int(h * y1), int(w * x0):int(w * x1)]
     if scale and scale != 1:
         sub = cv2.resize(sub, None, fx=scale, fy=scale, interpolation=cv2.INTER_CUBIC)
-    engine = RapidOCR()
     res, _ = engine(sub)
     out = []
     for item in res or []:

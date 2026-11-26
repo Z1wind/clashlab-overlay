@@ -19,6 +19,10 @@ if (Test-Path "$root\dist\ClashOverlay.exe") { Remove-Item "$root\dist\ClashOver
     --collect-data imgui_bundle `
     --collect-binaries glfw `
     --collect-binaries imgui_bundle `
+    --collect-data rapidocr_onnxruntime `
+    --collect-submodules rapidocr_onnxruntime `
+    --collect-submodules onnxruntime `
+    --collect-binaries onnxruntime `
     --hidden-import imgui_bundle.python_backends.glfw_backend `
     --hidden-import OpenGL.GL `
     --hidden-import glfw `
@@ -30,6 +34,17 @@ if (Test-Path "$root\dist\ClashOverlay.exe") { Remove-Item "$root\dist\ClashOver
     --hidden-import clashlab.vision `
     --hidden-import cv2 `
     --hidden-import numpy `
+    --hidden-import rapidocr_onnxruntime `
+    --hidden-import onnxruntime `
+    --hidden-import onnxruntime.capi._pybind_state `
+    --hidden-import clashlab.ocr_screen `
+    --hidden-import clashlab.cocapi `
+    --exclude-module torch `
+    --exclude-module torchvision `
+    --exclude-module torchaudio `
+    --exclude-module sympy `
+    --exclude-module networkx `
+    --exclude-module matplotlib `
     overlay_exe_main.py
 
 if ($LASTEXITCODE -ne 0) { throw "PyInstaller exited with $LASTEXITCODE" }

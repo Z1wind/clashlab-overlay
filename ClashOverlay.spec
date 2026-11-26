@@ -1,12 +1,18 @@
 # -*- mode: python ; coding: utf-8 -*-
 from PyInstaller.utils.hooks import collect_data_files
 from PyInstaller.utils.hooks import collect_dynamic_libs
+from PyInstaller.utils.hooks import collect_submodules
 
 datas = []
 binaries = []
+hiddenimports = ['imgui_bundle.python_backends.glfw_backend', 'OpenGL.GL', 'glfw', 'win32gui', 'win32con', 'win32api', 'win32process', 'win32ui', 'clashlab.vision', 'cv2', 'numpy', 'rapidocr_onnxruntime', 'onnxruntime', 'onnxruntime.capi._pybind_state', 'clashlab.ocr_screen', 'clashlab.cocapi']
 datas += collect_data_files('imgui_bundle')
+datas += collect_data_files('rapidocr_onnxruntime')
 binaries += collect_dynamic_libs('glfw')
 binaries += collect_dynamic_libs('imgui_bundle')
+binaries += collect_dynamic_libs('onnxruntime')
+hiddenimports += collect_submodules('rapidocr_onnxruntime')
+hiddenimports += collect_submodules('onnxruntime')
 
 
 a = Analysis(
@@ -14,11 +20,11 @@ a = Analysis(
     pathex=[],
     binaries=binaries,
     datas=datas,
-    hiddenimports=['imgui_bundle.python_backends.glfw_backend', 'OpenGL.GL', 'glfw', 'win32gui', 'win32con', 'win32api', 'win32process', 'win32ui', 'clashlab.vision', 'cv2', 'numpy'],
+    hiddenimports=hiddenimports,
     hookspath=[],
     hooksconfig={},
     runtime_hooks=[],
-    excludes=[],
+    excludes=['torch', 'torchvision', 'torchaudio', 'sympy', 'networkx', 'matplotlib'],
     noarchive=False,
     optimize=0,
 )

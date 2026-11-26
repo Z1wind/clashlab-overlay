@@ -25,6 +25,9 @@ ClashLab 是一个以 LLM 为辅的部落冲突（Clash of Clans）布阵研究�
 
 ## 最近更新（2026-11-26）
 
+- **对手识别（OCR+API）**：截图左上角 OCR 出对手名字/部落 → ClashKing 公开 API（fresh=True 强制回源）→ 玩家 tag/TH/部落战成员 TH；见 `docs/OCR_OPPONENT.md`。
+- **exe 内置 OCR**：ClashOverlay.exe 现内置 RapidOCR/onnxruntime（体积 +31MB），新增 `--ocr-selftest IMAGE OUT.json` 离线自检开关。
+- **识别模型评估**：分类模型不再继续投入（检测才是瓶颈），结论见 `docs/RECOG_DECISION.md`。
 - **类型+等级双头模型（GPU）**：用 ClashKing 逐级立绘合成 14,880 张样本（29 类 / 372 个类型-等级组合），RTX 4060 训练 300 epoch → **type_acc 0.979 / level_mae 1.14**（合成集），产物 `models/synth_level.pt`。
 - **数据驱动自动等级**：新增 `clashlab/cocapi.py` + `tools/cocapi_cli.py`，用 ClashKing 公开 API 按玩家/部落标签拿 **TH 等级**与部落战双方成员 TH（无需 token），并可自动回填布局建筑等级；英雄/兵种等级需官方 API token（接口已预留）。
 - **识别模型重训（473 栋）**：全类 within **0.879** / LOBO **0.820**；仅防御类 within 0.880 / LOBO 0.809（此前 0.718/0.581）。

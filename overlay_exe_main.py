@@ -69,7 +69,22 @@ def main() -> None:
                     help="always visible (default: follow foreground, hide when LDPlayer not front)")
     ap.add_argument("--allow-primary", action="store_true",
                     help="allow target on primary display (single-monitor setups)")
+    ap.add_argument("--ocr-selftest", nargs=2, metavar=("IMAGE", "OUT_JSON"), default=None,
+                    help="offline OCR self-test: read image -> write parsed result JSON")
     a = ap.parse_args()
+
+    if a.ocr_selftest:
+        import json
+        import numpy as np
+        import cv2
+        from clashlab import ocr_screen
+        img = cv2.imdecode(np.fromfile(a.ocr_selftest[0], np.uint8), cv2.IMREAD_COLOR)
+        if img is None:
+            raise SystemExit("read image failed: " + a.ocr_selftest[0])
+        got = ocr_screen.read_opponent(img)
+        with open(a.ocr_selftest[1], "w", encoding="utf-8") as f:
+            json.dump(got, f, ensure_ascii=False, indent=1)
+        return
 
     from clashlab.overlay.runtime import run
 
