@@ -1,6 +1,8 @@
 # Changelog
 
 ## v0.3.0 (unreleased)
+- 本地网页标注器 tools/annotate_web.py（4 角标定 + 建筑点选 + 导出 JSON）。
+- 敌方阵型流水线 tools/enemy_pipeline.py（评分 + 穿云箭选线 + 落点敏感性）。
 - 批量阵型压测 98 例：落点稳定率 26%、13 例目标翻转（docs/ARROW_BATCH.md）。
 - 界面三语：简体/繁體/English；英文文案润色（标签/按钮/提示统一）。
 - 英雄落点→穿云箭方向：最近建筑中心决定箭线 + 落点敏感性测试（arrow_placement_cli）。

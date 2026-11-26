@@ -105,6 +105,9 @@ python -m unittest discover -s tests
 
 - **真实战图实机验证**：部落战侦察屏 OCR+API 一次成功（SHADOW TH17 / #PLVYQ0G2U），见 `docs/LIVE_TEST.md`。
 
+- **本地网页标注器**：`python tools/annotate_web.py --image out/live/enemy_scout_live.png` → 浏览器点 4 角 + 建筑 → 导出 annotated JSON（docs/ANNOTATE_WEB.md）。
+- **敌方阵型流水线**：`python tools/enemy_pipeline.py --layout X_annotated.json` → 评分/弱点 + 穿云箭最优线 + 落点敏感性，一次输出。
+
 ## 🗺 路线图
 
 - [x] 覆盖层 HUD/PANEL + 自动重标定
