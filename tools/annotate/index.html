@@ -885,11 +885,14 @@ kbd{background:#12151b;border:1px solid #46506a;border-bottom-width:2px;border-r
       '<div class="row">tile x <input id="selX" type="number" min="0" max="' + (g - 1) + '" value="' + b.tile[0] + '">' +
       ' y <input id="selY" type="number" min="0" max="' + (g - 1) + '" value="' + b.tile[1] + '">' +
       '<span class="hint">grid=' + g + '（0..' + (g - 1) + '）</span></div>' +
+      '<div class="row">等级 Lv <input id="selLevel" type="number" min="1" max="99" placeholder="未标" value="' + (b.level || '') + '">' +
+      '<span class="hint">可空；填了会参与推演（满级≈该本最高等级）</span></div>' +
       '<div class="row"><button id="delSel" class="danger">删除选中（Delete）</button>' +
       '<button id="prevB">上一栋</button><button id="nextB">下一栋</button></div>';
     $('selType').addEventListener('change', function (e) { changeType(S.sel, e.target.value); });
     $('selX').addEventListener('change', function (e) { setTileFromInputs(); });
     $('selY').addEventListener('change', function (e) { setTileFromInputs(); });
+    $('selLevel').addEventListener('change', function (e) { setLevelFromInput(); });
     $('delSel').addEventListener('click', deleteSelected);
     $('prevB').addEventListener('click', function () { cycleBuilding(-1); });
     $('nextB').addEventListener('click', function () { cycleBuilding(1); });
@@ -905,6 +908,24 @@ kbd{background:#12151b;border:1px solid #46506a;border-bottom-width:2px;border-r
     b.tile = [x, y];
     S.dirty = true;
     scheduleSave();
+    draw(); renderSelected(); renderBList();
+  }
+  function setLevelFromInput() {
+    if (S.sel < 0) return;
+    var raw = ($('selLevel').value || '').trim();
+    var b = S.doc.buildings[S.sel];
+    if (raw === '') {
+      if (b.level !== undefined) { pushUndoSnapshot(); delete b.level; S.dirty = true; scheduleSave(); }
+    } else {
+      var lv = parseInt(raw, 10);
+      if (isNaN(lv) || lv < 1 || lv > 99) { toast('等级需为 1..99'); renderSelected(); return; }
+      if (b.level === lv) return;
+      pushUndoSnapshot();
+      b.level = lv;
+      S.dirty = true;
+      scheduleSave();
+      setStatus('#' + (S.sel + 1) + ' ' + cn(b.type) + ' → Lv.' + lv);
+    }
     draw(); renderSelected(); renderBList();
   }
   function renderBList() {

@@ -537,13 +537,18 @@ def normalize_layout(doc, grid=None):
             except (TypeError, ValueError):
                 conf = 1.0
             conf = min(max(conf, 0.0), 1.0)
-            buildings.append({
+            item = {
                 "type": str(b.get("type") or ""),
                 "tile": [tx, ty],
                 "source": str(b.get("source") or "manual"),
                 "conf": conf,
                 "note": str(b.get("note") or ""),
-            })
+            }
+            # 等级（可选）：标注工具里填的整数，1..99；其它值丢弃
+            lv = b.get("level")
+            if isinstance(lv, int) and not isinstance(lv, bool) and 1 <= lv <= 99:
+                item["level"] = int(lv)
+            buildings.append(item)
     walls = []
     raw_walls = doc.get("walls")
     if isinstance(raw_walls, list):
