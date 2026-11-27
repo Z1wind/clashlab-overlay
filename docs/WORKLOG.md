@@ -25,3 +25,19 @@
 1. RANSAC 锚点拟合，校正 5 张 GT 的 quad
 2. 校正成功 → 重新生成 GT → 训练格点分类器 → 留出验证
 3. 仍失败 → 人工半自动校准 + 逐张视觉标注（慢但可靠）
+
+## 通宵轮次 3（2026-11-28 02:20-02:40）
+
+### CI 构建 APK —— 已接入并跑通
+- 新增可移植构建脚本 tools/build_apk_ci.py（读 JAVA_HOME/ANDROID_HOME，Win/Linux 通用）
+- 新增 .github/workflows/build-apk.yml（JDK17 + Android SDK 34，构建并上传 artifact），推送即触发
+- GitHub API 推送可行，run 1989763a 成功
+- 发现 CI artifact 仅 55KB：根因是 20 张阵图被 .gitignore 第 61 行 android/assets/img/ 忽略、仓库中不存在
+  -> 已 git add -f 20 张图并推送（commit 52ee008），CI 自动重跑（run 52ee008b）
+
+### Release v0.3.7
+- 已创建，资产：APK v0.2.5（8,292,385）+ units.html + 样例包 v2 + ClashOverlay.exe
+
+### 待办
+- 确认新 CI 构建 APK 尺寸恢复约 8.3MB 并校验 md5
+- 登记验证 + 早晨简报
