@@ -81,3 +81,10 @@ ClashKing（Clash.Ninja）管理员明确回复：**模拟器使用本身是灰�
 - 决定：**不再申请 token、不接布局库**；`cocapi.py` 的 token 接口保留代码但标注为「不再推进」；
 - 仅保留公开端点（玩家名→tag/TH、部落战成员）作为**可选**能力，是否使用由使用者自行评估；
 - 项目主线转为**纯本地**：截图 → 标定 → 评分/推演/战术图，不依赖第三方授权。
+
+## 📱 2026-11-27：手机标注 APK v2 + v0.3.0 Release
+
+- APK：下载 https://github.com/Z1wind/clashlab-overlay/releases/download/v0.3.0/ClashLabAnnotator.apk
+- 已内置 3 张真实战图；流程：点 4 个网格角 → 选类型点建筑 → 导出 JSON（保存到 Download）
+- 实测：安装启动正常；导出 `apk2_export.json` schema=`clashlab-annotator-v2`，quad 4 点 + 1 栋 tile=[22,21]
+- Release v0.3.0 资产：ClashOverlay.exe（121,348,119 B）、ClashLabAnnotator.apk（10,032,264 B）、标注数据 zip（11,674,555 B）
