@@ -181,6 +181,15 @@ class Handler(BaseHTTPRequestHandler):
             from clashlab import assets
             names = sorted(assets.STATS.keys())
             return self._send(200, json.dumps(names), "application/json")
+        if u.path == "/units":
+            up = os.path.join(ROOT, "out", "units.html")
+            if not os.path.exists(up):
+                subprocess.run([sys.executable, "-u", os.path.join(ROOT, "tools", "build_units_page.py")],
+                               capture_output=True, timeout=120)
+            if os.path.exists(up):
+                with open(up, "rb") as f:
+                    return self._send(200, f.read(), "text/html; charset=utf-8")
+            return self._send(404, "units page not built")
         if u.path == "/image":
             path = STATE.get("image")
             if not path or not os.path.exists(path):

@@ -575,6 +575,9 @@ def _draw_local(ctx, state, root, ready, panel_w, px, H):
     y += 20.0
     imgui.text_colored(imgui.ImVec4(*SUBTLE), _opponent_line(state))
     y += 20.0
+    imgui.set_cursor_screen_pos(imgui.ImVec2(px + PAD, y))
+    imgui.text_colored(imgui.ImVec4(*SUBTLE), _battle_sim_line(state))
+    y += 20.0
 
     # ---- 重要防御行（整行可点；选中=2px 琥珀左条+底板提亮，与 rank 解耦；C3/C6）----
     # P1-4 720 竖向预算：列表按可用高度伸缩，吃满到状态栏上方，不再只按行数收缩
@@ -1343,6 +1346,37 @@ def _fmt_ocr_payload(payload):
         return _T("对手：未识别（F6）", "Opponent: unknown (F6)")
     name = ocr.get("name") or "未知"
     return "对手：%s（TH%s）· OCR" % (name, th if th else "?")
+
+
+_SIM_CACHE = {}
+
+
+def _battle_sim_line(state):
+    """研究页进攻模拟行（按布局指纹缓存；默认 hybrid-miner 配比）。"""
+    try:
+        lay = getattr(state, "layout", None)
+        if not isinstance(lay, dict):
+            lay = getattr(state, "Layout", None)
+        if not isinstance(lay, dict) or not (lay.get("buildings") or []):
+            return _T("模拟：无阵型数据", "Sim: no layout")
+        key = (lay.get("name"), len(lay.get("buildings") or []), len(lay.get("walls") or []))
+        if _SIM_CACHE.get("key") == key:
+            return _SIM_CACHE.get("line") or ""
+        from .. import battle_sim
+        army = {"miner": 21, "hog-rider": 11, "healer": 4}
+        r = battle_sim.simulate(lay, army)
+        if not r.get("ok"):
+            line = _T("模拟：无法计算", "Sim: n/a")
+        else:
+            side_zh = {"west": "西", "east": "东", "north": "北", "south": "南", "inner": "内侧"}.get(r["side"], r["side"])
+            line = _T("模拟：%s侧 路径%s 破墙%s 生存%.0f%% %d★" % (
+                side_zh, r["path_len"], r["walls_to_break"], r["survival"] * 100, r["stars_estimate"]),
+                "Sim: %s path %s walls %s surv %.0f%% %d★" % (
+                r["side"], r["path_len"], r["walls_to_break"], r["survival"] * 100, r["stars_estimate"]))
+        _SIM_CACHE.update({"key": key, "line": line})
+        return line
+    except Exception:
+        return _T("模拟：无法计算", "Sim: n/a")
 
 
 def _opponent_th_suffix(payload):

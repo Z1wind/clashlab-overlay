@@ -139,3 +139,11 @@ ClashKing（Clash.Ninja）管理员明确回复：**模拟器使用本身是灰�
 - 面板研究页对手行追加「 · 部落 TH16×3 TH15×5」后缀（来自 cached 免费端点）
 - 实测 06 阵：路径 21 格/破墙1/暴露 2038 dps/生存 79%/拆本 6.5s/预估 3 星
 - 测试：新增 5 项（battle_sim 3 + opponent_th 2），全量 334 OK
+
+## 🧩 2026-11-27：面板进攻模拟 + 兵种/法术可视化（带图标）
+
+- 面板研究页新增「模拟：X侧 路径N 破墙N 生存N% N★」行（默认 hybrid-miner 配比，按布局指纹缓存）
+- 新增 `clashlab/units.py`：21 兵种 / 13 法术 / 5 英雄数据（dps/hp/住房/半径/持续/用途/颜色/字形）
+- 新增 `tools/build_units_page.py`：生成 39 个 PNG 图标（assets/units/）+ `out/units.html`（88,352 bytes，图标内嵌 base64）
+- 标注器服务新增 `/units` 路由（浏览器直接看兵种/法术/英雄卡片 + 知识库推荐配比）
+- 测试：新增 units 3 + battle_sim_line 3，全量 340 OK
