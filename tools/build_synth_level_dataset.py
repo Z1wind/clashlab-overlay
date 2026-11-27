@@ -5,6 +5,8 @@
 产物：E:\ClashLab\datasets\synth_level\{imgs.npy, labels.json}
 """
 import argparse, json, os, random
+
+EXCLUDE_TYPES = {"firespitter"}  # 用户明确：误标，训练忽略
 import numpy as np
 import cv2
 
@@ -91,6 +93,8 @@ def main():
     types = sorted(man["buildings"].keys())
     imgs, labels = [], []
     for ck_name in types:
+        if ck_name in EXCLUDE_TYPES:
+            continue
         our = MAP.get(ck_name)
         if not our:
             continue
@@ -110,6 +114,7 @@ def main():
     os.makedirs(OUT, exist_ok=True)
     np.save(os.path.join(OUT, "imgs.npy"), arr)
     json.dump(labels, open(os.path.join(OUT, "labels.json"), "w", encoding="utf-8"), ensure_ascii=False)
+    labels = [l for l in labels if l.get("type") not in EXCLUDE_TYPES]
     print("[synth] samples:", len(arr), "types:", len({l["type"] for l in labels}),
           "levels:", len({(l["type"], l["level"]) for l in labels}), "->", OUT)
 

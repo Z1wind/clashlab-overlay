@@ -88,3 +88,10 @@ ClashKing（Clash.Ninja）管理员明确回复：**模拟器使用本身是灰�
 - 已内置 3 张真实战图；流程：点 4 个网格角 → 选类型点建筑 → 导出 JSON（保存到 Download）
 - 实测：安装启动正常；导出 `apk2_export.json` schema=`clashlab-annotator-v2`，quad 4 点 + 1 栋 tile=[22,21]
 - Release v0.3.0 资产：ClashOverlay.exe（121,348,119 B）、ClashLabAnnotator.apk（10,032,264 B）、标注数据 zip（11,674,555 B）
+
+## 🔬 2026-11-27：检测器预研（C）已尝试并停止
+
+- 合成检测集 1500/240（排除 firespitter/wall）→ CenterNet-mini 训练 12 epoch → 真实战图推理
+- **结果：真实图 30 个框全部错位（UI/背景被当建筑），不达标** → 按预注册判据停止
+- 详见 `docs/C_DETECT_SPIKE.md`；检测器可视化 `out/live/detect_cf_eval.png`
+- 另外：firespitter 已在训练数据层排除（用户说明误标）；电脑标注器已在本机 8765 打开
