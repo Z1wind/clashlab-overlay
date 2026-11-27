@@ -85,6 +85,26 @@ public class MainActivity extends Activity {
                 }
                 return "OK:" + where;
             } catch (Exception e) {
+                // API<29 兜底：用 MediaStore 兼容方式写入「下载」
+                if (Build.VERSION.SDK_INT < 29 && data != null) {
+                    try {
+                        ContentValues mv = new ContentValues();
+                        mv.put(MediaStore.MediaColumns.DISPLAY_NAME, filename);
+                        mv.put(MediaStore.MediaColumns.MIME_TYPE, "application/json");
+                        mv.put("_data", Environment.getExternalStoragePublicDirectory(
+                                Environment.DIRECTORY_DOWNLOADS).getAbsolutePath() + "/" + filename);
+                        Uri mu = getContentResolver().insert(MediaStore.Files.getContentUri("external"), mv);
+                        if (mu != null) {
+                            OutputStream mos = getContentResolver().openOutputStream(mu);
+                            mos.write(data);
+                            mos.close();
+                            lastUri = mu;
+                            return "OK:Download/" + filename;
+                        }
+                    } catch (Exception e3) {
+                        // 继续走私有目录
+                    }
+                }
                 try {
                     if (data == null) data = content.getBytes("UTF-8");
                     File dir = new File(getExternalFilesDir(null), "Downloads");

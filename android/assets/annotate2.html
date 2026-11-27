@@ -1,61 +1,145 @@
 <!doctype html>
-<html><head><meta charset="utf-8">
+<html lang="zh-CN"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<title>ClashLab 战图标注</title>
+<title>ClashLab 阵型标注（初学者版）</title>
 <style>
-html,body{margin:0;height:100%;background:#0f1318;color:#dde3ea;font-family:system-ui,sans-serif;overflow:hidden;touch-action:none}
-#top{display:flex;gap:6px;align-items:center;padding:6px 8px;background:#1b222c;flex-wrap:wrap}
-#top b{color:#f0b84a}
-button{background:#2a3340;color:#dde3ea;border:1px solid #3a4556;border-radius:6px;padding:6px 10px;font-size:14px}
-button.on{background:#2e6b3e;border-color:#49a35f}
-button.warn{background:#5a2f2f;border-color:#8a4a4a}
-#hint{color:#8fa3bd;font-size:12px;padding:2px 8px 4px}
-#stage{position:absolute;top:88px;bottom:88px;left:0;right:0;display:flex;align-items:center;justify-content:center}
-canvas{max-width:100%;max-height:100%;touch-action:none}
-#pal{position:absolute;left:0;right:0;bottom:0;height:84px;overflow-x:auto;white-space:nowrap;background:#161c24;padding:6px 8px;box-sizing:border-box}
-#pal button{display:inline-block;margin:2px 3px;padding:6px 8px;font-size:12px}
-#badge{position:absolute;left:8px;top:92px;background:rgba(0,0,0,.55);padding:4px 8px;border-radius:6px;font-size:12px;color:#9fd0ff;pointer-events:none}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;height:100%;background:#0f1318;color:#dde3ea;font-family:system-ui,"Microsoft YaHei",sans-serif;overflow:hidden;user-select:none}
+#app{display:flex;flex-direction:column;height:100%}
+#top{display:flex;align-items:center;gap:6px;padding:6px 8px;background:#1b222c;flex-wrap:wrap}
+#top b{color:#f0b84a;font-size:15px}
+#top .sp{flex:1}
+button{background:#2a3340;color:#dde3ea;border:1px solid #3a4556;border-radius:7px;padding:7px 10px;font-size:14px}
+button:active{opacity:.8}
+button.pri{background:#2e6b3e;border-color:#49a35f;color:#fff}
+button.warn{background:#5a2f2f;border-color:#8a4a4a;color:#ffd9d9}
+button.on{background:#3a5a8c;border-color:#6ea8fe;color:#fff}
+#steps{display:flex;gap:8px;padding:6px 10px;background:#151c24;font-size:12px;color:#8fa3bd;flex-wrap:wrap}
+#steps span{padding:4px 9px;border-radius:12px;background:#1f2732;border:1px solid #2c3848}
+#steps span.on{background:#3a5a8c;border-color:#6ea8fe;color:#fff}
+#hint{padding:4px 10px;background:#111720;color:#9fb3c8;font-size:12px;min-height:20px}
+#stage{position:relative;flex:1;overflow:hidden;background:#000;display:flex;align-items:center;justify-content:center}
+canvas{display:block;max-width:100%;max-height:100%;touch-action:none}
+#pal{max-height:168px;overflow-y:auto;background:#151b24;border-top:1px solid #263141;padding:6px 8px}
+#pal .cat{color:#6f86a0;font-size:11px;margin:5px 2px 2px}
+#pal button{display:inline-block;margin:2px 3px;padding:8px 9px;font-size:13px}
+#bar{display:flex;align-items:center;gap:6px;padding:7px 8px;background:#111720;border-top:1px solid #263141;flex-wrap:wrap}
+#bar .grow{flex:1}
+#count{color:#ffd76a;font-size:13px}
+#toast{position:fixed;left:50%;bottom:120px;transform:translateX(-50%);background:#22304a;border:1px solid #40557a;color:#e8eef8;padding:9px 14px;border-radius:9px;font-size:13px;opacity:0;transition:opacity .2s;pointer-events:none;max-width:86%;text-align:center}
+#toast.show{opacity:1}
+#help{position:fixed;inset:8px;background:rgba(10,14,20,.97);border:1px solid #3a4a60;border-radius:12px;padding:14px 16px;font-size:13px;line-height:1.85;color:#cfd8e5;display:none;overflow:auto;z-index:9}
+#help h3{color:#f0b84a;margin:2px 0 8px}
+#help b{color:#9fd0ff}
+#help .ok{display:block;margin-top:10px;text-align:center}
+#tip{position:absolute;left:8px;top:8px;background:rgba(0,0,0,.6);border:1px solid #2a3646;border-radius:6px;padding:3px 8px;font-size:11px;color:#9fd0ff;pointer-events:none}
 </style></head><body>
-<div id="top">
-  <b>ClashLab 标注</b>
-  <button class="tab on" data-img="img/w1.png">战图1</button>
-  <button class="tab" data-img="img/w2.png">战图2</button>
-  <button class="tab" data-img="img/w3.png">战图3</button>
-  <button id="btnUndo">撤销</button>
-  <button id="btnClear">清空</button>
-  <button id="btnExport" class="warn">导出 JSON</button>
+<div id="app">
+  <div id="top">
+    <b>阵型标注</b>
+    <button id="btnHelp">怎么用？</button>
+    <span class="sp"></span>
+    <button id="btnPrev">上一张</button>
+    <button id="btnNext">下一张</button>
+  </div>
+  <div id="steps">
+    <span id="st1" class="on">① 点图片四个角</span>
+    <span id="st2">② 选一种建筑</span>
+    <span id="st3">③ 点建筑中心</span>
+  </div>
+  <div id="hint">点「怎么用？」看 30 秒教程</div>
+  <div id="stage"><canvas id="cv"></canvas><div id="tip">第 1/20 张</div></div>
+  <div id="pal"></div>
+  <div id="bar">
+    <button id="btnUndo">撤销</button>
+    <button id="btnClear" class="warn">清空本张</button>
+    <span id="count">已标 0 栋</span>
+    <span class="grow"></span>
+    <button id="btnExport">导出本张</button>
+    <button id="btnExportAll" class="pri">导出全部</button>
+  </div>
 </div>
-<div id="hint">① 依次点网格四角：左上(0,0) → 右上(44,0) → 右下(44,44) → 左下(0,44)　② 选类型后点建筑中心　③ 导出 JSON</div>
-<div id="stage"><canvas id="cv"></canvas></div>
-<div id="badge">等待标定</div>
-<div id="pal"></div>
+<div id="toast"></div>
+<div id="help">
+  <h3>30 秒上手</h3>
+  <b>第 1 步：点四个角</b><br>图片上是基地的菱形网格。依次点：左上角 → 右上角 → 右下角 → 左下角（点错了就点「撤销」重来）。点完会看到蓝色网格线。<br><br>
+  <b>第 2 步：选建筑</b><br>下面一排按钮是建筑类型，点一下选中（高亮）。<br><br>
+  <b>第 3 步：点建筑</b><br>在图上点建筑中心，会打一个标记；点错了就点「撤销」。<br><br>
+  <b>换图：</b>点「下一张」自动保存当前进度。<br>
+  <b>导出：</b>「导出本张」保存 JSON；「导出全部」把 20 张一起导出。<br>如果第一次打开弹出「允许访问文件」，请点 <b>允许</b>，导出的 JSON 才会出现在「下载」里。
+  <span class="ok"><button id="btnHelpOk" class="pri">知道了</button></span>
+</div>
 <script>
-var IMAGES = ['img/w1.png','img/w2.png','img/w3.png'];
-var TYPES = [
- ['air-defense','防空火箭'],['air-sweeper','吹风机'],['hidden-tesla','特斯拉'],['monolith','巨石碑'],
- ['eagle-artillery','鹰炮'],['scattershot','散射炮'],['inferno-tower','地狱塔'],['x-bow','X连弩'],
- ['wizard-tower','法师塔'],['cannon','加农炮'],['archer-tower','箭塔'],['mortar','迫击炮'],
- ['bomb-tower','炸弹塔'],['clan-castle','部落城堡'],['spell-tower','法术塔'],['multi-archer-tower','多重箭塔'],
- ['town-hall','大本营'],['gold-mine','金矿'],['elixir-collector','圣水收集'],['gold-storage','金库'],
- ['elixir-storage','圣水瓶'],['dark-elixir-storage','黑水库'],['army-camp','兵营'],['barracks','训练营'],
- ['workshop','工坊'],['laboratory','实验室']
+var IMAGES = [];
+for (var i = 1; i <= 20; i++) { IMAGES.push('img/b' + (i < 10 ? '0' + i : i) + '.jpg'); }
+var CATS = [
+  ['防御', [['air-defense','防空火箭'],['air-sweeper','吹风机'],['hidden-tesla','特斯拉'],['eagle-artillery','鹰炮'],
+            ['scattershot','散射炮'],['inferno-tower','地狱塔'],['x-bow','X连弩'],['wizard-tower','法师塔'],
+            ['cannon','加农炮'],['archer-tower','箭塔'],['mortar','迫击炮'],['bomb-tower','炸弹塔'],
+            ['monolith','巨石碑'],['spell-tower','法术塔'],['multi-archer-tower','多重箭塔'],['ricochet-cannon','弹射加农炮']]],
+  ['核心', [['town-hall','大本营'],['clan-castle','部落城堡'],['dark-elixir-storage','黑水库'],['elixir-storage','圣水瓶'],['gold-storage','金库']]],
+  ['资源/其他', [['gold-mine','金矿'],['elixir-collector','圣水收集'],['dark-elixir-drill','黑水钻井'],['army-camp','兵营'],
+            ['barracks','训练营'],['dark-barracks','暗黑训练营'],['workshop','工坊'],['laboratory','实验室'],['builder-hut','建筑工人小屋']]]
 ];
 var cv = document.getElementById('cv'), ctx = cv.getContext('2d');
-var img = new Image(), imgPath = IMAGES[0];
-var corners = [], buildings = [], sel = 'air-defense';
-function toast(m){ try{ if(window.AndroidBridge) window.AndroidBridge.toast(m);}catch(e){} }
-function badge(m){ document.getElementById('badge').textContent = m; }
-img.onload = function(){ cv.width = img.naturalWidth; cv.height = img.naturalHeight; draw(); };
-img.src = imgPath;
+var img = new Image();
+var cur = 0, sel = 'air-defense';
+var state = {}; // imgIndex -> {corners:[], buildings:[]}
+function getState(idx){ if(!state[idx]) state[idx] = {corners:[], buildings:[]}; return state[idx]; }
+function toast(m){ var t=document.getElementById('toast'); t.textContent=m; t.className='show'; clearTimeout(t._t); t._t=setTimeout(function(){t.className='';},1600); }
+function saveLocal(){ try{ localStorage.setItem('clashlab_annot', JSON.stringify(state)); }catch(e){} }
+function loadLocal(){ try{ var s=localStorage.getItem('clashlab_annot'); if(s) state=JSON.parse(s)||{}; }catch(e){} }
+
+function loadImage(idx){
+  cur = idx;
+  var st = getState(idx);
+  document.getElementById('tip').textContent = '第 ' + (idx+1) + '/' + IMAGES.length + ' 张';
+  img.onload = function(){
+    var maxW = Math.min(window.innerWidth*0.98, 1600);
+    var scale = Math.min(1, maxW / img.naturalWidth);
+    cv.width = Math.round(img.naturalWidth*scale); cv.height = Math.round(img.naturalHeight*scale);
+    draw(); updateUI();
+  };
+  img.src = IMAGES[idx];
+  updateUI();
+}
+function draw(){
+  if(!img.complete || !img.naturalWidth) return;
+  ctx.clearRect(0,0,cv.width,cv.height);
+  ctx.drawImage(img,0,0,cv.width,cv.height);
+  var st = getState(cur);
+  if(st.corners.length === 4){
+    var k;
+    for(k=0;k<=44;k++){ var t=k/44;
+      var a=bil(t,0), b=bil(t,1), c=bil(0,t), d=bil(1,t);
+      ctx.strokeStyle='rgba(80,200,255,.30)'; ctx.lineWidth=1;
+      ctx.beginPath(); ctx.moveTo(a[0],a[1]); ctx.lineTo(b[0],b[1]); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(c[0],c[1]); ctx.lineTo(d[0],d[1]); ctx.stroke();
+    }
+  }
+  var i, p;
+  for(i=0;i<st.corners.length;i++){
+    p=st.corners[i];
+    ctx.fillStyle='#ffd166'; ctx.beginPath(); ctx.arc(p[0],p[1],7,0,7); ctx.fill();
+    ctx.fillStyle='#111'; ctx.font='bold 12px sans-serif'; ctx.fillText(String(i+1),p[0]+9,p[1]-9);
+  }
+  for(i=0;i<st.buildings.length;i++){
+    var W = st.buildings[i]; p = bil((W.tile[0]+0.5)/44, (W.tile[1]+0.5)/44);
+    ctx.strokeStyle='#ffd166'; ctx.lineWidth=2;
+    ctx.beginPath(); ctx.arc(p[0],p[1],7,0,7); ctx.stroke();
+    ctx.fillStyle='rgba(255,209,102,.85)'; ctx.beginPath(); ctx.arc(p[0],p[1],2.5,0,7); ctx.fill();
+  }
+}
 function bil(u,v){
-  if(corners.length<4) return [u*cv.width, v*cv.height];
-  var p0=corners[0],p1=corners[1],p2=corners[2],p3=corners[3];
+  var st = getState(cur);
+  if(st.corners.length < 4) return [u*cv.width, v*cv.height];
+  var p0=st.corners[0],p1=st.corners[1],p2=st.corners[2],p3=st.corners[3];
   return [ (1-u)*(1-v)*p0[0]+u*(1-v)*p1[0]+u*v*p2[0]+(1-u)*v*p3[0],
            (1-u)*(1-v)*p0[1]+u*(1-v)*p1[1]+u*v*p2[1]+(1-u)*v*p3[1] ];
 }
 function invBilinear(px,py){
   var u=0.5,v=0.5,i,p,e0,e1,du,dv,j00,j10,j01,j11,det,dU,dV;
-  for(i=0;i<30;i++){
+  for(i=0;i<25;i++){
     p=bil(u,v); e0=p[0]-px; e1=p[1]-py;
     du=bil(u+1e-4,v); dv=bil(u,v+1e-4);
     j00=(du[0]-p[0])/1e-4; j10=(dv[0]-p[0])/1e-4;
@@ -67,71 +151,136 @@ function invBilinear(px,py){
   }
   return [u,v];
 }
-function draw(){
-  ctx.drawImage(img,0,0);
-  if(corners.length===4){
-    ctx.strokeStyle='rgba(80,200,255,.45)'; ctx.lineWidth=Math.max(1,cv.width/900);
-    var k,i,a,b,c,d;
-    for(k=0;k<=44;k++){ i=k/44;
-      a=bil(i,0); b=bil(i,1); c=bil(0,i); d=bil(1,i);
-      ctx.beginPath(); ctx.moveTo(a[0],a[1]); ctx.lineTo(b[0],b[1]); ctx.stroke();
-      ctx.beginPath(); ctx.moveTo(c[0],c[1]); ctx.lineTo(d[0],d[1]); ctx.stroke();
-    }
-  }
-  var j,p2,W,H;
-  for(j=0;j<corners.length;j++){ p2=corners[j];
-    ctx.fillStyle='#ffd166'; ctx.beginPath(); ctx.arc(p2[0],p2[1],Math.max(5,cv.width/150),0,7); ctx.fill();
-    ctx.fillStyle='#111'; ctx.font=Math.max(12,cv.width/80)+'px sans-serif'; ctx.fillText(String(j+1),p2[0]+8,p2[1]-8);
-  }
-  for(j=0;j<buildings.length;j++){
-    W=buildings[j]; p2=bil((W.tile[0]+0.5)/44,(W.tile[1]+0.5)/44);
-    H=Math.max(9,cv.width/80);
-    ctx.fillStyle = W.type==='air-defense' ? '#e84a4a' : (W.type==='air-sweeper' ? '#f2a23c' : (W.type==='hidden-tesla' ? '#999' : '#50c8b4'));
-    ctx.fillRect(p2[0]-H,p2[1]-H,2*H,2*H);
-    ctx.fillStyle='#fff'; ctx.font=Math.max(10,cv.width/100)+'px sans-serif';
-    ctx.fillText(String(j+1),p2[0]-H+2,p2[1]+4);
-  }
-  badge(corners.length<4 ? ('还需 '+(4-corners.length)+' 个角') : ('已标 '+buildings.length+' 栋 · '+sel));
+function canvasPos(ev){
+  var r = cv.getBoundingClientRect();
+  var pt = (ev.touches && ev.touches[0]) ? ev.touches[0] : ev;
+  return [ (pt.clientX - r.left) * cv.width / r.width, (pt.clientY - r.top) * cv.height / r.height ];
 }
-function pos(ev){
-  var r=cv.getBoundingClientRect();
-  var t=ev.touches?ev.touches[0]:ev;
-  return [ (t.clientX-r.left)*cv.width/r.width, (t.clientY-r.top)*cv.height/r.height ];
+function hitExisting(tile){
+  var st = getState(cur), i, b;
+  for(i=0;i<st.buildings.length;i++){ b=st.buildings[i];
+    if(Math.abs(b.tile[0]-tile[0])<=0.7 && Math.abs(b.tile[1]-tile[1])<=0.7) return i; }
+  return -1;
 }
-cv.addEventListener('pointerdown', function(ev){
+function onTap(ev){
   ev.preventDefault();
-  var p=pos(ev);
-  if(corners.length<4){ corners.push(p); draw(); return; }
-  var uv=invBilinear(p[0],p[1]);
-  if(uv[0]<-0.05||uv[0]>1.05||uv[1]<-0.05||uv[1]>1.05) return;
-  buildings.push({type:sel, tile:[Math.round(uv[0]*44), Math.round(uv[1]*44)]});
-  draw();
-}, {passive:false});
-document.querySelectorAll('.tab').forEach(function(b){
-  b.onclick=function(){
-    document.querySelectorAll('.tab').forEach(function(x){x.classList.remove('on');});
-    b.classList.add('on'); imgPath=b.getAttribute('data-img'); img.src=imgPath;
-    corners=[]; buildings=[]; draw();
-  };
-});
-var pal=document.getElementById('pal');
-TYPES.forEach(function(t){
-  var b=document.createElement('button');
-  b.textContent=t[1]; b.onclick=function(){ sel=t[0]; draw(); };
-  if(t[0]===sel) b.classList.add('on');
-  pal.appendChild(b);
-});
-document.getElementById('btnUndo').onclick=function(){ if(buildings.length){buildings.pop(); draw();} else if(corners.length){corners.pop(); draw();} };
-document.getElementById('btnClear').onclick=function(){ corners=[]; buildings=[]; draw(); };
-document.getElementById('btnExport').onclick=function(){
-  if(corners.length<4){ toast('请先点 4 个角完成标定'); return; }
-  var data={schema:'clashlab-annotator-v2', image:imgPath, grid:44, quad:corners,
-            buildings:buildings, walls:[], exported_at:new Date().toISOString()};
-  var json=JSON.stringify(data);
-  var name='annotate_'+Date.now()+'.json';
-  var res='';
-  try{ if(window.AndroidBridge) res=window.AndroidBridge.saveFile(name, json); }catch(e){ res='ERR:'+e; }
-  if(res && res.indexOf('ERR')===0) toast('保存失败: '+res);
-  else toast('已导出 '+name+'（'+buildings.length+' 栋），可在下载目录/分享里找到');
+  var p = canvasPos(ev), st = getState(cur);
+  if(st.corners.length < 4){
+    if(st.corners.length === 0){ st.buildings = []; }
+    st.corners.push([Math.round(p[0]), Math.round(p[1])]);
+    if(st.corners.length === 4){
+      toast('标定完成，现在选建筑类型再点建筑');
+      document.getElementById('hint').textContent = '② 选一种建筑 → ③ 点建筑中心（点已标建筑可删除）';
+    }
+    draw(); updateUI(); saveLocal(); return;
+  }
+  var uv = invBilinear(p[0], p[1]);
+  var tx = Math.round(uv[0]*44 - 0.5), ty = Math.round(uv[1]*44 - 0.5);
+  if(tx < 0 || ty < 0 || tx > 43 || ty > 43){ toast('点在基地外了，往里点'); return; }
+  var hit = hitExisting([tx,ty]);
+  if(hit >= 0){
+    st.buildings.splice(hit,1);
+    toast('已删除该建筑');
+  } else {
+    st.buildings.push({type: sel, tile: [tx,ty]});
+    toast('已放置：' + typeName(sel));
+  }
+  draw(); updateUI(); saveLocal();
+}
+function typeName(t){
+  for(var c=0;c<CATS.length;c++){ for(var i=0;i<CATS[c][1].length;i++){ if(CATS[c][1][i][0]===t) return CATS[c][1][i][1]; } }
+  return t;
+}
+function updateUI(){
+  var st = getState(cur);
+  document.getElementById('count').textContent = '已标 ' + st.buildings.length + ' 栋';
+  var s1=document.getElementById('st1'), s2=document.getElementById('st2'), s3=document.getElementById('st3');
+  s1.className = st.corners.length < 4 ? 'on' : '';
+  s2.className = (st.corners.length === 4 && st.buildings.length === 0) ? 'on' : '';
+  s3.className = (st.corners.length === 4 && st.buildings.length > 0) ? 'on' : '';
+  if(st.corners.length < 4){
+    document.getElementById('hint').textContent = '① 依次点：左上 → 右上 → 右下 → 左下（已点 ' + st.corners.length + '/4）';
+  }
+}
+function buildPalette(){
+  var pal = document.getElementById('pal'); pal.innerHTML = '';
+  CATS.forEach(function(cat){
+    var div = document.createElement('div'); div.className = 'cat'; div.textContent = cat[0]; pal.appendChild(div);
+    cat[1].forEach(function(t){
+      var b = document.createElement('button');
+      b.textContent = t[1]; b.setAttribute('data-type', t[0]);
+      if(t[0] === sel) b.className = 'on';
+      b.onclick = function(){ sel = t[0]; buildPalette(); toast('已选中：' + t[1]); };
+      pal.appendChild(b);
+    });
+  });
+}
+function exportOne(){
+  var st = getState(cur);
+  if(st.corners.length < 4){ toast('还没点四个角，不能导出'); return; }
+  var doc = { image: IMAGES[cur], grid: 44, corners: st.corners, buildings: st.buildings, saved_at: new Date().toISOString() };
+  var name = 'annot_b' + (cur+1 < 10 ? '0' + (cur+1) : (cur+1)) + '.json';
+  if(window.AndroidBridge && window.AndroidBridge.saveFile){
+    var r = window.AndroidBridge.saveFile(name, JSON.stringify(doc));
+    if(r && r.indexOf('OK:') === 0){ toast('已保存到下载目录：' + name); }
+    else if(r && r.indexOf('OK') === 0){ toast('已保存到 App 目录：' + name + '（文件管理里 Android/data/com.clashlab.annotator 下）'); }
+    else { toast('保存失败：' + r); }
+  } else {
+    var a = document.createElement('a');
+    a.href = 'data:application/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(doc));
+    a.download = name; a.click(); toast('已导出 ' + name);
+  }
+}
+function exportAll(){
+  var docs = [];
+  for(var i=0;i<IMAGES.length;i++){
+    var st = getState(i);
+    if(st.corners.length === 4) docs.push({ image: IMAGES[i], grid: 44, corners: st.corners, buildings: st.buildings });
+  }
+  if(!docs.length){ toast('还没有任何一张完成标定'); return; }
+  var all = { version: 1, count: docs.length, bases: docs };
+  if(window.AndroidBridge && window.AndroidBridge.saveFile){
+    var r2 = window.AndroidBridge.saveFile('annot_all.json', JSON.stringify(all));
+    if(r2 && r2.indexOf('OK:') === 0){ toast('已保存到下载目录：annot_all.json'); }
+    else if(r2 && r2.indexOf('OK') === 0){ toast('已保存到 App 目录：annot_all.json'); }
+    else { toast('保存失败：' + r2); }
+  } else {
+    var a = document.createElement('a');
+    a.href = 'data:application/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(all));
+    a.download = 'annot_all.json'; a.click(); toast('已导出全部');
+  }
+}
+document.getElementById('btnUndo').onclick = function(){ var st=getState(cur); if(st.buildings.length) st.buildings.pop(); else if(st.corners.length) st.corners.pop(); draw(); updateUI(); saveLocal(); toast('已撤销'); };
+var clearArm = false, clearTimer = null;
+document.getElementById('btnClear').onclick = function(){
+  var btn = this;
+  if(!clearArm){
+    clearArm = true;
+    btn.textContent = '再点一次确认';
+    btn.style.background = '#7a2f2f';
+    clearTimeout(clearTimer);
+    clearTimer = setTimeout(function(){ clearArm = false; btn.textContent = '清空本张'; btn.style.background = ''; }, 6000);
+    return;
+  }
+  clearArm = false; clearTimeout(clearTimer);
+  btn.textContent = '清空本张'; btn.style.background = '';
+  state[cur] = {corners:[], buildings:[]};
+  draw(); updateUI(); saveLocal(); toast('已清空本张');
 };
+document.getElementById('btnNext').onclick = function(){ saveLocal(); if(cur < IMAGES.length-1){ loadImage(cur+1); } else { toast('已经是最后一张'); } };
+document.getElementById('btnPrev').onclick = function(){ saveLocal(); if(cur > 0){ loadImage(cur-1); } else { toast('已经是第一张'); } };
+document.getElementById('btnExport').onclick = exportOne;
+document.getElementById('btnExportAll').onclick = exportAll;
+document.getElementById('btnHelp').onclick = function(){ document.getElementById('help').style.display='block'; };
+document.getElementById('btnHelpOk').onclick = function(){ document.getElementById('help').style.display='none'; };
+cv.addEventListener('mousedown', onTap);
+cv.addEventListener('touchstart', onTap, {passive:false});
+window.addEventListener('resize', function(){ if(img.complete && img.naturalWidth){ draw(); } });
+loadLocal(); buildPalette(); loadImage(0);
+try{
+  if(!localStorage.getItem('clashlab_seen_help')){
+    document.getElementById('help').style.display = 'block';
+    localStorage.setItem('clashlab_seen_help', '1');
+  }
+}catch(e){}
 </script></body></html>
