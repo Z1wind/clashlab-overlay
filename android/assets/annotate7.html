@@ -79,19 +79,17 @@ var cv=document.getElementById('cv'),ctx=cv.getContext('2d');
 var img=new Image(),cur=0,sel='air-defense',showNames=true,catIdx=0;
 var state={}; // {corners:[[u,v]...] normalized image coords, buildings:[{type,tile}]}
 var view={scale:1,panX:0,panY:0},dragIdx=-1,pinch=null;
-var MARGIN=0.15, IMG={w:0,h:0,offX:0,offY:0};
+var MARGIN=0.06, IMG={w:0,h:0,offX:0,offY:0};
 function S(){if(!state[cur])state[cur]={corners:[],buildings:[]};return state[cur];}
 function toast(m){var t=document.getElementById('toast');t.textContent=m;t.className='show';clearTimeout(t._t);t._t=setTimeout(function(){t.className='';},1600);}
 function saveLocal(){try{localStorage.setItem('clashlab_annot_v3',JSON.stringify(state));}catch(e){}}
 function loadLocal(){try{var s=localStorage.getItem('clashlab_annot_v3');if(s)state=JSON.parse(s)||{};}catch(e){}}
 function fitCanvas(){var stg=document.getElementById('stage');var aw=stg.clientWidth,ah=stg.clientHeight;
   if(!aw||!ah||!img.naturalWidth)return;
-  var factor=1+2*MARGIN;
-  var r=Math.min(aw/(img.naturalWidth*factor), ah/(img.naturalHeight*factor));
+  var r=Math.min(aw*(1-2*MARGIN)/img.naturalWidth, ah*(1-2*MARGIN)/img.naturalHeight);
   var iw=Math.max(1,Math.round(img.naturalWidth*r)), ih=Math.max(1,Math.round(img.naturalHeight*r));
-  var cw=Math.round(iw*factor), ch=Math.round(ih*factor);
-  cv.width=cw;cv.height=ch;cv.style.width=cw+'px';cv.style.height=ch+'px';
-  IMG.w=iw;IMG.h=ih;IMG.offX=Math.round(iw*MARGIN);IMG.offY=Math.round(ih*MARGIN);
+  cv.width=aw;cv.height=ah;cv.style.width=aw+'px';cv.style.height=ah+'px';
+  IMG.w=iw;IMG.h=ih;IMG.offX=Math.round((aw-iw)/2);IMG.offY=Math.round((ah-ih)/2);
   return r;}
 function imgToPx(u,v){return [IMG.offX+u*IMG.w, IMG.offY+v*IMG.h];}
 function bil(u,v){var s=S();if(s.corners.length<4)return imgToPx(u,v);var p0=s.corners[0],p1=s.corners[1],p2=s.corners[2],p3=s.corners[3];var iu=(1-u)*(1-v)*p0[0]+u*(1-v)*p1[0]+u*v*p2[0]+(1-u)*v*p3[0];var iv=(1-u)*(1-v)*p0[1]+u*(1-v)*p1[1]+u*v*p2[1]+(1-u)*v*p3[1];return imgToPx(iu,iv);}
