@@ -4,5 +4,5 @@
  "model": "deepseek-v4.1-flash",
  "out": "out",
  "layout": "layouts\\th13_sample.json",
- "lang": "en"
+ "lang": "zh-hant"
 }

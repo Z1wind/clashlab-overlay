@@ -54,6 +54,7 @@ def _default_root() -> str:
 
 def main() -> None:
     from clashlab import __version__
+    bare_launch = len(sys.argv) == 1  # 双击启动（无参数）
     ap = argparse.ArgumentParser()
     ap.add_argument("--version", action="version", version="ClashLab " + __version__)
     ap.add_argument("--root", default=_default_root())
@@ -74,6 +75,14 @@ def main() -> None:
     ap.add_argument("--ocr-selftest", nargs=2, metavar=("IMAGE", "OUT_JSON"), default=None,
                     help="offline OCR self-test: read image -> write parsed result JSON")
     a = ap.parse_args()
+    if bare_launch:
+        # 双击看不到窗口的修复：默认开 PANEL 且可见
+        if a.show is None:
+            a.show = True
+        if a.mode is None:
+            a.mode = 'PANEL'
+        if not a.allow_primary:
+            a.allow_primary = True  # 双击在单屏/主屏也可见（否则被主屏守卫隐藏）
     if getattr(a, "lang", None):
         import os as _os
         _os.environ["CLASHLAB_LANG"] = a.lang
