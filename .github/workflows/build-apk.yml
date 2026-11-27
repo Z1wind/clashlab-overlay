@@ -1,0 +1,36 @@
+name: build-apk
+on:
+  push:
+    branches: [ main ]
+    paths: [ 'android/**', 'tools/build_apk_ci.py', '.github/workflows/build-apk.yml' ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - name: Install Android SDK
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq unzip
+          curl -sSLo cmdline.zip https://dl.google.com/android/repository/commandlinetools-linux-11076708_latest.zip
+          mkdir -p "$HOME/android-sdk/cmdline-tools"
+          unzip -q cmdline.zip -d "$HOME/android-sdk/cmdline-tools"
+          mv "$HOME/android-sdk/cmdline-tools/cmdline-tools" "$HOME/android-sdk/cmdline-tools/latest"
+          yes | "$HOME/android-sdk/cmdline-tools/latest/bin/sdkmanager" --sdk_root="$HOME/android-sdk" "platforms;android-34" "build-tools;34.0.0" > /dev/null
+      - name: Build APK
+        env:
+          ANDROID_HOME: ${{ env.HOME }}/android-sdk
+        run: |
+          python3 tools/build_apk_ci.py --version-name 0.2.5 --version-code 7 --out-dir dist
+          ls -l dist/ClashLabAnnotator.apk
+          sha256sum dist/ClashLabAnnotator.apk
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ClashLabAnnotator
+          path: dist/ClashLabAnnotator.apk
