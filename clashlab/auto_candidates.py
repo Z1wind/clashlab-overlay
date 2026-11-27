@@ -127,7 +127,7 @@ def _flatness(gray):
 
 
 def candidates(image_path, quad, max_n=30, min_conf=0.97, min_var=60.0, gate_only=False,
-               gate_threshold=0.85):
+               gate_threshold=0.85, recall=False):
     """返回 [{type,tile:[x,y],size,conf}]（最多 max_n 个，按 conf 降序）。"""
     if not available():
         return {"ok": False, "error": "torch/model 不可用（仅源码环境支持，exe 内置版不含 torch）", "items": []}
@@ -195,15 +195,21 @@ def candidates(image_path, quad, max_n=30, min_conf=0.97, min_var=60.0, gate_onl
     items.sort(key=lambda d: -d["conf"])
     picked = []
     for it in items:
-        sep = max(1.2, it["size"] * 0.6)  # 允许相邻建筑（间距 2 格）保留
-        if all(abs(it["tile"][0] - p["tile"][0]) >= sep or
-               abs(it["tile"][1] - p["tile"][1]) >= sep for p in picked):
+        sep = max(0.8, it["size"] * (0.35 if recall else 0.6))
+        def _clash(p):
+            if recall and p["size"] != it["size"]:
+                return False  # 召回模式：不同尺度视为不同候选
+            return (abs(it["tile"][0] - p["tile"][0]) < sep and
+                    abs(it["tile"][1] - p["tile"][1]) < sep)
+        if not any(_clash(p) for p in picked):
             picked.append(it)
         if len(picked) >= max_n:
             break
+    if recall:
+        max_n = max(max_n, 80)
     if gate_only:
         for it in items:
             it.setdefault("type", None)
-    return {"ok": True, "items": picked, "gate_only": bool(gate_only), "total_before_dedupe": len(items),
+    return {"ok": True, "items": picked, "gate_only": bool(gate_only), "recall": bool(recall), "total_before_dedupe": len(items),
             "gate_used": bool(gate), "gate_threshold": gate_thr, "gated_counts": gated_counts,
             "note": "实验性候选，必须人工确认后再用"}
