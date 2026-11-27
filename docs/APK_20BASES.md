@@ -7,7 +7,7 @@
 - 保留：四角可拖、类型列表收起为一行、选完自动收起、46 类全中文、标点中文名、导出 v2
 
 ## 实测
-- 构建：ClashLabAnnotator_v25.apk 8,292,385 bytes md5 C68032E0DB48772ED175DABDA78D8D3A
+- 构建：ClashLabAnnotator_v25.apk 8,292,385 bytes md5 6498FBA8826CFE16C2DA8403532C7571（帮助文案/双击提示已更新）
 - 页面脚本 node --check 通过（16,955 bytes JS）
 
 ## 使用
