@@ -52,6 +52,10 @@ if (Test-Path "$root\dist\ClashOverlay.exe") { Remove-Item "$root\dist\ClashOver
 if ($LASTEXITCODE -ne 0) { throw "PyInstaller exited with $LASTEXITCODE" }
 if (-not (Test-Path "$root\dist\ClashOverlay.exe")) { throw "dist\ClashOverlay.exe missing after build" }
 
+if (Test-Path "$root\out\units.html") {
+    Copy-Item "$root\out\units.html" "$root\dist\units.html" -Force
+    Write-Host "[units] dist\units.html copied"
+}
 $sw.Stop()
 $exe = Get-Item "$root\dist\ClashOverlay.exe"
 Write-Host ("BUILD OK: {0} ({1:N0} bytes, {2:N1} s)" -f $exe.FullName, $exe.Length, $sw.Elapsed.TotalSeconds)

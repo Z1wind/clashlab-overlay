@@ -22,6 +22,27 @@ def hex_rgb(h):
     h = h.lstrip("#")
     return tuple(int(h[i:i+2], 16) for i in (0, 2, 4))
 
+REAL_DIR = os.path.join(BASE, "assets", "units_real")
+
+
+def real_icon(item, size=96):
+    uid = item["id"]
+    for ext in (".png", ".webp", ".jpg"):
+        p = os.path.join(REAL_DIR, uid + ext)
+        if os.path.exists(p):
+            try:
+                im = Image.open(p).convert("RGBA")
+                im.thumbnail((size, size), Image.LANCZOS)
+                canvas = Image.new("RGBA", (size, size), (0, 0, 0, 0))
+                canvas.paste(im, ((size - im.width) // 2, (size - im.height) // 2), im)
+                out = os.path.join(ICON_DIR, uid + "_real.png")
+                canvas.save(out)
+                return out
+            except Exception:
+                pass
+    return None
+
+
 def make_icon(item, size=96):
     img = Image.new("RGBA", (size, size), (0, 0, 0, 0))
     d = ImageDraw.Draw(img)
@@ -47,7 +68,8 @@ def card(item, extra):
 icon_path = {}
 troops = units.troop_list(); spells = units.spell_list(); heroes = units.hero_list()
 for it in troops + spells + heroes:
-    icon_path[it["id"]] = make_icon(it)
+    rp = real_icon(it)
+    icon_path[it["id"]] = rp or make_icon(it)
 
 ROLE_ZH = {"ground": "地面", "air": "空中", "support": "辅助", "tank": "坦克", "ranged": "远程", "utility": "功能"}
 troop_html = "".join(card(t, "DPS %s · HP %s · %s格 · %s" % (t["dps"], t["hp"], t["house"], ROLE_ZH.get(t["role"], t["role"]))) for t in troops)

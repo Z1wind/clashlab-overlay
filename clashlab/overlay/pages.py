@@ -1695,6 +1695,22 @@ def _draw_setting(ctx, state, root, ready, panel_w, px, H):
                 GREY, px, panel_w, y + 5.0)
     y += 26.0
 
+    # ---- 兵种/法术表（内置页面） ----
+    imgui.set_cursor_screen_pos(imgui.ImVec2(px + PAD, y))
+    if _btn(_L(ready, "打开兵种/法术表", "Open troop/spell table"), imgui.ImVec2(160.0, 26.0), key="open_units"):
+        try:
+            import os as _os
+            _cand = [_os.path.join(root, "dist", "units.html"), _os.path.join(root, "out", "units.html")]
+            _hit = next((c for c in _cand if _os.path.exists(c)), None)
+            if _hit and hasattr(_os, "startfile"):
+                _os.startfile(_hit)
+                ctx.log("units: opened " + _hit)
+            else:
+                ctx.log("units: page not found (run tools/build_units_page.py)")
+        except Exception as e:
+            ctx.log(f"units: open failed {e!r}")
+    y += 30.0
+
     # ---- 面板位置：右 / 下 / 内（外置窗口；落盘 config/overlay.json，默认右） ----
     y += 4.0
     imgui.set_cursor_screen_pos(imgui.ImVec2(px + PAD, y))
