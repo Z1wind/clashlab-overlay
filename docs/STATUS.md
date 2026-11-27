@@ -116,3 +116,10 @@ ClashKing（Clash.Ninja）管理员明确回复：**模拟器使用本身是灰�
 - 草稿自动存 localStorage，刷新不丢
 - 新按钮「保存并出报告」：POST `/report` → 后端跑 `tools/report_one.py` → 页面直接显示评分/箭线/弱点摘要
 - E2E 实测：页面 HTTP 200（7,096 B）+ save 落盘 + report ok=true（评分 48.7 D、箭线命中 3）
+
+## 🛡️ 2026-11-27：self_check（防守自检 + 推荐打法 + 穿云箭）
+
+- `python tools/self_check.py --layout out/annotate/xx_annotated.json --th 16`
+- 输出：规则评分/等级、需要修的规则（含证据与建议）、穿云箭最优 3 条、推荐打法（兵种/法术/步骤/搜索链接）
+- 实测 06 号阵：70.0 A；wall-confidence=low 时 R1/R5/R6 自动不判定；给出「防空离大本 17 格」critical 建议；推荐 hybrid-miner（矿工21+野猪11+天使4，治疗3+狂暴2）
+- 价值：标注一次 → 防守修复建议 + 进攻方案同时出；无需 API
