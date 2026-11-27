@@ -56,10 +56,21 @@ def wall_quad(img):  # 备用：Hough 拟合（对真实阵可能不准，默认
     return quad, med
 
 
+def _nms(items, min_dist=1.6):
+    """按置信度删除相邻重复候选（同一建筑只留一个）。"""
+    out = []
+    for it in items:
+        x, y = it["tile"]
+        if all(abs(x - o["tile"][0]) >= min_dist or abs(y - o["tile"][1]) >= min_dist for o in out):
+            out.append(it)
+    return out
+
+
 def montage(img, quad, items, out_prefix, tag=""):
     cal = Calib.from_quad(quad, n=44)
     S, SCALE, PAD, COLS, ROWS = 96, 3, 22, 6, 4
     PER = COLS * ROWS
+    items = _nms(items)
     made = []
     for b in range((len(items) + PER - 1) // PER):
         canvas = np.full((ROWS * (S*SCALE + PAD) + PAD, COLS * (S*SCALE + PAD) + PAD, 3), 32, np.uint8)
@@ -119,9 +130,15 @@ def process(img_path, thr, outdir):
     os.makedirs(outdir, exist_ok=True)
     prefix = os.path.join(outdir, name)
     made = montage(img, quad, items, prefix) if items else []
+    meta_path = prefix + "_candidates.json"
+    try:
+        import json as _json
+        _json.dump({"image": img_path, "quad": np.asarray(quad).tolist(), "items": items},
+                   open(meta_path, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+    except Exception:
+        meta_path = None
     return {"ok": True, "quad": quad.tolist(), "angle": ang, "items": len(items),
-            "montages": [os.path.basename(m) for m in made],
-            "meta": os.path.join(outdir, name + "_candidates.json")}
+            "montages": [os.path.basename(m) for m in made], "meta": meta_path}
 
 
 def main():
