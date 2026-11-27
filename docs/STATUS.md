@@ -131,3 +131,11 @@ ClashKing（Clash.Ninja）管理员明确回复：**模拟器使用本身是灰�
 - 侦察流程：`resolve_opponent` 现在附带 `clan_th_map` / `clan_th_dist`（来自免费 cached 端点，无需 token）
 - E2E 实测：页面 9,346 bytes 含「箭线预览」；save→/arrow 返回 hits=2 summary={air_defense:1,other:1} score=3.0
 - 测试：全量 329 OK（新增 cached TH 2 项）
+
+## 🧮 2026-11-27：战斗模拟（启发式）+ 面板 TH 分布
+
+- `clashlab/battle_sim.py`：44×44 Dijkstra 寻路（墙可破代价4/建筑绕行/大本目标）+ 路径防御 DPS 暴露 × 停留时间 → 生存率/拆本时间/星级估算
+- `tools/sim_attack.py` CLI；`tools/self_check.py` 自动带出「进攻模拟」段
+- 面板研究页对手行追加「 · 部落 TH16×3 TH15×5」后缀（来自 cached 免费端点）
+- 实测 06 阵：路径 21 格/破墙1/暴露 2038 dps/生存 79%/拆本 6.5s/预估 3 星
+- 测试：新增 5 项（battle_sim 3 + opponent_th 2），全量 334 OK

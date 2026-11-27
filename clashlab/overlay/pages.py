@@ -1345,6 +1345,19 @@ def _fmt_ocr_payload(payload):
     return "对手：%s（TH%s）· OCR" % (name, th if th else "?")
 
 
+def _opponent_th_suffix(payload):
+    """把 clan_th_dist 压成一行后缀：部落 TH16×3 · TH15×5。"""
+    try:
+        dist = (payload or {}).get("clan_th_dist") or {}
+        if not isinstance(dist, dict) or not dist:
+            return ""
+        items = sorted(dist.items(), key=lambda kv: -int(kv[0]))[:3]
+        parts = ["TH%s×%s" % (k, v) for k, v in items]
+        return " · 部落 " + " ".join(parts)
+    except Exception:
+        return ""
+
+
 def _opponent_line(state):
     """读 out/ocr_latest.json（按 mtime 缓存）；无文件给「F6 识别」。"""
     try:
@@ -1359,7 +1372,7 @@ def _opponent_line(state):
             return _OPP_CACHE.get("line") or _T("对手：未识别（F6）", "Opponent: unknown (F6)")
         with open(path, "r", encoding="utf-8") as f:
             payload = json.load(f)
-        line = _fmt_ocr_payload(payload)
+        line = _fmt_ocr_payload(payload) + _opponent_th_suffix(payload)
         _OPP_CACHE["key"] = key
         _OPP_CACHE["line"] = line
         return line
