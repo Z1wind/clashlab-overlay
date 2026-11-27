@@ -49,7 +49,7 @@ button.on{background:#2e6b3e;border-color:#49a35f}
   <button id="clear">清空 (C)</button>
   <button id="wallbtn">画墙模式 (W)</button>
   <button id="arrowbtn">箭线预览 (A)</button>
-  <button id="candbtn" title="实验性：torch 分类器候选">自动候选</button>
+  <button id="candbtn" title="门控模型给建筑位置，类型用当前选中">位置候选</button>
   <input id="name" value="enemy" style="width:110px;background:#0f1318;color:#dde3ea;border:1px solid #3a4556;border-radius:5px;padding:4px">
   <button id="save">保存 JSON (S)</button>
   <button id="report" style="background:#3d5a2e;border-color:#5b8a43">保存并出报告</button>
@@ -139,7 +139,7 @@ cv.addEventListener('click', function(ev){
     var cx0=0;
     for(var ci=0;ci<cands.length;ci++){ var cd=cands[ci]; var cp=bil((cd.tile[0]+cd.size/2)/44,(cd.tile[1]+cd.size/2)/44);
       if(Math.abs(cp[0]-sx)<18 && Math.abs(cp[1]-sy)<18){
-        buildings.push({type:cd.type, tile:cd.tile}); cands.splice(ci,1); saveDraft(); st(); return; } }
+        buildings.push({type: sel, tile:cd.tile}); cands.splice(ci,1); saveDraft(); st(); return; } }
   }
   if(wallMode){ if(!drawingWall){ walls.push([[sx,sy],[sx,sy]]); drawingWall=true; }
     else { walls[walls.length-1][1]=[sx,sy]; drawingWall=false; } saveDraft(); st(); return; }
@@ -152,11 +152,11 @@ document.getElementById('wallbtn').onclick=function(){ wallMode=!wallMode; drawi
 document.getElementById('arrowbtn').onclick=function(){ arrowMode=!arrowMode; arrowPts=[]; this.classList.toggle('on', arrowMode); };
 document.getElementById('candbtn').onclick=function(){
   if(corners.length<4){ document.getElementById('report').textContent='先点 4 个角完成标定'; return; }
-  fetch('/candidates',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({quad:corners,max_n:30})})
+  fetch('/candidates',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({quad:corners,max_n:40,gate_only:true})})
     .then(function(r){return r.json();}).then(function(j){
       if(!j.ok){ document.getElementById('report').textContent='自动候选不可用: '+(j.error||'未知'); return; }
       cands=j.items||[]; candsActive=true; st();
-      document.getElementById('report').textContent='实验候选 '+cands.length+' 个（离开角、点选接受；点击确定后人工核对）';
+      document.getElementById('report').textContent='位置候选 '+cands.length+' 个：先选类型再点蓝框落位';
     });
 };
 function payload(){ return {name: document.getElementById('name').value||'enemy', grid:44, quad:corners, buildings:buildings, walls:walls}; }
@@ -264,7 +264,8 @@ class Handler(BaseHTTPRequestHandler):
                 quad = doc.get("quad") or []
                 if len(quad) != 4:
                     return self._send(200, json.dumps({"ok": False, "error": "需要先点 4 个角"}), "application/json")
-                res = _ac.candidates(STATE.get("image"), quad, max_n=int(doc.get("max_n") or 30))
+                res = _ac.candidates(STATE.get("image"), quad, max_n=int(doc.get("max_n") or 30),
+                                         gate_only=bool(doc.get("gate_only")))
             except Exception as e:
                 res = {"ok": False, "error": str(e)[:200]}
             return self._send(200, json.dumps(res, ensure_ascii=False), "application/json")
@@ -304,6 +305,16 @@ class Handler(BaseHTTPRequestHandler):
         path = os.path.join(out_dir, name + "_annotated.json")
         with open(path, "w", encoding="utf-8") as f:
             json.dump(doc, f, ensure_ascii=False, indent=1)
+        try:
+            manifest = os.path.join(out_dir, "_train_manifest.jsonl")
+            with open(manifest, "a", encoding="utf-8") as mf:
+                mf.write(json.dumps({"name": name, "image": STATE.get("image"),
+                                     "buildings": len(doc.get("buildings") or []),
+                                     "walls": len(doc.get("walls") or []),
+                                     "quad": doc.get("quad"), "saved_at": __import__("time").strftime("%Y-%m-%dT%H:%M:%S")},
+                                    ensure_ascii=False) + "\n")
+        except Exception:
+            pass
         try:
             shown = os.path.relpath(path, ROOT)
         except ValueError:  # 跨盘符（项目在 C: junction，数据在 E:）

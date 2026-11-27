@@ -173,3 +173,12 @@ ClashKing（Clash.Ninja）管理员明确回复：**模拟器使用本身是灰�
 - battle_sim.simulate 扩展：spells/th/heroes/cc_dps，输出 modifiers（th_scale/spells/heroes/cc_dps/wall_cost）
 - sim_attack --compare：ground/air/hybrid 三配比对比（06 阵实测：ground 3星 95% 6.2s，air 3星 98% 5.5s，hybrid 3星 88% 6.3s）
 - 测试：sim_upgrade 3 项通过；全量 350 OK
+
+## 2026-11-27 B 救活：建筑门控 + 位置候选（类型待选）
+
+- 新增 `tools/build_bg_negatives.py`：从 105 张真实截图边缘采样 4,470 张背景裁剪（datasets/bg_negatives/imgs.npy）
+- 新增 `tools/train_building_gate.py`：合成建筑正样本 + 真实背景负样本训练二分类门控；val_acc 0.9988（混淆 [[399,1],[1,1199]]），模型 models/building_gate.pt
+- auto_candidates 支持 gate_only 模式：1465 个滑窗 -> 69 个门控通过 -> 去重后 **17 个位置候选**（位置基本正确；类型仍不可靠）
+- 标注器页面「自动候选」改为「位置候选」：先选类型，再点蓝框落位；点接受即写入 buildings
+- /save 时追加 `out/annotate/_train_manifest.jsonl`（图路径/建筑数/墙数/quad），为后续真实负样本训练积累
+- E2E：/candidates gate_only=true -> ok=True items=17（gate_conf 0.998~0.9999）
