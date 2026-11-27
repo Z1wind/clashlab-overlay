@@ -34,7 +34,7 @@ public class MainActivity extends Activity {
         s.setAllowFileAccess(true);
         s.setAllowContentAccess(true);
         web.addJavascriptInterface(new Bridge(), "AndroidBridge");
-        web.loadUrl("file:///android_asset/annotate8.html");
+        web.loadUrl("file:///android_asset/annotate9.html");
         setContentView(web);
         if (Build.VERSION.SDK_INT < 29
                 && checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
