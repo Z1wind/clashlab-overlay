@@ -1,0 +1,34 @@
+# -*- coding: utf-8 -*-
+import os
+BASE = r"C:\Users\Admin（无密码）\Doubao\chats\2026-11-23\new-chat"
+BT = chr(96)
+def c(s): return BT + s + BT
+lines = [
+ "# B 计划执行结果（2026-11-27）",
+ "",
+ "## 第 1 步：Hough 拟合四角（成功，可复用）",
+ "",
+ "- " + c("tools/hires_calib_hough.py") + "：城墙掩膜 + Hough 主方向 + 截距极值 → 四角",
+ "- 1080p 家园截图：angle=33.44°, m=0.66, quad=[[935,-109],[1821,476],[947,1053],[62,468]]",
+ "- 网格回画检查：与城墙/建筑网格对齐，目视偏差 ≤ 半格（截图 out/live/hires_hough_grid.png）",
+ "",
+ "## 第 2 步：门控候选（失败，按停止条件终止）",
+ "",
+ "- 门控在家园 1080p 上阈值扫描：0.30→50 / 0.40→36 / 0.70→18 个候选",
+ "- 抽查拼图发现：**候选集中在资源气泡、升级按钮等 UI 上**，不是建筑 → 无法用于标类型",
+ "- 原因：家园界面布满资源气泡；门控训练域是战争侦察截图（无气泡）",
+ "- 结论：停止 B，不产出标注样本，不训练模型（避免灌噪音）",
+ "",
+ "## 保留产物",
+ "",
+ "- " + c("tools/hires_calib_hough.py") + "（四角拟合，可复用于任何 1080p 家园截图）",
+ "- " + c("out/live/hires_hough_grid.png") + "（对齐检查图）",
+ "- " + c("out/labels/hm4_1..3.png") + "（候选拼图，证明气泡问题）",
+ "",
+ "## 结论",
+ "",
+ "- 要拿真实域训练样本，必须用**战争侦察截图**（无资源气泡）",
+ "- 下一步等人工导航到侦察界面（A 方案）后继续",
+]
+open(os.path.join(BASE, "docs", "PLAN_B_RESULT.md"), "w", encoding="utf-8", newline="\n").write("\n".join(lines) + "\n")
+print("doc written")
