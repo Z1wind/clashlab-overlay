@@ -182,3 +182,11 @@ ClashKing（Clash.Ninja）管理员明确回复：**模拟器使用本身是灰�
 - 标注器页面「自动候选」改为「位置候选」：先选类型，再点蓝框落位；点接受即写入 buildings
 - /save 时追加 `out/annotate/_train_manifest.jsonl`（图路径/建筑数/墙数/quad），为后续真实负样本训练积累
 - E2E：/candidates gate_only=true -> ok=True items=17（gate_conf 0.998~0.9999）
+
+## 2026-11-27 门控召回模式（方案 1）
+
+- auto_candidates 新增 recall 模式：多尺度不合并 + 去重距离缩小 -> 候选数 17 -> 71（thr 0.70）/ 80（thr 0.55）
+- 标注器页面加「召回优先」复选框 + 阈值滑块（0.50–0.98）
+- E2E 实测：recall=False thr0.85 -> items=17；recall=True thr0.70 -> items=71；thr0.55 -> items=80（上限 80）
+- 覆盖评估：71 个候选基本铺满基地（截图 out/live/gate_recall070.png），但包含少量墙/空地误报；实际 70+ 栋，覆盖率显著提升
+- 350 测试 OK
