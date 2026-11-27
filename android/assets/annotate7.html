@@ -60,8 +60,8 @@ canvas{display:block;touch-action:none}
   </div>
 </div>
 <div id="toast"></div>
-<div id="help"><h3>30 秒上手（v0.2.6）</h3>
-  <b>第 1 步：点四个角</b><br>依次点：左上 → 右上 → 右下 → 左下。黄点出现后<b>按住可拖动</b>到真正的角，<b>可以拖到图片外面</b>（截图被裁掉边缘时用）。图片太小：<b>双击图面 2x 放大</b>，或用右上 <b>＋ / － / 适应</b>，也可双指捏合。<br><br>
+<div id="help"><h3>30 秒上手（v0.2.7）</h3>
+  <b>第 1 步：点四个角</b><br>依次点：左上 → 右上 → 右下 → 左下。黄点出现后<b>按住可拖动</b>到真正的角，可拖到图片外面；拖到屏幕边缘会<b>自动平移</b>。图片太小：<b>双击图面 2x 放大</b>，或用右上 <b>＋ / － / 适应</b>，也可双指捏合。<br><br>
   <b>第 2 步：选建筑</b><br>先点分类（防御/核心/资源军队/陷阱），再点具体建筑；名字全中文。<br><br>
   <b>第 3 步：点建筑</b><br>点建筑中心，出现黄圈+中文；点错点「撤销」或再点该圈删除。<br><br>
   <b>导出：</b>「导出全部」保存 JSON（Android 10+ 在「下载」）。首次权限请点允许。
@@ -128,7 +128,7 @@ function onDown(ev){ev.preventDefault();
 function onMove(ev){ev.preventDefault();
   if(pinch&&ev.touches&&ev.touches.length>=2){var a=ev.touches[0],b=ev.touches[1];var d=Math.hypot(a.clientX-b.clientX,a.clientY-b.clientY);view.scale=Math.max(1,Math.min(6,pinch.scale*d/pinch.d));draw();return;}
   var raw=(ev.touches&&ev.touches[0])?ev.touches[0]:ev;
-  if(dragIdx>=0){var p=screenToCanvas(ev),s=S();s.corners[dragIdx]=[Math.max(-0.25,Math.min(1.25,(p[0]-IMG.offX)/IMG.w)),Math.max(-0.25,Math.min(1.25,(p[1]-IMG.offY)/IMG.h))];draw();return;}
+  if(dragIdx>=0){var p=screenToCanvas(ev),s=S();var EDGE=40,STEP=6,moved=false;if(p[0]<EDGE){view.panX+=STEP;moved=true;}else if(p[0]>cv.width-EDGE){view.panX-=STEP;moved=true;}if(p[1]<EDGE){view.panY+=STEP;moved=true;}else if(p[1]>cv.height-EDGE){view.panY-=STEP;moved=true;}if(moved){draw();p=screenToCanvas(ev);}s.corners[dragIdx]=[Math.max(-0.6,Math.min(1.6,(p[0]-IMG.offX)/IMG.w)),Math.max(-0.6,Math.min(1.6,(p[1]-IMG.offY)/IMG.h))];draw();return;}
   if(!tapStart||!tapStart.pan)return;
   var r=cv.getBoundingClientRect();var sx=(raw.clientX-r.left)*(cv.width/r.width);var sy=(raw.clientY-r.top)*(cv.height/r.height);
   if(Math.abs(sx-tapStart.cx)+Math.abs(sy-tapStart.cy)>8){tapStart.moved=true;}
@@ -136,7 +136,7 @@ function onMove(ev){ev.preventDefault();
 }
 function doTap(ix,iy){
   var s=S();
-  if(s.corners.length<4){s.corners.push([Math.max(-0.25,Math.min(1.25,(ix-IMG.offX)/IMG.w)),Math.max(-0.25,Math.min(1.25,(iy-IMG.offY)/IMG.h))]);
+  if(s.corners.length<4){s.corners.push([Math.max(-0.6,Math.min(1.6,(ix-IMG.offX)/IMG.w)),Math.max(-0.6,Math.min(1.6,(iy-IMG.offY)/IMG.h))]);
     if(s.corners.length===4){toast('标定完成，选建筑类型再点建筑');document.getElementById('hint').textContent='② 选建筑 → ③ 点建筑（黄点可拖，双指缩放）';}draw();updateUI();saveLocal();return;}
   var uv=invBilinear(ix,iy);var tx=Math.round(uv[0]*44-.5),ty=Math.round(uv[1]*44-.5);
   if(tx<0||ty<0||tx>43||ty>43){toast('点在基地外了，往里点');return;}
