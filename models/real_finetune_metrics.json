@@ -1,0 +1,28 @@
+{
+ "type_baseline": [
+  0.07936507936507936,
+  0.1746031746031746
+ ],
+ "type_after": [
+  0.14285714285714285,
+  0.3333333333333333
+ ],
+ "gate_baseline": {
+  "tp": 0,
+  "fp": 1,
+  "tn": 399,
+  "fn": 76,
+  "precision": 0.0,
+  "recall": 0.0,
+  "accuracy": 0.838
+ },
+ "gate_after": {
+  "tp": 0,
+  "fp": 0,
+  "tn": 400,
+  "fn": 76,
+  "precision": 0.0,
+  "recall": 0.0,
+  "accuracy": 0.84
+ }
+}

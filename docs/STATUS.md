@@ -190,3 +190,7 @@ ClashKing（Clash.Ninja）管理员明确回复：**模拟器使用本身是灰�
 - E2E 实测：recall=False thr0.85 -> items=17；recall=True thr0.70 -> items=71；thr0.55 -> items=80（上限 80）
 - 覆盖评估：71 个候选基本铺满基地（截图 out/live/gate_recall070.png），但包含少量墙/空地误报；实际 70+ 栋，覆盖率显著提升
 - 350 测试 OK
+
+## 2026-11-27 真实域样本实验（失败结论）
+
+- 图纸生成 2383 张带类型样本；类型 top1 7.9%→14.3%，门控留出阵召回 0% → 布局图纸域不可迁移；详见 docs/REAL_DOMAIN_FINDINGS.md
