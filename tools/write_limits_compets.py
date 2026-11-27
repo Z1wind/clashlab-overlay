@@ -1,0 +1,71 @@
+# -*- coding: utf-8 -*-
+import os
+BASE = r"C:\Users\Admin（无密码）\Doubao\chats\2026-11-23\new-chat"
+BT = chr(96)
+def c(s): return BT + s + BT
+
+limits = ("# ClashLab 局限性（2026-11-27 诚实版）\n\n"
+          "## 识别 / 数据\n"
+          "1. **不能自动识别建筑位置**：检测器（CenterNet/滑窗分类器）在真实战图上失败；真实阵必须人工标注（4 角 + 建筑）。\n"
+          "2. **自动标定不可靠**：草地轮廓/蓝墙连通域/Hough/quad_model 在侦察视角全部失败，只能交互式点四角。\n"
+          "3. **无 API**：ClashKing 明确拒绝（模拟器+覆盖层 ToS 灰区），拿不到对手布局/TH/部落战数据；OCR 对手名只能做本地显示。\n"
+          "4. **数据小**：实战验证仅 6 套 TH16 阵；TH1–19 数值为静态近似；TH17 新建筑（如 firespitter）缺战斗参数。\n\n"
+          "## 算法\n"
+          "5. **评分是启发式**：指标权重未经真实防守数据校准；墙若用折线标注，隔间/墙效率会失真。\n"
+          "6. **穿云箭落点敏感**：98 例压测仅 26% 落点稳定、±0.5 格会翻转目标；无攻击仿真二次校验。\n"
+          "7. **无对局推演**：没有兵种寻路/伤害模拟，2D 推演只是启发式，不是真战斗结果。\n\n"
+          "## 工程 / 交付\n"
+          "8. **平台**：Windows 覆盖层 + Android 标注器；无 iOS/macOS/网页版。\n"
+          "9. **体积**：exe 约 121 MB（RapidOCR/onnx 内置）；未做代码签名（SmartScreen 会提示）。\n"
+          "10. **测试**：315 单测绿，但没有端到端自动化；UI 回归靠脚本人工看截图。\n"
+          "11. **无后端**：无云同步/账号/多人协作；数据都在本地。\n\n"
+          "## 合规\n"
+          "12. **ToS 灰色地带**：模拟器与覆盖层在部分场景可能违规；不宜公开推广、不可用于赛事。README 已写免责声明。\n")
+
+roadmap = ("# 没有 API 之后怎么做（本地优先路线）\n\n"
+           "## 原则\n"
+           "只做**单机、只读、本地数据**能闭环的东西：截图 → 标定 → 结构 → 分析 → 战术。\n"
+           "不碰游戏内存/点击/网络，不依赖第三方授权。\n\n"
+           "## P0：把「标注」从 3 分钟降到 30 秒（半自动标注）\n"
+           "- 分类器先在 44×44 网格上出**候选建筑**（已有 type+level 模型），UI 上只让用户点「对/错」两下确认\n"
+           "- 关键：把用户确认结果**反哺**成真实训练数据（含负样本），这是目前唯一能积累标注的路径\n"
+           "- 验证指标：同一阵标注耗时 <60s；候选召回 ≥70%、误报 ≤30%（人工修正后）\n\n"
+           "## P0：标定交互化\n"
+           "- 用户点第一角 → 搜索附近墙线做吸附；点完 4 点用 RANSAC 拟合 44×44 格点，实时显示网格对齐度\n"
+           "- 验证：6 套已标注阵的 quad 与人工 quad 误差 <0.5 格\n\n"
+           "## P1：评分规则化（借鉴 danielholmes/coc-base-analyser）\n"
+           "- 把启发式权重改成**可解释规则集**（大本是否被墙包、防空是否覆盖核心、隔间是否 >N、入口偏移等）\n"
+           "- 输出「违反规则清单 + 修改建议」，而不是一个黑箱分数\n\n"
+           "## P1：布局数据层（借鉴 koniz-dev/clash-blueprint-engine 的思路）\n"
+           "- 44×44 布局改为**逐格墙体网格** + 建筑占格，支持导入/校验/回放/差异对比\n"
+           "- 好处：墙类指标（隔间/开口/引导）才能真正算对\n\n"
+           "## P2：战术工具（不需要 API）\n"
+           "- 兵种/法术配比规划器（基于 TH 与兵种数据表）\n"
+           "- 穿云箭交互规划器：用户点 3 个点 → 实时方向/命中预览（已有内核）\n"
+           "- 防守自检：导入自己的阵，一键出弱点和修复建议\n\n"
+           "## P2：数据积累\n"
+           "- 每标注 1 阵自动入库（含截图 + 布局 + 来源），形成自有数据集；100 阵后重训检测器做 domain adaptation\n\n"
+           "## 不做的\n"
+           "- 不追 API/token、不碰自动化操作游戏（自动点击/自动开战）、不做账号代打\n")
+
+comps = ("# 竞品与可借鉴项目调研（GitHub，2026-11-27）\n\n"
+         "> 搜索关键词：clash of clans overlay / analyzer / computer vision / layout / bot；数据来自 GitHub Search API（按 stars 排序）。\n\n"
+         "## 直接相关\n\n"
+         "| 项目 | Stars | 语言/许可 | 做什么 | 可借鉴 |\n"
+         "|---|---|---|---|---|\n"
+         "| keanuddn/coc-base-analyzer | 2 | Python | 截图 → CV 识别建筑 + 判阵型 + 陷阱概率 + 按 TH 出进攻方案；monorepo（data-pipeline/ml/knowledge-base/backend/frontend）| **架构**：知识库与模型分离，游戏事实全部来自人工整理的知识库，不靠 LLM 记忆（与我们方向一致）；也把「数据管线」独立成层 |\n"
+         "| danielholmes/coc-base-analyser | 20 | Scala | 按**战争阵规则集**批量分析部落成员阵型，出表格 + 单阵深入分析；有 VillageJsonParser | **规则化评分**：把评分拆成可读规则（我们 P1 要做的）；布局 JSON 解析模式 |\n"
+         "| JawadAhmadKhan04/COC | 4 | Python | COC 阵型布局识别系统（CV） | 同类 CV 路线，可对照失败模式 |\n"
+         "| koniz-dev/clash-blueprint-engine | 3 | TS / MIT | 生产级**布局设计/校验/分析/模拟引擎**，游戏无关、数据包驱动；像 CAD 不像画图 | **布局数据层**：44×44 逐格 + 校验规则 + 数据包设计，可参考/复用其设计（我们目前墙是折线，缺逐格校验）|\n"
+         "| Leixien/pixelchief | 1 | Python | BasePilot 分支：截图 + CV + 点击的自动挂机，单 exe 内置 OCR，明确「无内存读取/无封包/无改客户端」 | **工程化**：单 exe 打包、OCR 内置、只读哲学的对外表述 |\n"
+         "| staticmooniq/RaidR | 1 | Python / MIT | CV+OCR GUI 自动化**研究测试床**（Windows 黑盒 UI 遥测） | **测试方法**：把 CV 管线当黑盒研究，记录可复现实验 |\n"
+         "| jaredfiacco2/ClashOfClans_API | 13 | Python | 用 GCP 静态 IP 调 Supercell 官方 API | 解释了社区拿 API 的门槛（固定 IP）——我们不再走这条路 |\n"
+         "| norecha/pokubot · ChackBR/MyBot_v7 | 178 / 95 | Java | 自动打资源 bot | **不借鉴**：违反 ToS，方向不同 |\n\n"
+         "## 结论（对我们的意义）\n"
+         "1. **没有成熟竞品做「覆盖层 + 截图分析」**：搜索第一名就是我们自己的仓库；直接竞品 keanuddn 还在早期，说明这个生态空白真实存在。\n"
+         "2. 值得学的三件事：**规则化评分**（danielholmes）、**布局数据层/校验**（clash-blueprint-engine）、**知识库与模型分离**（keanuddn）。\n"
+         "3. 所有成功项目都强调「只读/不碰内存/不碰封包」，与我们一致；bot 类项目 star 高但 ToS 风险大，不跟进。\n"
+         "4. 我们的差异化：War 场景 + 穿云箭/战术图 + 三语 + 手机标注器；短板是自动识别与数据量。\n")
+open(os.path.join(BASE, "docs", "LIMITS_ROADMAP.md"), "w", encoding="utf-8", newline="\n").write(limits + "\n---\n\n" + roadmap)
+open(os.path.join(BASE, "docs", "COMPETITORS.md"), "w", encoding="utf-8", newline="\n").write(comps)
+print("docs written")
