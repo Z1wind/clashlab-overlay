@@ -56,13 +56,13 @@ def main():
     cur = os.path.join(a.out, "_cur.png")
     img = screencap(cur)
     print("screen:", None if img is None else img.shape[:2], flush=True)
-    # 断线重连处理
-    for _ in range(3):
+    # 断线重连处理（重载需要时间，多等）
+    for _ in range(4):
         img = screencap(cur)
         hit = find(img, "重新载入")
         if hit:
             print("reconnect dialog -> tap", flush=True)
-            tap(hit[0], hit[1], 6)
+            tap(hit[0], hit[1], 20)
             continue
         break
     # 确保在战争地图（OCR 状态机，不用 back 以免触发退出确认）
