@@ -5,6 +5,9 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, ROOT)
 from clashlab import annotator
 
+serve = annotator.serve  # 向后兼容旧测试/脚本
+STATE = annotator.STATE
+
 
 def main():
     ap = argparse.ArgumentParser()

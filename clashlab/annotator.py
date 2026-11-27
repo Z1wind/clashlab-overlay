@@ -49,6 +49,7 @@ button.on{background:#2e6b3e;border-color:#49a35f}
   <button id="clear">清空 (C)</button>
   <button id="wallbtn">画墙模式 (W)</button>
   <button id="arrowbtn">箭线预览 (A)</button>
+  <button id="candbtn" title="实验性：torch 分类器候选">自动候选</button>
   <input id="name" value="enemy" style="width:110px;background:#0f1318;color:#dde3ea;border:1px solid #3a4556;border-radius:5px;padding:4px">
   <button id="save">保存 JSON (S)</button>
   <button id="report" style="background:#3d5a2e;border-color:#5b8a43">保存并出报告</button>
@@ -62,6 +63,7 @@ var cv=document.getElementById('cv'), ctx=cv.getContext('2d');
 var IMG=new Image(); IMG.src='/image';
 var corners=[], buildings=[], walls=[], wallMode=false, sel='air-defense', drawingWall=false;
 var arrowMode=false, arrowPts=[], arrowHits=null;
+var cands=[], candsActive=false;
 var statusEl=document.getElementById('status');
 function st(){ statusEl.textContent = corners.length<4 ? ('还需 '+(4-corners.length)+' 个角') : ('已标 '+buildings.length+' 栋 / 墙段 '+walls.length); draw(); }
 IMG.onload=function(){ cv.width=IMG.width; cv.height=IMG.height; restoreDraft(); st(); };
@@ -105,6 +107,9 @@ function draw(){ if(!IMG.complete) return; ctx.drawImage(IMG,0,0);
     ctx.strokeStyle='#ffd166'; ctx.lineWidth=2; ctx.beginPath(); ctx.arc(pp[0],pp[1],7,0,7); ctx.stroke(); }
   if(arrowHits && arrowHits.ok){ var a1=bil(arrowHits.from[0]/44,arrowHits.from[1]/44), a2=bil(arrowHits.to[0]/44,arrowHits.to[1]/44);
     ctx.strokeStyle='#ffd166'; ctx.lineWidth=3; ctx.beginPath(); ctx.moveTo(a1[0],a1[1]); ctx.lineTo(a2[0],a2[1]); ctx.stroke(); }
+  cands.forEach(function(cd,ci){ var cp=bil((cd.tile[0]+cd.size/2)/44,(cd.tile[1]+cd.size/2)/44);
+    ctx.strokeStyle='#ffd166'; ctx.lineWidth=2; ctx.strokeRect(cp[0]-14,cp[1]-14,28,28);
+    ctx.fillStyle='#ffd166'; ctx.font='10px sans-serif'; ctx.fillText(String(ci+1),cp[0]-12,cp[1]-16); });
   buildings.forEach(function(b,i){ var t=b.tile; var p=bil((t[0]+1.5)/44,(t[1]+1.5)/44);
     ctx.fillStyle = b.type.indexOf('air')>=0 ? '#e84a4a' : '#50c8b4';
     ctx.fillRect(p[0]-9,p[1]-9,18,18);
@@ -130,6 +135,12 @@ cv.addEventListener('click', function(ev){
     }
     saveDraft(); st(); return;
   }
+  if(candsActive && cands.length){
+    var cx0=0;
+    for(var ci=0;ci<cands.length;ci++){ var cd=cands[ci]; var cp=bil((cd.tile[0]+cd.size/2)/44,(cd.tile[1]+cd.size/2)/44);
+      if(Math.abs(cp[0]-sx)<18 && Math.abs(cp[1]-sy)<18){
+        buildings.push({type:cd.type, tile:cd.tile}); cands.splice(ci,1); saveDraft(); st(); return; } }
+  }
   if(wallMode){ if(!drawingWall){ walls.push([[sx,sy],[sx,sy]]); drawingWall=true; }
     else { walls[walls.length-1][1]=[sx,sy]; drawingWall=false; } saveDraft(); st(); return; }
   var uv=inv(sx,sy); if(uv[0]<0||uv[0]>1||uv[1]<0||uv[1]>1) return;
@@ -139,6 +150,15 @@ document.getElementById('undo').onclick=function(){ if(walls.length){walls.pop()
 document.getElementById('clear').onclick=function(){ corners=[]; buildings=[]; walls=[]; saveDraft(); st(); };
 document.getElementById('wallbtn').onclick=function(){ wallMode=!wallMode; drawingWall=false; this.classList.toggle('on', wallMode); };
 document.getElementById('arrowbtn').onclick=function(){ arrowMode=!arrowMode; arrowPts=[]; this.classList.toggle('on', arrowMode); };
+document.getElementById('candbtn').onclick=function(){
+  if(corners.length<4){ document.getElementById('report').textContent='先点 4 个角完成标定'; return; }
+  fetch('/candidates',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({quad:corners,max_n:30})})
+    .then(function(r){return r.json();}).then(function(j){
+      if(!j.ok){ document.getElementById('report').textContent='自动候选不可用: '+(j.error||'未知'); return; }
+      cands=j.items||[]; candsActive=true; st();
+      document.getElementById('report').textContent='实验候选 '+cands.length+' 个（离开角、点选接受；点击确定后人工核对）';
+    });
+};
 function payload(){ return {name: document.getElementById('name').value||'enemy', grid:44, quad:corners, buildings:buildings, walls:walls}; }
 async function save(){ var r=await fetch('/save',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload())}); var txt=await r.text(); statusEl.textContent=txt; return txt; }
 document.getElementById('save').onclick=save;
@@ -229,6 +249,25 @@ class Handler(BaseHTTPRequestHandler):
             ok = r.returncode == 0 and bool(summary)
             return self._send(200, json.dumps({"ok": ok, "summary": summary or (r.stderr or r.stdout)[-600:],
                                                "report": out_dir}), "application/json")
+        if path == "/candidates":
+            n = int(self.headers.get("Content-Length") or 0)
+            try:
+                doc = json.loads(self.rfile.read(n).decode("utf-8"))
+            except Exception:
+                return self._send(400, '{"ok":false,"error":"bad json"}', "application/json")
+            try:
+                from cluster_fallback import nothing  # noqa: F401
+            except Exception:
+                pass
+            try:
+                from clashlab import auto_candidates as _ac
+                quad = doc.get("quad") or []
+                if len(quad) != 4:
+                    return self._send(200, json.dumps({"ok": False, "error": "需要先点 4 个角"}), "application/json")
+                res = _ac.candidates(STATE.get("image"), quad, max_n=int(doc.get("max_n") or 30))
+            except Exception as e:
+                res = {"ok": False, "error": str(e)[:200]}
+            return self._send(200, json.dumps(res, ensure_ascii=False), "application/json")
         if path == "/arrow":
             n = int(self.headers.get("Content-Length") or 0)
             try:
