@@ -100,3 +100,11 @@ ClashKing（Clash.Ninja）管理员明确回复：**模拟器使用本身是灰�
 
 - 6 种自动标定方法 + quad_model + 滑窗分类器全部不可用；滑窗假阳性率 100%（无背景类）
 - 结论：真实阵分析必须人工点 4 角 + 10–20 栋（约 2–3 分钟）；标注器已在 8765 运行
+
+## 🚀 2026-11-27：本地路线第一批（P1 布局/规则层 + 一键入口）
+
+- `clashlab/layout_grid.py`：44×44 逐格模型（墙折线/成对线段两种格式自动识别），提供隔间(flood fill)/孤立墙/大本是否被墙包/结构校验；wall 数据不完整时标 `wall_confidence=low`
+- `clashlab/layout_rules.py`：8 条可解释规则（R1 大本墙体、R2 居中、R3 防空覆盖、R4 吹风机、R5 隔间、R6 墙体连贯、R7 仓库贴边、R8 核心防御多样），输出通过/跳过/证据/建议 + 分数等级；墙数据不完整时墙类规则自动 skip（不误判）
+- `tools/auto_report.py`：一条命令入口 —— `--layout` 出报告 / `--dir` 批量 / `--image` 自动标定(带几何合理性校验，拒绝假阳性) + 找同名标注
+- `tools/enemy_pipeline.py` 增加 `rules_eval` 输出
+- 测试：全量 **322 tests OK**（新增 layout_grid 4 项 + layout_rules 3 项）

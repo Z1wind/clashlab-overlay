@@ -33,6 +33,13 @@ def main():
     except Exception as e:
         report["score_error"] = str(e)[:120]
 
+    # 1b) 规则化评分（可解释规则集，含墙体逐格校验）
+    try:
+        from clashlab import layout_rules
+        report["rules_eval"] = layout_rules.evaluate(lay)
+    except Exception as e:
+        report["rules_error"] = str(e)[:160]
+
     # 2) 穿云箭自动选线
     opt = ga.optimize_giant_arrow(lay, top=3)
     report["arrow_best"] = opt.get("best")
