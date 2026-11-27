@@ -49,6 +49,7 @@ button.on{background:#2e6b3e;border-color:#49a35f}
   <button id="clear">清空 (C)</button>
   <button id="wallbtn">画墙模式 (W)</button>
   <button id="arrowbtn">箭线预览 (A)</button>
+  <button id="brbtn">战报 HTML</button>
   <button id="candbtn" title="门控模型给建筑位置，类型用当前选中">位置候选</button>
   <input id="candthr" type="range" min="0.50" max="0.98" step="0.01" value="0.85" style="width:90px" title="门控阈值：越低候选越多、误报越多">
   <span id="candthrv" style="font-size:11px;color:#8fa3bd">0.85</span>
@@ -153,6 +154,15 @@ document.getElementById('undo').onclick=function(){ if(walls.length){walls.pop()
 document.getElementById('clear').onclick=function(){ corners=[]; buildings=[]; walls=[]; saveDraft(); st(); };
 document.getElementById('wallbtn').onclick=function(){ wallMode=!wallMode; drawingWall=false; this.classList.toggle('on', wallMode); };
 document.getElementById('arrowbtn').onclick=function(){ arrowMode=!arrowMode; arrowPts=[]; this.classList.toggle('on', arrowMode); };
+document.getElementById('brbtn').onclick=function(){
+  var lay={name:(document.getElementById('name').value||'current'),grid:44,
+           buildings:buildings.map(function(b){return {type:b.type,tile:b.tile};}),walls:walls};
+  fetch('/battle-report',{method:'POST',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({name:lay.name,layout:lay,th:16})})
+   .then(function(r){return r.json();}).then(function(j){
+     document.getElementById('report').textContent = j.ok ? ('战报已生成: '+j.path+' ('+j.bytes+' bytes)') : ('战报失败: '+j.error);
+   });
+};
 document.getElementById('candbtn').onclick=function(){
   if(corners.length<4){ document.getElementById('report').textContent='先点 4 个角完成标定'; return; }
   fetch('/candidates',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({quad:corners,max_n:60,gate_only:true,gate_threshold:parseFloat(document.getElementById("candthr").value),
@@ -253,6 +263,21 @@ class Handler(BaseHTTPRequestHandler):
             ok = r.returncode == 0 and bool(summary)
             return self._send(200, json.dumps({"ok": ok, "summary": summary or (r.stderr or r.stdout)[-600:],
                                                "report": out_dir}), "application/json")
+        if path == "/battle-report":
+            n = int(self.headers.get("Content-Length") or 0)
+            try:
+                doc = json.loads(self.rfile.read(n).decode("utf-8"))
+            except Exception:
+                return self._send(400, '{"ok":false,"error":"bad json"}', "application/json")
+            try:
+                from clashlab import battle_report
+                name = str(doc.get("name") or "current").replace("/", "_")
+                out = os.path.join(ROOT, "out", "reports", name + "_battle.html")
+                r = battle_report.build(None, layout=doc.get("layout") or {}, out_path=out,
+                                        th=int(doc.get("th") or 16))
+                return self._send(200, json.dumps(r, ensure_ascii=False), "application/json")
+            except Exception as e:
+                return self._send(200, json.dumps({"ok": False, "error": str(e)[:200]}), "application/json")
         if path == "/candidates":
             n = int(self.headers.get("Content-Length") or 0)
             try:
