@@ -152,11 +152,21 @@ def war_members(clan_tag, prefer_current=True, fresh=False):
 
 
 def enemy_th_map(clan_tag):
-    """当前战争的对手成员 {tag: TH}（无当前战争则用最近一场）。"""
+    """对手成员 {tag: TH}：优先用公开 cached 档案（实时 TH），其次战争存储数据。"""
     w = war_members(clan_tag)
     if not w:
         return {}
-    return {m["tag"]: m["th"] for m in w["opponent"]["members"] if m.get("tag")}
+    opp = (w.get("opponent") or {}).get("tag")
+    out = {}
+    for m in w["opponent"]["members"]:
+        if m.get("tag") and isinstance(m.get("th"), int):
+            out[m["tag"]] = m["th"]
+    if opp:
+        try:
+            out.update(cached_members_th(opp))
+        except Exception:
+            pass
+    return out
 
 
 def cache_age(path):
