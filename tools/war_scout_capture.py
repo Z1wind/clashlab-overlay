@@ -89,9 +89,9 @@ def main():
     shots = 0
     for i in range(a.start, a.start + a.max):
         img = screencap(cur)
-        if find(img, "敌军"):
-            hit = find(img, "敌军")
-            tap(hit[0], hit[1], 3)
+        _sw = find(img, "敌军") or find(img, "我军")
+        if _sw:
+            tap(_sw[0], _sw[1], 3)
             img = screencap(cur)
         import re
         hits = []
