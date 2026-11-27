@@ -1,0 +1,42 @@
+# -*- coding: utf-8 -*-
+import hashlib, os, shutil, sys, subprocess
+sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+BASE = r"C:\Users\Admin（无密码）\Doubao\chats\2026-11-23\new-chat"
+# 恢复模拟器分辨率
+subprocess.run([r"E:\leidian\LDPlayer9\adb.exe", "-s", "emulator-5554", "shell", "wm", "size", "1920x1080"],
+               capture_output=True, text=True, timeout=60)
+src = r"E:\ClashLab\android\dist\ClashLabAnnotator_v23.apk"
+dst = os.path.join(BASE, "dist", "ClashLabAnnotator_20bases_v0.2.3.apk")
+shutil.copyfile(src, dst)
+data = open(dst, "rb").read()
+print("APK", os.path.basename(dst), len(data), "bytes md5", hashlib.md5(data).hexdigest())
+BT = chr(96)
+def c(s): return BT + s + BT
+doc = "\n".join([
+ "# ClashLab 标注 APK v0.2.3（20 张满防阵型 · 初学者版）",
+ "",
+ "## v0.2.3 修复/新增",
+ "- **短屏适配**：之前手机横屏（1920×864 等）图片被工具栏/列表挤到只剩几十像素；现在类型列表改为**悬浮层**（不再占高度），图片区域自动占满剩余空间",
+ "- **缩放/平移**：右下（右上）＋ / － / 适应 按钮；双指捏合缩放；放大后单指拖动平移；短按仍是放建筑",
+ "- 四角可拖动（黄点），标定阶段自动隐藏类型列表给图片让位",
+ "- 建筑 46 类全中文、「简称 · 全名」按钮；标点显示中文名（名称:开/关）",
+ "- 导出 v2：image_size + corners_norm（归一化四角，训练可直接用）",
+ "",
+ "## 实测（LDPlayer Android 9，短屏 1920×864 模拟）",
+ "- 图片显示宽度约 1280 px（此前仅约 90 px）",
+ "- 四角标定 → 列表悬浮出现 → 选「防空」→ 放置 → 放大 2 次 → 单指平移 → 适应 → 导出",
+ "- 导出 JSON：version=2 / image_size=[1600,735] / corners_norm 4 点 / buildings 中文名+格坐标",
+ "- 353 项测试 OK；logcat 无 JS/崩溃",
+ "",
+ "## 安装 & 使用",
+ "1. 安装 APK，首次权限点允许。",
+ "2. 横屏打开；「怎么用？」有 30 秒教程。",
+ "3. 点四个角（可拖黄点微调，＋/－/双指可缩放）；再选建筑、点建筑中心。",
+ "4. 标 10 张左右 → 「导出全部」→ annot_all.json 发给开发者继续训练。",
+ "",
+ "## 已知限制",
+ "- Android 9 导出可能落 App 私有目录；Android 10+ 正常进「下载」。",
+ "- 阵图来自第三方网站（版权归 Supercell/原站），仅本地学习用。",
+])
+open(os.path.join(BASE, "docs", "APK_20BASES.md"), "w", encoding="utf-8", newline="\n").write(doc + "\n")
+print("doc updated")
