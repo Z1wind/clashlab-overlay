@@ -1711,6 +1711,21 @@ def _draw_setting(ctx, state, root, ready, panel_w, px, H):
             ctx.log(f"units: open failed {e!r}")
     y += 30.0
 
+    # ---- 生成战报（当前阵型 → HTML）----
+    imgui.set_cursor_screen_pos(imgui.ImVec2(px + PAD, y))
+    if _btn(_L(ready, "生成战报", "Battle report"), imgui.ImVec2(160.0, 26.0), key="make_battle_report"):
+        try:
+            from .. import battle_report as _br
+            lay = getattr(state, "layout", None) or getattr(state, "Layout", None)
+            if isinstance(lay, dict) and lay.get("buildings"):
+                r = _br.build(None, layout=lay, th=16, open_after=True)
+                ctx.log(f"battle report: {r.get('grade')} {r.get('score')} -> {r.get('path')}")
+            else:
+                ctx.log("battle report: 当前没有阵型数据（先加载/标注阵型）")
+        except Exception as e:
+            ctx.log(f"battle report failed: {e!r}")
+    y += 30.0
+
     # ---- 启动标注器（内置服务，无需命令行）----
     imgui.set_cursor_screen_pos(imgui.ImVec2(px + PAD, y))
     if _btn(_L(ready, "启动标注器", "Start annotator"), imgui.ImVec2(160.0, 26.0), key="start_annotator"):
