@@ -34,7 +34,7 @@ public class MainActivity extends Activity {
         s.setAllowFileAccess(true);
         s.setAllowContentAccess(true);
         web.addJavascriptInterface(new Bridge(), "AndroidBridge");
-        web.loadUrl("file:///android_asset/annotate2.html");
+        web.loadUrl("file:///android_asset/annotate3.html");
         setContentView(web);
         if (Build.VERSION.SDK_INT < 29
                 && checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
@@ -78,6 +78,7 @@ public class MainActivity extends Activity {
                             Environment.DIRECTORY_DOWNLOADS);
                     if (!dir.exists()) dir.mkdirs();
                     File f = new File(dir, filename);
+                    if (f.exists()) f.delete();
                     FileOutputStream fos = new FileOutputStream(f);
                     fos.write(data);
                     fos.close();
@@ -85,6 +86,20 @@ public class MainActivity extends Activity {
                 }
                 return "OK:" + where;
             } catch (Exception e) {
+                // 先尝试「下载」目录 + 时间戳文件名，避开旧文件占位
+                try {
+                    File dir = Environment.getExternalStoragePublicDirectory(
+                            Environment.DIRECTORY_DOWNLOADS);
+                    if (!dir.exists()) dir.mkdirs();
+                    String alt = (System.currentTimeMillis() / 1000) + "_" + filename;
+                    File f = new File(dir, alt);
+                    FileOutputStream fos = new FileOutputStream(f);
+                    fos.write(data);
+                    fos.close();
+                    return "OK:" + f.getAbsolutePath();
+                } catch (Exception e4) {
+                    // 继续 MediaStore 兜底
+                }
                 // API<29 兜底：用 MediaStore 兼容方式写入「下载」
                 if (Build.VERSION.SDK_INT < 29 && data != null) {
                     try {
