@@ -123,3 +123,11 @@ ClashKing（Clash.Ninja）管理员明确回复：**模拟器使用本身是灰�
 - 输出：规则评分/等级、需要修的规则（含证据与建议）、穿云箭最优 3 条、推荐打法（兵种/法术/步骤/搜索链接）
 - 实测 06 号阵：70.0 A；wall-confidence=low 时 R1/R5/R6 自动不判定；给出「防空离大本 17 格」critical 建议；推荐 hybrid-miner（矿工21+野猪11+天使4，治疗3+狂暴2）
 - 价值：标注一次 → 防守修复建议 + 进攻方案同时出；无需 API
+
+## 🎯 2026-11-27：标注器 v3（四角吸附 + 箭线预览）+ 侦察 TH 分布
+
+- 标注器：点角自动**吸附**附近城墙色像素（±18px）；按 `A` 或「箭线预览」后点两点 → 实时显示命中/评分
+- 服务端 `/arrow`：读已保存标注 → `giant_arrow_diagram.match_skewered` → hits/summary/score
+- 侦察流程：`resolve_opponent` 现在附带 `clan_th_map` / `clan_th_dist`（来自免费 cached 端点，无需 token）
+- E2E 实测：页面 9,346 bytes 含「箭线预览」；save→/arrow 返回 hits=2 summary={air_defense:1,other:1} score=3.0
+- 测试：全量 329 OK（新增 cached TH 2 项）

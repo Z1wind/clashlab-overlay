@@ -120,6 +120,15 @@ def static_max_level(category, name):
     return (doc or {}).get("max_level")
 
 
+def clan_th_distribution(clan_tag, fresh=False):
+    """部落成员 TH 分布：{"map": {tag: th}, "dist": {th: count}}（免费 cached 端点）。"""
+    th = cached_members_th(clan_tag, fresh=fresh)
+    dist = {}
+    for v in th.values():
+        dist[v] = dist.get(v, 0) + 1
+    return {"map": th, "dist": dist}
+
+
 def _enc_url(s):
     import urllib.parse
     return urllib.parse.quote(str(s), safe="")
@@ -383,6 +392,16 @@ def resolve_opponent(name=None, clan_name=None, fresh=True, ocr_level=None):
                 res["clan"] = {"name": (res["player"].get("clan") or {}).get("name"), "tag": tag}
             except Exception:
                 res["war"] = None
+    # 4) 免费 cached 端点：部落成员 TH 分布（无需 token）
+    _tag = ((res.get("clan") or {}).get("tag")
+            or ((res.get("player") or {}).get("clan") or {}).get("tag"))
+    if _tag:
+        try:
+            _d = clan_th_distribution(_tag, fresh=fresh)
+            res["clan_th_map"] = _d["map"]
+            res["clan_th_dist"] = _d["dist"]
+        except Exception:
+            pass
     return res
 
 

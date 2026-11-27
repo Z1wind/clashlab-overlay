@@ -26,6 +26,8 @@ def run_ocr(root, frame_bgr, fresh=True):
     if api and (api.get("player") or {}).get("th"):
         th = int(api["player"]["th"])
     payload = {"ocr": got, "api": api, "th": th,
+               "clan_th_map": (api or {}).get("clan_th_map") if api else None,
+               "clan_th_dist": (api or {}).get("clan_th_dist") if api else None,
                "fetched_at": time.strftime("%Y-%m-%dT%H:%M:%S"),
                "fresh": bool(fresh),
                "line": format_line(got, api, th)}
