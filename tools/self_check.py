@@ -12,6 +12,8 @@ def main():
     ap.add_argument("--layout", required=True)
     ap.add_argument("--th", type=int, default=None)
     ap.add_argument("--json", action="store_true")
+    ap.add_argument("--report", action="store_true", help="额外生成战报 HTML")
+    ap.add_argument("--open", action="store_true", help="生成后打开战报")
     a = ap.parse_args()
     lay = json.load(open(a.layout, encoding="utf-8"))
     from clashlab import layout_rules
@@ -23,8 +25,15 @@ def main():
         recs = strategy.recommend(lay, th=a.th, limit=3)
     except Exception as e:
         recs = {"error": str(e)[:200]}
+    rep = None
+    if a.report:
+        try:
+            from clashlab import battle_report
+            rep = battle_report.build(a.layout, th=a.th, open_after=a.open)
+        except Exception as e:
+            rep = {"ok": False, "error": str(e)[:200]}
     if a.json:
-        print(json.dumps({"rules": ev, "arrow": stairs, "strategy": recs}, ensure_ascii=False, indent=1))
+        print(json.dumps({"rules": ev, "arrow": stairs, "strategy": recs, "report": rep}, ensure_ascii=False, indent=1))
         return 0
     print("# 自检报告：", lay.get("name") or a.layout)
     print("- 规则评分：**%s**（%s），墙体置信度：%s" % (ev["score"], ev["grade"], ev.get("wall_confidence")))
@@ -69,6 +78,11 @@ def main():
     else:
         print("\n## 推荐打法")
         print(json.dumps(recs, ensure_ascii=False)[:1200])
+    if rep and rep.get("ok"):
+        print("\n## 战报")
+        print("- %s（%d bytes，%s %s）" % (rep["path"], rep["bytes"], rep.get("grade"), rep.get("score")))
+    elif rep:
+        print("\n## 战报生成失败：", rep.get("error"))
     return 0
 
 
