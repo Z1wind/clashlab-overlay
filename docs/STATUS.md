@@ -147,3 +147,11 @@ ClashKing（Clash.Ninja）管理员明确回复：**模拟器使用本身是灰�
 - 新增 `tools/build_units_page.py`：生成 39 个 PNG 图标（assets/units/）+ `out/units.html`（88,352 bytes，图标内嵌 base64）
 - 标注器服务新增 `/units` 路由（浏览器直接看兵种/法术/英雄卡片 + 知识库推荐配比）
 - 测试：新增 units 3 + battle_sim_line 3，全量 340 OK
+
+## 2026-11-27 A：标注器内置服务 + 无游戏独立面板
+
+- 新增 `clashlab/annotator.py`：幂等 start_server / is_running / ensure_running / stop_server；tools/annotate_web.py 变薄 CLI
+- 面板设置页新增「启动标注器」按钮：未运行则后台线程拉起并打开浏览器
+- 无渲染目标时 PANEL 独立显示（主屏右侧 440x700），不再只显示小横幅
+- 实机验证：面板 (1472,30,440x700) -> OCR 定位按钮点击 -> 日志 annotator started -> HTTP 200（9542 bytes）
+- 测试：新增 annotator_service 4 项，全量 344 OK

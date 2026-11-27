@@ -1711,6 +1711,17 @@ def _draw_setting(ctx, state, root, ready, panel_w, px, H):
             ctx.log(f"units: open failed {e!r}")
     y += 30.0
 
+    # ---- 启动标注器（内置服务，无需命令行）----
+    imgui.set_cursor_screen_pos(imgui.ImVec2(px + PAD, y))
+    if _btn(_L(ready, "启动标注器", "Start annotator"), imgui.ImVec2(160.0, 26.0), key="start_annotator"):
+        try:
+            from .. import annotator as _ann
+            _url, _started = _ann.ensure_running(root)
+            ctx.log(("annotator: started " if _started else "annotator: already running ") + _url)
+        except Exception as e:
+            ctx.log(f"annotator: start failed {e!r}")
+    y += 30.0
+
     # ---- 面板位置：右 / 下 / 内（外置窗口；落盘 config/overlay.json，默认右） ----
     y += 4.0
     imgui.set_cursor_screen_pos(imgui.ImVec2(px + PAD, y))

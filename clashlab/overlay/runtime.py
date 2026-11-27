@@ -1103,15 +1103,27 @@ def run(root: str, config: dict | None = None) -> None:
 
         # v9-①：等待雷电启动分支——居中小横幅，持续轮询，不抢焦点不抓屏
         if wait:
-            if prev.get("wait_shown") is not True:
-                win32gui.ShowWindow(hwnd, SW_SHOWNOACTIVATE)
-                prev["wait_shown"] = True
-                rt.log("waiting: LDPlayerMainFrame 未找到，持续轮询等待启动")
             sw = user32.GetSystemMetrics(0)
             sh = user32.GetSystemMetrics(1)
-            wx, wy = int((sw - 420) / 2), int((sh - 90) / 2)
-            win32gui.SetWindowPos(hwnd, win32con.HWND_TOPMOST, wx, wy,
-                                  420, 90, win32con.SWP_NOACTIVATE)
+            if rt.state.mode == "PANEL":
+                # 没有游戏窗口时面板独立可用（不再只显示小横幅）
+                pw = 440
+                ph = max(400, min(700, sh - 60))
+                wx, wy = sw - pw - 8, 30
+                win32gui.SetWindowPos(hwnd, win32con.HWND_TOPMOST, wx, wy, pw, ph,
+                                      win32con.SWP_NOACTIVATE | win32con.SWP_SHOWWINDOW)
+                if prev.get("wait_shown") is not True:
+                    win32gui.ShowWindow(hwnd, SW_SHOWNOACTIVATE)
+                    prev["wait_shown"] = True
+                    rt.log("waiting: no render target -> PANEL standalone at (%d,%d) %dx%d" % (wx, wy, pw, ph))
+            else:
+                if prev.get("wait_shown") is not True:
+                    win32gui.ShowWindow(hwnd, SW_SHOWNOACTIVATE)
+                    prev["wait_shown"] = True
+                    rt.log("waiting: LDPlayerMainFrame 未找到，持续轮询等待启动")
+                wx, wy = int((sw - 420) / 2), int((sh - 90) / 2)
+                win32gui.SetWindowPos(hwnd, win32con.HWND_TOPMOST, wx, wy,
+                                      420, 90, win32con.SWP_NOACTIVATE)
 
         # PANEL 态默认不再自喂鼠标：窗口自身可点击（无 WS_EX_TRANSPARENT），
         # GLFW 原生事件足够；双通道会让同一次点击被注入两次、ImGui 点击被抵消
@@ -1127,7 +1139,7 @@ def run(root: str, config: dict | None = None) -> None:
         try:
             rows = _tactics_rows(rt)
             sel_idx = int(tactics.SEL.get("idx", 0))
-            if wait:
+            if wait and rt.state.mode != "PANEL":
                 _draw_wait_banner(imgui, dl)
             elif rt.state.mode == "PANEL":
                 # PANEL 窗口独立在游戏外：只画面板，不画 HUD 标注（任务1）
