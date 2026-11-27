@@ -108,3 +108,11 @@ ClashKing（Clash.Ninja）管理员明确回复：**模拟器使用本身是灰�
 - `tools/auto_report.py`：一条命令入口 —— `--layout` 出报告 / `--dir` 批量 / `--image` 自动标定(带几何合理性校验，拒绝假阳性) + 找同名标注
 - `tools/enemy_pipeline.py` 增加 `rules_eval` 输出
 - 测试：全量 **322 tests OK**（新增 layout_grid 4 项 + layout_rules 3 项）
+
+## 🖥️ 2026-11-27：网页标注器 v2（标注→报告一键，工作量最小化）
+
+- 快捷键：数字 1-9 选类型、W 画墙、U 撤销、C 清空、S 保存、R 保存并出报告
+- 墙模式：点起点→点终点画墙段（服务端按折线/成对线段自动识别）
+- 草稿自动存 localStorage，刷新不丢
+- 新按钮「保存并出报告」：POST `/report` → 后端跑 `tools/report_one.py` → 页面直接显示评分/箭线/弱点摘要
+- E2E 实测：页面 HTTP 200（7,096 B）+ save 落盘 + report ok=true（评分 48.7 D、箭线命中 3）
