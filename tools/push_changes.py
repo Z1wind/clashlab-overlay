@@ -6,7 +6,13 @@ BASE = r"C:\Users\Admin（无密码）\Doubao\chats\2026-11-23\new-chat"
 TOKEN = os.environ["GH_TOKEN"]
 REPO = "https://api.github.com/repos/Z1wind/clashlab-overlay"
 CACHE = os.path.join(BASE, "out", "release", "blob_cache.json")
-git = os.path.join(os.environ.get("TEMP", ""), "gitportable", "mingit", "cmd", "git.exe")
+_CANDIDATES = [
+    os.path.join(os.environ.get("TEMP", ""), "mingit2", "cmd", "git.exe"),
+    os.path.join(os.environ.get("TEMP", ""), "gitportable", "mingit", "cmd", "git.exe"),
+    r"E:\Temp\mingit2\cmd\git.exe",
+    r"C:\Program Files\Git\cmd\git.exe",
+]
+git = next((c for c in _CANDIDATES if os.path.exists(c)), _CANDIDATES[0])
 
 
 def call(method, url, payload=None, retries=5):
