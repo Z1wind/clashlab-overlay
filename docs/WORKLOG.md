@@ -61,3 +61,18 @@
 ### 数据集流水线兼容外部角点
 - tools/apk_export_to_dataset.py 支持 corners_norm 为负/超过 1（warpPerspective 采样边界外为黑）
 - tests/test_apk_export_dataset.py 新增：外部角点不崩溃、bundle 导出解析；3 项测试 OK
+
+## 通宵轮次 6-8（2026-11-28 03:10-04:05）
+
+### APK v0.2.7 / v0.2.8
+- v0.2.7：拖角到屏幕边缘自动平移（真机实测拖到顶边后 corners_norm[0]=[0.024,-0.6]，MIN_Y=-0.6）
+- v0.2.8：导出成功后自动跳到下一张未标定的图（真机 1/20 -> 2/20）
+- 当前产物：dist/ClashLabAnnotator_20bases_v0.2.8.apk 8,308,903 bytes md5 A1DE12AED7930E51CBA511BEF6DB9C69
+
+### 训练流水线（一条命令）
+- 新增 tools/train_from_apk_export.py：APK 导出 JSON -> crops -> 训练 CNN -> 留一基 top1/top3 -> 保存 models/apk_type_cls.pt
+- 烟测：01_annotated 转 v2 导出，86 crops / 31 类，训练+保存通过（单基无法留一评估，多基后自动 CV）
+
+### 历史结论去重（重要）
+- docs/BASELINK_RESEARCH.md 早已写明 copy link 不可离线解码（24B 服务端引用）——本轮 r1 又验证了一次，后续不要再试
+- docs/AUTO_ANNOTATE_FAIL.md 已记录自动标注失败（无背景类、滑窗假阳性），本次模板匹配 TP=0 再次印证
