@@ -126,7 +126,8 @@ def _flatness(gray):
     return float(cv2.Laplacian(gray, cv2.CV_64F).var())
 
 
-def candidates(image_path, quad, max_n=30, min_conf=0.97, min_var=60.0, gate_only=False):
+def candidates(image_path, quad, max_n=30, min_conf=0.97, min_var=60.0, gate_only=False,
+               gate_threshold=0.85):
     """返回 [{type,tile:[x,y],size,conf}]（最多 max_n 个，按 conf 降序）。"""
     if not available():
         return {"ok": False, "error": "torch/model 不可用（仅源码环境支持，exe 内置版不含 torch）", "items": []}
@@ -147,7 +148,7 @@ def candidates(image_path, quad, max_n=30, min_conf=0.97, min_var=60.0, gate_onl
     DST = np.float32([[0, 0], [96, 0], [96, 96], [0, 96]])
     items = []
     gate = _load_gate()
-    gate_thr = 0.85
+    gate_thr = float(gate_threshold)
     gated_counts = {}
     sizes = (2, 3, 4)
     for size in sizes:
@@ -194,8 +195,9 @@ def candidates(image_path, quad, max_n=30, min_conf=0.97, min_var=60.0, gate_onl
     items.sort(key=lambda d: -d["conf"])
     picked = []
     for it in items:
-        if all(abs(it["tile"][0] - p["tile"][0]) > max(1, it["size"] // 2) or
-               abs(it["tile"][1] - p["tile"][1]) > max(1, it["size"] // 2) for p in picked):
+        sep = max(1.2, it["size"] * 0.6)  # 允许相邻建筑（间距 2 格）保留
+        if all(abs(it["tile"][0] - p["tile"][0]) >= sep or
+               abs(it["tile"][1] - p["tile"][1]) >= sep for p in picked):
             picked.append(it)
         if len(picked) >= max_n:
             break

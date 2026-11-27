@@ -50,6 +50,8 @@ button.on{background:#2e6b3e;border-color:#49a35f}
   <button id="wallbtn">画墙模式 (W)</button>
   <button id="arrowbtn">箭线预览 (A)</button>
   <button id="candbtn" title="门控模型给建筑位置，类型用当前选中">位置候选</button>
+  <input id="candthr" type="range" min="0.50" max="0.98" step="0.01" value="0.85" style="width:90px" title="门控阈值：越低候选越多、误报越多">
+  <span id="candthrv" style="font-size:11px;color:#8fa3bd">0.85</span>
   <input id="name" value="enemy" style="width:110px;background:#0f1318;color:#dde3ea;border:1px solid #3a4556;border-radius:5px;padding:4px">
   <button id="save">保存 JSON (S)</button>
   <button id="report" style="background:#3d5a2e;border-color:#5b8a43">保存并出报告</button>
@@ -152,10 +154,10 @@ document.getElementById('wallbtn').onclick=function(){ wallMode=!wallMode; drawi
 document.getElementById('arrowbtn').onclick=function(){ arrowMode=!arrowMode; arrowPts=[]; this.classList.toggle('on', arrowMode); };
 document.getElementById('candbtn').onclick=function(){
   if(corners.length<4){ document.getElementById('report').textContent='先点 4 个角完成标定'; return; }
-  fetch('/candidates',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({quad:corners,max_n:40,gate_only:true})})
+  fetch('/candidates',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({quad:corners,max_n:60,gate_only:true,gate_threshold:parseFloat(document.getElementById("candthr").value)})})
     .then(function(r){return r.json();}).then(function(j){
       if(!j.ok){ document.getElementById('report').textContent='自动候选不可用: '+(j.error||'未知'); return; }
-      cands=j.items||[]; candsActive=true; st();
+      cands=j.items||[]; candsActive=true; st(); document.getElementById('candthrv').textContent=parseFloat(document.getElementById('candthr').value).toFixed(2);
       document.getElementById('report').textContent='位置候选 '+cands.length+' 个：先选类型再点蓝框落位';
     });
 };
@@ -265,7 +267,8 @@ class Handler(BaseHTTPRequestHandler):
                 if len(quad) != 4:
                     return self._send(200, json.dumps({"ok": False, "error": "需要先点 4 个角"}), "application/json")
                 res = _ac.candidates(STATE.get("image"), quad, max_n=int(doc.get("max_n") or 30),
-                                         gate_only=bool(doc.get("gate_only")))
+                                         gate_only=bool(doc.get("gate_only")),
+                                         gate_threshold=float(doc.get("gate_threshold") or 0.85))
             except Exception as e:
                 res = {"ok": False, "error": str(e)[:200]}
             return self._send(200, json.dumps(res, ensure_ascii=False), "application/json")
