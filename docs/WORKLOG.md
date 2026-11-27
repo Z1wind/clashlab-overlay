@@ -41,3 +41,7 @@
 ### 待办
 - 确认新 CI 构建 APK 尺寸恢复约 8.3MB 并校验 md5
 - 登记验证 + 早晨简报
+### 轮次 3 补充：CI 产物校验（通过）
+- run 52ee008b 成功；artifact 8,291,484 B；解包 APK 8,296,541 B，含 20 张图
+- CI 内 annotate6.html md5 与本地一致（差异仅 Linux/Windows zip 元数据 ~4KB）
+- Release v0.3.7 资产四项尺寸与本地一致；APK 下载 md5 与本地一致
