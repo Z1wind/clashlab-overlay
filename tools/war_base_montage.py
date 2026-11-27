@@ -7,11 +7,19 @@ import argparse, glob, json, os, sys
 sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 import cv2, numpy as np
 BASE = r"C:\Users\Admin（无密码）\Doubao\chats\2026-11-23\new-chat"
+
+# 侦察界面相机固定：1280x720 手工标定，按宽度等比放大
+QUAD_1280 = [[640.0, 52.0], [1120.0, 352.0], [640.0, 652.0], [178.0, 352.0]]
+
+
+def default_quad(w):
+    s = w / 1280.0
+    return [[round(x * s, 1), round(y * s, 1)] for x, y in QUAD_1280]
 sys.path.insert(0, BASE)
 from clashlab.geo import Calib
 
 
-def wall_quad(img):
+def wall_quad(img):  # 备用：Hough 拟合（对真实阵可能不准，默认不用）
     h, w = img.shape[:2]
     hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
     white = cv2.inRange(hsv, (0, 0, 150), (180, 60, 255))
@@ -60,8 +68,12 @@ def montage(img, quad, items, out_prefix, tag=""):
             if i >= len(items):
                 break
             it = items[i]; x, y = it["tile"]; size = it["size"]
-            m = 1
-            x0 = max(0, x - m); y0 = max(0, y - m); x1 = min(44, x + size + m); y1 = min(44, y + size + m)
+            # 至少裁 4x4 格，保证 96px 下边缘清晰
+            side = max(4, size + 2)
+            pad = (side - size) // 2
+            x0 = max(0, x - pad); y0 = max(0, y - pad)
+            x1 = min(44, x0 + side); y1 = min(44, y0 + side)
+            x0 = max(0, x1 - side); y0 = max(0, y1 - side)
             p2 = [cal.tile_to_px(x0,y0), cal.tile_to_px(x1,y0), cal.tile_to_px(x1,y1), cal.tile_to_px(x0,y1)]
             H = cv2.getPerspectiveTransform(np.float32(p2), np.float32([[0,0],[S,0],[S,S],[0,S]]))
             crop = cv2.warpPerspective(img, H, (S, S), flags=cv2.INTER_AREA)
@@ -76,12 +88,29 @@ def montage(img, quad, items, out_prefix, tag=""):
     return made
 
 
+_FORCE_QUAD = None
+_CHECK_HOUGH = False
+
+
 def process(img_path, thr, outdir):
     from clashlab import auto_candidates as ac
     img = cv2.imdecode(np.fromfile(img_path, np.uint8), cv2.IMREAD_COLOR)
     if img is None:
         return {"ok": False, "error": "read fail"}
-    quad, ang = wall_quad(img)
+    import argparse as _ap
+    quad = None; ang = None
+    if _FORCE_QUAD:
+        quad = np.float32(_FORCE_QUAD); ang = 0.0
+    else:
+        quad = np.float32(default_quad(img.shape[1]))
+        # 可选：Hough 结果作为参考输出
+        try:
+            _hq, _ang = wall_quad(img)
+            ang = _ang
+            if _hq is not None and _CHECK_HOUGH:
+                quad = _hq
+        except Exception:
+            pass
     if quad is None:
         return {"ok": False, "error": "calib fail"}
     r = ac.candidates(img_path, quad.tolist(), max_n=90, gate_only=True, gate_threshold=thr, recall=True)
@@ -100,8 +129,14 @@ def main():
     ap.add_argument("--image", default=None)
     ap.add_argument("--glob", default=None)
     ap.add_argument("--thr", type=float, default=0.40)
+    ap.add_argument("--quad", default=None, help="四点 x,y;x,y;x,y;x,y 覆盖默认固定视角")
+    ap.add_argument("--hough", action="store_true", help="改用 Hough 拟合（实验）")
     ap.add_argument("--outdir", default=os.path.join(BASE, "out", "labels", "war"))
     a = ap.parse_args()
+    global _FORCE_QUAD, _CHECK_HOUGH
+    if a.quad:
+        _FORCE_QUAD = [[float(v) for v in part.split(",")] for part in a.quad.split(";")]
+    _CHECK_HOUGH = bool(a.hough)
     imgs = [a.image] if a.image else sorted(glob.glob(a.glob or os.path.join(BASE, "out", "live", "war1080", "base_*.png")))
     for p in imgs:
         res = process(p, a.thr, a.outdir)

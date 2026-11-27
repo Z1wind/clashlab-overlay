@@ -213,3 +213,10 @@ ClashKing（Clash.Ninja）管理员明确回复：**模拟器使用本身是灰�
 
 ### 待办（战斗日后）
 - 战斗日抓图 → 战场标定 → 门控候选 → 我逐张标类型 → 微调类型分类器
+
+## 2026-11-27 战场抓图与标注工具链（准备战斗日）
+
+- `tools/war_base_montage.py`：战场截图 → 固定视角标定（1280 手工四角×1.5）→ 门控候选 → 4x4 格边距拼图
+- `tools/finetune_shot_type.py`：用「图片+quad+tile+type」标注微调类型分类器（支持每条样本自带 quad），另存模型
+- 计划任务：ClashLabWarCapture2140 / 2150（战斗日抓图）、ClashLabWarMontage2152（抓图后自动拼图）
+- 说明：Hough 拟合在已知 720p 战图上误差 181px（被 UI 线干扰），故战场标定改用固定视角；实际精度等真实阵验证
