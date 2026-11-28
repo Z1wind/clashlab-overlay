@@ -7,8 +7,8 @@ src = os.path.join(BASE, "dist", "ClashLabAnnotator_HTML_desktop.html")
 t = open(src, encoding="utf-8").read()
 
 # 1) 还原桌面版基础上再加桌面交互（标题/帮助）
-t = re.sub(r"<title>.*?</title>", "<title>ClashLab 阵型标注（桌面版 v1.1）</title>", t, count=1)
-t = t.replace("<h3>30 秒上手（桌面版）</h3>", "<h3>30 秒上手（桌面版 v1.1）</h3>")
+t = re.sub(r"<title>.*?</title>", "<title>ClashLab 阵型标注（桌面版 v1.2）</title>", t, count=1)
+t = t.replace("<h3>30 秒上手（桌面版）</h3>", "<h3>30 秒上手（桌面版 v1.2）</h3>")
 t = t.replace("黄点出现后<b>按住可拖动</b>到真正的角，可拖到图片外面。<b>滚轮缩放、左键拖动平移画面</b>。",
               "点四角：<b>左键单击</b>；按住黄点拖动可微调（可拖出图片）。<b>滚轮缩放、左键拖动平移</b>。")
 t = t.replace("图片太小：<b>滚轮缩放</b>，或右上 <b>＋ / － / 适应</b>；<b>左键拖动</b>可平移画面。",

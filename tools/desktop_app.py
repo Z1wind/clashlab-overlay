@@ -3,7 +3,7 @@
 import json, os, sys
 import webview
 
-APP_TITLE = "ClashLab 阵型标注（桌面版 v1.1）"
+APP_TITLE = "ClashLab 阵型标注（桌面版 v1.2）"
 EXPORT_DIR = os.path.join(os.path.expanduser("~"), "Downloads", "ClashLab标注")
 
 def resource_path(rel):

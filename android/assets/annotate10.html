@@ -125,17 +125,17 @@ function onDown(ev){ev.preventDefault();
   var ni=s.corners.length?nearestCorner(p[0],p[1]):-1;
   if(ni>=0){dragIdx=ni;tapStart=null;toast('拖动第 '+(ni+1)+' 个角');return;}
   if(s.corners.length===4&&s.buildings.length){var bi=nearestBuilding(p[0],p[1]);if(bi>=0){dragBld=bi;tapStart=null;toast('拖动建筑调整位置');return;}}
-  if(view.scale>1.01){tapStart.pan=true;}
+  tapStart.pan=false;
 }
 function onMove(ev){ev.preventDefault();
   if(pinch&&ev.touches&&ev.touches.length>=2){var a=ev.touches[0],b=ev.touches[1];var d=Math.hypot(a.clientX-b.clientX,a.clientY-b.clientY);view.scale=Math.max(1,Math.min(6,pinch.scale*d/pinch.d));draw();return;}
   var raw=(ev.touches&&ev.touches[0])?ev.touches[0]:ev;
   if(dragBld>=0){var bp=screenToCanvas(ev),bs=S();var uv2=invBilinear(bp[0],bp[1]);var tx2=Math.round(uv2[0]*44-.5),ty2=Math.round(uv2[1]*44-.5);if(tx2>=0&&ty2>=0&&tx2<=43&&ty2<=43){bs.buildings[dragBld].tile=[tx2,ty2];draw();}return;}
   if(dragIdx>=0){var p=screenToCanvas(ev),s=S();var EDGE=36,STEP=2,moved=false;if(p[0]<EDGE){view.panX+=STEP;moved=true;}else if(p[0]>cv.width-EDGE){view.panX-=STEP;moved=true;}if(p[1]<EDGE){view.panY+=STEP;moved=true;}else if(p[1]>cv.height-EDGE){view.panY-=STEP;moved=true;}view.panX=Math.max(-IMG.w*0.8,Math.min(IMG.w*0.8,view.panX));view.panY=Math.max(-IMG.h*0.8,Math.min(IMG.h*0.8,view.panY));if(moved){draw();p=screenToCanvas(ev);}s.corners[dragIdx]=[Math.max(-0.6,Math.min(1.6,(p[0]-IMG.offX)/IMG.w)),Math.max(-0.6,Math.min(1.6,(p[1]-IMG.offY)/IMG.h))];draw();return;}
-  if(!tapStart||!tapStart.pan)return;
+  if(!tapStart)return;
   var r=cv.getBoundingClientRect();var sx=(raw.clientX-r.left)*(cv.width/r.width);var sy=(raw.clientY-r.top)*(cv.height/r.height);
-  if(Math.abs(sx-tapStart.cx)+Math.abs(sy-tapStart.cy)>8){tapStart.moved=true;}
-  if(tapStart.moved){view.panX+= (sx-tapStart.cx)*1;view.panY+=(sy-tapStart.cy)*1;tapStart.cx=sx;tapStart.cy=sy;draw();}
+  if(Math.abs(sx-tapStart.cx)+Math.abs(sy-tapStart.cy)>6){tapStart.moved=true;}
+  if(tapStart.moved){tapStart.pan=true;view.panX+=(sx-tapStart.cx);view.panY+=(sy-tapStart.cy);tapStart.cx=sx;tapStart.cy=sy;draw();}
 }
 function doTap(ix,iy){
   var s=S();
@@ -147,7 +147,7 @@ function doTap(ix,iy){
 var tapStart=null;
 function onUp(ev){
   if(dragBld>=0){dragBld=-1;saveLocal();updateUI();document.getElementById('tip').textContent=tipText();}if(dragIdx>=0){dragIdx=-1;saveLocal();updateUI();}
-  if(tapStart&&!tapStart.moved&&!tapStart.pan){var r=cv.getBoundingClientRect();if(!maybeDoubleTap(tapStart.x,tapStart.y))doTap(tapStart.x,tapStart.y);}
+  if(tapStart&&!tapStart.moved){if(!maybeDoubleTap(tapStart.x,tapStart.y))doTap(tapStart.x,tapStart.y);}
   tapStart=null;pinch=null;}
 function updateUI(){var s=S();try{document.getElementById('tip').textContent=tipText();}catch(e){}document.getElementById('count').textContent='已标 '+s.buildings.length;
   var a=document.getElementById('st1'),b=document.getElementById('st2'),c=document.getElementById('st3');
