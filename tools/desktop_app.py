@@ -3,7 +3,7 @@
 import json, os, sys
 import webview
 
-APP_TITLE = "ClashLab 阵型标注（桌面版 v1.5）"
+APP_TITLE = "ClashLab 阵型标注（桌面版 v1.6）"
 EXPORT_DIR = os.path.join(os.path.expanduser("~"), "Downloads", "ClashLab标注")
 
 def resource_path(rel):
@@ -48,7 +48,7 @@ class Api:
             return {"ok": False, "error": str(e)}
 
 
-    def preannotate(self, corners_norm, image_size, image_rel):
+    def preannotate(self, corners_norm, image_size, image_rel, mode="standard"):
         import time
         try:
             import cv2, numpy as np
@@ -60,7 +60,8 @@ class Api:
             wn, hn = float(image_size[0]), float(image_size[1])
             quad = [[float(u) * wn, float(v) * hn] for u, v in corners_norm]
             t0 = time.time()
-            out = get_annotator().detect(img, quad)
+            th = {"standard": (0.85, 0.85), "recall": (0.70, 0.70), "precise": (0.92, 0.92)}.get(mode, (0.85, 0.85))
+            out = get_annotator().detect(img, quad, gate_th=th[0], emb_th=th[1])
             ms = int((time.time() - t0) * 1000)
             buildings = []
             for o in out:
@@ -84,7 +85,7 @@ class Api:
             return {"ok": False, "error": str(e)}
 
 def main():
-    html = resource_path("ClashLabAnnotator_Desktop_v3.html")
+    html = resource_path("ClashLabAnnotator_Desktop_v4.html")
     if not os.path.exists(html):
         html = resource_path("ClashLabAnnotator_HTML_v1.1.html")
     api = Api()
@@ -112,9 +113,12 @@ def main():
         def on_loaded2():
             try:
                 import json
-                r = api.preannotate([[0.106,0.51],[0.491,-0.104],[0.875,0.508],[0.489,1.133]],
-                                    [1600, 735], "img/b03.jpg")
-                res = {"ok": r.get("ok"), "n": len(r.get("buildings") or []), "ms": r.get("ms"), "error": r.get("error")}
+                corners = [[0.106,0.51],[0.491,-0.104],[0.875,0.508],[0.489,1.133]]
+                modes = {}
+                for m in ("standard", "recall", "precise"):
+                    rr = api.preannotate(corners, [1600, 735], "img/b03.jpg", m)
+                    modes[m] = {"ok": rr.get("ok"), "n": len(rr.get("buildings") or []), "ms": rr.get("ms"), "error": rr.get("error")}
+                res = {"modes": modes}
                 with open(os.path.join(os.path.dirname(sys.executable if getattr(sys, "frozen", False) else __file__), "smoke2_result.json"), "w", encoding="utf-8") as f:
                     json.dump(res, f, ensure_ascii=False)
                 print("SMOKE2", res, flush=True)
