@@ -194,3 +194,10 @@
 - 结论：半格合并能提精度 +7pt、类型 +3pt，但召回 -9pt、F1 略降；暂不替换标准档，保留为「精确档」可选方案
 - 代码已预留 preannotate_core.detect(phases=(0.0,)) 参数，可随时启用
 - 脚本：tools/half_offset_scan.py、tools/train_hybrid_halfphase_cv.py、tools/mk_halfphase_cv.py
+
+## v1.9 交付前全基准一致性检查（2026-11-28 21:40，leaky）
+- standard: P81.5 / R75.2 / type98.1 / 平均84栋 / 2.6s
+- recall:   P72.0 / R79.8 / type96.9 / 平均103栋 / 2.6s
+- precise:  P86.5 / R73.4 / type99.1 / 平均77栋 / 5.1s
+- 最弱项：b07 standard R0.61；b05 recall P0.50（误报多）→ 后续数据补 b05/b07 类分布
+- 脚本 out/logs/v19_allbases.log、tools/eval_v19_allbases.py
