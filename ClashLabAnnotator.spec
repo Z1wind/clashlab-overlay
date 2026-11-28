@@ -1,9 +1,9 @@
 # -*- mode: python ; coding: utf-8 -*-
 from PyInstaller.utils.hooks import collect_all
 
-datas = [('C:/Users/Admin（无密码）/Doubao/chats/2026-11-23/new-chat/dist/ClashLabAnnotator_Desktop_v2.html', '.')]
+datas = [('C:/Users/Admin（无密码）/Doubao/chats/2026-11-23/new-chat/dist/ClashLabAnnotator_Desktop_v3.html', '.'), ('C:/Users/Admin（无密码）/Doubao/chats/2026-11-23/new-chat/android/assets/img', 'img'), ('C:/Users/Admin（无密码）/Doubao/chats/2026-11-23/new-chat/models/pipeline_gate.onnx', 'models'), ('C:/Users/Admin（无密码）/Doubao/chats/2026-11-23/new-chat/models/pipeline_type.onnx', 'models'), ('C:/Users/Admin（无密码）/Doubao/chats/2026-11-23/new-chat/models/pipeline_types.json', 'models')]
 binaries = []
-hiddenimports = ['clr', 'webview.platforms.edgechromium']
+hiddenimports = ['onnxruntime', 'clr', 'webview.platforms.edgechromium', 'tools.preannotate_core', 'clashlab.geo', 'clashlab.assets']
 tmp_ret = collect_all('webview')
 datas += tmp_ret[0]; binaries += tmp_ret[1]; hiddenimports += tmp_ret[2]
 tmp_ret = collect_all('clr_loader')
@@ -21,7 +21,7 @@ a = Analysis(
     hookspath=[],
     hooksconfig={},
     runtime_hooks=[],
-    excludes=[],
+    excludes=['torch', 'torchvision', 'onnx', 'onnxscript', 'triton'],
     noarchive=False,
     optimize=0,
 )

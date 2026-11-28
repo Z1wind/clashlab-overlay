@@ -66,3 +66,8 @@ datasets/
 
 # ClashKing 本地 token（不提交）
 config/cocapi_token.txt
+dist_exe/
+build_exe/
+android/build_ci/
+*.pkg
+*.pyz
