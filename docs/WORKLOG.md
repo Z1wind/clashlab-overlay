@@ -111,3 +111,9 @@
 ### 通宵收尾
 - 目标状态：APK v0.3.0（真机验证）、训练一条命令、CI/Release 完成；自动标注与 copy link 均证伪
 - 等用户：标注 10 张 + 政策改造批准
+
+## 用户 8 张标注训练（2026-11-28 16:10）
+- 8 张全用 CV top1 59.1%（增强）/44.5%（基础）；b01/b02 异常低
+- 排除 b01/b02：6 张 CV top1 88.2% / top3 94.8%
+- b01/b02 诊断：落点偏移、b01 缺关键类型；镜像/转置无法修正
+- 产物：models/apk_type_cls_aug6.pt、out/apk_type_report_aug6.json、docs/TRAIN_RESULT_20261128.md
