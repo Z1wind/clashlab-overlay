@@ -60,8 +60,12 @@ class Api:
             wn, hn = float(image_size[0]), float(image_size[1])
             quad = [[float(u) * wn, float(v) * hn] for u, v in corners_norm]
             t0 = time.time()
-            th = {"standard": (0.85, 0.85), "recall": (0.70, 0.70), "precise": (0.92, 0.92)}.get(mode, (0.85, 0.85))
-            out = get_annotator().detect(img, quad, gate_th=th[0], emb_th=th[1])
+            cfg = {
+                "standard": (0.85, 0.85, (0.0,)),
+                "recall": (0.70, 0.70, (0.0,)),
+                "precise": (0.90, 0.90, (0.0, 0.5)),  # 少错：半格合并 + 高阈值（b03: P92.5/R81.3/type98.6）
+            }.get(mode, (0.85, 0.85, (0.0,)))
+            out = get_annotator().detect(img, quad, gate_th=cfg[0], emb_th=cfg[1], phases=cfg[2])
             ms = int((time.time() - t0) * 1000)
             buildings = []
             for o in out:

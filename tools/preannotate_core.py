@@ -39,7 +39,7 @@ class PreAnnotator:
 
     def detect(self, img, quad, gate_th=0.5, score_th=0.5):
         cal = Calib.from_quad(np.float32(quad), n=44)
-        cells = [(cx + off, cy + off) for off in phases for cx in range(2, 42) for cy in range(2, 42)]
+        cells = [(cx, cy) for cx in range(2, 42) for cy in range(2, 42)]
         cands = []
         B = 128
         for i in range(0, len(cells), B):
@@ -107,7 +107,7 @@ class HybridAnnotator:
         gate_th = self.gate_th if gate_th is None else gate_th
         emb_th = self.emb_th if emb_th is None else emb_th
         cal = Calib.from_quad(np.float32(quad), n=44)
-        cells = [(cx, cy) for cx in range(2, 42) for cy in range(2, 42)]
+        cells = [(cx + off, cy + off) for off in phases for cx in range(2, 42) for cy in range(2, 42)]
         cands = []
         B = 128
         for i in range(0, len(cells), B):
