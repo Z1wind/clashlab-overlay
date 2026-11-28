@@ -3,7 +3,7 @@
 import json, os, sys
 import webview
 
-APP_TITLE = "ClashLab 阵型标注（桌面版 v1.6）"
+APP_TITLE = "ClashLab 阵型标注（桌面版 v2.0）"
 EXPORT_DIR = os.path.join(os.path.expanduser("~"), "Downloads", "ClashLab标注")
 
 def resource_path(rel):
@@ -48,7 +48,7 @@ class Api:
             return {"ok": False, "error": str(e)}
 
 
-    def preannotate(self, corners_norm, image_size, image_rel, mode="standard"):
+    def preannotate(self, corners_norm, image_size, image_rel, mode="standard", existing=None):
         import time
         try:
             import cv2, numpy as np
@@ -66,6 +66,9 @@ class Api:
                 "precise": (0.90, 0.90, (0.0, 0.5)),  # 少错：半格合并 + 高阈值（b03: P92.5/R81.3/type98.6）
             }.get(mode, (0.85, 0.85, (0.0,)))
             out = get_annotator().detect(img, quad, gate_th=cfg[0], emb_th=cfg[1], phases=cfg[2])
+            if existing:
+                ex = [(float(a), float(b)) for a, b in existing]
+                out = [o for o in out if all(abs(o["center"][0]-a) + abs(o["center"][1]-b) > 1.2 for a, b in ex)]
             ms = int((time.time() - t0) * 1000)
             buildings = []
             for o in out:
@@ -89,7 +92,7 @@ class Api:
             return {"ok": False, "error": str(e)}
 
 def main():
-    html = resource_path("ClashLabAnnotator_Desktop_v4.html")
+    html = resource_path("ClashLabAnnotator_Desktop_v5.html")
     if not os.path.exists(html):
         html = resource_path("ClashLabAnnotator_HTML_v1.1.html")
     api = Api()
@@ -122,7 +125,10 @@ def main():
                 for m in ("standard", "recall", "precise"):
                     rr = api.preannotate(corners, [1600, 735], "img/b03.jpg", m)
                     modes[m] = {"ok": rr.get("ok"), "n": len(rr.get("buildings") or []), "ms": rr.get("ms"), "error": rr.get("error")}
-                res = {"modes": modes}
+                base = api.preannotate(corners, [1600, 735], "img/b03.jpg", "standard")
+                keep = [[b["tile"][0] + 1, b["tile"][1] + 1] for b in (base.get("buildings") or [])[:10]]
+                r2 = api.preannotate(corners, [1600, 735], "img/b03.jpg", "standard", keep)
+                res = {"modes": modes, "supplement": {"ok": r2.get("ok"), "n": len(r2.get("buildings") or []), "existing": len(keep), "ms": r2.get("ms")}}
                 with open(os.path.join(os.path.dirname(sys.executable if getattr(sys, "frozen", False) else __file__), "smoke2_result.json"), "w", encoding="utf-8") as f:
                     json.dump(res, f, ensure_ascii=False)
                 print("SMOKE2", res, flush=True)

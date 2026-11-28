@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 """增量推送：只为变更文件创建 blob，基于远端当前 tree 生成新 tree -> commit -> 更新 main。"""
 import base64, hashlib, json, os, subprocess, sys, time, urllib.error, urllib.request
+urllib.request.install_opener(urllib.request.build_opener(urllib.request.ProxyHandler({})))
 
 BASE = r"C:\Users\Admin（无密码）\Doubao\chats\2026-11-23\new-chat"
 TOKEN = os.environ["GH_TOKEN"]
