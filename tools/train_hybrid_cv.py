@@ -42,9 +42,14 @@ def arcface(e, w, y, s=16.0, m=0.25):
     onehot = torch.zeros_like(cos); onehot.scatter_(1, y.view(-1,1), 1)
     return torch.cos(th + m*onehot) * s
 def main():
-    paths = [os.path.join(os.path.expanduser("~"), "Downloads", "annot_b01 (1).json"),
-             os.path.join(os.path.expanduser("~"), "Downloads", "annot_b02 (1).json")]
-    paths += [os.path.join(os.path.expanduser("~"), "Downloads", "annot_b%02d.json" % i) for i in range(3, 9)]
+    env = os.environ.get("CLASHLAB_EXPORTS", "")
+    if env:
+        import re as _re
+        paths = [x for x in _re.split(r"[;\r\n]+", env) if x.strip()]
+    else:
+        paths = [os.path.join(os.path.expanduser("~"), "Downloads", "annot_b01 (1).json"),
+                 os.path.join(os.path.expanduser("~"), "Downloads", "annot_b02 (1).json")]
+        paths += [os.path.join(os.path.expanduser("~"), "Downloads", "annot_b%02d.json" % i) for i in range(3, 9)]
     data = []
     for bi, p in enumerate(paths):
         img, cal, blds = prep(p); data.append({"bi": bi, "img": img, "cal": cal, "blds": blds})
