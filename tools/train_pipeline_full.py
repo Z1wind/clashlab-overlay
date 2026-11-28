@@ -8,10 +8,14 @@ import cv2, numpy as np, torch, torch.nn as nn
 from tools.apk_export_to_dataset import load_export
 from clashlab.geo import Calib
 S = 96
-paths = [os.path.join(os.path.expanduser("~"), "Downloads", "annot_b%02d.json" % i) for i in range(1, 9)]
+env = os.environ.get("CLASHLAB_EXPORTS", "")
+if env:
+    paths = [x for x in env.split(";") if x.strip()]
+else:
+    paths = [os.path.join(os.path.expanduser("~"), "Downloads", "annot_b%02d.json" % i) for i in range(1, 9)]
 bases = []
 for bi, p in enumerate(paths):
-    if bi in (0, 1): continue
+    if "CLASHLAB_KEEP_BAD" not in os.environ and bi in (0, 1) and not env: continue
     d = json.load(open(p, encoding="utf-8"))
     img = cv2.imdecode(np.fromfile(os.path.join(BASE, "android", "assets", d["image"]), np.uint8), cv2.IMREAD_COLOR)
     wn, hn = d["image_size"]; quad = np.float32([[u*wn, v*hn] for u, v in d["corners_norm"]])

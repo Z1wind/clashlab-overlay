@@ -3,7 +3,7 @@
 import json, os, sys
 import webview
 
-APP_TITLE = "ClashLab 阵型标注（桌面版 v1.3）"
+APP_TITLE = "ClashLab 阵型标注（桌面版 v1.5）"
 EXPORT_DIR = os.path.join(os.path.expanduser("~"), "Downloads", "ClashLab标注")
 
 def resource_path(rel):
@@ -17,11 +17,12 @@ IMG_DIR = None
 def get_annotator():
     global _ANNOTATOR
     if _ANNOTATOR is None:
-        from tools.preannotate_core import PreAnnotator
-        _ANNOTATOR = PreAnnotator(
-            resource_path(os.path.join("models", "pipeline_gate.onnx")),
-            resource_path(os.path.join("models", "pipeline_type.onnx")),
-            resource_path(os.path.join("models", "pipeline_types.json")),
+        from tools.preannotate_core import HybridAnnotator
+        _ANNOTATOR = HybridAnnotator(
+            resource_path(os.path.join("models", "hybrid_gate.onnx")),
+            resource_path(os.path.join("models", "hybrid_emb.onnx")),
+            resource_path(os.path.join("models", "hybrid_protos.npz")),
+            resource_path(os.path.join("models", "hybrid_meta.json")),
         )
     return _ANNOTATOR
 
