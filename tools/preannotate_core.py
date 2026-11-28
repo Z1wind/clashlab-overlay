@@ -44,7 +44,7 @@ class PreAnnotator:
         B = 128
         for i in range(0, len(cells), B):
             cs = cells[i:i + B]
-            crops = [_crop(img, cal, cx + .5, cy + .5, self.size) for (cx, cy) in cs]
+            crops = [_crop(img, cal, cx, cy, self.size) for (cx, cy) in cs]
             gprob, tprob = self._run_batch(crops)
             for k, (cx, cy) in enumerate(cs):
                 if float(gprob[k]) < gate_th:
@@ -112,7 +112,7 @@ class HybridAnnotator:
         B = 128
         for i in range(0, len(cells), B):
             cs = cells[i:i + B]
-            crops = [_crop(img, cal, cx + .5, cy + .5, self.size) for (cx, cy) in cs]
+            crops = [_crop(img, cal, cx, cy, self.size) for (cx, cy) in cs]
             gprob, embs = self._run(crops)
             sim = embs @ self.P.T
             for k, (cx, cy) in enumerate(cs):
