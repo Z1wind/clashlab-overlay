@@ -26,6 +26,7 @@ def main():
     ap.add_argument("--img-root", default=os.path.join(BASE, "android", "assets"))
     ap.add_argument("--epochs", type=int, default=26)
     ap.add_argument("--exclude-bases", default="")
+    ap.add_argument("--size", type=int, default=112)
     ap.add_argument("--out", default=os.path.join(BASE, "models", "apk_type_cls_aug.pt"))
     ap.add_argument("--report", default=os.path.join(BASE, "out", "apk_type_report_aug.json"))
     a = ap.parse_args()
