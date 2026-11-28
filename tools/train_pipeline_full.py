@@ -10,7 +10,8 @@ from clashlab.geo import Calib
 S = 96
 env = os.environ.get("CLASHLAB_EXPORTS", "")
 if env:
-    paths = [x for x in env.split(";") if x.strip()]
+    import re as _re
+    paths = [x for x in _re.split(r"[;\r\n]+", env) if x.strip()]
 else:
     paths = [os.path.join(os.path.expanduser("~"), "Downloads", "annot_b%02d.json" % i) for i in range(1, 9)]
 bases = []

@@ -42,9 +42,14 @@ def arcface(e, w, y, s=16.0, m=0.25):
     onehot = torch.zeros_like(cos); onehot.scatter_(1, y.view(-1,1), 1)
     return torch.cos(th + m*onehot) * s
 def main():
-    paths = [os.path.join(os.path.expanduser("~"), "Downloads", "annot_b01 (1).json"),
-             os.path.join(os.path.expanduser("~"), "Downloads", "annot_b02 (1).json")]
-    paths += [os.path.join(os.path.expanduser("~"), "Downloads", "annot_b%02d.json" % i) for i in range(3, 9)]
+    env = os.environ.get("CLASHLAB_EXPORTS", "")
+    if env:
+        import re as _re
+        paths = [x for x in _re.split(r"[;\r\n]+", env) if x.strip()]
+    else:
+        paths = [os.path.join(os.path.expanduser("~"), "Downloads", "annot_b01 (1).json"),
+                 os.path.join(os.path.expanduser("~"), "Downloads", "annot_b02 (1).json")]
+        paths += [os.path.join(os.path.expanduser("~"), "Downloads", "annot_b%02d.json" % i) for i in range(3, 9)]
     data = []
     for bi, p in enumerate(paths):
         img, cal, blds = prep(p); data.append({"bi": bi, "img": img, "cal": cal, "blds": blds})
@@ -113,21 +118,4 @@ def main():
     np.savez(os.path.join(BASE,"models","hybrid_protos.npz"), P=P, PC=PC)
     json.dump({"types": types, "bg": BG, "size": S, "gate_th": 0.85, "emb_th": 0.85},
               open(os.path.join(BASE,"models","hybrid_meta.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
-    # ONNX
-    dummy = torch.randn(4,3,S,S)
-    torch.onnx.export(gate, dummy, os.path.join(BASE,"models","hybrid_gate.onnx"), input_names=["input"], output_names=["logits"],
-                      opset_version=18, dynamo=False, dynamic_axes={"input":{0:"batch"},"logits":{0:"batch"}})
-    torch.onnx.export(emb, dummy, os.path.join(BASE,"models","hybrid_emb.onnx"), input_names=["input"], output_names=["emb"],
-                      opset_version=18, dynamo=False, dynamic_axes={"input":{0:"batch"},"emb":{0:"batch"}})
-    print("saved hybrid models + onnx", flush=True)
-    import onnxruntime as ort
-    x = np.random.rand(3,3,S,S).astype(np.float32)
-    og = ort.InferenceSession(os.path.join(BASE,"models","hybrid_gate.onnx"), providers=["CPUExecutionProvider"]).run(None, {"input": x})[0]
-    oe = ort.InferenceSession(os.path.join(BASE,"models","hybrid_emb.onnx"), providers=["CPUExecutionProvider"]).run(None, {"input": x})[0]
-    with torch.no_grad():
-        tg = gate(torch.from_numpy(x)).numpy(); te = emb(torch.from_numpy(x)).numpy()
-    print("onnx diff gate", float(np.abs(og-tg).max()), "emb", float(np.abs(oe-te).max()))
-    for f in ("hybrid_gate.onnx","hybrid_emb.onnx","hybrid_protos.npz","hybrid_meta.json"):
-        p = os.path.join(BASE,"models",f); print(f, os.path.getsize(p))
-if __name__ == "__main__":
-    main()
+print('saved pt/npz/meta; run tools/export_hybrid_onnx.py for ONNX', flush=True)

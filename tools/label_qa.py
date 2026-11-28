@@ -17,10 +17,13 @@ EXPECTED = {"town-hall","eagle-artillery","monolith","scattershot","x-bow","infe
             "blacksmith","spell-tower","ricochet-cannon","multi-archer-tower","firespitter"}
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--labels", required=True)
+    ap.add_argument("--labels", nargs="+", required=True)
     ap.add_argument("--img-root", default=os.path.join(BASE, "android", "assets"))
     a = ap.parse_args()
-    files = [x.strip() for x in a.labels.replace("\n", ";").split(";") if x.strip()]
+    files = []
+    for chunk in a.labels:
+        for x in chunk.replace("\n", ";").split(";"):
+            if x.strip(): files.append(x.strip())
     fails = warns = 0
     for path in files:
         try:
