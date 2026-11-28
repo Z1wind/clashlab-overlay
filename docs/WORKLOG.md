@@ -187,3 +187,10 @@
 - NMS 去重系数扫描（leaky 8 基准）：0.70/0.85/1.00 会残留重复框（pred 134-141），1.15 最佳 F1 .774/pred 86，1.30 略降 → 保持 1.15
 - 结论：v1.8 参数已接近当前数据的最优，无需再发版
 - 产物：out/mode_threshold_grid.json、out/logs/nms_sweep.log、tools/tune_modes_cv.py、tools/nms_sweep.py
+
+## 实验：半格相位候选合并（2026-11-28 21:25）
+- leaky 8 基准：整数格 P81.5/R75.2/F1 .780；半格 P82.5/R75.2/F1 .783；合并 P80.4/R82.3/F1 .811（方向性 +3pt）
+- 诚实 8 折 CV：合并后 P69.3/R62.2/F1 .643/type 95.0（基线 P62.3/R71.0/F1 .658/type 91.8）
+- 结论：半格合并能提精度 +7pt、类型 +3pt，但召回 -9pt、F1 略降；暂不替换标准档，保留为「精确档」可选方案
+- 代码已预留 preannotate_core.detect(phases=(0.0,)) 参数，可随时启用
+- 脚本：tools/half_offset_scan.py、tools/train_hybrid_halfphase_cv.py、tools/mk_halfphase_cv.py
