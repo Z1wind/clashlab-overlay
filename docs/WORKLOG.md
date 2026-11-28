@@ -165,3 +165,8 @@
 - 8 基留一结果：prec 0.368 / recall 0.103 / f1 0.159 / type 0.843
 - 结论：8 张数据远不足以训分割检测（稀疏正样本 + 过拟合）；需 40+ 张再试，当前不采用
 - 脚本：tools/train_grid_seg_cv.py；报告：out/grid_seg_report.json
+
+## 标注质检工具 label_qa.py（2026-11-28 20:40）
+- 检查：version/corners/图片存在/建筑数/tile 范围/重复/缺类型/对齐 ratio（标注点纹理能量 vs 随机位置）
+- 当前 8 张全部 PASS，对齐 ratio 2.53-4.00（b01/b02 重标后 3.20/3.05，修复前仅 ~1.0-1.2）
+- 后续用户新标注可直接跑：python tools/label_qa.py --labels "a.json;b.json"
