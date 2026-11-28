@@ -3,7 +3,7 @@
 import json, os, sys
 import webview
 
-APP_TITLE = "ClashLab 阵型标注（桌面版）"
+APP_TITLE = "ClashLab 阵型标注（桌面版 v1.1）"
 EXPORT_DIR = os.path.join(os.path.expanduser("~"), "Downloads", "ClashLab标注")
 
 def resource_path(rel):
@@ -35,7 +35,7 @@ class Api:
             return {"ok": False, "error": str(e)}
 
 def main():
-    html = resource_path("ClashLabAnnotator_HTML_desktop.html")
+    html = resource_path("ClashLabAnnotator_Desktop_v2.html")
     if not os.path.exists(html):
         html = resource_path("ClashLabAnnotator_HTML_v1.1.html")
     api = Api()

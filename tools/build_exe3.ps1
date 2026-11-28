@@ -2,7 +2,7 @@ $ErrorActionPreference='Continue'
 $root = (Get-Location).Path
 & 'D:\Python313\python.exe' -u 'tools\fix_re_import.py'
 & 'D:\Python313\python.exe' -u 'tools\build_desktop_html.py'
-$html = Join-Path $root 'dist\ClashLabAnnotator_HTML_desktop.html'
+$html = Join-Path $root 'dist\ClashLabAnnotator_Desktop_v2.html'
 $main = Join-Path $root 'tools\desktop_app.py'
 $args = @(
  '--noconfirm','--onefile','--windowed','--name','ClashLabAnnotator',

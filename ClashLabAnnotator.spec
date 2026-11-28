@@ -1,7 +1,7 @@
 # -*- mode: python ; coding: utf-8 -*-
 from PyInstaller.utils.hooks import collect_all
 
-datas = [('C:/Users/Admin（无密码）/Doubao/chats/2026-11-23/new-chat/dist/ClashLabAnnotator_HTML_desktop.html', '.')]
+datas = [('C:/Users/Admin（无密码）/Doubao/chats/2026-11-23/new-chat/dist/ClashLabAnnotator_Desktop_v2.html', '.')]
 binaries = []
 hiddenimports = ['clr', 'webview.platforms.edgechromium']
 tmp_ret = collect_all('webview')
